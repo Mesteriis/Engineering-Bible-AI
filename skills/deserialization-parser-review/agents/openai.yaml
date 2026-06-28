@@ -1,0 +1,4 @@
+interface:
+  display_name: "Parser Security Review"
+  short_description: "Review parser attack surface"
+  default_prompt: "Use $deserialization-parser-review to review this parser or file handling path."

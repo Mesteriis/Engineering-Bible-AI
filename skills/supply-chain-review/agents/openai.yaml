@@ -1,0 +1,4 @@
+interface:
+  display_name: "Supply Chain Review"
+  short_description: "Review build supply chain"
+  default_prompt: "Use $supply-chain-review to review this supply-chain change."

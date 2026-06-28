@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Concept First"
+  short_description: "Set visual target before code"
+  default_prompt: "Use $ui-concept-first before implementing this UI."

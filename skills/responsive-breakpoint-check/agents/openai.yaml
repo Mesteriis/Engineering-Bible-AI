@@ -1,0 +1,4 @@
+interface:
+  display_name: "Responsive Breakpoint Check"
+  short_description: "Check UI across breakpoints"
+  default_prompt: "Use $responsive-breakpoint-check to check this UI across breakpoints."

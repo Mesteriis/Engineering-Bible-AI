@@ -1,0 +1,4 @@
+interface:
+  display_name: "Threat Model"
+  short_description: "Model threats and controls"
+  default_prompt: "Use $threat-model to model threats for this service or feature."

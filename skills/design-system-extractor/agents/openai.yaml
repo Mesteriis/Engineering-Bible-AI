@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design System Extractor"
+  short_description: "Extract UI tokens and rules"
+  default_prompt: "Use $design-system-extractor to extract tokens and components from this reference."

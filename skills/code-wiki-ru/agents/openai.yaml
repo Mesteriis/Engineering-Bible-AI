@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Wiki RU"
+  short_description: "Build Russian code wikis"
+  default_prompt: "Use $code-wiki-ru to generate or update a Russian Obsidian wiki from this repository."

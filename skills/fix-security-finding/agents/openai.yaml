@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix Security Finding"
+  short_description: "Patch one security finding"
+  default_prompt: "Use $fix-security-finding to fix this security finding."

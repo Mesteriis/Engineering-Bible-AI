@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workflow Router"
+  short_description: "Auto-route engineering tasks"
+  default_prompt: "Use $workflow-router to choose the right skill path for this task."

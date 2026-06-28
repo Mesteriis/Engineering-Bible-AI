@@ -1,0 +1,4 @@
+interface:
+  display_name: "Secrets And Config Review"
+  short_description: "Review secrets and config"
+  default_prompt: "Use $secrets-and-config-review to review this config for secret handling risk."

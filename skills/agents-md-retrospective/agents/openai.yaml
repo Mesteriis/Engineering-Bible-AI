@@ -1,0 +1,4 @@
+interface:
+  display_name: "AGENTS.md Retrospective"
+  short_description: "Patch durable instructions"
+  default_prompt: "Use $agents-md-retrospective to update durable agent instructions."

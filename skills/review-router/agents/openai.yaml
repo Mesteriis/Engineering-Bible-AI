@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Router"
+  short_description: "Route review and planning tasks"
+  default_prompt: "Use $review-router to route this review or planning task."

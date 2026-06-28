@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi-Agent PR Review"
+  short_description: "Parallel read-only PR review"
+  default_prompt: "Use $multi-agent-pr-review to review this diff with independent reviewers."

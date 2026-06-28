@@ -1,0 +1,4 @@
+interface:
+  display_name: "Subagent Result Merge"
+  short_description: "Merge parallel review findings"
+  default_prompt: "Use $subagent-result-merge to merge these reviewer outputs."

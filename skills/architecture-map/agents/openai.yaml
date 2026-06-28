@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Map"
+  short_description: "Map repository architecture"
+  default_prompt: "Use $architecture-map to map this repository before changes."

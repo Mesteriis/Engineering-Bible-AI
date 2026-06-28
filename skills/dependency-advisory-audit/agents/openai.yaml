@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Advisory Audit"
+  short_description: "Audit dependency advisories"
+  default_prompt: "Use $dependency-advisory-audit to triage this dependency advisory."

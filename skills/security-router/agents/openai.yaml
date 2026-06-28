@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Router"
+  short_description: "Route security review workflows"
+  default_prompt: "Use $security-router to route this security task."

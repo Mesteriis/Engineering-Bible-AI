@@ -1,0 +1,4 @@
+interface:
+  display_name: "Accessibility UI Review"
+  short_description: "Review frontend accessibility"
+  default_prompt: "Use $accessibility-ui-review to review this UI for accessibility."

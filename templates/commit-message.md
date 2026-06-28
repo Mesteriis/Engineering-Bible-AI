@@ -1,0 +1,13 @@
+<area>: <what changed>
+
+Why:
+- ...
+
+What:
+- ...
+
+Validation:
+- ...
+
+Risks:
+- ...

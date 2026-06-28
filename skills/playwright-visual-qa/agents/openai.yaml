@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Visual QA"
+  short_description: "Screenshot UI verification"
+  default_prompt: "Use $playwright-visual-qa to verify this UI visually."

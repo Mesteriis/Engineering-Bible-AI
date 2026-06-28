@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Retrospective"
+  short_description: "Improve failed agent workflows"
+  default_prompt: "Use $agent-retrospective after this failed or noisy agent run."

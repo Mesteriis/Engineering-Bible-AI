@@ -1,0 +1,4 @@
+interface:
+  display_name: "Authz Boundary Review"
+  short_description: "Review access control boundaries"
+  default_prompt: "Use $authz-boundary-review to review this authorization boundary."

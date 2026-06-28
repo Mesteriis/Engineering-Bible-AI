@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Diff Review"
+  short_description: "Review diffs for security"
+  default_prompt: "Use $security-diff-review to review this diff for security regressions."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Migration Planner"
+  short_description: "Plan safe migration slices"
+  default_prompt: "Use $migration-planner to plan this migration."

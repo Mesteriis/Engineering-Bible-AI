@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma To Code"
+  short_description: "Implement Figma designs in code"
+  default_prompt: "Use $figma-to-code to implement this Figma selection."
