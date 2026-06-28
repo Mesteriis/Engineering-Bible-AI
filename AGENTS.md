@@ -49,7 +49,7 @@ If routing is unavailable, continue with the closest built-in workflow and repor
 
 This package includes a shared engineering standards library in `engineering/`.
 
-The root file contains only stable invariants. Detailed principles, smells, refactoring tools, naming rules, testing philosophy, error philosophy, observability, documentation, and task/TODO style live in `engineering/` and selected skills.
+The root file contains only stable invariants. Detailed principles, smells, refactoring tools, naming rules, testing philosophy, error philosophy, observability, documentation, API/domain/state/config/data/dependency philosophy, and task/TODO style live in `engineering/` and selected skills.
 
 For broad design, architecture, code-quality, refactoring, review, or standards work, route through `engineering-standards` and read only the relevant reference documents.
 
@@ -57,6 +57,7 @@ Do not load the entire standards library for trivial tasks.
 
 Key references:
 
+- `engineering/README.md`
 - `engineering/00_manifesto.md`
 - `engineering/01_constitution.md`
 - `engineering/05_design_principles.md`

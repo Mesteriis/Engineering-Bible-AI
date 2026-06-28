@@ -12,7 +12,8 @@ This repository is the shareable version of the local Codex setup built on
 ## Contents
 
 - `AGENTS.md` - portable root Codex instructions.
-- `engineering/` - language-neutral engineering standards library.
+- `engineering/` - language-neutral engineering standards library with
+  `engineering/README.md` as the selection index.
 - `skills/` - Codex-compatible skills for routing, engineering standards,
   implementation, review, security, UI routing, and code wiki generation.
 - `templates/` - report, ADR, PR, commit, and implementation prompt templates.
@@ -119,7 +120,8 @@ requests.
 
 - Root instructions stay technology-neutral.
 - Language-specific rules live in ecosystem skills.
-- Broad engineering principles live in `engineering/`.
+- Broad engineering principles live in `engineering/`; use
+  `engineering/README.md` to select only the relevant reference documents.
 - `workflow-router` remains the entry point for non-trivial engineering tasks.
 - `engineering-standards` is read only when standards, boundaries, smells,
   naming, refactoring, complexity, or task/TODO structure matter.

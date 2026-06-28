@@ -13,7 +13,8 @@ state и без секретов.
 ## Состав
 
 - `AGENTS.md` - переносимые корневые инструкции Codex.
-- `engineering/` - нейтральная к языкам инженерная библиотека.
+- `engineering/` - нейтральная к языкам инженерная библиотека с
+  `engineering/README.md` как индексом выбора.
 - `skills/` - Codex-compatible skills для роутинга, инженерных стандартов,
   разработки, ревью, security, UI routing и генерации code wiki.
 - `templates/` - шаблоны отчётов, ADR, PR, commit и prompt внедрения.
@@ -118,7 +119,8 @@ GitHub Actions запускает ту же repo-local валидацию на p
 
 - Root остаётся технологически нейтральным.
 - Языковые правила живут в ecosystem skills.
-- Общие инженерные принципы живут в `engineering/`.
+- Общие инженерные принципы живут в `engineering/`; используй
+  `engineering/README.md`, чтобы выбирать только релевантные reference-доки.
 - `workflow-router` остаётся входной точкой для нетривиальных инженерных задач.
 - `engineering-standards` читается только когда нужны standards, boundaries,
   smells, naming, refactoring, complexity или структура больших TODO/task plans.

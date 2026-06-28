@@ -7,7 +7,7 @@ description: "Apply the shared engineering standards library for principles, sme
 
 ## Purpose
 
-Apply the shared engineering standards library: manifesto, constitution, design principles, responsibility model, complexity budget, smells, naming, testing, errors, observability, and evolution rules.
+Apply the shared engineering standards library: manifesto, constitution, design principles, responsibility model, complexity budget, smells, naming, testing, errors, observability, API/domain/state/config/data/dependency philosophy, and evolution rules.
 
 Use this skill when the task is broad, architectural, quality-focused, standards-focused, or when a change risks growing into a dumping ground.
 
@@ -15,6 +15,7 @@ Use this skill when the task is broad, architectural, quality-focused, standards
 
 Read only the references needed for the task:
 
+- `engineering/README.md` — index and selection rules for the standards library.
 - `engineering/00_manifesto.md` — stable engineering intent.
 - `engineering/01_constitution.md` — non-negotiable engineering law.
 - `engineering/05_design_principles.md` — SOLID, KISS, DRY, YAGNI, Clean Architecture, DDD, TDD as behavior.
@@ -26,6 +27,16 @@ Read only the references needed for the task:
 - `engineering/11_refactoring_catalog.md` — safe refactoring tools.
 - `engineering/12_naming_bible.md` — naming rules.
 - `engineering/24_task_todo_style.md` — structured TODO/task plans.
+- `engineering/25_api_philosophy.md` — API and CLI contract design.
+- `engineering/26_domain_modeling.md` — domain boundaries, invariants, commands, events, and policies.
+- `engineering/27_state_machine_philosophy.md` — explicit states and valid transitions.
+- `engineering/28_concurrency_philosophy.md` — async, workers, locks, queues, retries, timeouts, and backpressure.
+- `engineering/29_configuration_philosophy.md` — configuration, secrets, flags, defaults, and lifecycle.
+- `engineering/30_dependency_philosophy.md` — dependency admission, wrapping, risk, and removal.
+- `engineering/31_data_philosophy.md` — source of truth, schema changes, migrations, retention, caching, and consistency.
+- `engineering/32_ui_architecture_philosophy.md` — UI state, component boundaries, accessibility, and frontend architecture.
+- `engineering/33_ai_engineering_philosophy.md` — evidence-bound AI engineering and agent patch quality.
+- `engineering/34_evolution_decision_tree.md` — decision trees for adding structure.
 
 ## Operating rules
 
