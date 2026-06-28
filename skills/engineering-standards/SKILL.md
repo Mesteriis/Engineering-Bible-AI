@@ -37,6 +37,10 @@ Read only the references needed for the task:
 - `engineering/32_ui_architecture_philosophy.md` — UI state, component boundaries, accessibility, and frontend architecture.
 - `engineering/33_ai_engineering_philosophy.md` — evidence-bound AI engineering and agent patch quality.
 - `engineering/34_evolution_decision_tree.md` — decision trees for adding structure.
+- `engineering/35_evidence_contract.md` — evidence requirements and uncertainty reporting.
+- `engineering/36_task_lifecycle_gates.md` — proportional task gates.
+- `engineering/37_review_regression_gates.md` — review and regression gates.
+- `engineering/38_library_drift_audit.md` — library drift audit contract.
 
 ## Operating rules
 

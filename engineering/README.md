@@ -44,6 +44,10 @@ Use this index to choose the smallest relevant document set instead of loading t
 - `32_ui_architecture_philosophy.md` - UI state, component boundaries, server state, side effects, accessibility, and frontend architecture.
 - `33_ai_engineering_philosophy.md` - evidence-bound AI engineering behavior beyond basic agent etiquette.
 - `34_evolution_decision_tree.md` - decision trees for adding files, modules, abstractions, dependencies, config, and standards.
+- `35_evidence_contract.md` - evidence requirements, validation claims, uncertainty, and source-backed engineering statements.
+- `36_task_lifecycle_gates.md` - proportional scope, inspection, planning, implementation, validation, and reporting gates.
+- `37_review_regression_gates.md` - diff-risk review, regression coverage, and completion review contracts.
+- `38_library_drift_audit.md` - repository drift classes, audit behavior, output shape, and runtime boundary checks.
 
 ## Selection rules
 
@@ -58,6 +62,10 @@ Read only what the task needs:
 - Frontend/UI, Figma-to-code, state management, accessibility, responsive behavior: read `32_ui_architecture_philosophy.md`.
 - Agent prompts, autonomous coding behavior, AI review, AI-generated patches: read `33_ai_engineering_philosophy.md`.
 - Any change that grows structure: read `34_evolution_decision_tree.md`.
+- Claims about code, tests, git state, runtime behavior, or external facts: read `35_evidence_contract.md`.
+- Multi-step engineering tasks, implementation plans, or validation flow: read `36_task_lifecycle_gates.md`.
+- Reviews, bug fixes, regression tests, and completion checks: read `37_review_regression_gates.md`.
+- Skill, manifest, installer, validation, or standards-library integrity: read `38_library_drift_audit.md`.
 
 ## Operating rule
 

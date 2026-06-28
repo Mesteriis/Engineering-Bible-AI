@@ -27,13 +27,15 @@ explicitly invokes a narrower skill.
 - General implementation, bug fixing, debugging, refactoring, documentation,
   performance work, or language/ecosystem-specific engineering -> select the
   smallest applicable engineering skills:
-  `engineering-standards`, `core-engineering`, `debugging`, `testing-tdd`, `code-quality`,
-  `architecture-principles`, `refactoring`, `documentation`, `performance`,
-  and the relevant ecosystem skill (`python`, `typescript`, `rust`, `go`,
-  `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
+  `quality-gates`, `engineering-standards`, `core-engineering`, `debugging`,
+  `testing-tdd`, `code-quality`, `architecture-principles`, `refactoring`,
+  `documentation`, `performance`, and the relevant ecosystem skill (`python`,
+  `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
 - Broad standards work, responsibility boundary analysis, complexity budgets,
   engineering smells, naming rules, refactoring catalogs, or long TODO/task-plan
   structure -> `engineering-standards`.
+- Evidence, validation claims, task lifecycle, completion review, regression
+  gates, or repository drift concerns -> `quality-gates`.
 - GitHub PR/comments/CI workflows -> use the relevant `github:*` skill after
   this router if available.
 - OpenAI API, ChatGPT app, Agents SDK, or platform-key work ->
