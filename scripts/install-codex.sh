@@ -35,6 +35,7 @@ backup_dir="$codex_home/backups/engineering-bible-ai-$timestamp"
 skills=(
   workflow-router
   engineering-standards
+  quality-gates
   core-engineering
   code-quality
   architecture-principles
@@ -207,6 +208,7 @@ run chmod +x "$codex_home/scripts/install.sh"
 run chmod +x "$codex_home/scripts/install-codex.sh"
 run chmod +x "$codex_home/scripts/secret-sanity.sh"
 run chmod +x "$codex_home/scripts/be.py"
+run chmod +x "$codex_home/scripts/audit-quality-gates.py"
 write_be_wrapper
 
 printf 'Done. Restart or open a new agent session to refresh prompt-visible skills.\n'

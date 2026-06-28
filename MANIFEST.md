@@ -37,6 +37,7 @@
 - `scripts/install.sh`
 - `scripts/install-codex.sh`
 - `scripts/be.py`
+- `scripts/audit-quality-gates.py`
 - installed wrapper: `be`
 - `scripts/validate-skill-tree.sh`
 - `scripts/validate-skill-frontmatter.py`
@@ -47,6 +48,7 @@
 
 - `workflow-router`
 - `engineering-standards`
+- `quality-gates`
 - `core-engineering`
 - `code-quality`
 - `architecture-principles`
