@@ -80,6 +80,20 @@ make dry-run
 make install
 ```
 
+После установки пакет также ставит маленькую команду `be` в `~/.local/bin/be`
+по умолчанию. Если `~/.local/bin` не входит в shell `PATH`, запускай команду
+через `~/.local/bin/be` или добавь этот каталог в `PATH`.
+
+Первые команды `be`:
+
+```bash
+be version
+be doctor
+be doctor --json
+be validate --checkout .
+be install --dry-run
+```
+
 Installer делает backup заменяемых файлов в `~/.codex/backups/`.
 `~/.codex/config.toml` он не перезаписывает.
 

@@ -80,6 +80,20 @@ Install into default `~/.codex` and `~/.agents/skills`:
 make install
 ```
 
+After installation, the package also installs a small `be` manager command into
+`~/.local/bin/be` by default. If `~/.local/bin` is not on your shell `PATH`,
+run the command through `~/.local/bin/be` or add that directory to `PATH`.
+
+Initial `be` commands:
+
+```bash
+be version
+be doctor
+be doctor --json
+be validate --checkout .
+be install --dry-run
+```
+
 The installer backs up replaced files under `~/.codex/backups/`.
 It does not overwrite `~/.codex/config.toml`.
 

@@ -36,6 +36,8 @@
 - `Makefile`
 - `scripts/install.sh`
 - `scripts/install-codex.sh`
+- `scripts/be.py`
+- installed wrapper: `be`
 - `scripts/validate-skill-tree.sh`
 - `scripts/validate-skill-frontmatter.py`
 - `scripts/check-file-size.py`
