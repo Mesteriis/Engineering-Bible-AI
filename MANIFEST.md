@@ -12,6 +12,7 @@
 - `examples/`
 - `docs/`
 - `.github/`
+- `Makefile`
 
 ## OSS Files
 
@@ -29,6 +30,16 @@
 - `.github/dependabot.yml`
 - `.github/ISSUE_TEMPLATE/`
 - `.github/workflows/validate.yml`
+
+## Command Entry Points
+
+- `Makefile`
+- `scripts/install.sh`
+- `scripts/install-codex.sh`
+- `scripts/validate-skill-tree.sh`
+- `scripts/validate-skill-frontmatter.py`
+- `scripts/check-file-size.py`
+- `scripts/secret-sanity.sh`
 
 ## Primary Skills
 

@@ -20,11 +20,17 @@ or private infrastructure details.
 ## Validation
 
 ```bash
+make validate
+```
+
+Equivalent expanded commands:
+
+```bash
 bash scripts/validate-skill-tree.sh .
 python3 scripts/validate-skill-frontmatter.py skills
 python3 scripts/check-file-size.py . --hard 10000
 bash scripts/secret-sanity.sh .
-bash -n scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
+bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
 find scripts skills -name '*.py' -print0 | xargs -0 python3 -m py_compile
 ```
 

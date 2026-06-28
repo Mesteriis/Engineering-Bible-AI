@@ -154,6 +154,7 @@ done
 run chmod +x "$codex_home/scripts/validate-skill-tree.sh"
 run chmod +x "$codex_home/scripts/check-file-size.py"
 run chmod +x "$codex_home/scripts/validate-skill-frontmatter.py"
+run chmod +x "$codex_home/scripts/install.sh"
 run chmod +x "$codex_home/scripts/install-codex.sh"
 run chmod +x "$codex_home/scripts/secret-sanity.sh"
 

@@ -56,16 +56,28 @@ notify, Computer Use и model provider остаются локальными.
 
 ## Установка
 
+Установка одной командой из GitHub:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh | bash -s
+```
+
+Remote dry-run:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh | bash -s -- --dry-run
+```
+
 Dry-run:
 
 ```bash
-bash scripts/install-codex.sh --dry-run
+make dry-run
 ```
 
 Установка в `~/.codex` и `~/.agents/skills`:
 
 ```bash
-bash scripts/install-codex.sh --install
+make install
 ```
 
 Installer делает backup заменяемых файлов в `~/.codex/backups/`.
@@ -74,10 +86,7 @@ Installer делает backup заменяемых файлов в `~/.codex/bac
 ## Проверка
 
 ```bash
-bash scripts/validate-skill-tree.sh .
-python3 scripts/validate-skill-frontmatter.py skills
-python3 scripts/check-file-size.py . --hard 10000
-bash scripts/secret-sanity.sh .
+make validate
 ```
 
 GitHub Actions запускает ту же repo-local валидацию на push и pull request.
