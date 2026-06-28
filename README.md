@@ -1,5 +1,8 @@
 # Engineering Bible AI
 
+[![Validate](https://github.com/Mesteriis/Engineering-Bible-AI/actions/workflows/validate.yml/badge.svg)](https://github.com/Mesteriis/Engineering-Bible-AI/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Portable engineering standards, routing skills, and repository documentation
 tools for AI coding agents.
 
@@ -17,6 +20,8 @@ This repository is the shareable version of the local Codex setup built on
 - `tests/` - router behavior cases.
 - `reference/` - compact legacy reference docs.
 - `examples/` - repo-level `AGENTS.md` example.
+- `.github/` - issue templates, pull request template, CODEOWNERS, Dependabot,
+  and validation workflow.
 
 ## Included Skill Groups
 
@@ -70,9 +75,22 @@ It does not overwrite `~/.codex/config.toml`.
 
 ```bash
 bash scripts/validate-skill-tree.sh .
+python3 scripts/validate-skill-frontmatter.py skills
 python3 scripts/check-file-size.py . --hard 10000
 bash scripts/secret-sanity.sh .
 ```
+
+GitHub Actions runs the same repository-local validation on pushes and pull
+requests.
+
+## OSS Project
+
+- License: MIT, see `LICENSE`.
+- Contributions: see `CONTRIBUTING.md`.
+- Security reports: see `SECURITY.md`.
+- Support: use GitHub Issues and see `SUPPORT.md`.
+- Release checklist: `docs/oss-release-checklist.md`.
+- Third-party notices: `THIRD_PARTY_NOTICES.md`.
 
 ## Notes
 

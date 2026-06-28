@@ -11,6 +11,24 @@
 - `tests/`
 - `examples/`
 - `docs/`
+- `.github/`
+
+## OSS Files
+
+- `LICENSE`
+- `CHANGELOG.md`
+- `CODE_OF_CONDUCT.md`
+- `CONTRIBUTING.md`
+- `GOVERNANCE.md`
+- `SECURITY.md`
+- `SUPPORT.md`
+- `THIRD_PARTY_NOTICES.md`
+- `docs/oss-release-checklist.md`
+- `.github/CODEOWNERS`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/dependabot.yml`
+- `.github/ISSUE_TEMPLATE/`
+- `.github/workflows/validate.yml`
 
 ## Primary Skills
 

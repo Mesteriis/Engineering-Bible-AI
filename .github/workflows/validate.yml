@@ -1,0 +1,43 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ripgrep
+
+      - name: Validate portable tree
+        run: bash scripts/validate-skill-tree.sh .
+
+      - name: Validate skill frontmatter
+        run: python3 scripts/validate-skill-frontmatter.py skills
+
+      - name: Check file size policy
+        run: python3 scripts/check-file-size.py . --hard 10000
+
+      - name: Scan for secret-shaped files and values
+        run: bash scripts/secret-sanity.sh .
+
+      - name: Check shell syntax
+        run: bash -n scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
+
+      - name: Compile Python scripts
+        run: find scripts skills -name '*.py' -print0 | xargs -0 python3 -m py_compile

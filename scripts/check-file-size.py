@@ -7,7 +7,6 @@ Default policy:
 - hard violation above 10,000 logical lines
 
 Generated/vendor/lock/build folders are ignored by default.
-Because apparently we need a script to tell us that a 10k-line source file is not a personality trait.
 """
 
 from __future__ import annotations

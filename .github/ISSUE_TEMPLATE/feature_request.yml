@@ -1,0 +1,31 @@
+name: Feature request
+description: Propose a new portable skill, rule, or packaging improvement.
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What reusable engineering problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the smallest useful change.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: How should the change be validated?
+  - type: checkboxes
+    id: portability
+    attributes:
+      label: Portability
+      options:
+        - label: This proposal does not require committing local runtime config or credentials.
+          required: true

@@ -1,5 +1,8 @@
 # Engineering Bible AI
 
+[![Validate](https://github.com/Mesteriis/Engineering-Bible-AI/actions/workflows/validate.yml/badge.svg)](https://github.com/Mesteriis/Engineering-Bible-AI/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Переносимый пакет инженерных стандартов, роутинга skills и инструментов
 документации для AI coding agents.
 
@@ -18,6 +21,8 @@ state и без секретов.
 - `tests/` - кейсы роутера.
 - `reference/` - компактные legacy-reference документы.
 - `examples/` - пример repo-level `AGENTS.md`.
+- `.github/` - issue templates, PR template, CODEOWNERS, Dependabot и workflow
+  валидации.
 
 ## Группы skills
 
@@ -70,9 +75,21 @@ Installer делает backup заменяемых файлов в `~/.codex/bac
 
 ```bash
 bash scripts/validate-skill-tree.sh .
+python3 scripts/validate-skill-frontmatter.py skills
 python3 scripts/check-file-size.py . --hard 10000
 bash scripts/secret-sanity.sh .
 ```
+
+GitHub Actions запускает ту же repo-local валидацию на push и pull request.
+
+## OSS
+
+- Лицензия: MIT, смотри `LICENSE`.
+- Как вносить изменения: `CONTRIBUTING.md`.
+- Security reports: `SECURITY.md`.
+- Support: GitHub Issues и `SUPPORT.md`.
+- Release checklist: `docs/oss-release-checklist.md`.
+- Third-party notices: `THIRD_PARTY_NOTICES.md`.
 
 ## Принципы
 
