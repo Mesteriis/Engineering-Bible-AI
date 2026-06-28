@@ -17,6 +17,7 @@ Environment:
   ENGINEERING_BIBLE_REF   default: main
   CODEX_HOME              passed to scripts/install-codex.sh
   AGENTS_HOME             passed to scripts/install-codex.sh
+  ENGINEERING_BIBLE_BIN_DIR  passed to scripts/install-codex.sh
 
 This bootstrapper installs portable standards and skills only. It does not
 write Codex config.toml, auth files, .env files, MCP credentials, or local

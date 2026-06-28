@@ -97,6 +97,54 @@ class BeCliTests(unittest.TestCase):
             self.assertEqual(wrapper_result.returncode, 0, wrapper_result.stderr)
             self.assertIn("Engineering Bible AI be", wrapper_result.stdout)
 
+    def test_installed_wrapper_can_run_install_from_installed_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", tmp=tmp)
+            wrapper = tmp / "bin" / "be"
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue(wrapper.is_file())
+
+            env = os.environ.copy()
+            env.update(
+                {
+                    "CODEX_HOME": str(tmp / "codex"),
+                    "AGENTS_HOME": str(tmp / "agents"),
+                    "ENGINEERING_BIBLE_BIN_DIR": str(tmp / "bin"),
+                }
+            )
+            installed_result = subprocess.run(
+                [str(wrapper), "install"],
+                cwd=ROOT,
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+        self.assertEqual(installed_result.returncode, 0, installed_result.stderr)
+        self.assertNotIn("are identical", installed_result.stderr)
+
+    def test_install_backs_up_existing_bin_wrapper_before_overwrite(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            wrapper = tmp / "bin" / "be"
+            wrapper.parent.mkdir(parents=True)
+            original_content = "#!/usr/bin/env bash\nprintf 'old wrapper\\n'\n"
+            wrapper.write_text(original_content)
+            wrapper.chmod(0o755)
+
+            result = self.run_be("install", tmp=tmp)
+            backup_files = sorted(
+                (tmp / "codex" / "backups").glob("engineering-bible-ai-*/bin/be")
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(len(backup_files), 1)
+            self.assertEqual(backup_files[0].read_text(), original_content)
+
 
 if __name__ == "__main__":
     unittest.main()

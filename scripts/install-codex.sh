@@ -106,9 +106,32 @@ backup_path() {
   fi
 }
 
+same_existing_path() {
+  local left="$1"
+  local right="$2"
+  [[ -e "$left" && -e "$right" && "$left" -ef "$right" ]]
+}
+
+copy_file() {
+  local source_file="$1"
+  local target_file="$2"
+  if same_existing_path "$source_file" "$target_file"; then
+    printf 'Skipping copy; source and target are the same file: %s\n' "$target_file"
+    return
+  fi
+
+  run mkdir -p "$(dirname "$target_file")"
+  run cp -a "$source_file" "$target_file"
+}
+
 copy_dir() {
   local source_dir="$1"
   local target_dir="$2"
+  if same_existing_path "$source_dir" "$target_dir"; then
+    printf 'Skipping copy; source and target are the same directory: %s\n' "$target_dir"
+    return
+  fi
+
   run mkdir -p "$target_dir"
   run rsync -a "$source_dir/" "$target_dir/"
 }
@@ -131,6 +154,8 @@ write_be_wrapper() {
   local wrapper_path="$bin_dir/be"
   local target_script="$codex_home/scripts/be.py"
   local quoted_target
+
+  backup_path "$wrapper_path" "bin/be"
 
   if [[ "$mode" == "--dry-run" ]]; then
     printf '[dry-run] mkdir -p %q\n' "$bin_dir"
@@ -157,7 +182,7 @@ printf 'Backup: %s\n' "$backup_dir"
 
 backup_path "$codex_home/AGENTS.md" "AGENTS.md"
 run mkdir -p "$codex_home" "$agent_skill_root"
-run cp -a "$repo_root/AGENTS.md" "$codex_home/AGENTS.md"
+copy_file "$repo_root/AGENTS.md" "$codex_home/AGENTS.md"
 
 backup_path "$codex_home/engineering" "engineering"
 backup_path "$codex_home/reference" "reference"
