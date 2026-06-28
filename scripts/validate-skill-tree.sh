@@ -27,6 +27,7 @@ required_files=(
   "docs/worker-runtime-boundary.md"
   "docs/oss-release-checklist.md"
   "scripts/install.sh"
+  "scripts/be.py"
   "scripts/install-codex.sh"
   "scripts/secret-sanity.sh"
   "scripts/validate-skill-frontmatter.py"

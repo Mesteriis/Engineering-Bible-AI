@@ -27,6 +27,7 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 codex_home="${CODEX_HOME:-$HOME/.codex}"
 agents_home="${AGENTS_HOME:-$HOME/.agents}"
 agent_skill_root="$agents_home/skills"
+bin_dir="${ENGINEERING_BIBLE_BIN_DIR:-$HOME/.local/bin}"
 timestamp="$(date +%Y%m%d-%H%M%S)"
 backup_dir="$codex_home/backups/engineering-bible-ai-$timestamp"
 
@@ -125,9 +126,29 @@ copy_skill() {
   copy_dir "$source_dir" "$agent_skill_root/$skill"
 }
 
+write_be_wrapper() {
+  local wrapper_path="$bin_dir/be"
+  local target_script="$codex_home/scripts/be.py"
+
+  if [[ "$mode" == "--dry-run" ]]; then
+    printf '[dry-run] mkdir -p %q\n' "$bin_dir"
+    printf '[dry-run] write be wrapper %q -> %q\n' "$wrapper_path" "$target_script"
+    return
+  fi
+
+  mkdir -p "$bin_dir"
+  cat >"$wrapper_path" <<EOF
+#!/usr/bin/env bash
+exec python3 "$target_script" "\$@"
+EOF
+  chmod +x "$wrapper_path"
+  printf 'Installed be wrapper: %s\n' "$wrapper_path"
+}
+
 printf 'Repo: %s\n' "$repo_root"
 printf 'Codex home: %s\n' "$codex_home"
 printf 'Agents home: %s\n' "$agents_home"
+printf 'Bin dir: %s\n' "$bin_dir"
 printf 'Mode: %s\n' "$mode"
 printf 'Backup: %s\n' "$backup_dir"
 
@@ -157,5 +178,7 @@ run chmod +x "$codex_home/scripts/validate-skill-frontmatter.py"
 run chmod +x "$codex_home/scripts/install.sh"
 run chmod +x "$codex_home/scripts/install-codex.sh"
 run chmod +x "$codex_home/scripts/secret-sanity.sh"
+run chmod +x "$codex_home/scripts/be.py"
+write_be_wrapper
 
 printf 'Done. Restart or open a new agent session to refresh prompt-visible skills.\n'
