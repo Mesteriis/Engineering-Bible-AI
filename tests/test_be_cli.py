@@ -75,6 +75,28 @@ class BeCliTests(unittest.TestCase):
         self.assertIn("[dry-run] write be wrapper", result.stdout)
         self.assertFalse(wrapper.exists())
 
+    def test_install_writes_wrapper_with_literal_target_path(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="be install $path ") as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", tmp=tmp)
+            wrapper = tmp / "bin" / "be"
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue(wrapper.is_file())
+            self.assertTrue(os.access(wrapper, os.X_OK))
+
+            wrapper_result = subprocess.run(
+                [str(wrapper), "version"],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+            self.assertEqual(wrapper_result.returncode, 0, wrapper_result.stderr)
+            self.assertIn("Engineering Bible AI be", wrapper_result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

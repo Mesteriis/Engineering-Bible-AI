@@ -8,8 +8,9 @@ Usage:
   scripts/install-codex.sh --install
 
 Environment:
-  CODEX_HOME    default: $HOME/.codex
-  AGENTS_HOME   default: $HOME/.agents
+  CODEX_HOME                 default: $HOME/.codex
+  AGENTS_HOME                default: $HOME/.agents
+  ENGINEERING_BIBLE_BIN_DIR  default: $HOME/.local/bin
 
 The installer copies portable standards and skills only. It does not edit
 CODEX_HOME/config.toml, auth files, .env files, MCP credentials, or runtime
@@ -129,6 +130,7 @@ copy_skill() {
 write_be_wrapper() {
   local wrapper_path="$bin_dir/be"
   local target_script="$codex_home/scripts/be.py"
+  local quoted_target
 
   if [[ "$mode" == "--dry-run" ]]; then
     printf '[dry-run] mkdir -p %q\n' "$bin_dir"
@@ -137,9 +139,10 @@ write_be_wrapper() {
   fi
 
   mkdir -p "$bin_dir"
+  printf -v quoted_target '%q' "$target_script"
   cat >"$wrapper_path" <<EOF
 #!/usr/bin/env bash
-exec python3 "$target_script" "\$@"
+exec python3 $quoted_target "\$@"
 EOF
   chmod +x "$wrapper_path"
   printf 'Installed be wrapper: %s\n' "$wrapper_path"
