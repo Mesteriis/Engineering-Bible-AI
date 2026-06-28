@@ -116,6 +116,31 @@ class QualityAuditTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("forbidden runtime file: .env", result.stdout)
 
+    def test_runtime_boundary_ignores_local_worktree_files(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            repo = copy_repo(Path(raw))
+            worktree = repo / ".worktrees" / "local"
+            worktree.mkdir(parents=True)
+            for filename in [".env", "config.toml", "deploy.pem", "deploy.key"]:
+                (worktree / filename).write_text("local generated state\n")
+
+            (repo / ".env").write_text("TOKEN=secret\n")
+            failed_result = run_audit(repo)
+
+            (repo / ".env").unlink()
+            passed_result = run_audit(repo)
+
+        self.assertEqual(failed_result.returncode, 1)
+        self.assertIn("forbidden runtime file: .env", failed_result.stdout)
+        self.assertNotIn(".worktrees/local/.env", failed_result.stdout)
+        self.assertNotIn(".worktrees/local/config.toml", failed_result.stdout)
+        self.assertNotIn(".worktrees/local/deploy.pem", failed_result.stdout)
+        self.assertNotIn(".worktrees/local/deploy.key", failed_result.stdout)
+
+        self.assertEqual(passed_result.returncode, 0, passed_result.stderr)
+        self.assertIn("quality audit passed", passed_result.stdout)
+        self.assertIn("- runtime boundary: ok", passed_result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

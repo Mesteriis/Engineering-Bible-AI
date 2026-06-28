@@ -54,6 +54,7 @@ FORBIDDEN_SUFFIXES = {
 
 SKIP_DIRS = {
     ".git",
+    ".worktrees",
     "__pycache__",
 }
 
