@@ -3,7 +3,7 @@ CURL_INSTALL_URL ?= https://raw.githubusercontent.com/Mesteriis/Engineering-Bibl
 CODEX_HOME ?= $(HOME)/.codex
 AGENTS_HOME ?= $(HOME)/.agents
 
-.PHONY: help validate validate-tree validate-skills size secrets shell-syntax py-compile quality-audit quality-audit-tests be-smoke dry-run install install-command
+.PHONY: help validate validate-tree validate-skills size secrets shell-syntax py-compile quality-audit quality-audit-tests be-smoke dry-run install install-command be-update be-self-update be-add-skill
 
 help:
 	@printf '%s\n' \
@@ -15,11 +15,18 @@ help:
 		'  make dry-run           Show local Codex install actions without writing' \
 		'  make install           Install into CODEX_HOME/AGENTS_HOME' \
 		'  make install-command   Print the curl one-command installer' \
+		'  make be-update         Run be update (same as `be update`)' \
+		'  make be-self-update    Run be self-update (same as `be self-update`)' \
+		'  make be-add-skill      Add external skill. Set SOURCE and optional NAME/REF/SKILL_PATH.' \
 		'' \
 		'Variables:' \
-		'  PYTHON                 Python executable, default: python3' \
-		'  CODEX_HOME             Passed through to scripts/install-codex.sh' \
-		'  AGENTS_HOME            Passed through to scripts/install-codex.sh'
+			'  PYTHON                 Python executable, default: python3' \
+			'  CODEX_HOME             Passed through to scripts/install-codex.sh' \
+			'  AGENTS_HOME            Passed through to scripts/install-codex.sh' \
+			'  SOURCE                 be-add-skill source argument' \
+			'  NAME                   Optional be-add-skill --name' \
+			'  REF                    Optional be-add-skill --ref for git sources' \
+			'  SKILL_PATH             Optional be-add-skill --path'
 
 validate: validate-tree validate-skills size secrets shell-syntax py-compile quality-audit quality-audit-tests be-smoke
 
@@ -49,6 +56,19 @@ quality-audit-tests:
 
 be-smoke:
 	$(PYTHON) -m unittest tests/test_be_cli.py -v
+
+be-update:
+	$(PYTHON) scripts/be.py update
+
+be-self-update:
+	$(PYTHON) scripts/be.py self-update
+
+be-add-skill:
+	@if [ -z "$(SOURCE)" ]; then \
+		echo "error: SOURCE is required. Example: make be-add-skill SOURCE=https://github.com/user/repo SKILL_PATH=path/to/skill"; \
+		exit 1; \
+	fi
+	$(PYTHON) scripts/be.py add skill "$(SOURCE)" $(if $(NAME),--name "$(NAME)",) $(if $(REF),--ref "$(REF)",) $(if $(SKILL_PATH),--path "$(SKILL_PATH)",)
 
 dry-run:
 	CODEX_HOME="$(CODEX_HOME)" AGENTS_HOME="$(AGENTS_HOME)" bash scripts/install-codex.sh --dry-run

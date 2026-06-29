@@ -14,7 +14,12 @@ BE = ROOT / "scripts" / "be.py"
 
 
 class BeCliTests(unittest.TestCase):
-    def run_be(self, *args: str, tmp: Path) -> subprocess.CompletedProcess[str]:
+    def run_be(
+        self,
+        *args: str,
+        tmp: Path,
+        extra_env: dict[str, str] | None = None,
+    ) -> subprocess.CompletedProcess[str]:
         env = os.environ.copy()
         env.update(
             {
@@ -24,6 +29,8 @@ class BeCliTests(unittest.TestCase):
                 "ENGINEERING_BIBLE_BIN_DIR": str(tmp / "bin"),
             }
         )
+        if extra_env:
+            env.update(extra_env)
         return subprocess.run(
             [sys.executable, str(BE), *args],
             cwd=ROOT,
@@ -152,6 +159,99 @@ class BeCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("quality audit passed", result.stdout)
         self.assertIn("- engineering index: ok", result.stdout)
+
+    def test_update_runs_install_bootstrap(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            result = self.run_be("update", tmp=Path(raw))
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Mode: --install", result.stdout)
+        self.assertIn("Repo:", result.stdout)
+
+    def test_self_update_runs_bootstrap_script(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            bootstrap = tmp / "bootstrap.sh"
+            bootstrap.write_text(
+                "#!/usr/bin/env bash\n"
+                'if [ "$1" = "--dry-run" ]; then\n'
+                '  echo "[self-update-dry-run] Mode: $1"\n'
+                "else\n"
+                '  echo "[self-update] Mode: $1"\n'
+                "fi\n",
+                encoding="utf-8",
+            )
+            bootstrap.chmod(0o755)
+            result = self.run_be(
+                "self",
+                "update",
+                "--dry-run",
+                tmp=tmp,
+                extra_env={"ENGINEERING_BIBLE_BOOTSTRAP_URL": f"file://{bootstrap}"},
+            )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("[self-update-dry-run] Mode: --dry-run", result.stdout)
+
+    def test_add_skill_from_local_path(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            source = tmp / "source-skill"
+            skill = source / "sample-skill"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text(
+                "---\nname: sample-skill\ndescription: sample skill\n---\n",
+                encoding="utf-8",
+            )
+            readme = skill / "README.md"
+            readme.write_text("sample\n", encoding="utf-8")
+
+            result = self.run_be(
+                "add",
+                "skill",
+                str(skill),
+                "--name",
+                "sample-skill-test",
+                tmp=tmp,
+            )
+
+            installed = tmp / "codex" / "skills" / "external" / "sample-skill-test"
+            installed_agents = tmp / "agents" / "skills" / "external" / "sample-skill-test"
+            installed_be_home = tmp / "engineering-bible" / "skills" / "external" / "sample-skill-test"
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("installed external skill", result.stdout)
+            self.assertTrue(installed.is_dir())
+            self.assertTrue(installed_agents.is_dir())
+            self.assertTrue(installed_be_home.is_dir())
+            self.assertTrue((installed / "SKILL.md").is_file())
+
+    def test_add_skill_dry_run_does_not_write_destination(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            source = tmp / "source-skill"
+            skill = source / "sample-skill"
+            skill.mkdir(parents=True)
+            (skill / "SKILL.md").write_text(
+                "---\nname: sample-skill\ndescription: sample skill\n---\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_be(
+                "add",
+                "skill",
+                str(skill),
+                "--name",
+                "sample-skill-dry",
+                "--dry-run",
+                tmp=tmp,
+            )
+
+            installed = tmp / "codex" / "skills" / "external" / "sample-skill-dry"
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("--dry-run", result.stdout)
+        self.assertFalse(installed.exists())
 
 
 if __name__ == "__main__":

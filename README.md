@@ -81,6 +81,14 @@ Install into default `~/.codex` and `~/.agents/skills`:
 make install
 ```
 
+CLI command variants from Make:
+
+```bash
+make be-update
+make be-self-update
+make be-add-skill SOURCE=https://github.com/<owner>/<repo>/<path> [NAME=<name>] [REF=<ref>] [SKILL_PATH=<subdir>]
+```
+
 After installation, the package also installs a small `be` manager command into
 `~/.local/bin/be` by default. If `~/.local/bin` is not on your shell `PATH`,
 run the command through `~/.local/bin/be` or add that directory to `PATH`.
@@ -94,6 +102,9 @@ be doctor --json
 be validate --checkout .
 be install --dry-run
 be audit
+be update
+be self-update
+be add skill https://github.com/<owner>/<repo>/<path>
 ```
 
 The installer backs up replaced files under `~/.codex/backups/`.

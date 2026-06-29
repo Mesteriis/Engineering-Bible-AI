@@ -81,6 +81,14 @@ make dry-run
 make install
 ```
 
+Варианты через Make:
+
+```bash
+make be-update
+make be-self-update
+make be-add-skill SOURCE=https://github.com/<owner>/<repo>/<path> [NAME=<name>] [REF=<ref>] [SKILL_PATH=<subdir>]
+```
+
 После установки пакет также ставит маленькую команду `be` в `~/.local/bin/be`
 по умолчанию. Если `~/.local/bin` не входит в shell `PATH`, запускай команду
 через `~/.local/bin/be` или добавь этот каталог в `PATH`.
@@ -94,6 +102,9 @@ be doctor --json
 be validate --checkout .
 be install --dry-run
 be audit
+be update
+be self-update
+be add skill https://github.com/<owner>/<repo>/<path>
 ```
 
 Installer делает backup заменяемых файлов в `~/.codex/backups/`.
