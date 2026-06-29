@@ -4,17 +4,23 @@ set -euo pipefail
 usage() {
   cat <<'USAGE'
 Usage:
-  curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh | bash -s
-  curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh | bash -s -- --dry-run
+  curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/v0.1.0/scripts/install.sh | bash -s
+  curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/v0.1.0/scripts/install.sh | bash -s -- --dry-run --diff
 
 Options:
   --install    Install portable Codex skills and standards. This is the default.
   --dry-run    Download and validate the package, then print install actions.
+  --diff       Print planned ADD/UPDATE/CONFLICT/UNCHANGED status.
+  --group NAME Install an additional skill group, for example: --group wiki.
+  --all        Install every skill group, including optional groups.
+  --force      Overwrite changed managed files after backing them up.
+  --no-overwrite  Install only missing managed files.
+  --backup-only   Back up existing managed targets without copying.
   --help       Show this help.
 
 Environment:
   ENGINEERING_BIBLE_REPO  default: Mesteriis/Engineering-Bible-AI
-  ENGINEERING_BIBLE_REF   default: main
+  ENGINEERING_BIBLE_REF   default: v0.1.0
   CODEX_HOME              passed to scripts/install-codex.sh
   AGENTS_HOME             passed to scripts/install-codex.sh
   ENGINEERING_BIBLE_BIN_DIR  passed to scripts/install-codex.sh
@@ -25,22 +31,44 @@ worker runtime state.
 USAGE
 }
 
-mode="${1:---install}"
-case "$mode" in
-  --install | --dry-run)
-    ;;
-  --help | -h)
-    usage
-    exit 0
-    ;;
-  *)
-    usage >&2
-    exit 2
-    ;;
-esac
+installer_args=()
+mode_seen=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --install | --dry-run | --backup-only)
+      installer_args+=("$1")
+      mode_seen=1
+      shift
+      ;;
+    --diff | --all | --force | --no-overwrite)
+      installer_args+=("$1")
+      shift
+      ;;
+    --group)
+      if [[ $# -lt 2 ]]; then
+        usage >&2
+        exit 2
+      fi
+      installer_args+=("$1" "$2")
+      shift 2
+      ;;
+    --help | -h)
+      usage
+      exit 0
+      ;;
+    *)
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ "$mode_seen" -eq 0 ]]; then
+  installer_args=(--install "${installer_args[@]}")
+fi
 
 repo_slug="${ENGINEERING_BIBLE_REPO:-Mesteriis/Engineering-Bible-AI}"
-ref="${ENGINEERING_BIBLE_REF:-main}"
+ref="${ENGINEERING_BIBLE_REF:-v0.1.0}"
 
 require_cmd() {
   local command_name="$1"
@@ -71,7 +99,7 @@ download_repo() {
   local tmp_dir archive repo_root
   tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/engineering-bible-ai.XXXXXX")"
   archive="$tmp_dir/source.tar.gz"
-  curl -fsSL "https://github.com/${repo_slug}/archive/refs/heads/${ref}.tar.gz" -o "$archive"
+  curl -fsSL "https://github.com/${repo_slug}/archive/${ref}.tar.gz" -o "$archive"
   tar -xzf "$archive" -C "$tmp_dir"
   repo_root="$(find "$tmp_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
   if [[ -z "$repo_root" || ! -f "$repo_root/scripts/install-codex.sh" ]]; then
@@ -84,8 +112,9 @@ download_repo() {
 
 run_validation() {
   local repo_root="$1"
-  bash "$repo_root/scripts/validate-skill-tree.sh" "$repo_root"
+  bash "$repo_root/scripts/validate-repo-tree.sh" "$repo_root"
   python3 "$repo_root/scripts/validate-skill-frontmatter.py" "$repo_root/skills"
+  python3 "$repo_root/scripts/validate-router-cases.py" --root "$repo_root" --static
 
   if command -v rg >/dev/null 2>&1; then
     bash "$repo_root/scripts/secret-sanity.sh" "$repo_root"
@@ -96,7 +125,6 @@ run_validation() {
 
 require_cmd bash
 require_cmd python3
-require_cmd rsync
 
 cleanup_dir=""
 if repo_root="$(find_local_repo)"; then
@@ -119,7 +147,9 @@ PY
 trap cleanup EXIT
 
 printf 'Engineering Bible AI source: %s\n' "$repo_root"
-printf 'Mode: %s\n' "$mode"
+printf 'Installer args:'
+printf ' %q' "${installer_args[@]}"
+printf '\n'
 
 run_validation "$repo_root"
-bash "$repo_root/scripts/install-codex.sh" "$mode"
+bash "$repo_root/scripts/install-codex.sh" "${installer_args[@]}"

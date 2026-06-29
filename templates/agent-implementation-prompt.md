@@ -59,7 +59,7 @@
 Запусти доступные команды:
 
 ```bash
-bash ~/.codex/scripts/validate-skill-tree.sh ~/.codex
+bash ~/.codex/scripts/validate-installed-tree.sh ~/.codex ~/.agents
 python ~/.codex/scripts/check-file-size.py ~/.codex --hard 10000
 ```
 

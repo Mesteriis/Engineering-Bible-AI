@@ -71,7 +71,7 @@ Deferred:
 - Modify: `skills/engineering-standards/SKILL.md`
 - Modify: `skills/workflow-router/SKILL.md`
 
-- [ ] **Step 1: Create `skills/quality-gates/SKILL.md`**
+- [x] **Step 1: Create `skills/quality-gates/SKILL.md`**
 
 Create `skills/quality-gates/SKILL.md` with this content:
 
@@ -137,7 +137,7 @@ When this skill materially affects the work, report:
 - remaining risks.
 ```
 
-- [ ] **Step 2: Create `engineering/35_evidence_contract.md`**
+- [x] **Step 2: Create `engineering/35_evidence_contract.md`**
 
 Create `engineering/35_evidence_contract.md` with this content:
 
@@ -207,7 +207,7 @@ Before finalizing meaningful work, check:
 - Are limitations and residual risks visible?
 ```
 
-- [ ] **Step 3: Create `engineering/36_task_lifecycle_gates.md`**
+- [x] **Step 3: Create `engineering/36_task_lifecycle_gates.md`**
 
 Create `engineering/36_task_lifecycle_gates.md` with this content:
 
@@ -309,7 +309,7 @@ Multi-file or behavior change:
 - risk report.
 ```
 
-- [ ] **Step 4: Create `engineering/37_review_regression_gates.md`**
+- [x] **Step 4: Create `engineering/37_review_regression_gates.md`**
 
 Create `engineering/37_review_regression_gates.md` with this content:
 
@@ -361,7 +361,7 @@ Before finishing, confirm:
 - residual risks are reported.
 ```
 
-- [ ] **Step 5: Create `engineering/38_library_drift_audit.md`**
+- [x] **Step 5: Create `engineering/38_library_drift_audit.md`**
 
 Create `engineering/38_library_drift_audit.md` with this content:
 
@@ -429,7 +429,7 @@ The portable tree must not contain:
 - local worker state.
 ```
 
-- [ ] **Step 6: Update `engineering/README.md`**
+- [x] **Step 6: Update `engineering/README.md`**
 
 In `engineering/README.md`, add these items after `34_evolution_decision_tree.md` in the expansion list:
 
@@ -449,7 +449,7 @@ In the selection rules section, add:
 - Skill, manifest, installer, validation, or standards-library integrity: read `38_library_drift_audit.md`.
 ```
 
-- [ ] **Step 7: Update `skills/engineering-standards/SKILL.md`**
+- [x] **Step 7: Update `skills/engineering-standards/SKILL.md`**
 
 In `skills/engineering-standards/SKILL.md`, add these references after `engineering/34_evolution_decision_tree.md`:
 
@@ -460,7 +460,7 @@ In `skills/engineering-standards/SKILL.md`, add these references after `engineer
 - `engineering/38_library_drift_audit.md` — library drift audit contract.
 ```
 
-- [ ] **Step 8: Update `skills/workflow-router/SKILL.md`**
+- [x] **Step 8: Update `skills/workflow-router/SKILL.md`**
 
 In `skills/workflow-router/SKILL.md`, in the general implementation routing bullet, include `quality-gates` before `engineering-standards`:
 
@@ -481,7 +481,7 @@ Add this bullet after the broad standards bullet:
   gates, or repository drift concerns -> `quality-gates`.
 ```
 
-- [ ] **Step 9: Run frontmatter validation**
+- [x] **Step 9: Run frontmatter validation**
 
 Run:
 
@@ -495,7 +495,7 @@ Expected output includes:
 skill frontmatter validation passed
 ```
 
-- [ ] **Step 10: Commit Task 1**
+- [x] **Step 10: Commit Task 1**
 
 Run:
 
@@ -520,7 +520,7 @@ git commit -m "docs: add quality gate references"
 - Modify: `scripts/install-codex.sh`
 - Modify: `MANIFEST.md`
 
-- [ ] **Step 1: Create the golden quality-gate corpus**
+- [x] **Step 1: Create the golden quality-gate corpus**
 
 Create `tests/quality-gates/hallucinated-test-result.md`:
 
@@ -613,7 +613,7 @@ A new command entry point is added but `MANIFEST.md` does not list it.
 Library Drift Audit requires command entry points and manifests to agree.
 ```
 
-- [ ] **Step 2: Create failing audit tests**
+- [x] **Step 2: Create failing audit tests**
 
 Create `tests/test_quality_audit.py` with this content:
 
@@ -741,7 +741,7 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
-- [ ] **Step 3: Run audit tests and verify expected failure**
+- [x] **Step 3: Run audit tests and verify expected failure**
 
 Run:
 
@@ -751,7 +751,7 @@ python3 -m unittest tests/test_quality_audit.py -v
 
 Expected: failure because `scripts/audit-quality-gates.py` does not exist yet.
 
-- [ ] **Step 4: Create `scripts/audit-quality-gates.py`**
+- [x] **Step 4: Create `scripts/audit-quality-gates.py`**
 
 Create `scripts/audit-quality-gates.py` with this content:
 
@@ -979,7 +979,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 5: Make the audit script executable**
+- [x] **Step 5: Make the audit script executable**
 
 Run:
 
@@ -987,7 +987,7 @@ Run:
 chmod +x scripts/audit-quality-gates.py
 ```
 
-- [ ] **Step 6: Update `scripts/validate-skill-tree.sh`**
+- [x] **Step 6: Update `scripts/validate-skill-tree.sh`**
 
 In `scripts/validate-skill-tree.sh`, add these required files in the existing `required_files` array:
 
@@ -1007,7 +1007,7 @@ In `scripts/validate-skill-tree.sh`, add these required files in the existing `r
   "tests/quality-gates/missing-manifest-entry.md"
 ```
 
-- [ ] **Step 7: Update `scripts/install-codex.sh`**
+- [x] **Step 7: Update `scripts/install-codex.sh`**
 
 In the `skills=(` array in `scripts/install-codex.sh`, add:
 
@@ -1027,7 +1027,7 @@ add:
 run chmod +x "$codex_home/scripts/audit-quality-gates.py"
 ```
 
-- [ ] **Step 8: Update `MANIFEST.md`**
+- [x] **Step 8: Update `MANIFEST.md`**
 
 In `MANIFEST.md`, under `## Command Entry Points`, add:
 
@@ -1041,7 +1041,7 @@ Under `## Primary Skills`, add:
 - `quality-gates`
 ```
 
-- [ ] **Step 9: Run audit tests**
+- [x] **Step 9: Run audit tests**
 
 Run:
 
@@ -1056,7 +1056,7 @@ Ran 6 tests
 OK
 ```
 
-- [ ] **Step 10: Run the audit script directly**
+- [x] **Step 10: Run the audit script directly**
 
 Run:
 
@@ -1077,7 +1077,7 @@ quality audit passed
 - runtime boundary: ok
 ```
 
-- [ ] **Step 11: Run shell and tree validation**
+- [x] **Step 11: Run shell and tree validation**
 
 Run:
 
@@ -1092,7 +1092,7 @@ Expected output includes:
 skill tree validation passed
 ```
 
-- [ ] **Step 12: Commit Task 2**
+- [x] **Step 12: Commit Task 2**
 
 Run:
 
@@ -1108,7 +1108,7 @@ git commit -m "test: add quality gate audit"
 - Modify: `scripts/be.py`
 - Modify: `tests/test_be_cli.py`
 
-- [ ] **Step 1: Add failing CLI test for `be audit`**
+- [x] **Step 1: Add failing CLI test for `be audit`**
 
 In `tests/test_be_cli.py`, add this test before the final `if __name__ == "__main__":` block:
 
@@ -1122,7 +1122,7 @@ In `tests/test_be_cli.py`, add this test before the final `if __name__ == "__mai
         self.assertIn("- runtime boundary: ok", result.stdout)
 ```
 
-- [ ] **Step 2: Run the new CLI test and verify it fails**
+- [x] **Step 2: Run the new CLI test and verify it fails**
 
 Run:
 
@@ -1132,7 +1132,7 @@ python3 -m unittest tests.test_be_cli.BeCliTests.test_audit_runs_quality_gate_ch
 
 Expected: failure because `be` does not yet define the `audit` subcommand.
 
-- [ ] **Step 3: Add audit command implementation**
+- [x] **Step 3: Add audit command implementation**
 
 In `scripts/be.py`, after `command_install`, add:
 
@@ -1153,7 +1153,7 @@ In `build_parser()`, after the install subparser block, add:
     audit.set_defaults(func=command_audit)
 ```
 
-- [ ] **Step 4: Run the targeted CLI test**
+- [x] **Step 4: Run the targeted CLI test**
 
 Run:
 
@@ -1167,7 +1167,7 @@ Expected output includes:
 OK
 ```
 
-- [ ] **Step 5: Run all CLI tests**
+- [x] **Step 5: Run all CLI tests**
 
 Run:
 
@@ -1181,7 +1181,7 @@ Expected output includes:
 OK
 ```
 
-- [ ] **Step 6: Commit Task 3**
+- [x] **Step 6: Commit Task 3**
 
 Run:
 
@@ -1200,7 +1200,7 @@ git commit -m "feat: add be audit"
 - Modify: `CONTRIBUTING.md`
 - Modify: `docs/oss-release-checklist.md`
 
-- [ ] **Step 1: Update Makefile `.PHONY`**
+- [x] **Step 1: Update Makefile `.PHONY`**
 
 Replace the `.PHONY` line in `Makefile` with:
 
@@ -1208,7 +1208,7 @@ Replace the `.PHONY` line in `Makefile` with:
 .PHONY: help validate validate-tree validate-skills size secrets shell-syntax py-compile audit be-smoke quality-audit-tests dry-run install install-command
 ```
 
-- [ ] **Step 2: Update Makefile help**
+- [x] **Step 2: Update Makefile help**
 
 In the `help` target, add this line after the `make validate` line:
 
@@ -1222,7 +1222,7 @@ Add this line after the `make be-smoke` line:
 		'  make quality-audit-tests Run quality audit regression tests' \
 ```
 
-- [ ] **Step 3: Include audit in validation**
+- [x] **Step 3: Include audit in validation**
 
 Replace:
 
@@ -1236,7 +1236,7 @@ with:
 validate: validate-tree validate-skills size secrets shell-syntax py-compile audit be-smoke quality-audit-tests
 ```
 
-- [ ] **Step 4: Add audit targets**
+- [x] **Step 4: Add audit targets**
 
 After the `py-compile` target, add:
 
@@ -1248,7 +1248,7 @@ quality-audit-tests:
 	$(PYTHON) -m unittest tests/test_quality_audit.py -v
 ```
 
-- [ ] **Step 5: Update README commands**
+- [x] **Step 5: Update README commands**
 
 In `README.md`, in the initial `be` commands block, add:
 
@@ -1266,7 +1266,7 @@ make audit
 ```
 ````
 
-- [ ] **Step 6: Update Russian README commands**
+- [x] **Step 6: Update Russian README commands**
 
 In `README.ru.md`, in the initial `be` commands block, add:
 
@@ -1284,7 +1284,7 @@ make audit
 ```
 ````
 
-- [ ] **Step 7: Update expanded validation docs**
+- [x] **Step 7: Update expanded validation docs**
 
 In `CONTRIBUTING.md` and `docs/oss-release-checklist.md`, add these commands after Python compilation:
 
@@ -1295,7 +1295,7 @@ python3 -m unittest tests/test_quality_audit.py -v
 
 Keep the existing `python3 -m unittest tests/test_be_cli.py -v` line.
 
-- [ ] **Step 8: Run Make targets**
+- [x] **Step 8: Run Make targets**
 
 Run:
 
@@ -1312,7 +1312,7 @@ quality audit passed
 OK
 ```
 
-- [ ] **Step 9: Run docs diff check**
+- [x] **Step 9: Run docs diff check**
 
 Run:
 
@@ -1322,7 +1322,7 @@ git diff --check -- Makefile README.md README.ru.md CONTRIBUTING.md docs/oss-rel
 
 Expected: no output and exit code `0`.
 
-- [ ] **Step 10: Commit Task 4**
+- [x] **Step 10: Commit Task 4**
 
 Run:
 
@@ -1337,7 +1337,7 @@ git commit -m "docs: document quality gate audit"
 
 - Verify: full repository
 
-- [ ] **Step 1: Run full validation**
+- [x] **Step 1: Run full validation**
 
 Run:
 
@@ -1352,7 +1352,7 @@ quality audit passed
 OK
 ```
 
-- [ ] **Step 2: Run direct commands**
+- [x] **Step 2: Run direct commands**
 
 Run:
 
@@ -1368,7 +1368,7 @@ Expected:
 - `be audit` exits `0` and prints `quality audit passed`.
 - `be validate --checkout .` exits `0`.
 
-- [ ] **Step 3: Run focused failure-mode check**
+- [x] **Step 3: Run focused failure-mode check**
 
 Run:
 
@@ -1382,7 +1382,7 @@ Expected output includes:
 OK
 ```
 
-- [ ] **Step 4: Check repository status**
+- [x] **Step 4: Check repository status**
 
 Run:
 
@@ -1392,7 +1392,7 @@ git status --short --branch
 
 Expected: no unstaged changes remain.
 
-- [ ] **Step 5: Request final code review**
+- [x] **Step 5: Request final code review**
 
 Dispatch a final reviewer over the implementation range. The reviewer should check:
 

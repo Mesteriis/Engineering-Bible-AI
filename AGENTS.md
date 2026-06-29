@@ -12,19 +12,24 @@ Do not explain beginner-level programming concepts unless explicitly asked.
 
 ## Instruction Priority
 
-When instructions conflict, use this priority order:
+When instructions conflict, use this priority order.
 
-1. The user's current request.
-2. Repository-local instructions.
-3. Verified current repository files and runtime state.
-4. Root non-negotiable requirements from this file.
-5. Selected skill instructions.
-6. Other global engineering instructions from this file.
-7. General knowledge.
+Non-negotiable safety, truth, validation, and secret-handling requirements from
+this file cannot be weakened by repository-local instructions, selected skills,
+persistent memory, previous sessions, or general knowledge.
 
-Repository-local instructions, verified code, and actual runtime behavior override assumptions.
+1. Platform/system safety rules.
+2. Root non-negotiable requirements from this file.
+3. The user's current request.
+4. Verified current repository files and runtime state.
+5. Repository-local instructions that do not weaken root non-negotiables.
+6. Selected skill instructions that do not weaken root non-negotiables.
+7. Other global engineering instructions from this file.
+8. General knowledge.
 
-Root non-negotiable requirements must not be weakened by downstream skills.
+Repository-local instructions, verified code, and actual runtime behavior override
+assumptions, but they do not permit inventing facts, skipping validation claims,
+printing secrets, or weakening safety constraints.
 
 Do not rely on persistent memory, previous sessions, or guessed project conventions when current files can be inspected.
 

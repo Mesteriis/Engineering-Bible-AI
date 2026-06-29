@@ -1,0 +1,53 @@
+version: 1
+cases:
+  - id: python-bug-fix
+    prompt: "Fix failing pytest around user creation."
+    expect:
+      skills:
+        - debugging
+        - testing-tdd
+        - python
+
+  - id: broad-architecture-review
+    prompt: "Review this module architecture and suggest how to split it."
+    expect:
+      skills:
+        - engineering-standards
+        - architecture-principles
+        - code-quality
+        - code-review
+
+  - id: large-file-refactor
+    prompt: "This file is 3000 lines, refactor it safely."
+    expect:
+      skills:
+        - engineering-standards
+        - refactoring
+        - code-quality
+        - testing-tdd
+
+  - id: security-sensitive-api-change
+    prompt: "Add authorization checks to this endpoint."
+    expect:
+      skills:
+        - security
+        - testing-tdd
+        - architecture-principles
+
+  - id: esphome-relay-automation
+    prompt: "Create ESPHome config for relay and sensor fail-safe behavior."
+    expect:
+      skills:
+        - homeassistant
+        - esphome
+        - esp32
+        - testing-tdd
+
+  - id: todo-plan
+    prompt: "Write a TODO plan for splitting this package."
+    expect:
+      skills:
+        - engineering-standards
+        - architecture-principles
+        - refactoring
+        - documentation

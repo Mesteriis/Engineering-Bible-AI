@@ -27,10 +27,12 @@ explicitly invokes a narrower skill.
 - General implementation, bug fixing, debugging, refactoring, documentation,
   performance work, or language/ecosystem-specific engineering -> select the
   smallest applicable engineering skills:
-  `engineering-standards`, `core-engineering`, `debugging`, `testing-tdd`, `code-quality`,
+  `quality-gates`, `engineering-standards`, `core-engineering`, `debugging`, `testing-tdd`, `code-quality`,
   `architecture-principles`, `refactoring`, `documentation`, `performance`,
   and the relevant ecosystem skill (`python`, `typescript`, `rust`, `go`,
   `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
+- Evidence, validation claims, task lifecycle, completion review, regression
+  gates, or repository drift concerns -> `quality-gates`.
 - Broad standards work, responsibility boundary analysis, complexity budgets,
   engineering smells, naming rules, refactoring catalogs, or long TODO/task-plan
   structure -> `engineering-standards`.

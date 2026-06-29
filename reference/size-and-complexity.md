@@ -1,5 +1,9 @@
 # Size and Complexity Reference
 
+Status: legacy/deprecated compatibility reference. Prefer authoritative
+standards under `engineering/`, especially `engineering/07_complexity_budget.md`
+and `engineering/08_engineering_smells.md`.
+
 ## Goal
 
 Prevent code from growing into giant files, god objects, accidental frameworks, and other evidence that civilization was a mistake.

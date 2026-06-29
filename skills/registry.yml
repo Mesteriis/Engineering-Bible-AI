@@ -1,0 +1,67 @@
+version: 1
+default_groups:
+  - core
+  - ecosystems
+  - routers
+  - review
+  - security
+  - ui
+groups:
+  core:
+    - workflow-router
+    - engineering-standards
+    - core-engineering
+    - code-quality
+    - architecture-principles
+    - testing-tdd
+    - debugging
+    - code-review
+    - security
+    - performance
+    - refactoring
+    - documentation
+    - quality-gates
+  ecosystems:
+    - python
+    - typescript
+    - rust
+    - go
+    - c-cpp
+    - homeassistant
+    - esphome
+    - esp32
+  routers:
+    - review-router
+    - security-router
+    - ui-router
+    - ui-research
+    - ui-build
+    - ui-figma
+    - ui-qa
+  review:
+    - architecture-map
+    - migration-planner
+    - multi-agent-pr-review
+    - subagent-result-merge
+    - agent-retrospective
+    - agents-md-retrospective
+  security:
+    - security-diff-review
+    - fix-security-finding
+    - threat-model
+    - dependency-advisory-audit
+    - secrets-and-config-review
+    - authz-boundary-review
+    - deserialization-parser-review
+    - supply-chain-review
+  ui:
+    - ui-concept-first
+    - design-system-extractor
+    - figma-to-code
+    - code-to-figma
+    - playwright-visual-qa
+    - responsive-breakpoint-check
+    - accessibility-ui-review
+optional:
+  wiki:
+    - code-wiki-ru

@@ -5,7 +5,8 @@
 - `AGENTS.md`
 - `engineering/`
 - `skills/`
-- `reference/`
+- `skills/registry.yml`
+- `reference/` legacy/deprecated compatibility references.
 - `templates/`
 - `scripts/`
 - `tests/`
@@ -36,73 +37,53 @@
 - `Makefile`
 - `scripts/install.sh`
 - `scripts/install-codex.sh`
+- `scripts/install_codex.py`
 - `scripts/be.py`
 - installed wrapper: `be`
+- `scripts/registry.py`
+- `scripts/audit-quality-gates.py`
+- `scripts/validate-repo-tree.sh`
+- `scripts/validate-installed-tree.sh`
 - `scripts/validate-skill-tree.sh`
+- `scripts/validate-router-cases.py`
 - `scripts/validate-skill-frontmatter.py`
 - `scripts/check-file-size.py`
 - `scripts/secret-sanity.sh`
 
-## Primary Skills
+## Default Skill Groups
 
-- `workflow-router`
-- `engineering-standards`
-- `core-engineering`
-- `code-quality`
-- `architecture-principles`
-- `testing-tdd`
-- `debugging`
-- `code-review`
-- `security`
-- `performance`
-- `refactoring`
-- `documentation`
+Core:
+`workflow-router`, `engineering-standards`, `core-engineering`, `code-quality`,
+`architecture-principles`, `testing-tdd`, `debugging`, `code-review`,
+`security`, `performance`, `refactoring`, `documentation`, `quality-gates`.
 
-## Ecosystem Skills
+Ecosystems:
+`python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`,
+`esp32`.
 
-- `python`
-- `typescript`
-- `rust`
-- `go`
-- `c-cpp`
-- `homeassistant`
-- `esphome`
-- `esp32`
+Routers:
+`review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`,
+`ui-figma`, `ui-qa`.
 
-## Routing And Review Skills
+Review:
+`architecture-map`, `migration-planner`, `multi-agent-pr-review`,
+`subagent-result-merge`, `agent-retrospective`, `agents-md-retrospective`.
 
-- `review-router`
-- `security-router`
-- `ui-router`
-- `ui-research`
-- `ui-build`
-- `ui-figma`
-- `ui-qa`
-- `architecture-map`
-- `migration-planner`
-- `multi-agent-pr-review`
-- `subagent-result-merge`
-- `agent-retrospective`
-- `agents-md-retrospective`
-- `security-diff-review`
-- `fix-security-finding`
-- `threat-model`
-- `dependency-advisory-audit`
-- `secrets-and-config-review`
-- `authz-boundary-review`
-- `deserialization-parser-review`
-- `supply-chain-review`
-- `ui-concept-first`
-- `design-system-extractor`
-- `figma-to-code`
-- `code-to-figma`
-- `playwright-visual-qa`
-- `responsive-breakpoint-check`
-- `accessibility-ui-review`
+Security:
+`security-diff-review`, `fix-security-finding`, `threat-model`,
+`dependency-advisory-audit`, `secrets-and-config-review`,
+`authz-boundary-review`, `deserialization-parser-review`,
+`supply-chain-review`.
 
-## Documentation Skill
+UI:
+`ui-concept-first`, `design-system-extractor`, `figma-to-code`,
+`code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`,
+`accessibility-ui-review`.
 
-- `code-wiki-ru`
+## Optional Skill Groups
+
+Wiki:
+`code-wiki-ru`.
 
 ## Explicitly Not Included
 

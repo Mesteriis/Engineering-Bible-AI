@@ -11,9 +11,12 @@ Use GitHub Issues for:
 Before opening an issue, run:
 
 ```bash
-bash scripts/validate-skill-tree.sh .
+bash scripts/validate-repo-tree.sh .
 python3 scripts/validate-skill-frontmatter.py skills
+python3 scripts/registry.py --root . validate
+python3 scripts/validate-router-cases.py --static
 bash scripts/secret-sanity.sh .
+make validate-install
 ```
 
 Include command output that does not contain secrets.

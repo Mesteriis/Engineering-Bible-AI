@@ -2,6 +2,8 @@
 set -euo pipefail
 
 ROOT="${1:-.}"
+AGENTS_ROOT="${2:-${AGENTS_HOME:-$HOME/.agents}}"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 required_files=(
   "AGENTS.md"
@@ -10,143 +12,43 @@ required_files=(
   "MANIFEST.md"
   "Makefile"
   "LICENSE"
-  "CHANGELOG.md"
-  "CODE_OF_CONDUCT.md"
-  "CONTRIBUTING.md"
-  "GOVERNANCE.md"
-  "SECURITY.md"
-  "SUPPORT.md"
-  "THIRD_PARTY_NOTICES.md"
-  ".github/CODEOWNERS"
-  ".github/PULL_REQUEST_TEMPLATE.md"
-  ".github/dependabot.yml"
-  ".github/ISSUE_TEMPLATE/bug_report.yml"
-  ".github/ISSUE_TEMPLATE/feature_request.yml"
-  ".github/ISSUE_TEMPLATE/config.yml"
-  ".github/workflows/validate.yml"
-  "docs/worker-runtime-boundary.md"
-  "docs/oss-release-checklist.md"
-  "scripts/install.sh"
   "scripts/be.py"
   "scripts/install-codex.sh"
-  "scripts/secret-sanity.sh"
+  "scripts/install_codex.py"
+  "scripts/registry.py"
+  "scripts/validate-installed-tree.sh"
+  "scripts/validate-repo-tree.sh"
+  "scripts/validate-router-cases.py"
   "scripts/validate-skill-frontmatter.py"
-  "skills/workflow-router/SKILL.md"
-  "skills/engineering-standards/SKILL.md"
-  "skills/core-engineering/SKILL.md"
-  "skills/code-quality/SKILL.md"
-  "skills/architecture-principles/SKILL.md"
-  "skills/testing-tdd/SKILL.md"
-  "skills/debugging/SKILL.md"
-  "skills/code-review/SKILL.md"
-  "skills/security/SKILL.md"
-  "skills/performance/SKILL.md"
-  "skills/refactoring/SKILL.md"
-  "skills/documentation/SKILL.md"
-  "skills/python/SKILL.md"
-  "skills/typescript/SKILL.md"
-  "skills/rust/SKILL.md"
-  "skills/go/SKILL.md"
-  "skills/c-cpp/SKILL.md"
-  "skills/homeassistant/SKILL.md"
-  "skills/esphome/SKILL.md"
-  "skills/esp32/SKILL.md"
-  "skills/code-wiki-ru/SKILL.md"
-  "skills/security-router/SKILL.md"
-  "skills/review-router/SKILL.md"
-  "skills/ui-router/SKILL.md"
-  "skills/ui-research/SKILL.md"
-  "skills/ui-build/SKILL.md"
-  "skills/ui-figma/SKILL.md"
-  "skills/ui-qa/SKILL.md"
-  "skills/multi-agent-pr-review/SKILL.md"
-  "skills/architecture-map/SKILL.md"
-  "skills/migration-planner/SKILL.md"
-  "skills/subagent-result-merge/SKILL.md"
-  "skills/agent-retrospective/SKILL.md"
-  "skills/agents-md-retrospective/SKILL.md"
-  "skills/security-diff-review/SKILL.md"
-  "skills/fix-security-finding/SKILL.md"
-  "skills/threat-model/SKILL.md"
-  "skills/dependency-advisory-audit/SKILL.md"
-  "skills/secrets-and-config-review/SKILL.md"
-  "skills/authz-boundary-review/SKILL.md"
-  "skills/deserialization-parser-review/SKILL.md"
-  "skills/supply-chain-review/SKILL.md"
-  "skills/ui-concept-first/SKILL.md"
-  "skills/design-system-extractor/SKILL.md"
-  "skills/figma-to-code/SKILL.md"
-  "skills/code-to-figma/SKILL.md"
-  "skills/playwright-visual-qa/SKILL.md"
-  "skills/responsive-breakpoint-check/SKILL.md"
-  "skills/accessibility-ui-review/SKILL.md"
+  "scripts/validate-skill-tree.sh"
+  "scripts/secret-sanity.sh"
+  "scripts/check-file-size.py"
+  "skills/registry.yml"
+  "skills/quality-gates/SKILL.md"
   "engineering/README.md"
-  "engineering/00_manifesto.md"
-  "engineering/01_constitution.md"
-  "engineering/02_philosophy.md"
-  "engineering/03_definition_of_done.md"
-  "engineering/04_definition_of_beautiful_code.md"
-  "engineering/05_design_principles.md"
-  "engineering/06_responsibility_model.md"
-  "engineering/07_complexity_budget.md"
-  "engineering/08_engineering_smells.md"
-  "engineering/09_architectural_smells.md"
-  "engineering/10_antipattern_catalog.md"
-  "engineering/11_refactoring_catalog.md"
-  "engineering/12_naming_bible.md"
-  "engineering/13_testing_philosophy.md"
-  "engineering/14_debugging_philosophy.md"
-  "engineering/15_error_philosophy.md"
-  "engineering/16_security_philosophy.md"
-  "engineering/17_observability_contract.md"
-  "engineering/18_performance_philosophy.md"
-  "engineering/19_documentation_style.md"
-  "engineering/20_review_checklist.md"
-  "engineering/21_commit_pr_adr_style.md"
-  "engineering/22_evolution_rules.md"
-  "engineering/23_agent_behavior.md"
-  "engineering/24_task_todo_style.md"
-  "engineering/25_api_philosophy.md"
-  "engineering/26_domain_modeling.md"
-  "engineering/27_state_machine_philosophy.md"
-  "engineering/28_concurrency_philosophy.md"
-  "engineering/29_configuration_philosophy.md"
-  "engineering/30_dependency_philosophy.md"
-  "engineering/31_data_philosophy.md"
-  "engineering/32_ui_architecture_philosophy.md"
-  "engineering/33_ai_engineering_philosophy.md"
-  "engineering/34_evolution_decision_tree.md"
-  "templates/agent-implementation-prompt.md"
+  "engineering/35_evidence_contract.md"
+  "engineering/36_task_lifecycle_gates.md"
+  "engineering/37_review_regression_gates.md"
+  "engineering/38_library_drift_audit.md"
+  "tests/quality-gates/hallucinated-test-result.md"
+  "tests/quality-gates/skipped-inspection.md"
+  "tests/quality-gates/skipped-validation.md"
+  "tests/quality-gates/weak-review.md"
+  "tests/quality-gates/stale-routing-reference.md"
+  "tests/quality-gates/missing-manifest-entry.md"
+  "tests/test_quality_audit.py"
+  "scripts/audit-quality-gates.py"
 )
 
-missing=0
 for file in "${required_files[@]}"; do
   if [[ ! -f "$ROOT/$file" ]]; then
     echo "missing: $file" >&2
-    missing=1
+    exit 1
   fi
 done
 
-if [[ "$missing" -ne 0 ]]; then
-  echo "skill tree validation failed" >&2
-  exit 1
+if [[ -f "$ROOT/README.md" && -f "$ROOT/MANIFEST.md" ]]; then
+  exec bash "$script_dir/validate-repo-tree.sh" "$ROOT"
 fi
 
-if ! grep -q "workflow-router" "$ROOT/AGENTS.md"; then
-  echo "AGENTS.md does not mention workflow-router" >&2
-  exit 1
-fi
-
-if find "$ROOT" -path "$ROOT/.git" -prune -o -type f \( \
-  -name ".env" -o \
-  -name ".env.*" -o \
-  -name "auth.json" -o \
-  -name "config.toml" -o \
-  -name "*.pem" -o \
-  -name "*.key" \
-\) -print | grep -q .; then
-  echo "runtime or secret-like file found in portable tree" >&2
-  exit 1
-fi
-
-echo "skill tree validation passed"
+exec bash "$script_dir/validate-installed-tree.sh" "$ROOT" "$AGENTS_ROOT"

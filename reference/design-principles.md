@@ -1,5 +1,9 @@
 # Design Principles Reference
 
+Status: legacy/deprecated compatibility reference. Prefer authoritative
+standards under `engineering/`, especially `engineering/05_design_principles.md`
+and `engineering/06_responsibility_model.md`.
+
 ## Principles as Behavior, Not Slogans
 
 Do not merely mention SOLID, KISS, DRY, YAGNI, Clean Architecture, DDD, or TDD.

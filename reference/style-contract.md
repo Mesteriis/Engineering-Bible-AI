@@ -1,5 +1,9 @@
 # Shared Style Contract
 
+Status: legacy/deprecated compatibility reference. Prefer authoritative
+standards under `engineering/`, especially `engineering/01_constitution.md`,
+`engineering/05_design_principles.md`, and `engineering/23_agent_behavior.md`.
+
 ## Purpose
 
 Keep the same engineering style across languages and ecosystems.
