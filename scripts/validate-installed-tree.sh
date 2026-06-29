@@ -9,6 +9,22 @@ shift $(($# > 0 ? 1 : 0)) || true
 CODEX_ROOT="$(cd "$CODEX_ROOT" && pwd)"
 AGENTS_ROOT="$(cd "$AGENTS_ROOT" && pwd)"
 
+managed_codex_paths=(
+    "AGENTS.md"
+    "engineering"
+    "reference"
+    "templates"
+    "scripts"
+    "tests"
+    "skills/registry.yml"
+    "VERSION"
+    ".secret-sanity-allowlist"
+)
+
+managed_agents_paths=(
+    "skills/registry.yml"
+)
+
 required_files=(
     "AGENTS.md"
     "engineering/README.md"
@@ -63,6 +79,8 @@ while IFS= read -r skill; do
     skills+=("$skill")
 done < <(python3 "$CODEX_ROOT/scripts/registry.py" --root "$CODEX_ROOT" skills "$@")
 for skill in "${skills[@]}"; do
+    managed_codex_paths+=("skills/$skill")
+    managed_agents_paths+=("skills/$skill")
     if [[ ! -f "$CODEX_ROOT/skills/$skill/SKILL.md" ]]; then
         echo "missing installed Codex skill: $skill" >&2
         missing=1
@@ -78,7 +96,19 @@ if [[ "$missing" -ne 0 ]]; then
     exit 1
 fi
 
-if find "$CODEX_ROOT" "$AGENTS_ROOT" -type f \( \
+secret_scan_paths=()
+for relative in "${managed_codex_paths[@]}"; do
+    if [[ -e "$CODEX_ROOT/$relative" ]]; then
+        secret_scan_paths+=("$CODEX_ROOT/$relative")
+    fi
+done
+for relative in "${managed_agents_paths[@]}"; do
+    if [[ -e "$AGENTS_ROOT/$relative" ]]; then
+        secret_scan_paths+=("$AGENTS_ROOT/$relative")
+    fi
+done
+
+if [[ "${#secret_scan_paths[@]}" -gt 0 ]] && find "${secret_scan_paths[@]}" -type f \( \
     -name ".env" -o \
     -name ".env.*" -o \
     -name "auth.json" -o \

@@ -120,14 +120,14 @@ else
 fi
 
 if command -v codex >/dev/null 2>&1; then
-    prompt_input="$(codex debug prompt-input "\$workflow-router smoke" 2>/dev/null || true)"
-    if [[ -n "$prompt_input" ]]; then
-        for skill in workflow-router security-router review-router ui-router; do
+    for skill in workflow-router security-router review-router ui-router; do
+        prompt_input="$(codex debug prompt-input "\$$skill smoke" 2>/dev/null || true)"
+        if [[ -n "$prompt_input" ]]; then
             printf '%s' "$prompt_input" | grep -q "$skill" || fail "Codex prompt-input missing $skill"
-        done
-    else
-        warn "codex prompt-input smoke returned no output; skipped prompt visibility check"
-    fi
+        else
+            warn "codex prompt-input smoke returned no output for $skill; skipped prompt visibility check"
+        fi
+    done
 else
     warn "codex CLI not found; skipped prompt visibility check"
 fi

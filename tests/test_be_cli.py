@@ -152,6 +152,63 @@ class BeCliTests(unittest.TestCase):
         self.assertEqual(installed_result.returncode, 0, installed_result.stderr)
         self.assertNotIn("are identical", installed_result.stderr)
 
+    def test_installed_tree_validation_ignores_runtime_state_outside_managed_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", tmp=tmp)
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+            (tmp / "codex" / "config.toml").write_text("[local]\n", encoding="utf-8")
+            plugin_example = tmp / "codex" / "plugins" / "cache" / "plugin" / ".env.example"
+            plugin_example.parent.mkdir(parents=True)
+            plugin_example.write_text("EXAMPLE=1\n", encoding="utf-8")
+            backup_env = tmp / "codex" / "backups" / "old" / ".env"
+            backup_env.parent.mkdir(parents=True)
+            backup_env.write_text("LOCAL=1\n", encoding="utf-8")
+
+            validate_result = subprocess.run(
+                [
+                    "bash",
+                    str(tmp / "codex" / "scripts" / "validate-installed-tree.sh"),
+                    str(tmp / "codex"),
+                    str(tmp / "agents"),
+                ],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+        self.assertEqual(validate_result.returncode, 0, validate_result.stderr)
+        self.assertIn("installed tree validation passed", validate_result.stdout)
+
+    def test_installed_tree_validation_rejects_secret_like_file_in_managed_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", tmp=tmp)
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+            managed_env = tmp / "codex" / "skills" / "workflow-router" / ".env"
+            managed_env.write_text("LOCAL=1\n", encoding="utf-8")
+
+            validate_result = subprocess.run(
+                [
+                    "bash",
+                    str(tmp / "codex" / "scripts" / "validate-installed-tree.sh"),
+                    str(tmp / "codex"),
+                    str(tmp / "agents"),
+                ],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+        self.assertNotEqual(validate_result.returncode, 0)
+        self.assertIn("runtime or secret-like file", validate_result.stderr)
+
     def test_install_backs_up_existing_bin_wrapper_before_overwrite(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)
