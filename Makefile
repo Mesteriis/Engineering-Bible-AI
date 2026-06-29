@@ -3,13 +3,15 @@ CURL_INSTALL_URL ?= https://raw.githubusercontent.com/Mesteriis/Engineering-Bibl
 CODEX_HOME ?= $(HOME)/.codex
 AGENTS_HOME ?= $(HOME)/.agents
 
-.PHONY: help validate validate-tree validate-skills size secrets shell-syntax py-compile be-smoke dry-run install install-command
+.PHONY: help validate validate-tree validate-skills size secrets shell-syntax py-compile quality-audit quality-audit-tests be-smoke dry-run install install-command
 
 help:
 	@printf '%s\n' \
 		'Targets:' \
 		'  make validate          Run all repository-local checks' \
 		'  make be-smoke          Run be CLI smoke tests' \
+		'  make quality-audit      Run Engineering-Bible quality gate checks' \
+		'  make quality-audit-tests Run quality gate unit tests' \
 		'  make dry-run           Show local Codex install actions without writing' \
 		'  make install           Install into CODEX_HOME/AGENTS_HOME' \
 		'  make install-command   Print the curl one-command installer' \
@@ -19,7 +21,7 @@ help:
 		'  CODEX_HOME             Passed through to scripts/install-codex.sh' \
 		'  AGENTS_HOME            Passed through to scripts/install-codex.sh'
 
-validate: validate-tree validate-skills size secrets shell-syntax py-compile be-smoke
+validate: validate-tree validate-skills size secrets shell-syntax py-compile quality-audit quality-audit-tests be-smoke
 
 validate-tree:
 	bash scripts/validate-skill-tree.sh .
@@ -38,6 +40,12 @@ shell-syntax:
 
 py-compile:
 	find scripts skills -name '*.py' -print0 | xargs -0 $(PYTHON) -m py_compile
+
+quality-audit:
+	$(PYTHON) scripts/audit-quality-gates.py .
+
+quality-audit-tests:
+	$(PYTHON) -m unittest tests/test_quality_audit.py -v
 
 be-smoke:
 	$(PYTHON) -m unittest tests/test_be_cli.py -v

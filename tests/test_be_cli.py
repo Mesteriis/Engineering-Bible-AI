@@ -145,6 +145,14 @@ class BeCliTests(unittest.TestCase):
             self.assertEqual(len(backup_files), 1)
             self.assertEqual(backup_files[0].read_text(), original_content)
 
+    def test_audit_runs_quality_gate_checks(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            result = self.run_be("audit", tmp=Path(raw))
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("quality audit passed", result.stdout)
+        self.assertIn("- engineering index: ok", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

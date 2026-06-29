@@ -204,6 +204,15 @@ def command_install(args: argparse.Namespace) -> int:
     return run_command(["bash", "scripts/install-codex.sh", mode], cwd=paths.repo_root, env=env)
 
 
+def command_audit(args: argparse.Namespace) -> int:
+    paths = resolve_paths(args)
+    require_repo_file(paths, "scripts/audit-quality-gates.py")
+    return run_command(
+        ["python3", "scripts/audit-quality-gates.py", str(paths.repo_root)],
+        cwd=paths.repo_root,
+    )
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="be", description="Engineering Bible AI manager")
     parser.add_argument("--home", help="Engineering Bible state directory")
@@ -229,6 +238,9 @@ def build_parser() -> argparse.ArgumentParser:
     install = subparsers.add_parser("install", help="Install Engineering Bible")
     install.add_argument("--dry-run", action="store_true", help="Print actions without writing")
     install.set_defaults(func=command_install)
+
+    audit = subparsers.add_parser("audit", help="Run Engineering Bible quality-gate audit")
+    audit.set_defaults(func=command_audit)
 
     return parser
 

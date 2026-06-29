@@ -21,6 +21,8 @@ or private infrastructure details.
 
 ```bash
 make validate
+make quality-audit
+make quality-audit-tests
 ```
 
 Equivalent expanded commands:
@@ -33,6 +35,8 @@ bash scripts/secret-sanity.sh .
 bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
 find scripts skills -name '*.py' -print0 | xargs -0 python3 -m py_compile
 python3 -m unittest tests/test_be_cli.py -v
+python3 scripts/audit-quality-gates.py .
+python3 -m unittest tests/test_quality_audit.py -v
 ```
 
 ## Pull Requests

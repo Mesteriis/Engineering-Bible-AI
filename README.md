@@ -93,10 +93,17 @@ be doctor
 be doctor --json
 be validate --checkout .
 be install --dry-run
+be audit
 ```
 
 The installer backs up replaced files under `~/.codex/backups/`.
 It does not overwrite `~/.codex/config.toml`.
+
+Quality checks:
+
+```bash
+make quality-audit
+```
 
 ## Validate
 

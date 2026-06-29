@@ -93,10 +93,17 @@ be doctor
 be doctor --json
 be validate --checkout .
 be install --dry-run
+be audit
 ```
 
 Installer делает backup заменяемых файлов в `~/.codex/backups/`.
 `~/.codex/config.toml` он не перезаписывает.
+
+Проверка качества:
+
+```bash
+make quality-audit
+```
 
 ## Проверка
 
