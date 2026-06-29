@@ -164,6 +164,9 @@ def build_plan(options: InstallerOptions, skills: list[str]) -> list[CopyPlan]:
     for directory in ("engineering", "reference", "templates", "scripts", "tests"):
         add_path(directory, options.codex_home / directory)
 
+    add_path("VERSION", options.codex_home / "VERSION")
+    add_path(".secret-sanity-allowlist", options.codex_home / ".secret-sanity-allowlist")
+
     add_path("skills/registry.yml", options.codex_home / "skills" / "registry.yml")
     add_path("skills/registry.yml", options.agents_home / "skills" / "registry.yml", "agents-skills/registry.yml")
 

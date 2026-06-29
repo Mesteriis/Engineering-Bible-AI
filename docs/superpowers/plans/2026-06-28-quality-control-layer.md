@@ -1213,13 +1213,13 @@ Replace the `.PHONY` line in `Makefile` with:
 In the `help` target, add this line after the `make validate` line:
 
 ```make
-		'  make audit             Run quality gate repository audit' \
+        '  make audit             Run quality gate repository audit' \
 ```
 
 Add this line after the `make be-smoke` line:
 
 ```make
-		'  make quality-audit-tests Run quality audit regression tests' \
+        '  make quality-audit-tests Run quality audit regression tests' \
 ```
 
 - [x] **Step 3: Include audit in validation**
@@ -1242,10 +1242,10 @@ After the `py-compile` target, add:
 
 ```make
 audit:
-	$(PYTHON) scripts/audit-quality-gates.py .
+    $(PYTHON) scripts/audit-quality-gates.py .
 
 quality-audit-tests:
-	$(PYTHON) -m unittest tests/test_quality_audit.py -v
+    $(PYTHON) -m unittest tests/test_quality_audit.py -v
 ```
 
 - [x] **Step 5: Update README commands**

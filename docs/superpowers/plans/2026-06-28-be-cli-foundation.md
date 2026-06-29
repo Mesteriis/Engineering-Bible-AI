@@ -578,7 +578,7 @@ Verify that `shell-syntax` remains scoped to shell scripts:
 
 ```make
 shell-syntax:
-	bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
+    bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-skill-tree.sh
 ```
 
 No shell syntax command is needed for `scripts/be.py`; it is covered by `py-compile` and `be-smoke`.
@@ -589,7 +589,7 @@ After the `py-compile` target, add:
 
 ```make
 be-smoke:
-	$(PYTHON) -m unittest tests/test_be_cli.py -v
+    $(PYTHON) -m unittest tests/test_be_cli.py -v
 ```
 
 - [ ] **Step 5: Run `make be-smoke`**

@@ -31,6 +31,9 @@ REQUIRED_FILES = [
     "skills/quality-gates/SKILL.md",
     "scripts/audit-quality-gates.py",
     "tests/test_quality_audit.py",
+    "scripts/validate-markdown-style.py",
+    "VERSION",
+    ".secret-sanity-allowlist",
     *QUALITY_DOCS,
     *GOLDEN_CASES,
 ]
@@ -38,6 +41,9 @@ REQUIRED_FILES = [
 MANIFEST_ENTRIES = [
     "scripts/audit-quality-gates.py",
     "quality-gates",
+    "scripts/validate-markdown-style.py",
+    "VERSION",
+    ".secret-sanity-allowlist",
 ]
 
 INSTALLER_SKILLS = [

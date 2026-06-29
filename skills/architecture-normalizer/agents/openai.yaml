@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Normalizer"
+  short_description: "Deterministic architecture normalization"
+  default_prompt: "Use $architecture-normalizer to analyze this repository and produce reviewable architecture normalization artifacts before any source changes."

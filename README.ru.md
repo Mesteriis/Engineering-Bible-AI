@@ -42,8 +42,9 @@ Routers:
 `ui-figma`, `ui-qa`.
 
 Review:
-`architecture-map`, `migration-planner`, `multi-agent-pr-review`,
-`subagent-result-merge`, `agent-retrospective`, `agents-md-retrospective`.
+`architecture-map`, `architecture-normalizer`, `migration-planner`,
+`multi-agent-pr-review`, `subagent-result-merge`, `agent-retrospective`,
+`agents-md-retrospective`.
 
 Security:
 `security-diff-review`, `fix-security-finding`, `threat-model`,
@@ -102,14 +103,13 @@ make install-all
 Advanced quick install из GitHub:
 
 ```bash
-ENGINEERING_BIBLE_REF=v0.1.0 \
-  curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/v0.1.0/scripts/install.sh \
+curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh \
   | bash -s -- --dry-run --diff
 ```
 
 Когда planned changes выглядят корректно, замени `--dry-run --diff` на
 `--install`. `ENGINEERING_BIBLE_REF` можно переопределить на нужный tag, branch
-или commit.
+или commit (например, `ENGINEERING_BIBLE_REF=v0.1.0`) при необходимости.
 
 Installer пишет только managed portable files в `CODEX_HOME`, `AGENTS_HOME` и
 путь wrapper `be`. Он показывает `ADD`, `UPDATE`, `UNCHANGED`, `SKIP` и
@@ -146,6 +146,8 @@ make be-add-skill SOURCE=https://github.com/<owner>/<repo>/<path> [NAME=<name>] 
 ```bash
 make audit
 make quality-audit-tests
+make shell-lint
+make markdown-lint
 ```
 
 ## Проверка
@@ -160,6 +162,7 @@ make validate
 - `scripts/validate-installed-tree.sh ~/.codex ~/.agents`
 - `scripts/validate-skill-tree.sh` как compatibility wrapper.
 - `scripts/validate-router-cases.py --static`
+- `scripts/validate-markdown-style.py .`
 - `skills/workflow-router/scripts/validate-routing.sh --codex-only`
 
 GitHub Actions запускает repo-local валидацию на push и pull request.

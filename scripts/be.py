@@ -14,7 +14,7 @@ import sys
 import tempfile
 
 
-TOOL_VERSION = "0.1.0"
+DEFAULT_TOOL_VERSION = "0.1.0"
 BOOTSTRAP_INSTALL_URL = "https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh"
 
 FORBIDDEN_FILENAMES = {".env", "auth.json", "config.toml"}
@@ -71,6 +71,18 @@ def expand_path(value: str) -> Path:
 
 def default_repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
+
+
+def read_tool_version(repo_root: Path) -> str:
+    version_file = repo_root / "VERSION"
+    if not version_file.is_file():
+        return DEFAULT_TOOL_VERSION
+    lines = version_file.read_text(encoding="utf-8").splitlines()
+    for line in lines:
+        version = line.strip()
+        if version:
+            return version.lstrip("v")
+    return DEFAULT_TOOL_VERSION
 
 
 def resolve_paths(args: argparse.Namespace) -> Paths:
@@ -246,7 +258,8 @@ def resolve_skill_source(
 
 
 def command_version(args: argparse.Namespace) -> int:
-    print(f"Engineering Bible AI be {TOOL_VERSION}")
+    version = read_tool_version(default_repo_root())
+    print(f"Engineering Bible AI be {version}")
     return 0
 
 
@@ -274,6 +287,8 @@ def doctor_checks(paths: Paths) -> list[dict[str, str]]:
         "scripts/secret-sanity.sh",
         "skills/registry.yml",
         "skills/workflow-router/SKILL.md",
+        "VERSION",
+        ".secret-sanity-allowlist",
     ]
     missing = [relative for relative in required_files if not (paths.repo_root / relative).is_file()]
     if missing:
@@ -315,7 +330,7 @@ def command_doctor(args: argparse.Namespace) -> int:
     status = aggregate_status(checks)
     payload = {
         "tool": "be",
-        "version": TOOL_VERSION,
+        "version": read_tool_version(paths.repo_root),
         "status": status,
         "paths": {
             "repo_root": str(paths.repo_root),
@@ -345,6 +360,7 @@ def command_validate(args: argparse.Namespace) -> int:
         ["python3", "scripts/validate-skill-frontmatter.py", str(checkout / "skills")],
         ["python3", "scripts/validate-router-cases.py", "--root", str(checkout), "--static"],
         ["python3", "scripts/check-file-size.py", str(checkout), "--hard", "10000"],
+        ["python3", "scripts/validate-markdown-style.py", str(checkout)],
     ]
 
     if shutil.which("rg"):

@@ -14,6 +14,8 @@
 - `docs/`
 - `.github/`
 - `Makefile`
+- `VERSION`
+- `.secret-sanity-allowlist`
 
 ## OSS Files
 
@@ -49,6 +51,7 @@
 - `scripts/validate-skill-frontmatter.py`
 - `scripts/check-file-size.py`
 - `scripts/secret-sanity.sh`
+- `scripts/validate-markdown-style.py`
 
 ## Default Skill Groups
 
@@ -66,8 +69,9 @@ Routers:
 `ui-figma`, `ui-qa`.
 
 Review:
-`architecture-map`, `migration-planner`, `multi-agent-pr-review`,
-`subagent-result-merge`, `agent-retrospective`, `agents-md-retrospective`.
+`architecture-map`, `architecture-normalizer`, `migration-planner`,
+`multi-agent-pr-review`, `subagent-result-merge`, `agent-retrospective`,
+`agents-md-retrospective`.
 
 Security:
 `security-diff-review`, `fix-security-finding`, `threat-model`,

@@ -1,10 +1,11 @@
 PYTHON ?= python3
-CURL_INSTALL_REF ?= v0.1.0
+PACKAGE_VERSION := $(strip $(shell cat VERSION 2>/dev/null || echo main))
+CURL_INSTALL_REF ?= main
 CURL_INSTALL_URL ?= https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/$(CURL_INSTALL_REF)/scripts/install.sh
 CODEX_HOME ?= $(HOME)/.codex
 AGENTS_HOME ?= $(HOME)/.agents
 
-.PHONY: help validate audit quality-audit-tests validate-tree validate-skills validate-registry validate-router-cases validate-install size secrets shell-syntax py-compile be-smoke be-audit be-update be-self-update be-add-skill dry-run install install-all install-wiki install-command
+.PHONY: help validate audit quality-audit-tests validate-tree validate-skills validate-registry validate-router-cases validate-install size secrets shell-syntax shell-lint markdown-lint py-compile be-smoke be-audit be-update be-self-update be-add-skill dry-run install install-all install-wiki install-command
 
 	help:
 	@printf '%s\n' \
@@ -13,6 +14,8 @@ AGENTS_HOME ?= $(HOME)/.agents
 		'  make quality-audit-tests  Run quality gate audit tests' \
 		'  make validate              Run all repository-local and temp install checks' \
 		'  make validate-install      Install into a temp HOME and validate installed tree' \
+		'  make shell-lint             Run shellcheck/shfmt checks' \
+		'  make markdown-lint          Run markdown style checks' \
 		'  make be-smoke              Run be CLI smoke tests' \
 		'  make be-audit              Run be audit from CLI' \
 		'  make be-update             Run be update (same as `be update`)' \
@@ -26,7 +29,7 @@ AGENTS_HOME ?= $(HOME)/.agents
 		'' \
 		'Variables:' \
 		'  PYTHON                     Python executable, default: python3' \
-		'  CURL_INSTALL_REF           GitHub ref for curl installer, default: v0.1.0' \
+            '  CURL_INSTALL_REF           GitHub ref for curl installer, default: $(CURL_INSTALL_REF)' \
 		'  SOURCE                     be-add-skill source argument' \
 		'  NAME                       Optional be-add-skill --name' \
 		'  REF                        Optional be-add-skill --ref for git sources' \
@@ -34,7 +37,7 @@ AGENTS_HOME ?= $(HOME)/.agents
 		'  CODEX_HOME                 Passed through to scripts/install-codex.sh' \
 		'  AGENTS_HOME                Passed through to scripts/install-codex.sh'
 
-validate: validate-tree validate-skills validate-registry validate-router-cases audit quality-audit-tests size secrets shell-syntax py-compile be-smoke validate-install
+validate: validate-tree validate-skills validate-registry validate-router-cases audit quality-audit-tests size secrets shell-lint markdown-lint shell-syntax py-compile be-smoke validate-install
 
 validate-tree:
 	bash scripts/validate-repo-tree.sh .
@@ -66,8 +69,29 @@ size:
 secrets:
 	bash scripts/secret-sanity.sh .
 
+shell-lint:
+	@if ! command -v shellcheck >/dev/null 2>&1; then \
+		echo "shellcheck not found"; \
+		exit 1; \
+	fi
+	shellcheck scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-installed-tree.sh scripts/validate-repo-tree.sh scripts/validate-skill-tree.sh skills/workflow-router/scripts/validate-routing.sh
+
+	@if ! command -v shfmt >/dev/null 2>&1; then \
+		echo "shfmt not found"; \
+		exit 1; \
+	fi
+	@unformatted=$$(shfmt -l scripts/*.sh skills/workflow-router/scripts/validate-routing.sh); \
+	if [ -n "$$unformatted" ]; then \
+		echo "shfmt would change:"; \
+		echo "$$unformatted"; \
+		exit 1; \
+	fi
+
 shell-syntax:
 	bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-installed-tree.sh scripts/validate-repo-tree.sh scripts/validate-skill-tree.sh skills/workflow-router/scripts/validate-routing.sh
+
+markdown-lint:
+	$(PYTHON) scripts/validate-markdown-style.py .
 
 py-compile:
 	find scripts skills -name '*.py' -print0 | xargs -0 $(PYTHON) -m py_compile
