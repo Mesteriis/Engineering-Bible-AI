@@ -47,6 +47,10 @@ FORBIDDEN_NAMES = {
     "config.toml",
 }
 
+FORBIDDEN_NAME_PREFIXES = {
+    ".env.",
+}
+
 FORBIDDEN_SUFFIXES = {
     ".pem",
     ".key",
@@ -170,7 +174,11 @@ class Audit:
             if not path.is_file():
                 continue
             relative = path.relative_to(self.root).as_posix()
-            if path.name in FORBIDDEN_NAMES or path.suffix in FORBIDDEN_SUFFIXES:
+            if (
+                path.name in FORBIDDEN_NAMES
+                or any(path.name.startswith(prefix) for prefix in FORBIDDEN_NAME_PREFIXES)
+                or path.suffix in FORBIDDEN_SUFFIXES
+            ):
                 self.issues.append(f"forbidden runtime file: {relative}")
         if len(self.issues) == before:
             self.passed.append("runtime boundary")

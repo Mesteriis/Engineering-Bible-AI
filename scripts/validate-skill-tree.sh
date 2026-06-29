@@ -150,7 +150,7 @@ if ! grep -q "workflow-router" "$ROOT/AGENTS.md"; then
   exit 1
 fi
 
-if find "$ROOT" -path "$ROOT/.git" -prune -o -type f \( \
+if find "$ROOT" \( -path "$ROOT/.git" -o -path "$ROOT/.worktrees" \) -prune -o -type f \( \
   -name ".env" -o \
   -name ".env.*" -o \
   -name "auth.json" -o \
