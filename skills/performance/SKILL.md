@@ -65,6 +65,7 @@ Report:
 - tradeoffs/risks.
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/18_performance_philosophy.md`
+- `../../engineering/18_performance_philosophy.md`

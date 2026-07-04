@@ -45,6 +45,27 @@ explicitly invokes a narrower skill.
 - Documents, PDFs, spreadsheets, slides, Gmail, calendar, Drive, Canva, or
   Hugging Face work -> matching plugin skill.
 
+### Adversarial Discussion Mode (Opponent / Оппонирование)
+
+When the request is decision-oriented (comparisons, trade-offs, approach choices,
+risk analysis, naming of alternatives, policy/architecture options) and does
+**not** contain an explicit implementation order (`сделай`, `выполни`,
+`implement`, `давай сделать`, etc.), this router should prefer:
+
+- `quality-gates`
+- `engineering-standards`
+- `core-engineering`
+- `documentation` (for option framing and assumptions logs)
+
+In this mode, the agent must use debate-by-default behavior: challenge
+assumptions, give 1-3 viable alternatives with trade-offs, and ask for
+final confirmation before changing files.
+
+If uncertainty is high, force a short self-check before answering:
+
+- "Какая гипотеза может быть ложной?"
+- "Что изменится, если принять противоположное предположение?"
+
 ## Priority
 
 Auto-routing is the default. Direct invocation still wins: if the user names
@@ -59,6 +80,7 @@ Before substantive work, briefly say:
 - active skill(s)
 - why they were selected
 - any next skill to read if the request is mixed
+- if adversarial mode is active: list `discussion-mode: active` and the alternatives you'll compare.
 
 ## Healthcheck
 

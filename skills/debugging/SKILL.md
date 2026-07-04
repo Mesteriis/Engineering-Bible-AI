@@ -75,6 +75,7 @@ Final debugging report should include:
 - remaining risks.
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/14_debugging_philosophy.md`
+- `../../engineering/14_debugging_philosophy.md`

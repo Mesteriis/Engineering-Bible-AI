@@ -194,10 +194,11 @@ Bad comments narrate obvious code.
 - public API changes without explicit intent.
 ## Extended References
 
+
 For deeper quality work, read the relevant documents:
 
-- `engineering/06_responsibility_model.md`
-- `engineering/07_complexity_budget.md`
-- `engineering/08_engineering_smells.md`
-- `engineering/10_antipattern_catalog.md`
-- `engineering/12_naming_bible.md`
+- `../../engineering/06_responsibility_model.md`
+- `../../engineering/07_complexity_budget.md`
+- `../../engineering/08_engineering_smells.md`
+- `../../engineering/10_antipattern_catalog.md`
+- `../../engineering/12_naming_bible.md`

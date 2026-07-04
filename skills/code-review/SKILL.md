@@ -102,6 +102,7 @@ Check:
 Do not bury important findings under twenty naming comments. Human attention is already a scarce resource, mostly wasted on meetings.
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/20_review_checklist.md`
+- `../../engineering/20_review_checklist.md`

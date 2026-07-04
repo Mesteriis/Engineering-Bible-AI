@@ -59,7 +59,8 @@ Good documentation is:
 - secret values in examples.
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/19_documentation_style.md`
-- `engineering/24_task_todo_style.md`
+- `../../engineering/19_documentation_style.md`
+- `../../engineering/24_task_todo_style.md`

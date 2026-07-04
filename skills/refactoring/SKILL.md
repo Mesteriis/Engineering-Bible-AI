@@ -68,8 +68,9 @@ Report:
 - risks.
 ## Extended References
 
+
 For deeper refactoring work, read:
 
-- `engineering/07_complexity_budget.md`
-- `engineering/08_engineering_smells.md`
-- `engineering/11_refactoring_catalog.md`
+- `../../engineering/07_complexity_budget.md`
+- `../../engineering/08_engineering_smells.md`
+- `../../engineering/11_refactoring_catalog.md`

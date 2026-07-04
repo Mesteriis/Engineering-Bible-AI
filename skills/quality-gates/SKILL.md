@@ -18,10 +18,10 @@ skills. It composes with them.
 
 Read only the references needed for the task:
 
-- `engineering/35_evidence_contract.md` for claims, facts, validation, and uncertainty.
-- `engineering/36_task_lifecycle_gates.md` for task scope, inspection, planning, validation, and reporting.
-- `engineering/37_review_regression_gates.md` for diff-risk review and regression coverage.
-- `engineering/38_library_drift_audit.md` for repository integrity and portable-tree drift.
+- `../../engineering/35_evidence_contract.md` for claims, facts, validation, and uncertainty.
+- `../../engineering/36_task_lifecycle_gates.md` for task scope, inspection, planning, validation, and reporting.
+- `../../engineering/37_review_regression_gates.md` for diff-risk review and regression coverage.
+- `../../engineering/38_library_drift_audit.md` for repository integrity and portable-tree drift.
 
 ## When To Use
 

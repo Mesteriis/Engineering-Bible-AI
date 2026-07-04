@@ -91,11 +91,12 @@ Report exact commands and results.
 If validation cannot be run, explain why.
 ## Shared Cross-Ecosystem Style
 
+
 Apply the shared engineering style from:
 
-- `engineering/05_design_principles.md`
-- `engineering/06_responsibility_model.md`
-- `engineering/07_complexity_budget.md`
-- `engineering/12_naming_bible.md`
+- `../../engineering/05_design_principles.md`
+- `../../engineering/06_responsibility_model.md`
+- `../../engineering/07_complexity_budget.md`
+- `../../engineering/12_naming_bible.md`
 
 Language-specific idioms control syntax and ecosystem details, but they must not weaken the core rules: small cohesive units, explicit boundaries, honest validation, no dumping grounds, and no fake placeholders.

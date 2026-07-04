@@ -132,6 +132,7 @@ Validation:
 ```
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/13_testing_philosophy.md`
+- `../../engineering/13_testing_philosophy.md`

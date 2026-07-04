@@ -107,6 +107,7 @@ Report:
 - residual risk.
 ## Extended References
 
+
 For deeper work, read:
 
-- `engineering/16_security_philosophy.md`
+- `../../engineering/16_security_philosophy.md`

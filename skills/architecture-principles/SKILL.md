@@ -149,9 +149,10 @@ Before finishing an architectural change, verify:
 - no layer gained unrelated responsibilities.
 ## Extended References
 
+
 For deeper architecture work, read the relevant documents:
 
-- `engineering/05_design_principles.md`
-- `engineering/06_responsibility_model.md`
-- `engineering/09_architectural_smells.md`
-- `engineering/22_evolution_rules.md`
+- `../../engineering/05_design_principles.md`
+- `../../engineering/06_responsibility_model.md`
+- `../../engineering/09_architectural_smells.md`
+- `../../engineering/22_evolution_rules.md`

@@ -51,3 +51,12 @@ cases:
         - architecture-principles
         - refactoring
         - documentation
+
+  - id: adversarial-discussion
+    prompt: "Сравни 2 подхода к кэшированию (Redis vs in-memory), какой выбрать?"
+    expect:
+      skills:
+        - quality-gates
+        - engineering-standards
+        - core-engineering
+        - documentation
