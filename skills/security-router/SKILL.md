@@ -1,5 +1,5 @@
 ---
-name: security-router
+name: [be] security-router
 description: "Security autorouter for authorized code. Use after workflow-router, or directly, for security scans, security diff reviews, threat models, fixing findings, authz/tenant boundary review, secrets/config review, parser/deserialization review, dependency advisory triage, and supply-chain review."
 ---
 

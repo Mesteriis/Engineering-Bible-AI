@@ -1,5 +1,5 @@
 ---
-name: typescript
+name: [be] typescript
 description: "Apply repository-aware TypeScript and JavaScript rules for tooling, types, tests, and architecture."
 ---
 

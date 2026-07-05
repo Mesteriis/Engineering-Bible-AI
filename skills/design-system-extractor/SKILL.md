@@ -1,5 +1,5 @@
 ---
-name: design-system-extractor
+name: [be] design-system-extractor
 description: "Extract design tokens, typography, spacing, component anatomy, states, assets, layout rules, responsive behavior, and interaction patterns from a Figma frame, screenshot, existing UI, design system, or accepted visual concept."
 ---
 

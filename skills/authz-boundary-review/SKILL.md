@@ -1,5 +1,5 @@
 ---
-name: authz-boundary-review
+name: [be] authz-boundary-review
 description: "Review authorization, tenant isolation, role checks, object ownership, row-level access, admin boundaries, invite/share flows, and privilege escalation risk in code or diffs."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: code-quality
+name: [be] code-quality
 description: "Apply cohesion, naming, size, responsibility, and maintainability discipline to code changes."
 ---
 

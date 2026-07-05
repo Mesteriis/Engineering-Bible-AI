@@ -1,5 +1,5 @@
 ---
-name: agent-retrospective
+name: [be] agent-retrospective
 description: "Analyze an agent run after repeated failures, noisy routing, missed validation, bad edits, or inefficient skill choice. Use to produce concrete changes to AGENTS.md, skill descriptions, routing rules, validation gates, or runbooks."
 ---
 

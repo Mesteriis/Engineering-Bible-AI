@@ -1,5 +1,5 @@
 ---
-name: ui-qa
+name: [be] ui-qa
 description: UI validation and review router. Use after ui-router for browser testing, visual QA, UI regressions, frontend performance review, or code review of rendered UI. Routes to the matching QA/review skill and requires reading that skill's SKILL.md before acting.
 ---
 

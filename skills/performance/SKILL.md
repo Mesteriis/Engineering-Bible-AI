@@ -1,5 +1,5 @@
 ---
-name: performance
+name: [be] performance
 description: "Improve performance only from evidence while preserving correctness and maintainability."
 ---
 

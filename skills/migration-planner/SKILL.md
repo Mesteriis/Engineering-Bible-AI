@@ -1,5 +1,5 @@
 ---
-name: migration-planner
+name: [be] migration-planner
 description: "Plan a migration across framework versions, APIs, schemas, services, packages, UI systems, build tools, or infrastructure. Use before broad changes to split work into safe slices with rollback, validation gates, and dependency ordering."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: c-cpp
+name: [be] c-cpp
 description: "Apply repository-aware C and C++ rules for safety, ownership, ABI, builds, and validation."
 ---
 

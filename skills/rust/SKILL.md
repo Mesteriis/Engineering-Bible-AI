@@ -1,5 +1,5 @@
 ---
-name: rust
+name: [be] rust
 description: "Apply repository-aware Rust rules for ownership, modules, errors, safety, tests, and tooling."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: secrets-and-config-review
+name: [be] secrets-and-config-review
 description: "Review secrets handling, configuration defaults, environment variable usage, logs, credentials, token exposure, .env policy, CI secrets, and unsafe local or production config. Use for security review of config and secret surfaces."
 ---
 

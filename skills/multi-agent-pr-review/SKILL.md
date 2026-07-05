@@ -1,5 +1,5 @@
 ---
-name: multi-agent-pr-review
+name: [be] multi-agent-pr-review
 description: "Read-only multi-agent review for a PR, branch, commit, or local Git diff. Use when independent review dimensions such as security, bugs, tests, maintainability, performance, and UI regressions can be analyzed in parallel, then merged into one severity-ranked report."
 ---
 

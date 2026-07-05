@@ -1,5 +1,5 @@
 ---
-name: homeassistant
+name: [be] homeassistant
 description: "Apply safe Home Assistant rules for automations, templates, integrations, and entity behavior."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: go
+name: [be] go
 description: "Apply repository-aware Go rules for small packages, explicit errors, interfaces, tests, and tooling."
 ---
 

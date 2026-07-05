@@ -1,5 +1,5 @@
 ---
-name: accessibility-ui-review
+name: [be] accessibility-ui-review
 description: "Review UI accessibility for keyboard navigation, focus states, semantics, labels, contrast, motion reduction, form errors, dialogs, menus, tables, charts, and screen-reader-relevant structure."
 ---
 

@@ -215,7 +215,10 @@ class Audit:
 
         if not quality.startswith("---"):
             self.issues.append("invalid skill frontmatter: skills/quality-gates/SKILL.md")
-        if "name: quality-gates" not in quality:
+        if (
+            "name: quality-gates" not in quality
+            and "name: [be] quality-gates" not in quality
+        ):
             self.issues.append("missing skill name: skills/quality-gates/SKILL.md")
         if "description:" not in quality:
             self.issues.append("missing skill description: skills/quality-gates/SKILL.md")

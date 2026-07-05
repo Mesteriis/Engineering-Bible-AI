@@ -1,5 +1,5 @@
 ---
-name: dependency-advisory-audit
+name: [be] dependency-advisory-audit
 description: "Triage dependency CVEs, advisories, vulnerable packages, lockfile changes, or dependency upgrade risk. Use to determine real reachability, affected versions, exploitability in this repo, patch options, and validation commands."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: threat-model
+name: [be] threat-model
 description: "Build a threat model for a repository, service, feature, endpoint, integration, or architecture change. Use for trust boundaries, assets, attackers, entrypoints, auth/authz, data flows, abuse cases, and security review preparation."
 ---
 

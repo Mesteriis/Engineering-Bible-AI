@@ -1,5 +1,5 @@
 ---
-name: esphome
+name: [be] esphome
 description: "Apply safe ESPHome rules for YAML, lambdas, sensors, switches, relays, and validation."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: code-review
+name: [be] code-review
 description: "Review code for correctness, safety, architecture, maintainability, and test coverage."
 ---
 

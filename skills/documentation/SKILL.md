@@ -1,5 +1,5 @@
 ---
-name: documentation
+name: [be] documentation
 description: "Keep technical documentation accurate, minimal, and tied to implemented behavior."
 ---
 

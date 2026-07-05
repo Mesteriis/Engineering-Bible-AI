@@ -1,5 +1,5 @@
 ---
-name: core-engineering
+name: [be] core-engineering
 description: "Default production engineering workflow for implementation, maintenance, and validation."
 ---
 

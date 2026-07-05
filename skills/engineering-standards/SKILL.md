@@ -1,5 +1,5 @@
 ---
-name: engineering-standards
+name: [be] engineering-standards
 description: "Apply the shared engineering standards library for principles, smells, naming, refactoring, and task style."
 ---
 

@@ -35,6 +35,12 @@ def parse_frontmatter(path: Path) -> dict[str, str]:
     raise ValueError("missing closing frontmatter marker")
 
 
+def canonical_name(name: str) -> str:
+    if name.startswith("[be] "):
+        return name[5:]
+    return name
+
+
 def validate_skill(skill_dir: Path) -> list[str]:
     errors: list[str] = []
     skill_file = skill_dir / "SKILL.md"
@@ -48,8 +54,9 @@ def validate_skill(skill_dir: Path) -> list[str]:
 
     name = metadata.get("name", "")
     description = metadata.get("description", "")
+    canonical = canonical_name(name)
 
-    if name != skill_dir.name:
+    if canonical != skill_dir.name:
         errors.append(f"{skill_file}: name {name!r} does not match directory {skill_dir.name!r}")
     if not description:
         errors.append(f"{skill_file}: missing description")

@@ -1,5 +1,5 @@
 ---
-name: deserialization-parser-review
+name: [be] deserialization-parser-review
 description: "Review parsers, deserialization, file uploads, archives, YAML/JSON/XML/pickle loading, template parsing, path handling, SSRF through parsers, and unsafe loader behavior."
 ---
 

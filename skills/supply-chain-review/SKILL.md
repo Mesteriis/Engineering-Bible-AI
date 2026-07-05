@@ -1,5 +1,5 @@
 ---
-name: supply-chain-review
+name: [be] supply-chain-review
 description: "Review software supply-chain risk: lockfiles, install scripts, package provenance, CI/CD permissions, release workflows, dependency confusion, build artifacts, registries, and package publishing."
 ---
 

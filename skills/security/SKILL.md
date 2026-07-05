@@ -1,5 +1,5 @@
 ---
-name: security
+name: [be] security
 description: "Handle security-sensitive work with conservative assumptions, explicit validation, and secret safety."
 ---
 

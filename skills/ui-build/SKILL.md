@@ -1,5 +1,5 @@
 ---
-name: ui-build
+name: [be] ui-build
 description: UI design and implementation router. Use after ui-router for landing pages, portfolios, redesigns, general frontend UI, image-led website concepts, or style-constrained builds. Routes to the matching build skill and requires reading that skill's SKILL.md before acting.
 ---
 

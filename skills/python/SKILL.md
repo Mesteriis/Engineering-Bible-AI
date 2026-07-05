@@ -1,5 +1,5 @@
 ---
-name: python
+name: [be] python
 description: "Apply repository-aware senior Python engineering rules for typing, async, tests, and architecture."
 ---
 

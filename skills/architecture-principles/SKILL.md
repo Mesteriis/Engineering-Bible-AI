@@ -1,5 +1,5 @@
 ---
-name: architecture-principles
+name: [be] architecture-principles
 description: "Preserve boundaries, dependency direction, domain clarity, and long-term architecture quality."
 ---
 

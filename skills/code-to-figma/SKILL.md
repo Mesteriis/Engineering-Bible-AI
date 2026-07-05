@@ -1,5 +1,5 @@
 ---
-name: code-to-figma
+name: [be] code-to-figma
 description: "Send, recreate, or connect an implemented UI back into Figma. Use for live UI to editable Figma layers, Code Connect mapping, component library updates, design handoff, and keeping Figma in sync with production components."
 ---
 

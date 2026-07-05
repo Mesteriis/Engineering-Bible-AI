@@ -1,5 +1,5 @@
 ---
-name: architecture-map
+name: [be] architecture-map
 description: "Map a repository or subsystem architecture before changes, reviews, migrations, onboarding, or agent handoff. Use for bounded domains, ownership boundaries, dependency direction, entrypoints, test surfaces, runtime services, and risk hotspots."
 ---
 

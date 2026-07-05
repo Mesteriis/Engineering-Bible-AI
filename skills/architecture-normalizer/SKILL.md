@@ -1,5 +1,5 @@
 ---
-name: architecture-normalizer
+name: [be] architecture-normalizer
 description: Deterministic architecture normalization for large or monolithic source trees. Use when asked to analyze, plan, or execute reviewed module restructuring; split god files/classes/packages; reduce coupling; improve cohesion; preserve public APIs; or generate and execute .architecture artifacts for Python, Rust, Go, TypeScript, JavaScript, C++, or C repositories.
 ---
 

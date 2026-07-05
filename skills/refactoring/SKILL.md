@@ -1,5 +1,5 @@
 ---
-name: refactoring
+name: [be] refactoring
 description: "Improve structure without behavior changes unless explicitly requested and validated."
 ---
 

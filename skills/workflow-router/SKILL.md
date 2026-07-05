@@ -1,5 +1,5 @@
 ---
-name: workflow-router
+name: [be] workflow-router
 description: "Primary autorouting entrypoint for non-trivial engineering prompts. Use first for PR/diff review, security review, UI/frontend work, Figma/code workflows, migrations, architecture exploration, dependency/advisory checks, or requests that mention multiple skills. Chooses the smallest downstream skill set while keeping each selected skill directly runnable."
 ---
 
