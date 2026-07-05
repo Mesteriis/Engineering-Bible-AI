@@ -57,8 +57,9 @@
 
 Core:
 `workflow-router`, `engineering-standards`, `core-engineering`, `code-quality`,
-`architecture-principles`, `testing-tdd`, `debugging`, `code-review`,
-`security`, `performance`, `refactoring`, `documentation`, `quality-gates`.
+`architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`,
+`code-review`, `security`, `performance`, `refactoring`, `documentation`,
+`quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
 
 Ecosystems:
 `python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`,
@@ -70,7 +71,8 @@ Routers:
 
 Review:
 `architecture-map`, `architecture-normalizer`, `migration-planner`,
-`multi-agent-pr-review`, `subagent-result-merge`, `agent-retrospective`,
+`multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`,
+`subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`,
 `agents-md-retrospective`.
 
 Security:

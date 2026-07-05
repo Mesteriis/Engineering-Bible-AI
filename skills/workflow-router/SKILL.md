@@ -27,12 +27,29 @@ explicitly invokes a narrower skill.
 - General implementation, bug fixing, debugging, refactoring, documentation,
   performance work, or language/ecosystem-specific engineering -> select the
   smallest applicable engineering skills:
-  `quality-gates`, `engineering-standards`, `core-engineering`, `debugging`, `testing-tdd`, `code-quality`,
-  `architecture-principles`, `refactoring`, `documentation`, `performance`,
-  and the relevant ecosystem skill (`python`, `typescript`, `rust`, `go`,
-  `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
+  `quality-gates`, `karpathy-guidelines`, `engineering-standards`,
+  `core-engineering`, `debugging`, `testing-tdd`, `tdd-guard`,
+  `code-quality`, `architecture-principles`, `refactoring`, `documentation`,
+  `performance`, and the relevant ecosystem skill (`python`, `typescript`,
+  `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
 - Evidence, validation claims, task lifecycle, completion review, regression
   gates, or repository drift concerns -> `quality-gates`.
+- Behavior changes that should be test-first, bug regressions, or requests that
+  mention TDD/test blocking/guardrails -> `tdd-guard`.
+- Large context handoff, repository packing, AI-friendly code bundles,
+  Repomix-style output, or sharing context with another model -> `context-pack`.
+- Durable cross-session facts, preferences, memory deltas, handoff notes, or
+  "remember this" requests -> `session-memory`.
+- Parallel implementation lanes, multiple agents/worktrees, Claude Squad-style
+  orchestration, or independent implementation/test/review streams ->
+  `agent-squad`.
+- Specialist agent/team selection, role dispatch, or requests for a team of
+  architecture/security/frontend/data/docs reviewers -> `specialist-dispatch`.
+- External agent/skill/plugin packs, marketplaces, Claude Code packs, hooks, or
+  "install/adapt this repo" requests -> `external-agent-pack-audit` before
+  copying or executing anything.
+- Agent overconfidence, unclear assumptions, overengineering risk, dead code,
+  or "Karpathy rules" style discipline -> `karpathy-guidelines`.
 - Broad standards work, responsibility boundary analysis, complexity budgets,
   engineering smells, naming rules, refactoring catalogs, or long TODO/task-plan
   structure -> `engineering-standards`.
@@ -53,6 +70,7 @@ risk analysis, naming of alternatives, policy/architecture options) and does
 `implement`, `давай сделать`, etc.), this router should prefer:
 
 - `quality-gates`
+- `karpathy-guidelines`
 - `engineering-standards`
 - `core-engineering`
 - `documentation` (for option framing and assumptions logs)
@@ -87,9 +105,10 @@ Before substantive work, briefly say:
 When asked to verify, repair, or remove routing risk, run:
 
 ```bash
-bash ~/.agents/skills/workflow-router/scripts/validate-routing.sh
+bash ~/.codex/skills/workflow-router/scripts/validate-routing.sh
 ```
 
-The script checks mirrored skill files, managed global instruction blocks,
-Codex skill frontmatter validation, missing template placeholder text, and
-Codex prompt-input visibility for key routing skills.
+The script checks managed Codex skill files, absence of duplicate managed skills
+in `~/.agents/skills`, reference docs in `~/.agents/engineering`, global
+instruction blocks, template placeholders, and Codex prompt-input visibility for
+key routing skills.

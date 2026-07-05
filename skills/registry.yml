@@ -14,6 +14,7 @@ groups:
     - code-quality
     - architecture-principles
     - testing-tdd
+    - tdd-guard
     - debugging
     - code-review
     - security
@@ -21,6 +22,9 @@ groups:
     - refactoring
     - documentation
     - quality-gates
+    - karpathy-guidelines
+    - context-pack
+    - session-memory
   ecosystems:
     - python
     - typescript
@@ -43,7 +47,10 @@ groups:
     - architecture-normalizer
     - migration-planner
     - multi-agent-pr-review
+    - agent-squad
+    - specialist-dispatch
     - subagent-result-merge
+    - external-agent-pack-audit
     - agent-retrospective
     - agents-md-retrospective
   security:

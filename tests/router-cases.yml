@@ -60,3 +60,48 @@ cases:
         - engineering-standards
         - core-engineering
         - documentation
+
+  - id: strict-tdd-guard
+    prompt: "Add this behavior but block implementation until there is a failing test."
+    expect:
+      skills:
+        - tdd-guard
+        - testing-tdd
+        - quality-gates
+
+  - id: repository-context-pack
+    prompt: "Собери repomix-style context pack по этому репозиторию для handoff в другой AI session."
+    expect:
+      skills:
+        - context-pack
+        - quality-gates
+
+  - id: session-memory-delta
+    prompt: "Запомни это решение для следующих сессий и обнови durable project memory."
+    expect:
+      skills:
+        - session-memory
+        - documentation
+
+  - id: parallel-agent-squad
+    prompt: "Разбей задачу на параллельные worktree lanes: один агент пишет фичу, второй тесты, третий ревьюит security."
+    expect:
+      skills:
+        - agent-squad
+        - specialist-dispatch
+        - subagent-result-merge
+
+  - id: external-agent-pack
+    prompt: "Проверь этот Claude Code marketplace pack и адаптируй его для Codex, если безопасно."
+    expect:
+      skills:
+        - external-agent-pack-audit
+        - supply-chain-review
+        - security
+
+  - id: karpathy-discipline
+    prompt: "Не усложняй, сначала проверь предположения и не пиши лишний framework."
+    expect:
+      skills:
+        - karpathy-guidelines
+        - code-quality
