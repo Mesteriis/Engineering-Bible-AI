@@ -23,6 +23,7 @@ managed_codex_paths=(
 
 managed_agents_paths=(
     "skills/registry.yml"
+    "engineering"
 )
 
 required_files=(
@@ -56,6 +57,10 @@ done
 
 if [[ ! -f "$AGENTS_ROOT/skills/registry.yml" ]]; then
     echo "missing installed Agents registry: skills/registry.yml" >&2
+    missing=1
+fi
+if [[ ! -f "$AGENTS_ROOT/engineering/README.md" ]]; then
+    echo "missing installed Agents reference docs: engineering/README.md" >&2
     missing=1
 fi
 

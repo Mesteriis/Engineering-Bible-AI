@@ -169,6 +169,7 @@ def build_plan(options: InstallerOptions, skills: list[str]) -> list[CopyPlan]:
 
     add_path("skills/registry.yml", options.codex_home / "skills" / "registry.yml")
     add_path("skills/registry.yml", options.agents_home / "skills" / "registry.yml", "agents-skills/registry.yml")
+    add_path("engineering", options.agents_home / "engineering")
 
     for skill in skills:
         add_path(f"skills/{skill}", options.codex_home / "skills" / skill)

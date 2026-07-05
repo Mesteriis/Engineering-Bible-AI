@@ -267,6 +267,15 @@ class BeCliTests(unittest.TestCase):
             self.assertTrue((tmp / "codex" / "skills" / "code-wiki-ru" / "SKILL.md").is_file())
             self.assertTrue((tmp / "agents" / "skills" / "code-wiki-ru" / "SKILL.md").is_file())
 
+    def test_install_copies_engineering_docs_into_agents_root(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", tmp=tmp)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((tmp / "agents" / "engineering" / "README.md").is_file())
+            self.assertTrue((tmp / "agents" / "engineering" / "35_evidence_contract.md").is_file())
+
     def test_update_runs_bootstrap_install_script(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)
