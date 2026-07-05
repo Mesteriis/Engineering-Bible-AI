@@ -459,7 +459,6 @@ def command_add_skill(args: argparse.Namespace) -> int:
 
         destinations = [
             (paths.codex_home / "skills" / "external" / skill_name),
-            (paths.agents_home / "skills" / "external" / skill_name),
             (paths.be_home / "skills" / "external" / skill_name),
         ]
 

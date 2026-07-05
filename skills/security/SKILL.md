@@ -1,6 +1,6 @@
 ---
 name: [be] security
-description: "Handle security-sensitive work with conservative assumptions, explicit validation, and secret safety."
+description: "Ведёт security-sensitive work с консервативными предположениями, явной валидацией и защитой secrets."
 ---
 
 # Skill: security

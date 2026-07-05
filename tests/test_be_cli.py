@@ -265,7 +265,7 @@ class BeCliTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((tmp / "codex" / "skills" / "code-wiki-ru" / "SKILL.md").is_file())
-            self.assertTrue((tmp / "agents" / "skills" / "code-wiki-ru" / "SKILL.md").is_file())
+            self.assertFalse((tmp / "agents" / "skills" / "code-wiki-ru" / "SKILL.md").exists())
 
     def test_install_copies_engineering_docs_into_agents_root(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
@@ -275,6 +275,24 @@ class BeCliTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue((tmp / "agents" / "engineering" / "README.md").is_file())
             self.assertTrue((tmp / "agents" / "engineering" / "35_evidence_contract.md").is_file())
+            self.assertFalse((tmp / "agents" / "skills" / "quality-gates" / "SKILL.md").exists())
+
+    def test_install_removes_stale_managed_agent_skill_copy(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            stale_skill = tmp / "agents" / "skills" / "go"
+            stale_skill.mkdir(parents=True)
+            (stale_skill / "SKILL.md").write_text(
+                "---\nname: [be] go\ndescription: stale\n---\n",
+                encoding="utf-8",
+            )
+
+            result = self.run_be("install", tmp=tmp)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertFalse(stale_skill.exists())
+            backups = sorted((tmp / "codex" / "backups").glob("engineering-bible-ai-*/agents-skills/go/SKILL.md"))
+            self.assertEqual(len(backups), 1)
 
     def test_update_runs_bootstrap_install_script(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
@@ -337,7 +355,7 @@ class BeCliTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn("installed external skill", result.stdout)
             self.assertTrue(installed.is_dir())
-            self.assertTrue(installed_agents.is_dir())
+            self.assertFalse(installed_agents.exists())
             self.assertTrue(installed_be_home.is_dir())
             self.assertTrue((installed / "SKILL.md").is_file())
 

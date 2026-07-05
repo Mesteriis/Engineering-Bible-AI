@@ -1,6 +1,6 @@
 ---
 name: [be] code-quality
-description: "Apply cohesion, naming, size, responsibility, and maintainability discipline to code changes."
+description: "Применяет дисциплину связности, именования, размера, ответственности и поддерживаемости к изменениям кода."
 ---
 
 # Skill: code-quality

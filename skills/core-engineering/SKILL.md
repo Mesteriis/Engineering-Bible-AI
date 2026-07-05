@@ -1,6 +1,6 @@
 ---
 name: [be] core-engineering
-description: "Default production engineering workflow for implementation, maintenance, and validation."
+description: "Базовый production engineering workflow для реализации, сопровождения и валидации."
 ---
 
 # Skill: core-engineering

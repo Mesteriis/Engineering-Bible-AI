@@ -1,6 +1,6 @@
 ---
 name: [be] agents-md-retrospective
-description: "Update AGENTS.md or global agent instructions after repeated, verified agent mistakes. Use for durable repo/user guidance improvements, routing rules, validation commands, safety constraints, or workflow clarifications."
+description: "Обновляет AGENTS.md или глобальные инструкции агента после повторных подтверждённых ошибок; подходит для устойчивых правил репозитория, роутинга, команд валидации, safety-ограничений и уточнений workflow."
 ---
 
 # AGENTS.md Retrospective

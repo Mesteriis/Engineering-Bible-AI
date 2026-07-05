@@ -1,6 +1,6 @@
 ---
 name: [be] debugging
-description: "Debug failures by reproducing, isolating evidence, testing hypotheses, and fixing root causes."
+description: "Отлаживает сбои через воспроизведение, сбор фактов, проверку гипотез и исправление первопричины."
 ---
 
 # Skill: debugging

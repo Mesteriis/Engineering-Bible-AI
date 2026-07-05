@@ -111,10 +111,12 @@ curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main
 `--install`. `ENGINEERING_BIBLE_REF` можно переопределить на нужный tag, branch
 или commit (например, `ENGINEERING_BIBLE_REF=v0.1.0`) при необходимости.
 
-Installer пишет только managed portable files в `CODEX_HOME`, `AGENTS_HOME` и
-путь wrapper `be`. Он показывает `ADD`, `UPDATE`, `UNCHANGED`, `SKIP` и
-`CONFLICT`. Изменённые managed targets не перезаписываются без `--force`.
-`--no-overwrite` копирует только отсутствующие targets.
+Installer пишет skills в `CODEX_HOME`, общие reference-доки в `CODEX_HOME` и
+`AGENTS_HOME`, а также wrapper `be`. Старые managed-зеркала skills из
+`AGENTS_HOME` удаляются после backup, чтобы Codex UI не показывал дубли. Он
+показывает `ADD`, `UPDATE`, `REMOVE`, `UNCHANGED`, `SKIP` и `CONFLICT`.
+Изменённые managed targets не перезаписываются без `--force`. `--no-overwrite`
+копирует только отсутствующие targets и оставляет obsolete mirrors на месте.
 
 После установки пакет ставит маленькую команду `be` в `~/.local/bin/be` по
 умолчанию. Если `~/.local/bin` не входит в shell `PATH`, запускай команду через

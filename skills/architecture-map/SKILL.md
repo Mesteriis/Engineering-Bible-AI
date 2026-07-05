@@ -1,6 +1,6 @@
 ---
 name: [be] architecture-map
-description: "Map a repository or subsystem architecture before changes, reviews, migrations, onboarding, or agent handoff. Use for bounded domains, ownership boundaries, dependency direction, entrypoints, test surfaces, runtime services, and risk hotspots."
+description: "Строит карту архитектуры репозитория или подсистемы перед изменениями, ревью, миграцией, онбордингом или передачей агенту; фиксирует домены, границы владения, направление зависимостей, entrypoints, тестовые поверхности, runtime-сервисы и рисковые зоны."
 ---
 
 # Architecture Map

@@ -1,6 +1,6 @@
 ---
 name: [be] figma-to-code
-description: "Implement a Figma frame, selection, component, or design-system screen in code. Use when translating Figma to frontend implementation, extracting Figma context, preserving variants/assets/tokens, and validating rendered code against the Figma reference."
+description: "Реализует Figma frame, selection, component или design-system screen в коде; извлекает Figma context, сохраняет variants/assets/tokens и валидирует рендер против Figma reference."
 ---
 
 # Figma To Code

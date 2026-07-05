@@ -1,6 +1,6 @@
 ---
 name: [be] ui-router
-description: Thin entrypoint for any product UI prompt. Classify the request, choose the smallest coherent set of downstream UI skills, and read their SKILL.md files before acting. Use for product UI design, redesign, critique, frontend implementation, Figma, image-to-code, and visual QA workflows.
+description: "Тонкая входная точка для любых product UI prompts: классифицирует запрос, выбирает минимальный согласованный набор downstream UI skills и читает их SKILL.md перед работой."
 ---
 
 # UI Router

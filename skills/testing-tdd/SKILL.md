@@ -1,6 +1,6 @@
 ---
 name: [be] testing-tdd
-description: "Apply practical TDD, regression testing, and validation discipline for behavior changes."
+description: "Применяет практичный TDD, regression testing и validation discipline для behavior changes."
 ---
 
 # Skill: testing-tdd

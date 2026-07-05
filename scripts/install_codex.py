@@ -15,7 +15,7 @@ import shlex
 import stat
 import sys
 
-from registry import RegistryError, load_registry, selected_skills
+from registry import RegistryError, all_registered_skills, load_registry, selected_skills
 
 
 IGNORE_DIRS = {".git", ".worktrees", "__pycache__"}
@@ -137,13 +137,22 @@ def selected_skill_names(options: InstallerOptions) -> list[str]:
     return selected_skills(registry, groups=options.groups, include_all=options.all_groups)
 
 
+def registered_skill_names(options: InstallerOptions) -> list[str]:
+    registry = load_registry(options.repo_root)
+    return all_registered_skills(registry)
+
+
 def wrapper_content(codex_home: Path) -> bytes:
     target_script = codex_home / "scripts" / "be.py"
     quoted_target = shlex.quote(str(target_script))
     return f"#!/usr/bin/env bash\nexec python3 {quoted_target} \"$@\"\n".encode()
 
 
-def build_plan(options: InstallerOptions, skills: list[str]) -> list[CopyPlan]:
+def build_plan(
+    options: InstallerOptions,
+    skills: list[str],
+    obsolete_agent_skills: list[str] | None = None,
+) -> list[CopyPlan]:
     plans: list[CopyPlan] = []
 
     def add_path(source_relative: str, target: Path, backup_relative: str | None = None) -> None:
@@ -160,6 +169,18 @@ def build_plan(options: InstallerOptions, skills: list[str]) -> list[CopyPlan]:
             )
         )
 
+    def remove_obsolete_path(target: Path, backup_relative: str) -> None:
+        if not target.exists():
+            return
+        plans.append(
+            CopyPlan(
+                source=None,
+                target=target,
+                relative=backup_relative,
+                kind="obsolete-dir" if target.is_dir() else "obsolete-file",
+            )
+        )
+
     add_path("AGENTS.md", options.codex_home / "AGENTS.md")
     for directory in ("engineering", "reference", "templates", "scripts", "tests"):
         add_path(directory, options.codex_home / directory)
@@ -173,7 +194,9 @@ def build_plan(options: InstallerOptions, skills: list[str]) -> list[CopyPlan]:
 
     for skill in skills:
         add_path(f"skills/{skill}", options.codex_home / "skills" / skill)
-        add_path(f"skills/{skill}", options.agents_home / "skills" / skill, f"agents-skills/{skill}")
+
+    for skill in obsolete_agent_skills or []:
+        remove_obsolete_path(options.agents_home / "skills" / skill, f"agents-skills/{skill}")
 
     plans.append(
         CopyPlan(
@@ -233,6 +256,12 @@ def same_generated(content: bytes, target: Path) -> bool:
 def plan_status(plan: CopyPlan, options: InstallerOptions) -> str:
     if options.backup_only:
         return "BACKUP" if plan.target.exists() else "MISSING"
+    if plan.kind in {"obsolete-dir", "obsolete-file"}:
+        if not plan.target.exists():
+            return "UNCHANGED"
+        if options.no_overwrite:
+            return "SKIP"
+        return "REMOVE"
     if not plan.target.exists():
         return "ADD"
     if plan.kind == "dir":
@@ -356,6 +385,9 @@ def apply_actions(actions: list[PlannedAction], options: InstallerOptions) -> No
         if action.status == "UPDATE":
             backup_target(action.plan, options)
             copy_plan(action.plan)
+        elif action.status == "REMOVE":
+            backup_target(action.plan, options)
+            remove_target(action.plan.target)
         elif action.status == "ADD":
             copy_plan(action.plan)
         elif action.status in {"UNCHANGED", "SKIP"}:
@@ -369,7 +401,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         options = build_options(args)
         skills = selected_skill_names(options)
-        plans = build_plan(options, skills)
+        plans = build_plan(options, skills, registered_skill_names(options))
         actions = planned_actions(plans, options)
         print_header(options, skills)
         print_actions(actions)

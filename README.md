@@ -113,11 +113,13 @@ correct.
 Override `ENGINEERING_BIBLE_REF` for a specific tag, branch, or commit if needed
 (for example `ENGINEERING_BIBLE_REF=v0.1.0`).
 
-The installer writes only managed portable files under `CODEX_HOME`,
-`AGENTS_HOME`, and the `be` wrapper path. It reports `ADD`, `UPDATE`,
+The installer writes skills under `CODEX_HOME`, shared reference docs under
+`CODEX_HOME` and `AGENTS_HOME`, and the `be` wrapper path. It removes older
+managed skill mirrors from `AGENTS_HOME` to avoid duplicate skill entries in
+Codex UI, backing them up first. It reports `ADD`, `UPDATE`, `REMOVE`,
 `UNCHANGED`, `SKIP`, and `CONFLICT`. Changed existing managed targets are not
 overwritten unless `--force` is passed. `--no-overwrite` copies only missing
-targets.
+targets and leaves obsolete mirrors in place.
 
 After installation, the package installs a small `be` manager command into
 `~/.local/bin/be` by default. If `~/.local/bin` is not on your shell `PATH`,

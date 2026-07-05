@@ -1,6 +1,6 @@
 ---
 name: [be] ui-research
-description: UI evidence and critique router. Use after ui-router for prompts about references, comparisons, best practices, critiques, optimization, or design research. Routes to the matching Lazyweb mode and requires reading that mode's SKILL.md before acting.
+description: "UI evidence и critique router для references, comparisons, best practices, critiques, optimization и design research; выбирает matching Lazyweb mode и требует прочитать его SKILL.md перед работой."
 ---
 
 # UI Research Router

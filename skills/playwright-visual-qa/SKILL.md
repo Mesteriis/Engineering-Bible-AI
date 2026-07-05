@@ -1,6 +1,6 @@
 ---
 name: [be] playwright-visual-qa
-description: "Validate rendered frontend UI with browser or Playwright screenshots. Use after UI implementation, redesign, Figma-to-code, image-to-code, responsive changes, visual regressions, or when comparing implementation against an accepted reference."
+description: "Проверяет отрендеренный frontend UI через browser или Playwright screenshots после UI implementation, redesign, Figma-to-code, image-to-code, responsive changes, visual regressions или сравнения с accepted reference."
 ---
 
 # Playwright Visual QA

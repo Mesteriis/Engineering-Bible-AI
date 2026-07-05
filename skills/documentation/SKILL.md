@@ -1,6 +1,6 @@
 ---
 name: [be] documentation
-description: "Keep technical documentation accurate, minimal, and tied to implemented behavior."
+description: "Держит техническую документацию точной, минимальной и связанной с реально реализованным поведением."
 ---
 
 # Skill: documentation

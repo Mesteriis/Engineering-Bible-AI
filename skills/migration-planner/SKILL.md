@@ -1,6 +1,6 @@
 ---
 name: [be] migration-planner
-description: "Plan a migration across framework versions, APIs, schemas, services, packages, UI systems, build tools, or infrastructure. Use before broad changes to split work into safe slices with rollback, validation gates, and dependency ordering."
+description: "Планирует миграции версий framework-ов, API, схем, сервисов, пакетов, UI systems, build tools или infrastructure; разбивает работу на безопасные slices с rollback, validation gates и порядком зависимостей."
 ---
 
 # Migration Planner

@@ -1,6 +1,6 @@
 ---
 name: [be] code-to-figma
-description: "Send, recreate, or connect an implemented UI back into Figma. Use for live UI to editable Figma layers, Code Connect mapping, component library updates, design handoff, and keeping Figma in sync with production components."
+description: "Переносит реализованный UI обратно в Figma: live UI в редактируемые слои, Code Connect, обновление component library, design handoff и синхронизация Figma с production components."
 ---
 
 # Code To Figma

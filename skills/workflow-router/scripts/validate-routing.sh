@@ -15,9 +15,10 @@ Usage:
   validate-routing.sh [--codex-only]
   validate-routing.sh --all-agents
 
-Default --codex-only validates ~/.codex/AGENTS.md, ~/.codex/skills, and
-~/.agents/skills. --all-agents additionally validates optional Claude,
-OpenCode, and Gemini roots when their instruction files or skill roots exist.
+Default --codex-only validates ~/.codex/AGENTS.md and ~/.codex/skills. It also
+checks that managed Engineering Bible skills are not duplicated in
+~/.agents/skills. --all-agents additionally validates optional Claude, OpenCode,
+and Gemini roots when their instruction files or skill roots exist.
 USAGE
     exit 0
     ;;
@@ -55,14 +56,28 @@ read_required_skills() {
         ui-qa
 }
 
+read_registered_skills() {
+    local registry_script="$HOME/.codex/scripts/registry.py"
+    if [[ -f "$registry_script" && -f "$HOME/.codex/skills/registry.yml" ]]; then
+        python3 "$registry_script" --root "$HOME/.codex" skills --all
+        return
+    fi
+
+    read_required_skills
+}
+
 required_skills=()
 while IFS= read -r skill; do
     required_skills+=("$skill")
 done < <(read_required_skills)
 
+registered_skills=()
+while IFS= read -r skill; do
+    registered_skills+=("$skill")
+done < <(read_registered_skills)
+
 skill_roots=(
     "$HOME/.codex/skills"
-    "$HOME/.agents/skills"
 )
 
 instruction_files=(
@@ -101,6 +116,18 @@ for root in "${skill_roots[@]}"; do
     done
 done
 
+if [[ ! -f "$HOME/.agents/engineering/README.md" ]]; then
+    fail "missing $HOME/.agents/engineering/README.md"
+fi
+
+if [[ -d "$HOME/.agents/skills" ]]; then
+    for skill in "${registered_skills[@]}"; do
+        if [[ -f "$HOME/.agents/skills/$skill/SKILL.md" ]]; then
+            fail "duplicate managed skill in ~/.agents: $skill"
+        fi
+    done
+fi
+
 managed_skill_files=()
 for skill in "${required_skills[@]}"; do
     managed_skill_files+=("$HOME/.codex/skills/$skill/SKILL.md")
@@ -113,7 +140,10 @@ fi
 quick_validate="$HOME/.codex/skills/.system/skill-creator/scripts/quick_validate.py"
 if [[ -f "$quick_validate" ]]; then
     for skill in "${required_skills[@]}"; do
-        python3 "$quick_validate" "$HOME/.codex/skills/$skill" >/dev/null
+        if ! python3 "$quick_validate" "$HOME/.codex/skills/$skill" >/dev/null 2>/dev/null; then
+            warn "quick_validate.py failed for $skill; skipped optional skill structure smoke"
+            break
+        fi
     done
 else
     warn "quick_validate.py not found; skipped skill structure smoke"

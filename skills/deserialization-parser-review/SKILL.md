@@ -1,6 +1,6 @@
 ---
 name: [be] deserialization-parser-review
-description: "Review parsers, deserialization, file uploads, archives, YAML/JSON/XML/pickle loading, template parsing, path handling, SSRF through parsers, and unsafe loader behavior."
+description: "Ревьюит парсеры, десериализацию, file uploads, архивы, YAML/JSON/XML/pickle loading, template parsing, path handling, SSRF через парсеры и небезопасные loaders."
 ---
 
 # Deserialization Parser Review

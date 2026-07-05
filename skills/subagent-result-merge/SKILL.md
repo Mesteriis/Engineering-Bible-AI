@@ -1,6 +1,6 @@
 ---
 name: [be] subagent-result-merge
-description: "Merge outputs from multiple subagents or independent review passes into one actionable report. Use after multi-agent PR review, parallel exploration, security phases, or split architecture/migration investigations."
+description: "Сводит outputs нескольких subagents или независимых review passes в один actionable report после multi-agent PR review, parallel exploration, security phases или split architecture/migration investigations."
 ---
 
 # Subagent Result Merge

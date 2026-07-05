@@ -1,6 +1,6 @@
 ---
 name: [be] rust
-description: "Apply repository-aware Rust rules for ownership, modules, errors, safety, tests, and tooling."
+description: "Применяет Rust-правила с учётом репозитория: ownership, modules, errors, safety, tests и tooling."
 ---
 
 # Skill: rust

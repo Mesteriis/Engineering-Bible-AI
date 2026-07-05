@@ -1,6 +1,6 @@
 ---
 name: [be] engineering-standards
-description: "Apply the shared engineering standards library for principles, smells, naming, refactoring, and task style."
+description: "Применяет общую библиотеку инженерных стандартов: принципы, smells, именование, refactoring и стиль задач."
 ---
 
 # Skill: engineering-standards

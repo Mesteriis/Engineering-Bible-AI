@@ -1,6 +1,6 @@
 ---
 name: [be] refactoring
-description: "Improve structure without behavior changes unless explicitly requested and validated."
+description: "Улучшает структуру без изменения поведения, если изменение поведения не запрошено явно и не провалидировано."
 ---
 
 # Skill: refactoring

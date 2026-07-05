@@ -33,12 +33,16 @@ as a reusable engineering package.
 
 The installer may copy:
 
-- `engineering/`
-- selected `skills/`
+- `engineering/` into `CODEX_HOME` and `AGENTS_HOME`
+- selected `skills/` into `CODEX_HOME`
 - `templates/`
 - `scripts/`
 - `tests/`
 - example root instructions
+
+Managed skills are not mirrored into `AGENTS_HOME` by default. Keeping one
+visible skill root prevents duplicate entries in Codex UI while preserving
+`AGENTS_HOME/engineering` references for skill-relative documentation links.
 
 The installer must not write or synthesize secrets, model provider config, MCP
 server credentials, or auth files.

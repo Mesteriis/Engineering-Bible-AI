@@ -85,13 +85,12 @@ while IFS= read -r skill; do
 done < <(python3 "$CODEX_ROOT/scripts/registry.py" --root "$CODEX_ROOT" skills "$@")
 for skill in "${skills[@]}"; do
     managed_codex_paths+=("skills/$skill")
-    managed_agents_paths+=("skills/$skill")
     if [[ ! -f "$CODEX_ROOT/skills/$skill/SKILL.md" ]]; then
         echo "missing installed Codex skill: $skill" >&2
         missing=1
     fi
-    if [[ ! -f "$AGENTS_ROOT/skills/$skill/SKILL.md" ]]; then
-        echo "missing installed Agents skill: $skill" >&2
+    if [[ -f "$AGENTS_ROOT/skills/$skill/SKILL.md" ]]; then
+        echo "duplicate installed Agents skill: skills/$skill" >&2
         missing=1
     fi
 done

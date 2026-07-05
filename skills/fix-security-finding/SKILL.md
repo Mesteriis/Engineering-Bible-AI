@@ -1,6 +1,6 @@
 ---
 name: [be] fix-security-finding
-description: "Fix one validated or plausible security finding with minimal code changes, regression coverage, and proof. Use when the user provides a vulnerability, scan finding, exploit path, or security review item to remediate."
+description: "Исправляет один подтверждённый или правдоподобный security finding минимальными изменениями, regression coverage и доказательством исправления."
 ---
 
 # Fix Security Finding

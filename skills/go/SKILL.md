@@ -1,6 +1,6 @@
 ---
 name: [be] go
-description: "Apply repository-aware Go rules for small packages, explicit errors, interfaces, tests, and tooling."
+description: "Применяет Go-правила с учётом репозитория: маленькие пакеты, явные ошибки, интерфейсы, тесты и tooling."
 ---
 
 # Skill: go

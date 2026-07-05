@@ -1,6 +1,6 @@
 ---
 name: [be] accessibility-ui-review
-description: "Review UI accessibility for keyboard navigation, focus states, semantics, labels, contrast, motion reduction, form errors, dialogs, menus, tables, charts, and screen-reader-relevant structure."
+description: "Проверяет доступность UI: клавиатуру, фокус, семантику, подписи, контраст, reduced motion, ошибки форм, диалоги, меню, таблицы, графики и структуру для скринридеров."
 ---
 
 # Accessibility UI Review

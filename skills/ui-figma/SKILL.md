@@ -1,6 +1,6 @@
 ---
 name: [be] ui-figma
-description: Figma router for UI prompts. Use after ui-router when the task involves creating, updating, inspecting, connecting, or animating Figma screens or components. Routes to the matching Figma skill and requires reading that skill's SKILL.md before acting.
+description: "Figma router для UI prompts: создание, обновление, инспекция, connection или animation Figma screens/components; выбирает matching Figma skill и требует прочитать его SKILL.md перед работой."
 ---
 
 # UI Figma Router

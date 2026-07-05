@@ -1,6 +1,6 @@
 ---
 name: [be] quality-gates
-description: "Apply evidence, lifecycle, review, regression, and library-drift gates for non-trivial engineering work."
+description: "Применяет evidence, lifecycle, review, regression и library-drift gates для нетривиальной инженерной работы."
 ---
 
 # Skill: quality-gates

@@ -1,6 +1,6 @@
 ---
 name: [be] typescript
-description: "Apply repository-aware TypeScript and JavaScript rules for tooling, types, tests, and architecture."
+description: "Применяет TypeScript/JavaScript правила с учётом репозитория: tooling, types, tests и architecture."
 ---
 
 # Skill: typescript

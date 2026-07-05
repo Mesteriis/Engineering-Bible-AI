@@ -1,6 +1,6 @@
 ---
 name: [be] architecture-principles
-description: "Preserve boundaries, dependency direction, domain clarity, and long-term architecture quality."
+description: "Сохраняет границы, направление зависимостей, ясность домена и долгосрочное качество архитектуры."
 ---
 
 # Skill: architecture-principles

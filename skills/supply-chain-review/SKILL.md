@@ -1,6 +1,6 @@
 ---
 name: [be] supply-chain-review
-description: "Review software supply-chain risk: lockfiles, install scripts, package provenance, CI/CD permissions, release workflows, dependency confusion, build artifacts, registries, and package publishing."
+description: "Ревьюит software supply-chain risk: lockfiles, install scripts, package provenance, CI/CD permissions, release workflows, dependency confusion, build artifacts, registries и package publishing."
 ---
 
 # Supply Chain Review
