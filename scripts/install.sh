@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOTSTRAP_VERSION="0.1.0"
+BOOTSTRAP_VERSION="0.2.0"
 DEFAULT_REF_FILE="${SCRIPT_DIR}/../VERSION"
 if [[ -f "$DEFAULT_REF_FILE" ]]; then
     DEFAULT_VERSION="$(tr -d '[:space:]' <"$DEFAULT_REF_FILE" | head -n 1)"
@@ -18,10 +18,9 @@ if [[ "$DEFAULT_VERSION" != v* ]]; then
 fi
 
 usage() {
-    local ref="${1:-$DEFAULT_VERSION}"
     cat <<EOF
 Usage:
-  curl -fSLo engineering-bible-install.sh https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${ref}/install.sh
+  curl -fSLo engineering-bible-install.sh https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${DEFAULT_VERSION}/install.sh
   bash engineering-bible-install.sh --dry-run --diff
 
 Options:
@@ -41,7 +40,7 @@ Options:
 
 Environment:
   ENGINEERING_BIBLE_REPO  default: Mesteriis/Engineering-Bible-AI
-  ENGINEERING_BIBLE_REF   default: ${ref}
+  ENGINEERING_BIBLE_REF   default: ${DEFAULT_VERSION}
   ENGINEERING_BIBLE_ARCHIVE_URL  optional HTTPS or file:// archive override
   ENGINEERING_BIBLE_ARCHIVE_SHA256  required with a stable HTTPS archive override
   ENGINEERING_BIBLE_RELEASE_MANIFEST_URL  optional release-manifest.json override

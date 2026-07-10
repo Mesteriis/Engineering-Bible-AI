@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented here.
 
+## [0.2.0] - 2026-07-10
+
+- Fixed portable shell formatting and bootstrap usage diagnostics for release validation.
+- Added the opt-in `fast` prompt profile that bypasses routing and optional runtime additions.
+
 ## [0.1.0] - 2026-07-10
 
 - Added ownership-aware transactional installation and unified updates.
