@@ -6,13 +6,19 @@ This repository packages portable engineering instructions, standards, skills,
 templates, validation, and installers. Treat it as a public distribution: local
 runtime state and private infrastructure do not belong in tracked files.
 
-## Mandatory Routing
+## Routing Discipline
 
-For every non-trivial engineering request, invoke `workflow-router` first, let
-it select the smallest coherent downstream skill set, and read each selected
-`SKILL.md` before substantive work. A directly requested narrower skill takes
-precedence. If routing is unavailable, use the closest built-in workflow and
-state the limitation only when it affects the result.
+Select the narrowest directly relevant skill. Do not invoke `workflow-router`
+for a clear single-domain request; reserve it for ambiguous or genuinely mixed
+work. Use one primary skill and at most one supporting skill by default.
+
+### Continuation Fast Path
+
+For a same-task follow-up in the same thread, reuse the current skill route and
+already-loaded instructions. Do not route again or reread an unchanged
+`SKILL.md` unless the domain, risk, required tools, or requested workflow
+changed. If compaction removed required instructions, reload only the missing
+skill.
 
 ## Repository Sources Of Truth
 
@@ -22,8 +28,9 @@ state the limitation only when it affects the result.
   not edit their contents by hand.
 - `engineering/README.md` indexes the standards library. Add or remove a
   standard and its index entry together.
-- `instructions/global/full.md` is the default installed global prompt;
-  `instructions/global/minimal.md` is the opt-in compact profile.
+- `instructions/global/steady.md` is the default installed global prompt.
+- `instructions/global/full.md` preserves exhaustive routing for strict use;
+  `instructions/global/minimal.md` is the compact steady-state profile.
 - Root `AGENTS.md` contains project-only rules and must not duplicate either
   global prompt.
 

@@ -1,6 +1,6 @@
 ---
-name: [be] migration-planner
-description: "Планирует миграции версий framework-ов, API, схем, сервисов, пакетов, UI systems, build tools или infrastructure; разбивает работу на безопасные slices с rollback, validation gates и порядком зависимостей."
+name: migration-planner
+description: "Plans framework, API, schema, service, package, UI, build, or infrastructure migrations with slices, rollback, and validation."
 ---
 
 # Migration Planner

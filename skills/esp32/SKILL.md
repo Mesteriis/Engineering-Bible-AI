@@ -1,6 +1,6 @@
 ---
-name: [be] esp32
-description: "Применяет hardware-aware правила ESP32 для GPIO, boot behavior, firmware, реле и connectivity."
+name: esp32
+description: "Applies ESP32 rules for GPIO, boot states, relays, sensors, connectivity, firmware safety, and validation."
 ---
 
 # Skill: esp32

@@ -1,6 +1,6 @@
 ---
-name: [be] dependency-advisory-audit
-description: "Разбирает CVE, advisories, уязвимые пакеты, lockfile changes и риск dependency upgrades; определяет reachability, затронутые версии, exploitability в этом репозитории, варианты patch и команды валидации."
+name: dependency-advisory-audit
+description: "Triages CVEs and advisories for affected versions, reachability, exploitability, upgrades, and validation."
 ---
 
 # Dependency Advisory Audit

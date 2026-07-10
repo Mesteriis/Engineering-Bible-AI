@@ -1,6 +1,6 @@
 ---
-name: [be] security-router
-description: "Security autorouter для авторизованного кода: security scans, security diff reviews, threat models, fixing findings, authz/tenant boundaries, secrets/config review, parser/deserialization review, dependency advisory triage и supply-chain review."
+name: security-router
+description: "Routes ambiguous security work to one leaf skill. Do not use when a specific security review or fix is already clear."
 ---
 
 # Security Router

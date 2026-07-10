@@ -1,6 +1,6 @@
 ---
-name: [be] responsive-breakpoint-check
-description: "Проверяет frontend UI на desktop, tablet и mobile breakpoints: responsive regressions, overflow, clipped text, broken navigation, unstable grids, canvas sizing, dashboards, landing pages и implemented design verification."
+name: responsive-breakpoint-check
+description: "Checks desktop, tablet, and mobile UI for overflow, clipping, navigation, grid, canvas, and breakpoint regressions."
 ---
 
 # Responsive Breakpoint Check

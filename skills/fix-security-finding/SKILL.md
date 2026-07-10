@@ -1,6 +1,6 @@
 ---
-name: [be] fix-security-finding
-description: "Исправляет один подтверждённый или правдоподобный security finding минимальными изменениями, regression coverage и доказательством исправления."
+name: fix-security-finding
+description: "Fixes one security finding with the smallest safe patch, regression coverage, and verification."
 ---
 
 # Fix Security Finding

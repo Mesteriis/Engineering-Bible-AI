@@ -30,8 +30,10 @@ fi
 package_required_files=(
     "AGENTS.md"
     "engineering/README.md"
+    "instructions/global/steady.md"
     "instructions/global/full.md"
     "instructions/global/minimal.md"
+    "instructions/global/fast.md"
     "reference/design-principles.md"
     "templates/agent-implementation-prompt.md"
     "tests/router-cases.yml"
@@ -56,7 +58,10 @@ package_required_files=(
     "scripts/validate-skill-frontmatter.py"
     "scripts/validate-skill-tree.sh"
     "skills/registry.yml"
+    "skills/workflow-router/SKILL.md"
+    "skills/workflow-router/references/routes.md"
     "skills/mcp-tool-router/SKILL.md"
+    "skills/mcp-tool-router/references/host-adapter.md"
     "config/tools.json"
     "schemas/runtime-capabilities.schema.json"
     "examples/runtime-capabilities.synthetic.json"
@@ -234,7 +239,7 @@ try:
         raise ValueError("invalid requested groups")
     if not isinstance(include_all, bool):
         raise ValueError("invalid include_all flag")
-    if profile not in {"full", "minimal", "fast"}:
+    if profile not in {"steady", "full", "minimal", "fast"}:
         raise ValueError("invalid prompt profile")
     if not isinstance(selected, list) or any(
         not isinstance(skill, str) or not skill.strip() for skill in selected

@@ -9,6 +9,11 @@ import re
 import sys
 
 
+SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+MAX_SKILL_NAME_LENGTH = 64
+MAX_DESCRIPTION_LENGTH = 1024
+
+
 def strip_quotes(value: str) -> str:
     value = value.strip()
     if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
@@ -35,12 +40,6 @@ def parse_frontmatter(path: Path) -> dict[str, str]:
     raise ValueError("missing closing frontmatter marker")
 
 
-def canonical_name(name: str) -> str:
-    if name.startswith("[be] "):
-        return name[5:]
-    return name
-
-
 def validate_skill(skill_dir: Path) -> list[str]:
     errors: list[str] = []
     skill_file = skill_dir / "SKILL.md"
@@ -54,14 +53,18 @@ def validate_skill(skill_dir: Path) -> list[str]:
 
     name = metadata.get("name", "")
     description = metadata.get("description", "")
-    canonical = canonical_name(name)
 
-    if canonical != skill_dir.name:
+    if not name or len(name) > MAX_SKILL_NAME_LENGTH or SKILL_NAME_RE.fullmatch(name) is None:
+        errors.append(
+            f"{skill_file}: invalid skill name {name!r}; expected 1-64 lowercase "
+            "letters, digits, and single hyphens"
+        )
+    if name != skill_dir.name:
         errors.append(f"{skill_file}: name {name!r} does not match directory {skill_dir.name!r}")
     if not description:
         errors.append(f"{skill_file}: missing description")
-    if len(description) > 1000:
-        errors.append(f"{skill_file}: description exceeds 1000 characters")
+    if len(description) > MAX_DESCRIPTION_LENGTH:
+        errors.append(f"{skill_file}: description exceeds {MAX_DESCRIPTION_LENGTH} characters")
 
     body = skill_file.read_text(encoding="utf-8")
     if re.search(r"(?im)^\s*(TODO|TBD|FIXME|REPLACE_ME)\b", body):

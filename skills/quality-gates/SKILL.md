@@ -1,6 +1,6 @@
 ---
-name: [be] quality-gates
-description: "Применяет evidence, lifecycle, review, regression и library-drift gates для нетривиальной инженерной работы."
+name: quality-gates
+description: "Use only at validation, integration, completion, release, or drift-review boundaries. Do not load for every implementation step."
 ---
 
 # Skill: quality-gates

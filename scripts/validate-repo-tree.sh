@@ -9,6 +9,7 @@ required_files=(
     "README.md"
     "README.ru.md"
     "MANIFEST.md"
+    "instructions/global/steady.md"
     "instructions/global/full.md"
     "instructions/global/minimal.md"
     "instructions/global/fast.md"
@@ -33,6 +34,8 @@ required_files=(
     "docs/oss-release-checklist.md"
     "skills/registry.yml"
     "skills/fast/SKILL.md"
+    "skills/workflow-router/references/routes.md"
+    "skills/mcp-tool-router/references/host-adapter.md"
     "scripts/install.sh"
     "scripts/be.py"
     "scripts/install-codex.sh"
@@ -103,6 +106,10 @@ required_files=(
     "tests/test_release_contract.py"
     "tests/test_tool_catalog.py"
     "tests/test_validation.py"
+    "tests/test_prompt_profiles.py"
+    "tests/test_skill_catalog.py"
+    "tests/test_skill_frontmatter.py"
+    "tests/test_steady_profile.py"
     "config/tools.json"
     "config/legacy-install-signatures.json"
     "schemas/runtime-capabilities.schema.json"
@@ -134,7 +141,9 @@ if ! grep -q "workflow-router" "$ROOT/AGENTS.md"; then
     exit 1
 fi
 
-if ! grep -Eq "WORKFLOW:ROUTER:BEGIN|## Mandatory Routing" "$ROOT/AGENTS.md"; then
+if ! grep -Eq \
+    "WORKFLOW:ROUTER:BEGIN|## Mandatory Routing|## Initial Task Routing|## Routing Discipline" \
+    "$ROOT/AGENTS.md"; then
     echo "AGENTS.md does not contain a routing instruction block" >&2
     exit 1
 fi

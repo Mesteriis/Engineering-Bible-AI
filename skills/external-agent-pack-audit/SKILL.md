@@ -1,6 +1,6 @@
 ---
-name: [be] external-agent-pack-audit
-description: "Проверяет внешние agent/skill packs перед импортом: лицензии, hooks, install scripts, runtime state, secrets, Codex-совместимость и безопасный способ адаптации."
+name: external-agent-pack-audit
+description: "Audits external agent, skill, plugin, hook, or marketplace packs for licenses, installers, secrets, runtime state, and safe adaptation."
 ---
 
 # External Agent Pack Audit

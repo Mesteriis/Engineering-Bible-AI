@@ -1,6 +1,6 @@
 ---
-name: [be] code-quality
-description: "Применяет дисциплину связности, именования, размера, ответственности и поддерживаемости к изменениям кода."
+name: code-quality
+description: "Reviews cohesion, naming, responsibility, complexity, and maintainability. Do not use as a default companion to every code change."
 ---
 
 # Skill: code-quality

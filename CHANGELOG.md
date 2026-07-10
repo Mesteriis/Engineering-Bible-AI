@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here.
 
+## [0.3.1] - 2026-07-10
+
+- Added the `steady` prompt profile as the new-install default while preserving
+  the complete default skill catalog.
+- Preserved manifest-selected profiles during both update and reinstall unless
+  `--prompt-profile` is supplied explicitly.
+- Added same-task continuation reuse to `steady`, `minimal`, and strict `full`
+  profiles so follow-up turns do not rerun routing, reread unchanged skills, or
+  refresh unchanged runtime capability metadata.
+- Kept exhaustive route coverage in on-demand router references and narrowed
+  default routes to one primary skill plus at most one supporting skill.
+- Fixed all skill frontmatter names to match the Agent Skills lowercase-hyphen
+  contract and made the validator reject malformed names.
+- Reduced overlapping skill descriptions without removing any of the 60 skills
+  or their explicit invocation paths.
+- Compiled Python validation targets in-process instead of spawning one
+  interpreter per file.
+
 ## [0.3.0] - 2026-07-10
 
 - Pinned shell formatting validation to four-space indentation for reproducible CI results.

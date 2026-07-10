@@ -1,6 +1,6 @@
 ---
-name: [be] context-pack
-description: "Собирает компактный AI-friendly контекст репозитория для handoff, ревью или большого анализа; предпочитает repomix при наличии и не допускает secrets/runtime state."
+name: context-pack
+description: "Builds a compact secret-safe repository pack for AI handoff, review, or large analysis; prefers Repomix when available."
 ---
 
 # Context Pack

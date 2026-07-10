@@ -1,6 +1,6 @@
 ---
-name: [be] performance
-description: "Улучшает производительность только на основе evidence, сохраняя корректность и поддерживаемость."
+name: performance
+description: "Improves measured performance while preserving correctness, reliability, and maintainability."
 ---
 
 # Skill: performance

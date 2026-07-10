@@ -1,6 +1,6 @@
 ---
-name: [be] secrets-and-config-review
-description: "Ревьюит secrets handling, configuration defaults, environment variables, logs, credentials, token exposure, .env policy, CI secrets и небезопасную локальную или production config."
+name: secrets-and-config-review
+description: "Reviews secrets, config defaults, environment variables, logs, credentials, CI secrets, and unsafe settings."
 ---
 
 # Secrets And Config Review

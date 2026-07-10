@@ -1,6 +1,6 @@
 ---
-name: [be] architecture-principles
-description: "Сохраняет границы, направление зависимостей, ясность домена и долгосрочное качество архитектуры."
+name: architecture-principles
+description: "Guides module boundaries, dependency direction, and domain structure. Do not use for local edits that leave architecture unchanged."
 ---
 
 # Skill: architecture-principles

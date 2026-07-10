@@ -1,6 +1,6 @@
 ---
-name: [be] homeassistant
-description: "Применяет безопасные правила Home Assistant для automations, templates, integrations и поведения entities."
+name: homeassistant
+description: "Applies safe Home Assistant rules for automations, templates, integrations, entity behavior, startup states, and validation."
 ---
 
 # Skill: homeassistant

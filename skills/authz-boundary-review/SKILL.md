@@ -1,6 +1,6 @@
 ---
-name: [be] authz-boundary-review
-description: "Ревьюит авторизацию, tenant isolation, role checks, владение объектами, row-level access, admin boundaries, invite/share flows и риск privilege escalation в коде или diff."
+name: authz-boundary-review
+description: "Reviews authorization, tenant isolation, roles, ownership, row access, admin boundaries, sharing, and privilege escalation."
 ---
 
 # Authz Boundary Review

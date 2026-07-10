@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOTSTRAP_VERSION="0.3.0"
+BOOTSTRAP_VERSION="0.3.1"
 DEFAULT_REF_FILE="${SCRIPT_DIR}/../VERSION"
 if [[ -f "$DEFAULT_REF_FILE" ]]; then
     DEFAULT_VERSION="$(tr -d '[:space:]' <"$DEFAULT_REF_FILE" | head -n 1)"
@@ -32,7 +32,8 @@ Options:
   --ref REF    Download an explicit immutable tag or allowed unstable ref.
   --allow-unstable  Permit a mutable/non-SemVer ref such as a branch name.
   --migrate-legacy  Adopt only byte- and mode-identical legacy managed files.
-  --prompt-profile NAME  Activate full or minimal global instructions.
+  --prompt-profile NAME  Activate steady, full, minimal, or fast instructions.
+                         New installs default to steady; reinstalls preserve the manifest profile.
   --force      Overwrite changed managed files after backing them up.
   --no-overwrite  Install only missing managed files.
   --backup-only   Back up existing managed targets without copying.

@@ -1,6 +1,6 @@
 ---
-name: [be] architecture-map
-description: "Строит карту архитектуры репозитория или подсистемы перед изменениями, ревью, миграцией, онбордингом или передачей агенту; фиксирует домены, границы владения, направление зависимостей, entrypoints, тестовые поверхности, runtime-сервисы и рисковые зоны."
+name: architecture-map
+description: "Maps domains, ownership, dependencies, entry points, tests, services, and risks before broad changes, review, migration, or handoff."
 ---
 
 # Architecture Map

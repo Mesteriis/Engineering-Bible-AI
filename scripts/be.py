@@ -186,7 +186,7 @@ def manifest_install_selection(manifest: dict[str, object]) -> tuple[list[str], 
     if not isinstance(include_all, bool):
         raise BeError("installation manifest include_all flag is invalid")
     prompt_profile = groups.get("prompt_profile")
-    if prompt_profile not in {"full", "minimal", "fast"}:
+    if prompt_profile not in {"steady", "full", "minimal", "fast"}:
         raise BeError("installation manifest prompt profile is invalid")
     return requested_groups, include_all, str(prompt_profile)
 
@@ -507,7 +507,14 @@ def command_install(args: argparse.Namespace) -> int:
         installer_args.append("--all")
     if args.install_tools:
         installer_args.append("--install-tools")
-    installer_args.extend(["--prompt-profile", args.prompt_profile])
+    prompt_profile = args.prompt_profile if isinstance(args.prompt_profile, str) else None
+    if prompt_profile is None:
+        manifest = read_install_manifest(paths)
+        if manifest is not None:
+            _, _, prompt_profile = manifest_install_selection(manifest)
+        else:
+            prompt_profile = "steady"
+    installer_args.extend(["--prompt-profile", prompt_profile])
     for group in args.group:
         installer_args.extend(["--group", group])
 
@@ -547,7 +554,7 @@ def command_update(args: argparse.Namespace) -> int:
     else:
         print(f"Current version: {read_tool_version(paths.repo_root)} (unmanaged checkout)")
         print("Current digest: unmanaged")
-        installer_args.extend(["--prompt-profile", requested_profile or "full"])
+        installer_args.extend(["--prompt-profile", requested_profile or "steady"])
 
     if requested_ref is None and (source is None or source["kind"] == "checkout"):
         source_root = paths.repo_root if source is None else expand_path(source["location"])
@@ -758,9 +765,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     install.add_argument(
         "--prompt-profile",
-        choices=("full", "minimal", "fast"),
-        default="full",
-        help="Global instruction profile to activate",
+        choices=("steady", "full", "minimal", "fast"),
+        help="Global instruction profile (new install: steady; reinstall: preserve manifest)",
     )
     install.add_argument(
         "--group", action="append", default=[], help="Additional skill group to install"
@@ -781,7 +787,7 @@ def build_parser() -> argparse.ArgumentParser:
             "--force", action="store_true", help="Replace modified manifest-owned files"
         )
         command.add_argument("--migrate-legacy", action="store_true")
-        command.add_argument("--prompt-profile", choices=("full", "minimal", "fast"))
+        command.add_argument("--prompt-profile", choices=("steady", "full", "minimal", "fast"))
         command.add_argument("--ref", help="Explicit release tag or unstable ref")
         command.add_argument(
             "--allow-unstable",

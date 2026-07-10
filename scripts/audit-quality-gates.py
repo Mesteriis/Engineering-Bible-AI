@@ -44,8 +44,12 @@ REQUIRED_FILES = [
     "config/tools.json",
     "schemas/runtime-capabilities.schema.json",
     "skills/mcp-tool-router/SKILL.md",
+    "skills/mcp-tool-router/references/host-adapter.md",
+    "skills/workflow-router/references/routes.md",
+    "instructions/global/steady.md",
     "instructions/global/full.md",
     "instructions/global/minimal.md",
+    "instructions/global/fast.md",
     "VERSION",
     ".secret-sanity-allowlist",
     *QUALITY_DOCS,
@@ -224,6 +228,7 @@ class Audit:
         standards = self.read_text("skills/engineering-standards/SKILL.md")
         quality = self.read_text("skills/quality-gates/SKILL.md")
         workflow = self.read_text("skills/workflow-router/SKILL.md")
+        workflow_routes = self.read_text("skills/workflow-router/references/routes.md")
         before = len(self.issues)
 
         for relative in QUALITY_DOCS:
@@ -232,12 +237,12 @@ class Audit:
             if relative not in quality:
                 self.issues.append(f"missing quality-gates reference: {relative}")
 
-        if "quality-gates" not in workflow:
+        if "quality-gates" not in workflow and "quality-gates" not in workflow_routes:
             self.issues.append("missing workflow-router reference: quality-gates")
 
         if not quality.startswith("---"):
             self.issues.append("invalid skill frontmatter: skills/quality-gates/SKILL.md")
-        if "name: quality-gates" not in quality and "name: [be] quality-gates" not in quality:
+        if "name: quality-gates" not in quality:
             self.issues.append("missing skill name: skills/quality-gates/SKILL.md")
         if "description:" not in quality:
             self.issues.append("missing skill description: skills/quality-gates/SKILL.md")

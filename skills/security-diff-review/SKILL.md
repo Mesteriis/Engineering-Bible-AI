@@ -1,6 +1,6 @@
 ---
-name: [be] security-diff-review
-description: "Ревьюит PR, commit, branch diff или local patch на security regressions в авторизованном коде: auth, authz, input validation, filesystem, network, secrets, parsers, SSRF, path traversal, injection, CI/CD и supply-chain changes."
+name: security-diff-review
+description: "Reviews authorized diffs for auth, input, filesystem, network, secrets, parsers, injection, CI/CD, and supply-chain regressions."
 ---
 
 # Security Diff Review

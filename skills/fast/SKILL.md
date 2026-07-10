@@ -1,6 +1,6 @@
 ---
-name: [be] fast
-description: "Fast local mode: skip workflow routing and optional Engineering Bible additions for small reversible tasks."
+name: fast
+description: "Limited local mode for small reversible changes. Skips routers, external tools, broad workflows, and high-risk work."
 ---
 
 # Fast mode

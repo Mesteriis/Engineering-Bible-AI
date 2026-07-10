@@ -1,6 +1,6 @@
 ---
-name: [be] debugging
-description: "Отлаживает сбои через воспроизведение, сбор фактов, проверку гипотез и исправление первопричины."
+name: debugging
+description: "Reproduces failures, gathers evidence, tests hypotheses, fixes root causes, and adds regression coverage."
 ---
 
 # Skill: debugging

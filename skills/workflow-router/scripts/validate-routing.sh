@@ -105,7 +105,9 @@ fi
 
 for instruction_file in "${instruction_files[@]}"; do
     test -f "$instruction_file" || fail "missing instruction file: $instruction_file"
-    grep -Eq 'WORKFLOW:ROUTER:BEGIN|## Mandatory Routing' "$instruction_file" || fail "missing workflow router block in $instruction_file"
+    grep -Eq \
+        'WORKFLOW:ROUTER:BEGIN|## Mandatory Routing|## Initial Task Routing|## Routing Discipline|## Skill Selection' \
+        "$instruction_file" || fail "missing workflow routing block in $instruction_file"
     grep -q 'workflow-router' "$instruction_file" || fail "missing workflow-router mention in $instruction_file"
 done
 

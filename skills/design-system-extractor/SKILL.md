@@ -1,6 +1,6 @@
 ---
-name: [be] design-system-extractor
-description: "Извлекает design tokens, типографику, spacing, anatomy компонентов, states, assets, layout rules, responsive behavior и interaction patterns из Figma frame, screenshot, существующего UI, design system или принятой визуальной концепции."
+name: design-system-extractor
+description: "Extracts tokens, typography, spacing, component states, assets, layout, responsive rules, and interactions from a UI reference."
 ---
 
 # Design System Extractor

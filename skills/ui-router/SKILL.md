@@ -1,6 +1,6 @@
 ---
-name: [be] ui-router
-description: "Тонкая входная точка для любых product UI prompts: классифицирует запрос, выбирает минимальный согласованный набор downstream UI skills и читает их SKILL.md перед работой."
+name: ui-router
+description: "Routes ambiguous multi-stage UI work across research, concept, Figma, implementation, and QA. Do not use for a clear leaf task."
 ---
 
 # UI Router

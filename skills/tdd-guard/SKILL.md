@@ -1,6 +1,6 @@
 ---
-name: [be] tdd-guard
-description: "Строгий TDD gate для agentic coding: сначала failing test или явно обоснованное исключение, затем минимальная реализация, refactor и проверка regression coverage."
+name: tdd-guard
+description: "Strict test-first gate only when explicitly requested or required by repository policy. Do not use for ordinary practical testing."
 ---
 
 # TDD Guard

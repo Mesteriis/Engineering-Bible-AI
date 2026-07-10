@@ -1,6 +1,6 @@
 ---
-name: [be] session-memory
-description: "Создаёт безопасную долговременную память между сессиями: фиксирует только проверенные факты, решения, предпочтения и открытые вопросы без фонового слежения и секретов."
+name: session-memory
+description: "Stores verified cross-session facts, decisions, preferences, and open questions without secrets, speculation, or monitoring."
 ---
 
 # Session Memory

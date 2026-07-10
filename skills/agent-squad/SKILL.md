@@ -1,6 +1,6 @@
 ---
-name: [be] agent-squad
-description: "Оркестрирует параллельную работу агентов или worktrees: делит задачу на независимые lanes, назначает роли, задаёт merge contract и не допускает конфликтующих правок."
+name: agent-squad
+description: "Plans parallel agents or worktrees with isolated ownership, validation lanes, and merge rules. Use only for safely separable work."
 ---
 
 # Agent Squad

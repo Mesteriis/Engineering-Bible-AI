@@ -1,6 +1,6 @@
 ---
-name: [be] python
-description: "Применяет senior Python engineering rules с учётом репозитория: typing, async, tests и architecture."
+name: python
+description: "Applies senior Python rules for typing, async, APIs, persistence, tests, packaging, and architecture."
 ---
 
 # Skill: python

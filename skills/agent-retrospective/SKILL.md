@@ -1,6 +1,6 @@
 ---
-name: [be] agent-retrospective
-description: "Анализирует запуск агента после повторных сбоев, шумного роутинга, пропущенной валидации, плохих правок или неудачного выбора skill; выдаёт конкретные улучшения для AGENTS.md, описаний skills, роутинга, quality gates или runbook-ов."
+name: agent-retrospective
+description: "Analyzes repeated agent failures or noisy routing and proposes evidence-backed changes to instructions, skills, gates, or runbooks."
 ---
 
 # Agent Retrospective

@@ -1,6 +1,6 @@
 ---
-name: [be] go
-description: "Применяет Go-правила с учётом репозитория: маленькие пакеты, явные ошибки, интерфейсы, тесты и tooling."
+name: go
+description: "Applies Go rules for packages, explicit errors, interfaces, concurrency, tests, and tooling."
 ---
 
 # Skill: go

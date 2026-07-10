@@ -1,6 +1,6 @@
 ---
-name: [be] esphome
-description: "Применяет безопасные правила ESPHome для YAML, lambdas, sensors, switches, relays и validation."
+name: esphome
+description: "Applies safe ESPHome rules for YAML, lambdas, sensors, switches, relays, boot behavior, fail-safes, and validation."
 ---
 
 # Skill: esphome

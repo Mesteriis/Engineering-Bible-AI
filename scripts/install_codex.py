@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import replace
 from datetime import datetime, timezone
 import os
 from pathlib import Path
@@ -11,8 +12,11 @@ import subprocess
 import sys
 import uuid
 
-from installer_core import InstallError, InstallerOptions, run_install
+from installer_core import InstallError, InstallerOptions, load_manifest, run_install
 from registry import RegistryError, load_registry, selected_skills
+
+
+SUPPORTED_PROMPT_PROFILES = frozenset({"steady", "full", "minimal", "fast"})
 
 
 def parse_args(argv: list[str] | None) -> argparse.Namespace:
@@ -43,9 +47,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--prompt-profile",
-        choices=("full", "minimal", "fast"),
-        default="full",
-        help="Global instruction profile to activate (default: full)",
+        choices=("steady", "full", "minimal", "fast"),
+        default=None,
+        help=(
+            "Global instruction profile to activate "
+            "(new install: steady; reinstall: preserve manifest)"
+        ),
     )
     parser.add_argument(
         "--install-tools",
@@ -83,7 +90,7 @@ def build_options(args: argparse.Namespace) -> InstallerOptions:
     bin_dir = expand_path(os.environ.get("ENGINEERING_BIBLE_BIN_DIR", "~/.local/bin"))
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     backup_dir = be_home / "backups" / f"{timestamp}-{uuid.uuid4().hex[:12]}"
-    return InstallerOptions(
+    options = InstallerOptions(
         repo_root=repo_root,
         codex_home=codex_home,
         agents_home=agents_home,
@@ -98,9 +105,20 @@ def build_options(args: argparse.Namespace) -> InstallerOptions:
         all_groups=bool(args.all),
         install_tools=bool(args.install_tools),
         migrate_legacy=bool(args.migrate_legacy),
-        prompt_profile=str(args.prompt_profile),
+        prompt_profile=str(args.prompt_profile or "steady"),
         backup_dir=backup_dir,
     )
+    if args.prompt_profile is None:
+        previous = load_manifest(options)
+        if previous is not None:
+            groups = previous.payload.get("groups")
+            if not isinstance(groups, dict):
+                raise InstallError("installation manifest has no group metadata")
+            prompt_profile = groups.get("prompt_profile")
+            if prompt_profile not in SUPPORTED_PROMPT_PROFILES:
+                raise InstallError("installation manifest prompt profile is invalid")
+            options = replace(options, prompt_profile=str(prompt_profile))
+    return options
 
 
 def selected_skill_names(options: InstallerOptions) -> list[str]:

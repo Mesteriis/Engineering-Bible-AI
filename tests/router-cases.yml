@@ -5,25 +5,20 @@ cases:
     expect:
       skills:
         - debugging
-        - testing-tdd
         - python
 
   - id: broad-architecture-review
     prompt: "Review this module architecture and suggest how to split it."
     expect:
       skills:
-        - engineering-standards
-        - architecture-principles
-        - code-quality
         - code-review
+        - architecture-principles
 
   - id: large-file-refactor
     prompt: "This file is 3000 lines, refactor it safely."
     expect:
       skills:
-        - engineering-standards
         - refactoring
-        - code-quality
         - testing-tdd
 
   - id: security-sensitive-api-change
@@ -32,63 +27,50 @@ cases:
       skills:
         - security
         - testing-tdd
-        - architecture-principles
 
   - id: esphome-relay-automation
     prompt: "Create ESPHome config for relay and sensor fail-safe behavior."
     expect:
       skills:
-        - homeassistant
         - esphome
         - esp32
-        - testing-tdd
 
   - id: todo-plan
     prompt: "Write a TODO plan for splitting this package."
     expect:
       skills:
-        - engineering-standards
         - architecture-principles
-        - refactoring
         - documentation
 
   - id: adversarial-discussion
     prompt: "Сравни 2 подхода к кэшированию (Redis vs in-memory), какой выбрать?"
     expect:
       skills:
-        - quality-gates
-        - engineering-standards
         - core-engineering
-        - documentation
 
   - id: strict-tdd-guard
     prompt: "Add this behavior but block implementation until there is a failing test."
     expect:
       skills:
         - tdd-guard
-        - testing-tdd
-        - quality-gates
 
   - id: repository-context-pack
     prompt: "Собери repomix-style context pack по этому репозиторию для handoff в другой AI session."
     expect:
       skills:
         - context-pack
-        - quality-gates
 
   - id: session-memory-delta
     prompt: "Запомни это решение для следующих сессий и обнови durable project memory."
     expect:
       skills:
         - session-memory
-        - documentation
 
   - id: parallel-agent-squad
     prompt: "Разбей задачу на параллельные worktree lanes: один агент пишет фичу, второй тесты, третий ревьюит security."
     expect:
       skills:
         - agent-squad
-        - specialist-dispatch
         - subagent-result-merge
 
   - id: external-agent-pack
@@ -97,18 +79,15 @@ cases:
       skills:
         - external-agent-pack-audit
         - supply-chain-review
-        - security
 
   - id: karpathy-discipline
     prompt: "Не усложняй, сначала проверь предположения и не пиши лишний framework."
     expect:
       skills:
         - karpathy-guidelines
-        - code-quality
 
   - id: dynamic-runtime-capabilities
     prompt: "Inspect the tools exposed in this session and select the safest capability for the task."
     expect:
       skills:
         - mcp-tool-router
-        - quality-gates

@@ -1,6 +1,6 @@
 ---
-name: [be] rust
-description: "Применяет Rust-правила с учётом репозитория: ownership, modules, errors, safety, tests и tooling."
+name: rust
+description: "Applies Rust rules for ownership, modules, errors, unsafe code, concurrency, tests, and tooling."
 ---
 
 # Skill: rust

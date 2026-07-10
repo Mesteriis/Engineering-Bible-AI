@@ -1,6 +1,6 @@
 ---
-name: [be] c-cpp
-description: "Применяет правила C и C++ с учётом репозитория: безопасность, владение ресурсами, ABI, сборка и валидация."
+name: c-cpp
+description: "Applies C/C++ rules for resource safety, ownership, ABI, builds, tests, and validation."
 ---
 
 # Skill: c-cpp

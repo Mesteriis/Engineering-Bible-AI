@@ -1,6 +1,6 @@
 ---
-name: [be] core-engineering
-description: "Базовый production engineering workflow для реализации, сопровождения и валидации."
+name: core-engineering
+description: "General implementation only when no narrower task or ecosystem skill fits. Do not combine with a clear specialist skill."
 ---
 
 # Skill: core-engineering

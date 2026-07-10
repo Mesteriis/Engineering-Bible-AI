@@ -1,6 +1,6 @@
 ---
-name: [be] ui-concept-first
-description: "Используется перед building или redesign frontend UI, когда важна визуальная direction; фиксирует visual reference из ImageGen, Figma, screenshot, Lazyweb evidence или existing design system перед implementation и visual QA."
+name: ui-concept-first
+description: "Establishes visual direction from Figma, screenshots, generated references, evidence, or an existing design system before implementation."
 ---
 
 # UI Concept First

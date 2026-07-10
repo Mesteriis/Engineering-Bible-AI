@@ -3,8 +3,10 @@
 ## Portable Artifacts
 
 - `AGENTS.md`
+- `instructions/global/steady.md`
 - `instructions/global/full.md`
 - `instructions/global/minimal.md`
+- `instructions/global/fast.md`
 - `engineering/`
 - `skills/`
 - `skills/registry.yml`
@@ -72,6 +74,10 @@
 
 Validation profiles: `quick`, `bootstrap`, `full`, and `release`.
 The release snapshot is derived exclusively from `git ls-files`.
+
+Prompt profiles: `steady` (new-install default), `full`, `minimal`, and `fast`.
+All profiles except `fast` retain the complete selected skill catalog. Existing
+installation manifests preserve their recorded profile during update.
 
 ## Skill Groups
 

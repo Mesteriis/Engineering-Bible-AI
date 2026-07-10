@@ -1,6 +1,6 @@
 ---
-name: [be] review-router
-description: "Автороутер ревью и планирования для PR review, local diff review, multi-agent read-only review, architecture mapping, migration planning, subagent result merge и ретроспектив AGENTS.md или skills после повторных ошибок агента."
+name: review-router
+description: "Routes ambiguous review or planning to one leaf workflow. Do not use for a clear code, security, UI, architecture, or migration review."
 ---
 
 # Review Router

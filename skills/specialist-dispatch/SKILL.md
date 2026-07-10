@@ -1,6 +1,6 @@
 ---
-name: [be] specialist-dispatch
-description: "Выбирает профиль специалиста для задачи: архитектура, backend, frontend, security, data, DevOps, QA, docs, performance или product; задаёт scope и ожидаемый результат."
+name: specialist-dispatch
+description: "Selects scoped architecture, backend, frontend, security, data, DevOps, QA, docs, performance, or product roles."
 ---
 
 # Specialist Dispatch

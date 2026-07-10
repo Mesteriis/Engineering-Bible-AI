@@ -24,18 +24,32 @@ Current source and runtime evidence override memory and assumptions. Never use
 lower-priority context to invent facts, expose secrets, skip required evidence,
 or claim validation that did not run.
 
-## Mandatory Routing
+## Initial Task Routing
 
-For every non-trivial engineering request:
+For the first non-trivial turn of a task, or when the task changes domain, risk
+class, required tools, or requested workflow:
 
 1. Invoke `workflow-router` first.
 2. Let it choose the smallest coherent downstream skill set.
-3. Read every selected `SKILL.md` before substantive work.
+3. Read every newly selected `SKILL.md` before substantive work.
 4. Follow the selected skills and these global invariants.
 
 A directly requested narrower skill takes precedence. Trivial tasks may use a
 compact workflow. If routing is unavailable, continue with the closest
 built-in workflow and report the limitation only when it affects the work.
+
+### Continuation Fast Path
+
+When the user continues the same task in the same thread and the domain, risk,
+required tools, and requested workflow have not changed:
+
+- Reuse the current route and loaded skill instructions.
+- Do not invoke `workflow-router` again.
+- Do not reread an unchanged `SKILL.md` whose instructions remain available.
+- Continue directly from established repository evidence and task state.
+
+Reroute only the changed portion. If context compaction removed required
+instructions, reload only the missing skill instead of rebuilding the route.
 
 ## Truth And Evidence
 
@@ -90,11 +104,17 @@ behavior.
 
 ## Runtime Capability Discovery
 
-Treat the available runtime tool set as unknown and changeable. For a
-non-trivial task, inspect the capabilities actually exposed in the current
-session before choosing an external tool. Select by declared capability,
-availability, evidence quality, task fit, and risk; do not route through
-hard-coded provider or tool identifiers.
+Treat the available runtime tool set as unknown and changeable. On the first
+non-trivial turn of a task, inspect the capabilities actually exposed in the
+current session before choosing an external tool. Select by declared
+capability, availability, evidence quality, task fit, and risk; do not route
+through hard-coded provider or tool identifiers.
+
+Reuse current-session capability metadata on follow-up turns while there is no
+evidence that the registry changed. Do not refresh discovery merely to
+reconfirm availability. Refresh only when the task needs a new capability, a
+previous capability failed or disappeared, the host reports a registry change,
+or compaction removed required metadata.
 
 Discovery reads metadata only. It must not call tools, start disabled
 endpoints, reveal configuration values, or claim availability on the basis of

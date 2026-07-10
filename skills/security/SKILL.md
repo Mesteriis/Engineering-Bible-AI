@@ -1,6 +1,6 @@
 ---
-name: [be] security
-description: "Ведёт security-sensitive work с консервативными предположениями, явной валидацией и защитой secrets."
+name: security
+description: "Implements security-sensitive changes with conservative trust boundaries, secret protection, tests, and verification."
 ---
 
 # Skill: security

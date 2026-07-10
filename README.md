@@ -11,7 +11,8 @@ state or secrets.
 ## Contents
 
 - `AGENTS.md` - instructions for contributing to this repository.
-- `instructions/global/` - installable full and minimal global prompt profiles.
+- `instructions/global/` - installable steady, full, minimal, and fast global
+  prompt profiles.
 - `engineering/` - language-neutral engineering standards library with
   `engineering/README.md` as the selection index.
 - `skills/` - Codex-compatible skills.
@@ -60,6 +61,28 @@ The portable package installs skills and standards only. Your existing Codex
 worker, MCP, notify, Computer Use, and model provider setup remain local.
 
 See `docs/worker-runtime-boundary.md`.
+
+## Prompt Profiles
+
+- `steady` is the default for new installs. It keeps the complete default skill
+  catalog, selects a narrow leaf workflow directly, and reuses the active route,
+  loaded skill instructions, and runtime metadata on same-task follow-ups.
+- `full` keeps exhaustive first-turn routing and capability discovery, but also
+  reuses them while the task, risk, and required tools remain unchanged.
+- `minimal` keeps the steady-state behavior with a smaller global prompt.
+- `fast` is a deliberately limited mode that installs only the `fast` skill.
+
+Updating or reinstalling through `be`, `make install`, or the local installer
+preserves the profile recorded in the existing manifest. Migrate explicitly
+after reviewing the plan:
+
+```bash
+be update --dry-run --prompt-profile steady
+be update --prompt-profile steady
+```
+
+This changes routing policy, not the available specialist catalog. Explicit
+skill invocations and all default specialist workflows remain available.
 
 ## Install
 
@@ -150,6 +173,7 @@ be validate --checkout . --profile quick
 be validate --checkout . --profile release
 be validate --installed
 be install --dry-run --diff
+be install --dry-run --prompt-profile full
 be install --dry-run --prompt-profile minimal
 be install --dry-run --prompt-profile fast
 be install --dry-run --migrate-legacy
@@ -249,12 +273,13 @@ GitHub Actions runs repository-local validation on pushes and pull requests.
 ## Notes
 
 - Installed global instructions stay technology-neutral and capability-based.
-- The default prompt profile is `full`; `minimal` is an opt-in compact profile.
-  `fast` activates only the fast skill and skips routing, MCP discovery,
-  evidence overhead, and external tool setup.
+- The default prompt profile is `steady`; `full` keeps strict first-turn
+  routing, `minimal` is compact steady-state mode, and `fast` activates only the
+  fast skill.
 - Language-specific rules live in ecosystem skills.
 - Broad engineering principles live in `engineering/`; use
   `engineering/README.md` to select only the relevant reference documents.
-- `workflow-router` remains the entry point for non-trivial engineering tasks.
+- `workflow-router` is reserved for ambiguous, mixed-domain, or materially
+  changed tasks. Clear tasks select the narrowest leaf skill directly.
 - `engineering-standards` is read only when standards, boundaries, smells,
   naming, refactoring, complexity, or task/TODO structure matter.

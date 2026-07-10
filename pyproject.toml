@@ -1,6 +1,6 @@
 [project]
 name = "engineering-bible-ai"
-version = "0.3.0"
+version = "0.3.1"
 description = "Portable engineering standards, skills, and validation for Codex"
 requires-python = ">=3.11"
 

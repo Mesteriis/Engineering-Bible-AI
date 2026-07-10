@@ -1,6 +1,6 @@
 ---
-name: [be] testing-tdd
-description: "Применяет практичный TDD, regression testing и validation discipline для behavior changes."
+name: testing-tdd
+description: "Applies practical test-first and regression testing to behavior changes, bug fixes, state transitions, and public contracts."
 ---
 
 # Skill: testing-tdd

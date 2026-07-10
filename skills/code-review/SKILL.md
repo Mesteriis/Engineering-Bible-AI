@@ -1,6 +1,6 @@
 ---
-name: [be] code-review
-description: "Ревьюит код на корректность, безопасность, архитектуру, поддерживаемость и покрытие тестами."
+name: code-review
+description: "Reviews code, diffs, or PRs for correctness, regressions, security, architecture, maintainability, and test gaps."
 ---
 
 # Skill: code-review

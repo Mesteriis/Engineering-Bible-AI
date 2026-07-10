@@ -198,6 +198,20 @@ class InstallerTests(unittest.TestCase):
                 hashlib.sha256(wrapper.read_bytes()).hexdigest(),
             )
 
+    def test_reinstall_preserves_manifest_prompt_profile_without_override(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            self.install(tmp, "--prompt-profile", "full")
+
+            result = self.run_installer(tmp, "--install")
+            manifest = json.loads(
+                (tmp / "engineering-bible" / "install-manifest.json").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Prompt profile: full", result.stdout)
+        self.assertEqual(manifest["groups"]["prompt_profile"], "full")
+
     def test_force_never_overwrites_unmanaged_wrapper(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)

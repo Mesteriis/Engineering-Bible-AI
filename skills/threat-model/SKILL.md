@@ -1,6 +1,6 @@
 ---
-name: [be] threat-model
-description: "Строит threat model для репозитория, сервиса, feature, endpoint, integration или architecture change: trust boundaries, assets, attackers, entrypoints, auth/authz, data flows, abuse cases и preparation к security review."
+name: threat-model
+description: "Models threats for a service, feature, endpoint, integration, or architecture: assets, attackers, boundaries, flows, and abuse cases."
 ---
 
 # Threat Model

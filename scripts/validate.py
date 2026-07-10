@@ -33,6 +33,7 @@ class Check:
 
 
 PROMPT_BUDGETS = {
+    "instructions/global/steady.md": (1100, 10 * 1024),
     "instructions/global/full.md": (2600, 20 * 1024),
     "instructions/global/minimal.md": (700, 6 * 1024),
     "instructions/global/fast.md": (700, 6 * 1024),
@@ -47,6 +48,7 @@ RELEASE_REQUIRED_FILES = (
     "MANIFEST.md",
     "README.md",
     "README.ru.md",
+    "instructions/global/steady.md",
     "instructions/global/full.md",
     "instructions/global/minimal.md",
     "instructions/global/fast.md",
@@ -69,14 +71,21 @@ RELEASE_REQUIRED_FILES = (
     "scripts/validate.py",
     "scripts/validate-acceptance.py",
     "skills/mcp-tool-router/SKILL.md",
+    "skills/mcp-tool-router/references/host-adapter.md",
+    "skills/workflow-router/SKILL.md",
+    "skills/workflow-router/references/routes.md",
     "skills/registry.yml",
     "tests/test_be_extended_cli.py",
     "tests/test_acceptance.py",
     "tests/test_bootstrap.py",
     "tests/test_installer.py",
     "tests/test_mcp_catalog.py",
+    "tests/test_prompt_profiles.py",
     "tests/test_registry.py",
     "tests/test_release_contract.py",
+    "tests/test_skill_catalog.py",
+    "tests/test_skill_frontmatter.py",
+    "tests/test_steady_profile.py",
     "tests/test_tool_catalog.py",
     "tests/test_validation.py",
 )
@@ -144,16 +153,11 @@ def validate_shell_syntax(files: Sequence[Path]) -> Result:
 def validate_python_compile(files: Sequence[Path]) -> Result:
     failures: list[str] = []
     for path in files:
-        process = subprocess.run(
-            [sys.executable, "-m", "py_compile", str(path)],
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=False,
-        )
-        if process.returncode != 0:
-            error = process.stderr.strip() or process.stdout.strip() or "compile error"
-            failures.append(f"{path}: {error}")
+        try:
+            source = path.read_bytes()
+            compile(source, str(path), "exec", dont_inherit=True)
+        except (OSError, SyntaxError, ValueError) as exc:
+            failures.append(f"{path}: {exc}")
     if failures:
         return Result(Status.FAIL, "\n".join(failures))
     return Result(Status.PASS, f"compiled {len(files)} Python file(s)")

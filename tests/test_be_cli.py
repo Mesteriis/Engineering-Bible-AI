@@ -170,6 +170,14 @@ class BeCliTests(unittest.TestCase):
             self.assertTrue(wrapper.is_file())
             self.assertTrue(os.access(wrapper, os.X_OK))
             self.assertFalse((tmp / "codex" / "skills" / "code-wiki-ru" / "SKILL.md").exists())
+            self.assertEqual(
+                (tmp / "codex" / "AGENTS.md").read_text(encoding="utf-8"),
+                (ROOT / "instructions" / "global" / "steady.md").read_text(encoding="utf-8"),
+            )
+            manifest = json.loads(
+                (tmp / "engineering-bible" / "install-manifest.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(manifest["groups"]["prompt_profile"], "steady")
 
             wrapper_result = subprocess.run(
                 [str(wrapper), "version"],
@@ -194,6 +202,36 @@ class BeCliTests(unittest.TestCase):
             installed = self.run_be("validate", "--installed", tmp=tmp)
 
         self.assertEqual(installed.returncode, 0, installed.stderr)
+
+    def test_update_preserves_manifest_prompt_profile_without_override(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            install = self.run_be("install", "--prompt-profile", "full", tmp=tmp)
+            self.assertEqual(install.returncode, 0, install.stderr)
+
+            update = self.run_be("update", "--dry-run", tmp=tmp)
+            manifest = json.loads(
+                (tmp / "engineering-bible" / "install-manifest.json").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(update.returncode, 0, update.stderr)
+        self.assertIn("Prompt profile: full", update.stdout)
+        self.assertEqual(manifest["groups"]["prompt_profile"], "full")
+
+    def test_reinstall_preserves_manifest_prompt_profile_without_override(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            install = self.run_be("install", "--prompt-profile", "full", tmp=tmp)
+            self.assertEqual(install.returncode, 0, install.stderr)
+
+            reinstall = self.run_be("install", tmp=tmp)
+            manifest = json.loads(
+                (tmp / "engineering-bible" / "install-manifest.json").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(reinstall.returncode, 0, reinstall.stderr)
+        self.assertIn("Prompt profile: full", reinstall.stdout)
+        self.assertEqual(manifest["groups"]["prompt_profile"], "full")
 
     def test_installed_wrapper_can_run_install_from_installed_tree(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

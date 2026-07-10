@@ -1,6 +1,6 @@
 ---
-name: [be] code-wiki-ru
-description: "Генерирует, обновляет и проверяет русскоязычные Obsidian-compatible code wiki из репозиториев; подходит для документации из кода, refresh docs/wiki, иерархической architecture wiki, code/docs/ADR drift detection и использования DeepSeek через OpenCode для покрытия документации."
+name: code-wiki-ru
+description: "Builds and validates Russian Obsidian repository wikis, architecture docs, and code/docs/ADR drift reports."
 ---
 
 # Code Wiki RU

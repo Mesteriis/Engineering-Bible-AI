@@ -1,6 +1,6 @@
 ---
-name: [be] documentation
-description: "Держит техническую документацию точной, минимальной и связанной с реально реализованным поведением."
+name: documentation
+description: "Updates technical docs for verified behavior, public contracts, commands, configuration, and operations."
 ---
 
 # Skill: documentation

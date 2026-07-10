@@ -1,6 +1,6 @@
 ---
-name: [be] karpathy-guidelines
-description: "Анти-синдром отличника для coding agents: не гадать, не переусложнять, не плодить dead code, спорить с сомнительными предположениями и сначала думать."
+name: karpathy-guidelines
+description: "Use only when simplicity, assumption checks, dead-code avoidance, or overengineering resistance is requested. Do not use by default."
 ---
 
 # Karpathy Guidelines

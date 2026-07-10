@@ -1,6 +1,6 @@
 ---
-name: [be] figma-to-code
-description: "Реализует Figma frame, selection, component или design-system screen в коде; извлекает Figma context, сохраняет variants/assets/tokens и валидирует рендер против Figma reference."
+name: figma-to-code
+description: "Implements Figma frames, selections, components, or screens in code while preserving assets, variants, tokens, and visual fidelity."
 ---
 
 # Figma To Code

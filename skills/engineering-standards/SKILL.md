@@ -1,6 +1,6 @@
 ---
-name: [be] engineering-standards
-description: "Применяет общую библиотеку инженерных стандартов: принципы, smells, именование, refactoring и стиль задач."
+name: engineering-standards
+description: "Use only when the request concerns standards, responsibility, complexity, smells, naming, refactoring catalogs, or task-plan rules; not routine work."
 ---
 
 # Skill: engineering-standards

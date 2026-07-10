@@ -11,7 +11,8 @@ runtime state и секретов здесь нет.
 ## Состав
 
 - `AGENTS.md` - инструкции для изменений в этом репозитории.
-- `instructions/global/` - устанавливаемые full и minimal global profiles.
+- `instructions/global/` - устанавливаемые steady, full, minimal и fast global
+  profiles.
 - `engineering/` - нейтральная к языкам инженерная библиотека с
   `engineering/README.md` как индексом выбора.
 - `skills/` - Codex-compatible skills.
@@ -60,6 +61,30 @@ Optional wiki group по умолчанию не ставится.
 notify, Computer Use и model provider остаются локальными.
 
 Смотри `docs/worker-runtime-boundary.md`.
+
+## Prompt profiles
+
+- `steady` используется по умолчанию для новых установок. Он сохраняет полный
+  default-каталог skills, выбирает узкий leaf workflow напрямую и повторно
+  использует текущий route, загруженные инструкции и runtime metadata в
+  продолжении той же задачи.
+- `full` сохраняет исчерпывающий routing и capability discovery на первом ходе,
+  но не повторяет их, пока задача, риск и требуемые tools не изменились.
+- `minimal` сохраняет steady-state поведение с меньшим global prompt.
+- `fast` является намеренно ограниченным режимом и устанавливает только skill
+  `fast`.
+
+Обновление или повторная установка через `be`, `make install` или локальный
+installer сохраняет profile из ownership manifest. Переход выполняется явно
+после просмотра плана:
+
+```bash
+be update --dry-run --prompt-profile steady
+be update --prompt-profile steady
+```
+
+Меняется routing policy, а не доступный specialist-каталог. Явные вызовы skills
+и все default specialist workflows остаются доступными.
 
 ## Установка
 
@@ -148,6 +173,7 @@ be validate --checkout . --profile quick
 be validate --checkout . --profile release
 be validate --installed
 be install --dry-run --diff
+be install --dry-run --prompt-profile full
 be install --dry-run --prompt-profile minimal
 be install --dry-run --prompt-profile fast
 be install --dry-run --migrate-legacy
@@ -248,12 +274,13 @@ GitHub Actions запускает repo-local валидацию на push и pul
 
 - Устанавливаемые global instructions остаются technology-neutral и
   capability-based.
-- Default prompt profile — `full`; компактный `minimal` включается явно.
-  `fast` активирует только fast skill и отключает routing, MCP discovery,
-  evidence overhead и setup внешних tools.
+- Default prompt profile — `steady`; `full` сохраняет строгий routing первого
+  хода, `minimal` является компактным steady-state режимом, а `fast` активирует
+  только fast skill.
 - Языковые правила живут в ecosystem skills.
 - Общие инженерные принципы живут в `engineering/`; используй
   `engineering/README.md`, чтобы выбирать только релевантные reference-доки.
-- `workflow-router` остаётся входной точкой для нетривиальных инженерных задач.
+- `workflow-router` используется для неоднозначных, multi-domain или заметно
+  изменившихся задач. Ясные задачи выбирают узкий leaf skill напрямую.
 - `engineering-standards` читается только когда нужны standards, boundaries,
   smells, naming, refactoring, complexity или структура больших TODO/task plans.

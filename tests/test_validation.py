@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,30 @@ ROUTER_SPEC.loader.exec_module(router_cases)
 
 
 class ValidationTests(unittest.TestCase):
+    def test_python_compile_runs_in_process_without_child_interpreters(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            source = Path(raw) / "valid.py"
+            source.write_text("value: int = 1\n", encoding="utf-8")
+
+            with mock.patch.object(
+                validate.subprocess,
+                "run",
+                side_effect=AssertionError("unexpected child interpreter"),
+            ):
+                result = validate.validate_python_compile([source])
+
+        self.assertEqual(result.status, validate.Status.PASS)
+
+    def test_python_compile_reports_invalid_source(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            source = Path(raw) / "invalid.py"
+            source.write_text("if True print('broken')\n", encoding="utf-8")
+
+            result = validate.validate_python_compile([source])
+
+        self.assertEqual(result.status, validate.Status.FAIL)
+        self.assertIn("invalid.py", result.detail)
+
     def test_make_help_is_the_default_target(self) -> None:
         result = subprocess.run(
             ["make", "-s"],
@@ -58,6 +83,17 @@ class ValidationTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("fixture validation passed", result.stdout)
+
+    def test_router_fixtures_keep_default_routes_narrow(self) -> None:
+        cases = router_cases.parse_router_cases(ROOT / "tests" / "router-cases.yml")
+
+        for case in cases:
+            skills = case.get("skills", [])
+            self.assertLessEqual(
+                len(skills),
+                2,
+                f"{case.get('id')}: steady routes should use one primary and at most one support",
+            )
 
     def test_unavailable_runtime_router_evaluation_is_not_success(self) -> None:
         env = os.environ.copy()

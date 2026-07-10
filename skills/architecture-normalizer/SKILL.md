@@ -1,6 +1,6 @@
 ---
-name: [be] architecture-normalizer
-description: "Детерминированно нормализует архитектуру больших или монолитных деревьев кода: планирует и выполняет ревьюируемое разделение модулей, god-файлов, классов и пакетов, снижает связность, повышает связность внутри модулей, сохраняет публичные API и создаёт .architecture artifacts для Python, Rust, Go, TypeScript, JavaScript, C++ и C."
+name: architecture-normalizer
+description: "Decomposes large modules, god files, classes, or packages in reviewable steps while preserving public APIs. Not for routine refactors."
 ---
 
 # Architecture Normalizer

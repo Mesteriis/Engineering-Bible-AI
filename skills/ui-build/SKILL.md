@@ -1,6 +1,6 @@
 ---
-name: [be] ui-build
-description: "UI design и implementation router для landing pages, portfolios, redesigns, general frontend UI, image-led website concepts и style-constrained builds; выбирает нужный build skill и требует прочитать его SKILL.md перед работой."
+name: ui-build
+description: "Routes UI implementation or redesign to the narrowest build workflow for pages, apps, dashboards, and styled frontends."
 ---
 
 # UI Build Router

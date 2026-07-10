@@ -1,6 +1,6 @@
 ---
-name: [be] typescript
-description: "Применяет TypeScript/JavaScript правила с учётом репозитория: tooling, types, tests и architecture."
+name: typescript
+description: "Applies TypeScript/JavaScript rules for types, async behavior, APIs, tooling, tests, and architecture."
 ---
 
 # Skill: typescript
