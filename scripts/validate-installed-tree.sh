@@ -234,14 +234,14 @@ try:
         raise ValueError("invalid requested groups")
     if not isinstance(include_all, bool):
         raise ValueError("invalid include_all flag")
-    if profile not in {"full", "minimal"}:
+    if profile not in {"full", "minimal", "fast"}:
         raise ValueError("invalid prompt profile")
     if not isinstance(selected, list) or any(
         not isinstance(skill, str) or not skill.strip() for skill in selected
     ):
         raise ValueError("invalid selected skills")
 
-    expected_skills = registry.selected_skills(
+    expected_skills = ["fast"] if profile == "fast" else registry.selected_skills(
         registry.load_registry(package_root),
         groups=list(requested),
         include_all=include_all,

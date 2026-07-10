@@ -41,6 +41,7 @@ The optional wiki group is not installed by default.
 
 ### Optional groups
 
+- **fast:** `fast`.
 - **wiki:** `code-wiki-ru`.
 <!-- END GENERATED SKILL REGISTRY -->
 
@@ -150,6 +151,7 @@ be validate --checkout . --profile release
 be validate --installed
 be install --dry-run --diff
 be install --dry-run --prompt-profile minimal
+be install --dry-run --prompt-profile fast
 be install --dry-run --migrate-legacy
 be update
 be update --ref main --allow-unstable --dry-run
@@ -248,6 +250,8 @@ GitHub Actions runs repository-local validation on pushes and pull requests.
 
 - Installed global instructions stay technology-neutral and capability-based.
 - The default prompt profile is `full`; `minimal` is an opt-in compact profile.
+  `fast` activates only the fast skill and skips routing, MCP discovery,
+  evidence overhead, and external tool setup.
 - Language-specific rules live in ecosystem skills.
 - Broad engineering principles live in `engineering/`; use
   `engineering/README.md` to select only the relevant reference documents.

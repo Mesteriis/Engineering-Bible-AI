@@ -72,5 +72,7 @@ groups:
     - responsive-breakpoint-check
     - accessibility-ui-review
 optional:
+  fast:
+    - fast
   wiki:
     - code-wiki-ru

@@ -186,7 +186,7 @@ def manifest_install_selection(manifest: dict[str, object]) -> tuple[list[str], 
     if not isinstance(include_all, bool):
         raise BeError("installation manifest include_all flag is invalid")
     prompt_profile = groups.get("prompt_profile")
-    if prompt_profile not in {"full", "minimal"}:
+    if prompt_profile not in {"full", "minimal", "fast"}:
         raise BeError("installation manifest prompt profile is invalid")
     return requested_groups, include_all, str(prompt_profile)
 
@@ -758,7 +758,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     install.add_argument(
         "--prompt-profile",
-        choices=("full", "minimal"),
+        choices=("full", "minimal", "fast"),
         default="full",
         help="Global instruction profile to activate",
     )
@@ -781,7 +781,7 @@ def build_parser() -> argparse.ArgumentParser:
             "--force", action="store_true", help="Replace modified manifest-owned files"
         )
         command.add_argument("--migrate-legacy", action="store_true")
-        command.add_argument("--prompt-profile", choices=("full", "minimal"))
+        command.add_argument("--prompt-profile", choices=("full", "minimal", "fast"))
         command.add_argument("--ref", help="Explicit release tag or unstable ref")
         command.add_argument(
             "--allow-unstable",

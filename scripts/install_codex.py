@@ -43,7 +43,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--prompt-profile",
-        choices=("full", "minimal"),
+        choices=("full", "minimal", "fast"),
         default="full",
         help="Global instruction profile to activate (default: full)",
     )
@@ -104,6 +104,8 @@ def build_options(args: argparse.Namespace) -> InstallerOptions:
 
 
 def selected_skill_names(options: InstallerOptions) -> list[str]:
+    if options.prompt_profile == "fast":
+        return ["fast"]
     registry = load_registry(options.repo_root)
     return selected_skills(registry, groups=options.groups, include_all=options.all_groups)
 

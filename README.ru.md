@@ -41,6 +41,7 @@ Optional wiki group по умолчанию не ставится.
 
 ### Опциональные группы
 
+- **fast:** `fast`.
 - **wiki:** `code-wiki-ru`.
 <!-- END GENERATED SKILL REGISTRY -->
 
@@ -148,6 +149,7 @@ be validate --checkout . --profile release
 be validate --installed
 be install --dry-run --diff
 be install --dry-run --prompt-profile minimal
+be install --dry-run --prompt-profile fast
 be install --dry-run --migrate-legacy
 be update
 be update --ref main --allow-unstable --dry-run
@@ -247,6 +249,8 @@ GitHub Actions запускает repo-local валидацию на push и pul
 - Устанавливаемые global instructions остаются technology-neutral и
   capability-based.
 - Default prompt profile — `full`; компактный `minimal` включается явно.
+  `fast` активирует только fast skill и отключает routing, MCP discovery,
+  evidence overhead и setup внешних tools.
 - Языковые правила живут в ecosystem skills.
 - Общие инженерные принципы живут в `engineering/`; используй
   `engineering/README.md`, чтобы выбирать только релевантные reference-доки.

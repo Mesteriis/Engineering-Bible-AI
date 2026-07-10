@@ -183,6 +183,18 @@ class BeCliTests(unittest.TestCase):
             self.assertEqual(wrapper_result.returncode, 0, wrapper_result.stderr)
             self.assertIn("Engineering Bible AI be", wrapper_result.stdout)
 
+    def test_fast_prompt_profile_installs_only_fast_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            result = self.run_be("install", "--prompt-profile", "fast", tmp=tmp)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((tmp / "codex" / "skills" / "fast" / "SKILL.md").is_file())
+            self.assertFalse((tmp / "codex" / "skills" / "workflow-router").exists())
+            installed = self.run_be("validate", "--installed", tmp=tmp)
+
+        self.assertEqual(installed.returncode, 0, installed.stderr)
+
     def test_installed_wrapper_can_run_install_from_installed_tree(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)

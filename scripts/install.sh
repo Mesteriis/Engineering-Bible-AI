@@ -50,7 +50,7 @@ Environment:
   ENGINEERING_BIBLE_BIN_DIR  passed to scripts/install-codex.sh
 
 By default this bootstrapper installs portable standards and skills only.
-Install companion CLIs separately with `be tools install` and an explicit
+Install companion CLIs separately with 'be tools install' and an explicit
 selector; this bootstrapper never writes Codex config.toml, auth files, .env
 files, MCP credentials, hooks, or local worker runtime state.
 EOF

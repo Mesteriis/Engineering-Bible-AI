@@ -87,6 +87,7 @@ The release snapshot is derived exclusively from `git ls-files`.
 
 ### Optional groups
 
+- **fast:** `fast`.
 - **wiki:** `code-wiki-ru`.
 <!-- END GENERATED SKILL REGISTRY -->
 

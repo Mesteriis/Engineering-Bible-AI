@@ -35,6 +35,7 @@ class Check:
 PROMPT_BUDGETS = {
     "instructions/global/full.md": (2600, 20 * 1024),
     "instructions/global/minimal.md": (700, 6 * 1024),
+    "instructions/global/fast.md": (700, 6 * 1024),
     "AGENTS.md": (800, 8 * 1024),
 }
 
@@ -48,6 +49,7 @@ RELEASE_REQUIRED_FILES = (
     "README.ru.md",
     "instructions/global/full.md",
     "instructions/global/minimal.md",
+    "instructions/global/fast.md",
     "config/tools.json",
     "config/legacy-install-signatures.json",
     "examples/runtime-capabilities.synthetic.json",
