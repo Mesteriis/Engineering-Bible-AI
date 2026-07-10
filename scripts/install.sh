@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOTSTRAP_VERSION="0.2.0"
+BOOTSTRAP_VERSION="0.3.0"
 DEFAULT_REF_FILE="${SCRIPT_DIR}/../VERSION"
 if [[ -f "$DEFAULT_REF_FILE" ]]; then
     DEFAULT_VERSION="$(tr -d '[:space:]' <"$DEFAULT_REF_FILE" | head -n 1)"

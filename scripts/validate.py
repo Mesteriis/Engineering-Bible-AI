@@ -360,7 +360,12 @@ def full_checks(root: Path) -> list[Check]:
             root, "shellcheck", *[str(path.relative_to(root)) for path in shell_files(root)]
         ),
         command_check(
-            root, "shfmt", "-d", *[str(path.relative_to(root)) for path in shell_files(root)]
+            root,
+            "shfmt",
+            "-i",
+            "4",
+            "-d",
+            *[str(path.relative_to(root)) for path in shell_files(root)],
         ),
         command_check(root, "ruff", "check", "scripts", "tests"),
         command_check(root, "ruff", "format", "--check", "scripts", "tests"),

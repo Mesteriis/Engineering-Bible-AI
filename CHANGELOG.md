@@ -2,6 +2,10 @@
 
 All notable changes to this project are documented here.
 
+## [0.3.0] - 2026-07-10
+
+- Pinned shell formatting validation to four-space indentation for reproducible CI results.
+
 ## [0.2.0] - 2026-07-10
 
 - Fixed portable shell formatting and bootstrap usage diagnostics for release validation.
