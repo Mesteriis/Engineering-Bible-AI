@@ -1,0 +1,45 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ripgrep shellcheck shfmt
+          python -m pip install ruff==0.15.5 ty==0.0.58
+
+      - name: Validate release
+        run: |
+          make validate-release
+          git fetch origin main --depth=1
+          python3 scripts/validate-release-contract.py . --require-tag --require-main-ancestor --trigger-tag "$GITHUB_REF_NAME"
+
+      - name: Build artifacts
+        run: python3 scripts/build-release.py --root . --output dist
+
+      - name: Publish immutable release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --generate-notes

@@ -105,3 +105,10 @@ cases:
       skills:
         - karpathy-guidelines
         - code-quality
+
+  - id: dynamic-runtime-capabilities
+    prompt: "Inspect the tools exposed in this session and select the safest capability for the task."
+    expect:
+      skills:
+        - mcp-tool-router
+        - quality-gates

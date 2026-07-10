@@ -7,6 +7,16 @@ import argparse
 from collections.abc import Iterable
 from pathlib import Path
 import sys
+from typing import cast
+
+
+GENERATED_BEGIN = "<!-- BEGIN GENERATED SKILL REGISTRY -->"
+GENERATED_END = "<!-- END GENERATED SKILL REGISTRY -->"
+GENERATED_DOCS = {
+    "README.md": ("Default groups", "Optional groups"),
+    "README.ru.md": ("Группы по умолчанию", "Опциональные группы"),
+    "MANIFEST.md": ("Default groups", "Optional groups"),
+}
 
 
 class RegistryError(RuntimeError):
@@ -79,13 +89,13 @@ def parse_scalar(value: str) -> object:
 def cast_list(value: object) -> list[str]:
     if not isinstance(value, list):
         raise RegistryError(f"expected list, got {type(value).__name__}")
-    return value
+    return cast(list[str], value)
 
 
 def cast_dict(value: object) -> dict[str, object]:
     if not isinstance(value, dict):
         raise RegistryError(f"expected mapping, got {type(value).__name__}")
-    return value
+    return cast(dict[str, object], value)
 
 
 def registry_path(root: Path) -> Path:
@@ -108,10 +118,7 @@ def unique(items: Iterable[str]) -> list[str]:
 
 
 def group_map(registry: dict[str, object], *, include_optional: bool) -> dict[str, list[str]]:
-    groups = {
-        name: cast_list(skills)
-        for name, skills in cast_dict(registry["groups"]).items()
-    }
+    groups = {name: cast_list(skills) for name, skills in cast_dict(registry["groups"]).items()}
     if include_optional:
         for name, skills in cast_dict(registry["optional"]).items():
             groups[name] = cast_list(skills)
@@ -131,7 +138,9 @@ def selected_skills(
 ) -> list[str]:
     available = group_map(registry, include_optional=True)
     if include_all:
-        selected_groups = list(cast_dict(registry["groups"])) + list(cast_dict(registry["optional"]))
+        selected_groups = list(cast_dict(registry["groups"])) + list(
+            cast_dict(registry["optional"])
+        )
     else:
         selected_groups = default_group_names(registry) + groups
 
@@ -154,6 +163,94 @@ def all_registered_skills(registry: dict[str, object]) -> list[str]:
     return unique(skills)
 
 
+def render_group(name: str, skills: list[str]) -> str:
+    rendered_skills = ", ".join(f"`{skill}`" for skill in skills)
+    return f"- **{name}:** {rendered_skills}."
+
+
+def render_generated_block(
+    registry: dict[str, object],
+    *,
+    default_heading: str,
+    optional_heading: str,
+) -> str:
+    groups = {name: cast_list(skills) for name, skills in cast_dict(registry["groups"]).items()}
+    optional = {name: cast_list(skills) for name, skills in cast_dict(registry["optional"]).items()}
+    default_lines = [render_group(name, groups[name]) for name in default_group_names(registry)]
+    optional_lines = [render_group(name, skills) for name, skills in optional.items()]
+    if not default_lines:
+        default_lines = ["- None."]
+    if not optional_lines:
+        optional_lines = ["- None."]
+    return "\n".join(
+        [
+            GENERATED_BEGIN,
+            f"### {default_heading}",
+            "",
+            *default_lines,
+            "",
+            f"### {optional_heading}",
+            "",
+            *optional_lines,
+            GENERATED_END,
+        ]
+    )
+
+
+def replace_generated_block(text: str, block: str, *, document: str) -> str:
+    if text.count(GENERATED_BEGIN) != 1 or text.count(GENERATED_END) != 1:
+        raise RegistryError(
+            f"{document} must contain exactly one generated skill registry marker pair"
+        )
+    start = text.index(GENERATED_BEGIN)
+    end = text.index(GENERATED_END, start) + len(GENERATED_END)
+    return text[:start] + block + text[end:]
+
+
+def expected_generated_doc(root: Path, doc_name: str) -> str:
+    headings = GENERATED_DOCS[doc_name]
+    registry = load_registry(root)
+    block = render_generated_block(
+        registry,
+        default_heading=headings[0],
+        optional_heading=headings[1],
+    )
+    path = root / doc_name
+    if not path.is_file():
+        raise RegistryError(f"missing documentation file: {doc_name}")
+    return replace_generated_block(
+        path.read_text(encoding="utf-8"),
+        block,
+        document=doc_name,
+    )
+
+
+def validate_generated_docs(root: Path) -> list[str]:
+    issues: list[str] = []
+    for doc_name in GENERATED_DOCS:
+        path = root / doc_name
+        try:
+            expected = expected_generated_doc(root, doc_name)
+        except RegistryError as exc:
+            issues.append(str(exc))
+            continue
+        if path.read_text(encoding="utf-8") != expected:
+            issues.append(f"{doc_name}: generated skill registry block is stale")
+    return issues
+
+
+def update_generated_docs(root: Path) -> list[Path]:
+    changed: list[Path] = []
+    for doc_name in GENERATED_DOCS:
+        path = root / doc_name
+        expected = expected_generated_doc(root, doc_name)
+        if path.read_text(encoding="utf-8") == expected:
+            continue
+        path.write_text(expected, encoding="utf-8")
+        changed.append(path)
+    return changed
+
+
 def validate_registry(root: Path) -> list[str]:
     registry = load_registry(root)
     errors: list[str] = []
@@ -167,15 +264,11 @@ def validate_registry(root: Path) -> list[str]:
         if not (root / "skills" / skill / "SKILL.md").is_file():
             errors.append(f"registry skill is missing SKILL.md: {skill}")
 
-    actual = {
-        path.parent.name
-        for path in (root / "skills").glob("*/SKILL.md")
-        if path.is_file()
-    }
+    actual = {path.parent.name for path in (root / "skills").glob("*/SKILL.md") if path.is_file()}
     for skill in sorted(actual - registered):
         errors.append(f"skill exists but is missing from registry: {skill}")
 
-    for doc_name in ("README.md", "README.ru.md", "MANIFEST.md"):
+    for doc_name in GENERATED_DOCS:
         doc_path = root / doc_name
         if not doc_path.is_file():
             errors.append(f"missing documentation file: {doc_name}")
@@ -186,6 +279,8 @@ def validate_registry(root: Path) -> list[str]:
         for skill in sorted(registered):
             if skill not in text:
                 errors.append(f"{doc_name} does not mention registered skill: {skill}")
+
+    errors.extend(validate_generated_docs(root))
 
     return errors
 
@@ -215,6 +310,24 @@ def command_validate(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_docs(args: argparse.Namespace) -> int:
+    if args.write:
+        changed = update_generated_docs(args.root)
+        for path in changed:
+            print(f"updated {path.relative_to(args.root)}")
+        if not changed:
+            print("generated skill registry blocks are current")
+        return 0
+
+    issues = validate_generated_docs(args.root)
+    if issues:
+        for issue in issues:
+            print(issue, file=sys.stderr)
+        return 1
+    print("generated skill registry blocks are current")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Read and validate skills/registry.yml")
     parser.add_argument(
@@ -236,6 +349,16 @@ def build_parser() -> argparse.ArgumentParser:
 
     validate = subparsers.add_parser("validate", help="Validate registry and docs")
     validate.set_defaults(func=command_validate)
+
+    docs = subparsers.add_parser("docs", help="Check or update generated registry blocks")
+    docs_mode = docs.add_mutually_exclusive_group()
+    docs_mode.add_argument(
+        "--check",
+        action="store_true",
+        help="Check generated blocks (default)",
+    )
+    docs_mode.add_argument("--write", action="store_true", help="Update generated blocks in place")
+    docs.set_defaults(func=command_docs)
     return parser
 
 

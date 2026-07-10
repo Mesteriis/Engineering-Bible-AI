@@ -19,6 +19,8 @@ from typing import Iterable
 
 DEFAULT_IGNORED_DIRS = {
     ".git",
+    ".engineering-bible",
+    ".serena",
     ".hg",
     ".svn",
     ".idea",
@@ -64,13 +66,29 @@ DEFAULT_IGNORED_SUFFIXES = {
 }
 
 SOURCE_EXTENSIONS = {
-    ".py", ".pyi",
-    ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs",
+    ".py",
+    ".pyi",
+    ".ts",
+    ".tsx",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".cjs",
     ".rs",
     ".go",
-    ".c", ".h", ".cc", ".cpp", ".cxx", ".hpp", ".hh", ".hxx",
-    ".yaml", ".yml",
-    ".toml", ".json", ".md",
+    ".c",
+    ".h",
+    ".cc",
+    ".cpp",
+    ".cxx",
+    ".hpp",
+    ".hh",
+    ".hxx",
+    ".yaml",
+    ".yml",
+    ".toml",
+    ".json",
+    ".md",
 }
 
 
@@ -119,7 +137,9 @@ def main() -> int:
     parser.add_argument("--warn", type=int, default=800, help="Warning threshold")
     parser.add_argument("--soft", type=int, default=1500, help="Soft violation threshold")
     parser.add_argument("--hard", type=int, default=10000, help="Hard failure threshold")
-    parser.add_argument("--fail-soft", action="store_true", help="Exit non-zero on soft violations too")
+    parser.add_argument(
+        "--fail-soft", action="store_true", help="Exit non-zero on soft violations too"
+    )
     parser.add_argument(
         "--ignore-dir",
         action="append",

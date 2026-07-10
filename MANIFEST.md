@@ -3,6 +3,8 @@
 ## Portable Artifacts
 
 - `AGENTS.md`
+- `instructions/global/full.md`
+- `instructions/global/minimal.md`
 - `engineering/`
 - `skills/`
 - `skills/registry.yml`
@@ -11,10 +13,14 @@
 - `scripts/`
 - `tests/`
 - `examples/`
+- `schemas/`
+- `config/tools.json`
 - `docs/`
 - `.github/`
 - `Makefile`
 - `VERSION`
+- `.python-version`
+- `pyproject.toml`
 - `.secret-sanity-allowlist`
 
 ## OSS Files
@@ -33,13 +39,16 @@
 - `.github/dependabot.yml`
 - `.github/ISSUE_TEMPLATE/`
 - `.github/workflows/validate.yml`
+- `.github/workflows/release.yml`
 
 ## Command Entry Points
 
 - `Makefile`
 - `scripts/install.sh`
 - `scripts/install-codex.sh`
+- `scripts/install-tools.sh`
 - `scripts/install_codex.py`
+- `scripts/installer_core.py`
 - `scripts/be.py`
 - installed wrapper: `be`
 - `scripts/registry.py`
@@ -52,44 +61,34 @@
 - `scripts/check-file-size.py`
 - `scripts/secret-sanity.sh`
 - `scripts/validate-markdown-style.py`
+- `scripts/validate.py`
+- `scripts/mcp_catalog.py`
+- `scripts/mcp_catalog_cli.py`
+- `scripts/mcp_catalog_storage.py`
+- `scripts/tool_catalog.py`
+- `scripts/build-release.py`
+- `scripts/validate-actions-pins.py`
+- `scripts/validate-release-contract.py`
 
-## Default Skill Groups
+Validation profiles: `quick`, `bootstrap`, `full`, and `release`.
+The release snapshot is derived exclusively from `git ls-files`.
 
-Core:
-`workflow-router`, `engineering-standards`, `core-engineering`, `code-quality`,
-`architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`,
-`code-review`, `security`, `performance`, `refactoring`, `documentation`,
-`quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+## Skill Groups
 
-Ecosystems:
-`python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`,
-`esp32`.
+<!-- BEGIN GENERATED SKILL REGISTRY -->
+### Default groups
 
-Routers:
-`review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`,
-`ui-figma`, `ui-qa`.
+- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+- **ecosystems:** `python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, `esp32`.
+- **routers:** `review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`, `ui-figma`, `ui-qa`.
+- **review:** `architecture-map`, `architecture-normalizer`, `migration-planner`, `multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`, `subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`, `agents-md-retrospective`.
+- **security:** `security-diff-review`, `fix-security-finding`, `threat-model`, `dependency-advisory-audit`, `secrets-and-config-review`, `authz-boundary-review`, `deserialization-parser-review`, `supply-chain-review`.
+- **ui:** `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
 
-Review:
-`architecture-map`, `architecture-normalizer`, `migration-planner`,
-`multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`,
-`subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`,
-`agents-md-retrospective`.
+### Optional groups
 
-Security:
-`security-diff-review`, `fix-security-finding`, `threat-model`,
-`dependency-advisory-audit`, `secrets-and-config-review`,
-`authz-boundary-review`, `deserialization-parser-review`,
-`supply-chain-review`.
-
-UI:
-`ui-concept-first`, `design-system-extractor`, `figma-to-code`,
-`code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`,
-`accessibility-ui-review`.
-
-## Optional Skill Groups
-
-Wiki:
-`code-wiki-ru`.
+- **wiki:** `code-wiki-ru`.
+<!-- END GENERATED SKILL REGISTRY -->
 
 ## Explicitly Not Included
 

@@ -31,6 +31,15 @@ Infer:
 - error handling conventions;
 - async runtime if present.
 
+## Tooling Defaults
+
+- Prefer `cargo nextest run` over `cargo test` when `cargo-nextest` is installed
+  and compatible with the workspace.
+- Use `bacon` for local interactive feedback loops when available.
+- Use `cargo watch` for focused watch commands when available and useful.
+- Do not introduce these tools as required project dependencies unless the user
+  asks or the repository already standardizes on them.
+
 ## Style
 
 - Follow existing module organization.
@@ -78,11 +87,14 @@ If async code is present:
 Common commands, only when configured or clearly available:
 
 ```bash
+cargo nextest run
 cargo test
 cargo test --workspace
 cargo fmt --check
 cargo clippy --workspace --all-targets --all-features
 cargo check
+bacon
+cargo watch -x test
 ```
 
 Report exact commands and results.

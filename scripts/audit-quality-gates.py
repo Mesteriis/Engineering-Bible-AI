@@ -32,6 +32,20 @@ REQUIRED_FILES = [
     "scripts/audit-quality-gates.py",
     "tests/test_quality_audit.py",
     "scripts/validate-markdown-style.py",
+    "scripts/validate.py",
+    "scripts/installer_core.py",
+    "scripts/mcp_catalog.py",
+    "scripts/mcp_catalog_cli.py",
+    "scripts/mcp_catalog_storage.py",
+    "scripts/tool_catalog.py",
+    "scripts/build-release.py",
+    "scripts/validate-actions-pins.py",
+    "scripts/validate-release-contract.py",
+    "config/tools.json",
+    "schemas/runtime-capabilities.schema.json",
+    "skills/mcp-tool-router/SKILL.md",
+    "instructions/global/full.md",
+    "instructions/global/minimal.md",
     "VERSION",
     ".secret-sanity-allowlist",
     *QUALITY_DOCS,
@@ -40,8 +54,16 @@ REQUIRED_FILES = [
 
 MANIFEST_ENTRIES = [
     "scripts/audit-quality-gates.py",
+    "scripts/install-tools.sh",
     "quality-gates",
     "scripts/validate-markdown-style.py",
+    "scripts/validate.py",
+    "scripts/installer_core.py",
+    "scripts/mcp_catalog.py",
+    "scripts/tool_catalog.py",
+    "scripts/build-release.py",
+    "scripts/validate-actions-pins.py",
+    "scripts/validate-release-contract.py",
     "VERSION",
     ".secret-sanity-allowlist",
 ]
@@ -215,10 +237,7 @@ class Audit:
 
         if not quality.startswith("---"):
             self.issues.append("invalid skill frontmatter: skills/quality-gates/SKILL.md")
-        if (
-            "name: quality-gates" not in quality
-            and "name: [be] quality-gates" not in quality
-        ):
+        if "name: quality-gates" not in quality and "name: [be] quality-gates" not in quality:
             self.issues.append("missing skill name: skills/quality-gates/SKILL.md")
         if "description:" not in quality:
             self.issues.append("missing skill description: skills/quality-gates/SKILL.md")
@@ -245,7 +264,9 @@ class Audit:
             self.passed.append("manifest")
 
     def check_installer(self) -> None:
-        installer_py = self.read_text("scripts/install_codex.py")
+        installer_py = self.read_text("scripts/install_codex.py") + self.read_text(
+            "scripts/installer_core.py"
+        )
         before = len(self.issues)
         registered_skills = self.collect_registered_skills()
         default_skills = self.collect_default_installed_skills()
@@ -282,7 +303,9 @@ class Audit:
             if not path.is_file():
                 continue
             relative = path.relative_to(self.root).as_posix()
-            if path.name in FORBIDDEN_NAMES or any(path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES):
+            if path.name in FORBIDDEN_NAMES or any(
+                path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES
+            ):
                 self.issues.append(f"forbidden runtime file: {relative}")
         if len(self.issues) == before:
             self.passed.append("runtime boundary")

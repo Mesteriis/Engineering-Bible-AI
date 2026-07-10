@@ -9,6 +9,7 @@ default_groups:
 groups:
   core:
     - workflow-router
+    - mcp-tool-router
     - engineering-standards
     - core-engineering
     - code-quality

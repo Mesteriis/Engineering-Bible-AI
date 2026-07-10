@@ -181,6 +181,20 @@ Good comments explain:
 
 Bad comments narrate obvious code.
 
+## Structural Search And Mechanical Changes
+
+Use parser-aware tooling when the task depends on code structure rather than raw
+text:
+
+- `ast-grep` for syntax-aware search, linting, and mechanical rewrites;
+- `tree-sitter` or tree-sitter-backed tooling when grammar-level inspection is
+  needed;
+- `rg` for broad text search and `fd` for file discovery before slower
+  alternatives.
+
+Do not use broad regex rewrites for syntax-sensitive changes when a structural
+tool is available and practical.
+
 ## Prohibited Quality Failures
 
 - god files;

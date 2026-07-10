@@ -10,7 +10,8 @@ runtime state и секретов здесь нет.
 
 ## Состав
 
-- `AGENTS.md` - переносимые корневые инструкции Codex.
+- `AGENTS.md` - инструкции для изменений в этом репозитории.
+- `instructions/global/` - устанавливаемые full и minimal global profiles.
 - `engineering/` - нейтральная к языкам инженерная библиотека с
   `engineering/README.md` как индексом выбора.
 - `skills/` - Codex-compatible skills.
@@ -28,39 +29,20 @@ runtime state и секретов здесь нет.
 Установка по умолчанию берёт non-optional группы из `skills/registry.yml`.
 Optional wiki group по умолчанию не ставится.
 
-Core:
-`workflow-router`, `engineering-standards`, `core-engineering`, `code-quality`,
-`architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`,
-`code-review`, `security`, `performance`, `refactoring`, `documentation`,
-`quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+<!-- BEGIN GENERATED SKILL REGISTRY -->
+### Группы по умолчанию
 
-Ecosystems:
-`python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`,
-`esp32`.
+- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+- **ecosystems:** `python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, `esp32`.
+- **routers:** `review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`, `ui-figma`, `ui-qa`.
+- **review:** `architecture-map`, `architecture-normalizer`, `migration-planner`, `multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`, `subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`, `agents-md-retrospective`.
+- **security:** `security-diff-review`, `fix-security-finding`, `threat-model`, `dependency-advisory-audit`, `secrets-and-config-review`, `authz-boundary-review`, `deserialization-parser-review`, `supply-chain-review`.
+- **ui:** `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
 
-Routers:
-`review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`,
-`ui-figma`, `ui-qa`.
+### Опциональные группы
 
-Review:
-`architecture-map`, `architecture-normalizer`, `migration-planner`,
-`multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`,
-`subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`,
-`agents-md-retrospective`.
-
-Security:
-`security-diff-review`, `fix-security-finding`, `threat-model`,
-`dependency-advisory-audit`, `secrets-and-config-review`,
-`authz-boundary-review`, `deserialization-parser-review`,
-`supply-chain-review`.
-
-UI:
-`ui-concept-first`, `design-system-extractor`, `figma-to-code`,
-`code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`,
-`accessibility-ui-review`.
-
-Optional wiki:
-`code-wiki-ru`.
+- **wiki:** `code-wiki-ru`.
+<!-- END GENERATED SKILL REGISTRY -->
 
 ## Граница worker/runtime
 
@@ -96,29 +78,59 @@ make install
 make install-wiki
 ```
 
+Просмотреть и явно выбрать optional companion CLI tools:
+
+```bash
+be tools list
+be tools plan --group foundation
+be tools install --group foundation --allow-unpinned
+be tools list --capability dependency-docs --json
+be tools configure --tool agent-browser --step browser-runtime --allow-network
+be tools doctor --tool agent-browser
+```
+
+Версионированный каталог показывает `OK`, `MISMATCH`, `UNPINNED`, `MISSING` и
+`UNSUPPORTED`, если entry недоступен на текущей платформе.
+Без `--group`, `--tool` или `--all` установка не начинается. Установка Bible
+не устанавливает companion tools; настройка выполняется по одному шагу с явным
+разрешением side effects. Hooks, provider configuration, credentials и local
+runtime services автоматически не включаются.
+
+В optional-каталоге есть pinned capabilities для task state, browser evidence,
+исходников зависимостей и versioned документации. Browser runtime настраивается
+явно и headless; task state работает в stealth-режиме; авторизация внешней
+документации не входит в установку Bible.
+
 Установить все группы из реестра:
 
 ```bash
 make install-all
 ```
 
-Advanced quick install из GitHub:
+Stable install из GitHub release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Mesteriis/Engineering-Bible-AI/main/scripts/install.sh \
-  | bash -s -- --dry-run --diff
+RELEASE=v0.1.0
+curl -fSLo engineering-bible-install.sh \
+  "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
+bash engineering-bible-install.sh --dry-run --diff
 ```
 
 Когда planned changes выглядят корректно, замени `--dry-run --diff` на
-`--install`. `ENGINEERING_BIBLE_REF` можно переопределить на нужный tag, branch
-или commit (например, `ENGINEERING_BIBLE_REF=v0.1.0`) при необходимости.
+`--install`.
 
-Installer пишет skills в `CODEX_HOME`, общие reference-доки в `CODEX_HOME` и
-`AGENTS_HOME`, а также wrapper `be`. Старые managed-зеркала skills из
-`AGENTS_HOME` удаляются после backup, чтобы Codex UI не показывал дубли. Он
-показывает `ADD`, `UPDATE`, `REMOVE`, `UNCHANGED`, `SKIP` и `CONFLICT`.
-Изменённые managed targets не перезаписываются без `--force`. `--no-overwrite`
-копирует только отсутствующие targets и оставляет obsolete mirrors на месте.
+Mutable branch разрешается только явно:
+
+```bash
+bash engineering-bible-install.sh --ref main --allow-unstable --dry-run
+```
+
+Полный portable snapshot устанавливается в `$ENGINEERING_BIBLE_HOME/current`.
+Активные instructions и skills проецируются в `CODEX_HOME`/`AGENTS_HOME`, а
+ownership manifest хранит hash и mode каждого managed file. Unmanaged files не
+перезаписываются и не удаляются даже с `--force`. `--migrate-legacy` используется
+только для осознанного переноса идентичной legacy installation. Операции
+journaled, создают backup и откатываются при ошибке.
 
 После установки пакет ставит маленькую команду `be` в `~/.local/bin/be` по
 умолчанию. Если `~/.local/bin` не входит в shell `PATH`, запускай команду через
@@ -131,12 +143,39 @@ be version
 be doctor
 be doctor --json
 be validate --checkout .
+be validate --checkout . --profile quick
+be validate --checkout . --profile release
+be validate --installed
 be install --dry-run --diff
+be install --dry-run --prompt-profile minimal
+be install --dry-run --migrate-legacy
 be update
-be self-update
-be add skill https://github.com/<owner>/<repo>/<path>
+be update --ref main --allow-unstable --dry-run
+RUNTIME_METADATA=/path/to/runtime-metadata.json
+be mcp refresh --repo . --json < "$RUNTIME_METADATA"
+be mcp status --repo . --json
+printf '%s\n' 'проверь этот репозиторий' | be mcp candidates --repo . --task-stdin --json
+TOOL_ID=opaque-tool-id
+be mcp show "$TOOL_ID" --json
+be tools list
+TOOL_ID=tool-id
+be tools plan --tool "$TOOL_ID"
+SKILL_SOURCE=https://github.com/OWNER/REPOSITORY
+SKILL_PATH=path/to/skill
+be add skill "$SKILL_SOURCE" --path "$SKILL_PATH"
+be acceptance validate .engineering-bible/evidence/acceptance.json --json
 be audit
 ```
+
+`be self-update` на один release остаётся deprecated alias для `be update`.
+Runtime capability names обнаруживаются из текущей host session и записываются
+только в локальное Git-excluded state под `.engineering-bible/mcp/`.
+`refresh` не опрашивает и не вызывает capabilities: host adapter должен передать
+через stdin текущий in-memory registry в нормализованной схеме, показанной в
+`examples/runtime-capabilities.synthetic.json`. Нельзя строить этот input из
+конфигурации репозитория или запомненного списка providers.
+`--repo` должен указывать на Git working tree: если local exclude нельзя
+безопасно настроить, refresh завершается до записи файлов каталога.
 
 Варианты через Make:
 
@@ -144,7 +183,7 @@ be audit
 make be-update
 make be-self-update
 make be-audit
-make be-add-skill SOURCE=https://github.com/<owner>/<repo>/<path> [NAME=<name>] [REF=<ref>] [SKILL_PATH=<subdir>]
+make be-add-skill SOURCE="$SKILL_SOURCE" NAME=optional-name REF=optional-ref SKILL_PATH="$SKILL_PATH"
 ```
 
 ```bash
@@ -157,17 +196,40 @@ make markdown-lint
 ## Проверка
 
 ```bash
+make validate-quick
+make validate-bootstrap
 make validate
+make validate-release
 ```
 
-Основные entry points валидации:
+Единый runner помечает каждую проверку как `PASS`, `FAIL` или `SKIP`. Release
+profile считает любой `SKIP` ошибкой и сверяет обязательный snapshot с
+`git ls-files`.
 
+Основные entry points:
+
+- `scripts/validate.py --profile quick|bootstrap|full|release`
 - `scripts/validate-repo-tree.sh .`
-- `scripts/validate-installed-tree.sh ~/.codex ~/.agents`
+- `be validate --installed`
+- `scripts/validate-installed-tree.sh "$ENGINEERING_BIBLE_HOME/current" ~/.codex ~/.agents`
 - `scripts/validate-skill-tree.sh` как compatibility wrapper.
-- `scripts/validate-router-cases.py --static`
+- `scripts/validate-router-cases.py --fixtures`
+- `ENGINEERING_BIBLE_ROUTER_EVALUATOR=/absolute/path/to/evaluator scripts/validate-router-cases.py --runtime`
 - `scripts/validate-markdown-style.py .`
 - `skills/workflow-router/scripts/validate-routing.sh --codex-only`
+
+Все тесты обнаруживаются автоматически:
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+`skills/registry.yml` управляет generated-блоками в обоих README и manifest.
+Обновляй их через `make registry-docs`; validation ловит любое расхождение.
+Opt-in runtime evaluator получает JSON `{schema_version, cases}` через stdin и
+должен вернуть `{schema_version, results: [{id, skills}]}` через stdout. Если
+evaluator не настроен, runtime evaluation завершается с `SKIP`, а не сообщает
+ложный успех.
 
 GitHub Actions запускает repo-local валидацию на push и pull request.
 
@@ -182,7 +244,9 @@ GitHub Actions запускает repo-local валидацию на push и pul
 
 ## Принципы
 
-- Root остаётся технологически нейтральным.
+- Устанавливаемые global instructions остаются technology-neutral и
+  capability-based.
+- Default prompt profile — `full`; компактный `minimal` включается явно.
 - Языковые правила живут в ecosystem skills.
 - Общие инженерные принципы живут в `engineering/`; используй
   `engineering/README.md`, чтобы выбирать только релевантные reference-доки.

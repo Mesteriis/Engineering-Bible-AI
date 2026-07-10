@@ -73,6 +73,80 @@ Rules:
 - no unrelated formatting churn;
 - no new dependencies unless justified.
 
+### Tooling Defaults
+
+Use the strongest relevant local tool when it is available:
+
+- `rg` and `rg --files` before slower text or file search;
+- `fd` for file discovery when it improves the search;
+- `ast-grep` or `tree-sitter` for syntax-aware search and safe mechanical rewrites;
+- `jq` or `yq` for structured JSON/YAML inspection and transformation;
+- `just` when a `justfile` owns project commands;
+- `delta` for local diff review when useful;
+- `fzf` only for interactive narrowing, not as a required automation dependency.
+
+If the preferred tool is unavailable, use the best fallback and name the gap
+only when it materially affects confidence or reproducibility.
+
+### Project Context Bootstrap
+
+Before broad reads or repeated cross-file exploration, do a cheap state check:
+
+- Serena: `.serena/project.yml` plus any exposed Serena MCP/symbol tools;
+- Graphify: `graphify-out/graph.json`;
+- Repomix/context pack: existing requested pack path;
+- output compressors: command availability and raw-output location.
+
+Use the result as a decision gate:
+
+- localized task -> use `rg`, symbol lookup, and targeted reads;
+- existing Serena or Graphify state -> use it before scanning many files;
+- missing state but architecture-heavy, symbol-heavy, dependency/call-graph, or
+  repeated onboarding task -> initialize the narrowest useful project-local
+  state when file mutation is allowed;
+- read-only, security, validation-critical, or "do not modify files" task ->
+  ask before creating `.serena/`, `graphify-out/`, context packs, hooks, or
+  other repo-local artifacts.
+
+Serena may be initialized with `serena project index .` when the CLI is
+available and LSP-backed navigation will materially reduce file reads. Report
+new `.serena/` files and never stage or commit them unless asked.
+
+Graphify belongs to architecture/dependency/call-graph work. If no graph
+exists, build a scoped graph only when it will reduce repeated reading; report
+`graphify-out/` as generated state and verify important claims against source.
+
+Do not run persistent hook/config upgrades such as Graphify hooks or Git hooks
+without an explicit user request.
+
+### Output Compression Guardrail
+
+RTK, Context Mode, and Distill may be used for noisy commands, large logs, test
+output, browser/tool snapshots, or MCP output when they reduce context without
+hiding the signal.
+
+For failures, debugging, security work, and validation-critical commands, make
+sure raw output remains retrievable. If a compressed summary is ambiguous,
+surprising, or insufficient to explain the result, read the raw output before
+claiming cause, impact, or validation status.
+
+Context Mode hook enablement is a separate decision from using output
+compression. `context-mode doctor` may diagnose missing hooks, but that result
+does not authorize installing them.
+
+Do not run `context-mode upgrade` for small, localized, read-only, security, or
+validation-critical tasks. Propose it only when the work is multi-session,
+repeated, or likely to produce large/noisy outputs where automatic capture will
+materially reduce context loss.
+
+Run `context-mode upgrade` only after explicit user authorization to modify
+persistent Codex hooks/config. If the user asks to "reduce context/log noise
+automatically", summarize that this requires persistent hook/config changes and
+ask for confirmation before running it.
+
+After enabling hooks, run `context-mode doctor` and report modified global files
+such as `~/.codex/config.toml`, `~/.codex/hooks.json`, and any backups.
+
 ### 5. Validate
 
 Run the best available targeted validation.

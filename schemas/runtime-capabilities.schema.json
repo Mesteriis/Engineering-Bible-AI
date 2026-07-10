@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:engineering-bible-ai:runtime-capabilities:v1",
+  "title": "Normalized Runtime Capability Snapshot",
+  "description": "Host-provided metadata for capabilities already exposed to the current model session. Consumers must not invoke capabilities during discovery.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "tools"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "description": "Opaque identifier for the host runtime snapshot source. It is hashed before persistence."
+    },
+    "status": {
+      "enum": [
+        "online",
+        "partial",
+        "offline"
+      ]
+    },
+    "tools": {
+      "type": "array",
+      "maxItems": 4096,
+      "items": {
+        "$ref": "#/$defs/tool"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "tool": {
+      "type": "object",
+      "required": [
+        "selector"
+      ],
+      "properties": {
+        "selector": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048,
+          "description": "Unique invocation selector supplied by the host runtime."
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 8192
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "capability_tags": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          }
+        },
+        "input_schema": {
+          "type": "object"
+        },
+        "annotations": {
+          "$ref": "#/$defs/annotations"
+        }
+      },
+      "additionalProperties": true
+    },
+    "annotations": {
+      "type": "object",
+      "properties": {
+        "read_only": {
+          "type": "boolean"
+        },
+        "destructive": {
+          "type": "boolean"
+        },
+        "open_world": {
+          "type": "boolean"
+        },
+        "idempotent": {
+          "type": "boolean"
+        },
+        "scope": {
+          "enum": [
+            "local",
+            "remote",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

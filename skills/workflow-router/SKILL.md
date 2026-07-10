@@ -34,10 +34,24 @@ explicitly invokes a narrower skill.
   `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, or `esp32`).
 - Evidence, validation claims, task lifecycle, completion review, regression
   gates, or repository drift concerns -> `quality-gates`.
+- Runtime capability selection, MCP/tool discovery, or a non-trivial task where
+  currently exposed host tools may improve evidence -> `mcp-tool-router`.
+  Refresh from current-session metadata and rank by capability and risk; never
+  route from remembered server or tool identifiers.
+- Task profiles: classify work as `quick-fix`, `feature`, `migration`,
+  `frontend-live`, `deep-review`, or `research` before selecting skills. A
+  profile describes evidence and mutation policy, not a fixed provider list.
 - Behavior changes that should be test-first, bug regressions, or requests that
   mention TDD/test blocking/guardrails -> `tdd-guard`.
 - Large context handoff, repository packing, AI-friendly code bundles,
   Repomix-style output, or sharing context with another model -> `context-pack`.
+- Project-local context tooling state, Serena `.serena/`, Graphify
+  `graphify-out/`, Repomix pack reuse, or questions about whether to initialize
+  context indexes -> `core-engineering`; add `architecture-map` for graph or
+  dependency questions and `context-pack` for handoff packs.
+- Context Mode hooks, `context-mode upgrade`, Codex hook/config changes, or
+  automatic log/context capture -> `core-engineering`; add
+  `external-agent-pack-audit` before installing or changing third-party hooks.
 - Durable cross-session facts, preferences, memory deltas, handoff notes, or
   "remember this" requests -> `session-memory`.
 - Parallel implementation lanes, multiple agents/worktrees, Claude Squad-style

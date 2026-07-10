@@ -2,11 +2,14 @@
 set -euo pipefail
 
 ROOT="${1:-.}"
-AGENTS_ROOT="${2:-${AGENTS_HOME:-$HOME/.agents}}"
+CODEX_ROOT="${2:-${CODEX_HOME:-$HOME/.codex}}"
+AGENTS_ROOT="${3:-${AGENTS_HOME:-$HOME/.agents}}"
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 required_files=(
     "AGENTS.md"
+    "instructions/global/full.md"
+    "instructions/global/minimal.md"
     "README.md"
     "README.ru.md"
     "MANIFEST.md"
@@ -14,8 +17,17 @@ required_files=(
     "LICENSE"
     "scripts/be.py"
     "scripts/install-codex.sh"
+    "scripts/install-tools.sh"
     "scripts/install_codex.py"
+    "scripts/installer_core.py"
+    "scripts/mcp_catalog.py"
+    "scripts/mcp_catalog_cli.py"
+    "scripts/mcp_catalog_storage.py"
     "scripts/registry.py"
+    "scripts/tool_catalog.py"
+    "scripts/build-release.py"
+    "scripts/validate-actions-pins.py"
+    "scripts/validate-release-contract.py"
     "scripts/validate-installed-tree.sh"
     "scripts/validate-repo-tree.sh"
     "scripts/validate-router-cases.py"
@@ -25,6 +37,7 @@ required_files=(
     "scripts/check-file-size.py"
     "skills/registry.yml"
     "scripts/validate-markdown-style.py"
+    "scripts/validate.py"
     "skills/quality-gates/SKILL.md"
     "VERSION"
     ".secret-sanity-allowlist"
@@ -40,6 +53,20 @@ required_files=(
     "tests/quality-gates/stale-routing-reference.md"
     "tests/quality-gates/missing-manifest-entry.md"
     "tests/test_quality_audit.py"
+    "tests/test_registry.py"
+    "tests/test_bootstrap.py"
+    "tests/test_be_extended_cli.py"
+    "tests/test_installer.py"
+    "tests/test_mcp_catalog.py"
+    "tests/test_release_contract.py"
+    "tests/test_tool_catalog.py"
+    "tests/test_validation.py"
+    "config/tools.json"
+    "schemas/runtime-capabilities.schema.json"
+    "examples/runtime-capabilities.synthetic.json"
+    "skills/mcp-tool-router/SKILL.md"
+    "pyproject.toml"
+    ".python-version"
     "scripts/audit-quality-gates.py"
 )
 
@@ -50,8 +77,12 @@ for file in "${required_files[@]}"; do
     fi
 done
 
+if [[ -f "$ROOT/../install-manifest.json" ]]; then
+    exec bash "$script_dir/validate-installed-tree.sh" "$ROOT" "$CODEX_ROOT" "$AGENTS_ROOT"
+fi
+
 if [[ -f "$ROOT/README.md" && -f "$ROOT/MANIFEST.md" ]]; then
     exec bash "$script_dir/validate-repo-tree.sh" "$ROOT"
 fi
 
-exec bash "$script_dir/validate-installed-tree.sh" "$ROOT" "$AGENTS_ROOT"
+exec bash "$script_dir/validate-installed-tree.sh" "$ROOT" "$CODEX_ROOT" "$AGENTS_ROOT"

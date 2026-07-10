@@ -1,5 +1,7 @@
 # Engineering Bible Quality Control Layer Design
 
+> Archived historical design. It is non-authoritative; use the current README and validation profiles.
+
 ## Context
 
 Engineering Bible AI already contains portable root instructions, routing

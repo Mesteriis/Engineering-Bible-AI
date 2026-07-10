@@ -2,8 +2,11 @@
 
 All notable changes to this project are documented here.
 
-This project follows a simple date-based changelog until versioned releases are
-introduced.
+## [0.1.0] - 2026-07-10
+
+- Added ownership-aware transactional installation and unified updates.
+- Added runtime-derived MCP/tool capability discovery and repository-local recommendations.
+- Added validation profiles, prompt profiles, provenance checks, and release gates.
 
 ## 2026-06-28
 

@@ -1,5 +1,7 @@
 # `be` CLI Foundation Implementation Plan
 
+> Archived historical plan. It is non-authoritative; use the current README and validation profiles.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build the first working `be` console utility with version, doctor, validate, and install dry-run support, then install a `be` wrapper with the existing package installer.

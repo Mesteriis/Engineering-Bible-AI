@@ -9,8 +9,11 @@ Use this skill when the agent needs to package repository context for another
 agent, a long review, an architecture handoff, or an external LLM session.
 
 The preferred external tool is Repomix when it is already available or the user
-explicitly asks for it. Otherwise, use repository-native commands such as `rg`,
-`git ls-files`, targeted file reads, and structured summaries.
+explicitly asks for it. Use `repomix --compress` for architecture handoffs,
+large reviews, and external LLM sessions when compressed structure is more
+useful than full implementation detail. Otherwise, use repository-native
+commands such as `rg`, `git ls-files`, targeted file reads, and structured
+summaries.
 
 ## When To Use
 
@@ -27,6 +30,8 @@ Avoid for:
 - tiny tasks where direct file reads are clearer;
 - repositories containing unreviewed secrets;
 - user requests to dump private source into an external service without review.
+- small implementation/debugging tasks where `rg`, symbol lookup, and targeted
+  file reads produce better evidence than a repository pack.
 
 ## Context Selection
 
@@ -51,11 +56,22 @@ Exclude:
 If `repomix` is available and appropriate:
 
 ```bash
+repomix --compress --style markdown --output <target-file>
 repomix --style markdown --output <target-file>
 ```
 
-Use include/exclude flags or stdin file lists when the full repo would be too
-large.
+Prefer `--compress` for architecture or handoff context. Use the uncompressed
+form when exact implementation details matter. Use include/exclude flags or
+stdin file lists when the full repo would be too large.
+
+Repomix has no project initialization step. Before writing a pack, check whether
+the requested output already exists and whether source files changed since it
+was generated. Reuse an existing pack only when its scope and freshness match
+the current request.
+
+Prefer a user-requested path or a clearly generated local path for packs. Do not
+leave a repo-local pack silently: report the path, scope, and whether it should
+remain untracked.
 
 If `repomix` is unavailable, produce a manual context pack:
 
@@ -72,6 +88,8 @@ If `repomix` is unavailable, produce a manual context pack:
 ## Safety
 
 - Run or reuse secret scanning before exporting a pack outside the local
+  machine.
+- Run or reuse runtime-boundary checks before exporting a pack outside the local
   machine.
 - Prefer summaries over full files when the recipient only needs architecture.
 - Label generated context as stale once source files change.

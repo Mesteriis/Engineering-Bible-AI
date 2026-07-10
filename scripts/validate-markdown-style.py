@@ -19,7 +19,15 @@ EMPTY_HEADING = "empty heading"
 
 
 def iter_markdown_files(root: Path) -> list[Path]:
-    skipped_dirs = {".git", ".worktrees", "__pycache__", ".venv", "node_modules"}
+    skipped_dirs = {
+        ".engineering-bible",
+        ".git",
+        ".serena",
+        ".worktrees",
+        "__pycache__",
+        ".venv",
+        "node_modules",
+    }
     files: list[Path] = []
     for path in root.rglob("*.md"):
         if any(part in skipped_dirs for part in path.parts):

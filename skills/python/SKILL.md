@@ -38,6 +38,16 @@ Infer:
 
 Do not assume framework, ORM, validator, or test runner without evidence.
 
+## Tooling Defaults
+
+- Use `uv` for environment, dependency, lock, and command execution workflows
+  when the project already uses `uv` or the user approves adopting it.
+- Use `ruff` for linting and formatting when configured or available locally.
+- Use `ty` for type checking when configured, requested, or clearly the
+  strongest available local type checker.
+- Do not introduce `uv`, `ruff`, or `ty` as project requirements solely because
+  this skill prefers them.
+
 ## Style
 
 - Follow existing project style first.
@@ -172,10 +182,12 @@ Use the existing test setup.
 Common validation commands, only when configured or clearly available:
 
 ```bash
+uv run pytest
 pytest
 python -m pytest
 ruff check .
 ruff format --check .
+ty check
 mypy .
 pyright
 ```

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "revision", "criteria"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "revision": {"type": "string", "minLength": 1},
+    "criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "requirement", "status", "evidence"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "requirement": {"type": "string", "minLength": 1},
+          "class": {"enum": ["general", "security", "ui", "migration", "integration"]},
+          "status": {"enum": ["pass", "fail", "blocked", "not_verified"]},
+          "reason": {"type": "string"},
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "result"],
+              "properties": {
+                "type": {"enum": ["test", "runtime", "browser", "artifact", "command"]},
+                "command": {"type": "string"},
+                "scenario": {"type": "string"},
+                "result": {"type": "string", "minLength": 1}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

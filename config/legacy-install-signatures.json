@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "files": [
+    {"root": "agents_home", "path": "skills/registry.yml", "sha256": "7a74211d4b399c51e847940b07ffa5b21c04aab7c8464bfbfb707226feedc164", "mode": "0644"},
+    {"root": "bin_dir", "path": "be", "sha256": "e1a0ae7c157e100be1746a95cf7c305b54ebb31de3c387af1184ece78a623c0e", "mode": "0755"},
+    {"root": "codex_home", "path": "AGENTS.md", "sha256": "c47a2e21d69a348053ebc693f8e565eea6515daf5cc87d6018344f721db77c33", "mode": "0644"},
+    {"root": "codex_home", "path": "skills/registry.yml", "sha256": "7a74211d4b399c51e847940b07ffa5b21c04aab7c8464bfbfb707226feedc164", "mode": "0644"},
+    {"root": "codex_home", "path": "skills/workflow-router/SKILL.md", "sha256": "ba46ba5872b602e828df8d8c5d56e8aafca15a032c22178c48c028027b160da1", "mode": "0644"},
+    {"root": "codex_home", "path": "skills/workflow-router/scripts/validate-routing.sh", "sha256": "f79373eafd47738812bd93032a876eb9b4f14647e30a75bc472ec6f3d61c6edb", "mode": "0644"}
+  ]
+}

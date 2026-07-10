@@ -1,5 +1,7 @@
 # `be` CLI Design
 
+> Archived historical design. It is non-authoritative; use the current README and validation profiles.
+
 ## Purpose
 
 Add a small console utility for managing Engineering Bible AI after install.

@@ -19,7 +19,7 @@ Confirm the repository does not include:
 - `~/.codex/config.toml`;
 - auth files;
 - `.env` files;
-- Moon Bridge or DeepSeek credentials;
+- provider or gateway credentials;
 - MCP server secrets;
 - Codex session, cache, rollout, or worktree state;
 - private SSH material.
@@ -27,25 +27,19 @@ Confirm the repository does not include:
 ## Validation
 
 ```bash
-make validate
+make validate-release
 ```
 
-Equivalent expanded commands:
+The release profile includes dependency-light bootstrap checks, the complete
+discovered unit-test suite, linters, type checks, temporary installation, and
+the `git ls-files` snapshot gate. It fails when any check is skipped.
+
+Useful focused commands while resolving a failure:
 
 ```bash
-bash scripts/validate-repo-tree.sh .
-python3 scripts/validate-skill-frontmatter.py skills
-python3 scripts/registry.py --root . validate
-python3 scripts/validate-router-cases.py --static
-python3 scripts/check-file-size.py . --hard 10000
-bash scripts/secret-sanity.sh .
-bash scripts/validate-markdown-style.py .
-bash -n scripts/install.sh scripts/install-codex.sh scripts/secret-sanity.sh scripts/validate-installed-tree.sh scripts/validate-repo-tree.sh scripts/validate-skill-tree.sh skills/workflow-router/scripts/validate-routing.sh scripts/validate-markdown-style.py
-make shell-lint
-make markdown-lint
-find scripts skills -name '*.py' -print0 | xargs -0 python3 -m py_compile
-python3 -m unittest tests/test_be_cli.py -v
-make audit
-make quality-audit-tests
-make validate-install
+python3.11 scripts/validate.py --profile quick
+python3.11 scripts/validate.py --profile bootstrap
+python3.11 scripts/validate-router-cases.py --fixtures
+python3.11 scripts/registry.py --root . validate
+python3.11 -m unittest discover -s tests -p 'test_*.py' -v
 ```

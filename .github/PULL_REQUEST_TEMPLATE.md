@@ -4,12 +4,10 @@
 
 ## Validation
 
-- [ ] `bash scripts/validate-repo-tree.sh .`
-- [ ] `python3 scripts/registry.py --root . validate`
-- [ ] `python3 scripts/validate-router-cases.py --static`
-- [ ] `python3 scripts/validate-skill-frontmatter.py skills`
-- [ ] `python3 scripts/check-file-size.py . --hard 10000`
-- [ ] `bash scripts/secret-sanity.sh .`
+- [ ] `make validate-quick`
+- [ ] `make validate`
+- [ ] `make validate-release` for release/installer/registry changes
+- [ ] Exact focused regression tests are listed in the PR description
 
 ## Runtime Boundary
 

@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "source_id": "session_8d41b6c7305e",
+  "status": "online",
+  "tools": [
+    {
+      "selector": "capability_73c1ea9b05fd",
+      "display_name": "capability_73c1ea9b05fd",
+      "description": "Read local source documentation",
+      "available": true,
+      "capability_tags": [
+        "documentation",
+        "source"
+      ],
+      "annotations": {
+        "read_only": true,
+        "destructive": false,
+        "open_world": false,
+        "scope": "local"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search phrase"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "selector": "capability_c04a298d71be",
+      "display_name": "capability_c04a298d71be",
+      "description": "Update a remote work item",
+      "available": true,
+      "capability_tags": [
+        "work-item"
+      ],
+      "annotations": {
+        "read_only": false,
+        "destructive": false,
+        "open_world": true,
+        "scope": "remote"
+      },
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "record": {
+            "type": "string",
+            "description": "Opaque record identifier"
+          }
+        },
+        "required": [
+          "record"
+        ]
+      }
+    }
+  ]
+}

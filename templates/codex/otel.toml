@@ -1,0 +1,8 @@
+# Opt-in template. Keep exporter disabled until a user-selected local collector
+# exists. Never put credentials, auth headers, or private endpoints in this file.
+[otel]
+environment = "local"
+log_user_prompt = false
+exporter = "none"
+trace_exporter = "none"
+metrics_exporter = "none"

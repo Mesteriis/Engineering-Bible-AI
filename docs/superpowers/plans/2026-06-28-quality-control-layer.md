@@ -1,5 +1,7 @@
 # Quality Control Layer Implementation Plan
 
+> Archived historical plan. It is non-authoritative; use the current README and validation profiles.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add a lightweight quality-gates layer with evidence, lifecycle, review, regression, and drift-audit checks for Engineering Bible AI.

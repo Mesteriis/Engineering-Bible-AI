@@ -1,0 +1,304 @@
+{
+  "schema_version": 2,
+  "tools": [
+    {
+      "id": "ast-grep",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "ast-grep",
+      "executable": "ast-grep",
+      "groups": ["analysis"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/ast-grep",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "tree-sitter",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "tree-sitter-cli",
+      "executable": "tree-sitter",
+      "groups": ["analysis"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/tree-sitter-cli",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "repomix",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "repomix",
+      "executable": "repomix",
+      "groups": ["context"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/repomix",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "rtk",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "rtk",
+      "executable": "rtk",
+      "groups": ["context"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/rtk",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "ripgrep",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "ripgrep",
+      "executable": "rg",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/ripgrep",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "fd",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "fd",
+      "executable": "fd",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/fd",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "fzf",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "fzf",
+      "executable": "fzf",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/fzf",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "bacon",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "bacon",
+      "executable": "bacon",
+      "groups": ["rust"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/bacon",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "cargo-nextest",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "cargo-nextest",
+      "executable": "cargo-nextest",
+      "groups": ["rust"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/cargo-nextest",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "cargo-watch",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "cargo-watch",
+      "executable": "cargo-watch",
+      "groups": ["rust"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/cargo-watch",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "just",
+      "license": "CC0-1.0",
+      "manager": "brew",
+      "package": "just",
+      "executable": "just",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/just",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "git-delta",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "git-delta",
+      "executable": "delta",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/git-delta",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "jq",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "jq",
+      "executable": "jq",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/jq",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "yq",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "yq",
+      "executable": "yq",
+      "groups": ["foundation"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/yq",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "uv",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "uv",
+      "executable": "uv",
+      "groups": ["python"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/uv",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "ruff",
+      "license": "MIT",
+      "manager": "brew",
+      "package": "ruff",
+      "executable": "ruff",
+      "groups": ["python"],
+      "unpinned": true,
+      "source": "https://formulae.brew.sh/formula/ruff",
+      "platforms": ["macos"]
+    },
+    {
+      "id": "ty",
+      "license": "MIT",
+      "manager": "uv",
+      "package": "ty",
+      "executable": "ty",
+      "groups": ["python"],
+      "version": "0.0.58",
+      "source": "https://pypi.org/project/ty/",
+      "platforms": ["linux", "macos"]
+    },
+    {
+      "id": "graphify",
+      "license": "MIT",
+      "manager": "uv",
+      "package": "graphifyy",
+      "executable": "graphify",
+      "groups": ["analysis"],
+      "version": "0.9.11",
+      "source": "https://pypi.org/project/graphifyy/",
+      "platforms": ["linux", "macos"]
+    },
+    {
+      "id": "serena",
+      "license": "MIT",
+      "manager": "uv",
+      "package": "serena-agent",
+      "executable": "serena",
+      "groups": ["analysis"],
+      "version": "1.5.3",
+      "python": "3.13",
+      "source": "https://pypi.org/project/serena-agent/",
+      "platforms": ["linux", "macos"]
+    },
+    {
+      "id": "context-mode",
+      "license": "Elastic-2.0",
+      "integrity": "sha512-94JIaFuLjF9SO2BsGTrbGtyT44K95+9OC8BdbaL/UT76xOkanJLfUR5CzmNw+GELXZQqH4nBrKg9wjBnSFkVnQ==",
+      "manager": "npm",
+      "package": "context-mode",
+      "executable": "context-mode",
+      "groups": ["context"],
+      "version": "1.0.169",
+      "source": "https://www.npmjs.com/package/context-mode",
+      "platforms": ["linux", "macos"]
+    },
+    {
+      "id": "distill",
+      "license": "MIT",
+      "integrity": "sha512-D68jkzRy0ih/ct7G5a25Tv9eDOzlD3cH440iVcjYmp+HWsDxYh2WZNhiC3pFial0tTPwrFCKPQm345/UDZ627g==",
+      "manager": "npm",
+      "package": "@samuelfaj/distill",
+      "executable": "distill",
+      "groups": ["context"],
+      "version": "1.5.2",
+      "source": "https://www.npmjs.com/package/@samuelfaj/distill",
+      "platforms": ["linux", "macos"]
+    },
+    {
+      "id": "beads",
+      "license": "MIT",
+      "manager": "npm",
+      "package": "@beads/bd",
+      "executable": "bd",
+      "groups": ["workflow"],
+      "capabilities": ["persistent-task-state"],
+      "version": "1.1.0",
+      "integrity": "sha512-sV19u8DbfFvIlof4EgNDon4iaUWuriMKseUjI+jQXu5agoAQp6kSmSmUqgp8QH/qYmyDmcEu5XqewHpUqyEiOg==",
+      "source": "https://www.npmjs.com/package/@beads/bd",
+      "platforms": ["linux", "macos"],
+      "setup": [
+        {"id": "stealth-project", "args": ["init", "--quiet", "--stealth"], "effects": ["repo-write"]}
+      ],
+      "healthcheck": ["--version"]
+    },
+    {
+      "id": "agent-browser",
+      "license": "Apache-2.0",
+      "manager": "npm",
+      "package": "agent-browser",
+      "executable": "agent-browser",
+      "groups": ["browser"],
+      "capabilities": ["browser-runtime", "browser-evidence"],
+      "version": "0.31.1",
+      "integrity": "sha512-RjgfT0EsHe1oZQbwzUqJTPb7w3sU8DGbbAjMxLNI5dW1y0cc81TbVsqgjqQJmsy3GEbEcKe/ryARwmWGqJAXXQ==",
+      "source": "https://www.npmjs.com/package/agent-browser",
+      "platforms": ["linux", "macos"],
+      "setup": [
+        {"id": "browser-runtime", "args": ["install"], "effects": ["network", "browser-runtime"]}
+      ],
+      "healthcheck": ["doctor", "--offline", "--quick"]
+    },
+    {
+      "id": "opensrc",
+      "license": "Apache-2.0",
+      "manager": "npm",
+      "package": "opensrc",
+      "executable": "opensrc",
+      "groups": ["dependency-context"],
+      "capabilities": ["dependency-source"],
+      "version": "0.7.3",
+      "integrity": "sha512-REvdS9CG2q1KW6fiyLQkZgrhvNykARJCbigDF7vJOskGwqamwF74OzHRbgblZ7YlRkaLc7CTOsUMfnxw+NW83A==",
+      "source": "https://www.npmjs.com/package/opensrc",
+      "platforms": ["linux", "macos"],
+      "healthcheck": ["--version"]
+    },
+    {
+      "id": "context7-cli",
+      "license": "MIT",
+      "manager": "npm",
+      "package": "ctx7",
+      "executable": "ctx7",
+      "groups": ["dependency-context"],
+      "capabilities": ["dependency-docs"],
+      "version": "0.5.4",
+      "integrity": "sha512-A4Dp+vtN3yrYrB9M7MxZ//oTjn5jwIsiTj2a/R9SzqY7eCdz+riXeE2WM9kEkIv5bcjOwVc5oCqSFZRPfO/TXg==",
+      "source": "https://www.npmjs.com/package/ctx7",
+      "platforms": ["linux", "macos"],
+      "setup": [
+        {"id": "login-no-browser", "args": ["login", "--no-browser"], "effects": ["network", "user-config"]}
+      ],
+      "healthcheck": ["--version"]
+    }
+  ]
+}
