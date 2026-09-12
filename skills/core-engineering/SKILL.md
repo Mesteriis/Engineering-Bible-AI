@@ -88,6 +88,25 @@ Use the strongest relevant local tool when it is available:
 If the preferred tool is unavailable, use the best fallback and name the gap
 only when it materially affects confidence or reproducibility.
 
+### Context Tooling Tiers
+
+Use each context tool for its narrow role instead of treating the stack as a
+flat set of interchangeable indexers.
+
+**Tier 1 — Serena:** prefer Serena's LSP-backed symbol overview, definition,
+and reference tools before broad file reads when a task requires repeated or
+cross-file code navigation. The same policy applies in Codex and Claude when
+the current runtime exposes Serena. For a localized task, `rg` and targeted
+reads remain cheaper than creating or refreshing an index.
+
+**Tier 2 — Graphify:** use Graphify for architecture, dependency and call
+graphs, blast-radius exploration, and repeated onboarding to a large codebase.
+Treat its graph as an index and verify consequential claims against source.
+
+Repomix is an export tool, not a live code index. Use it for an explicit
+handoff, review bundle, or architecture context pack; do not substitute a
+Repomix snapshot for fresh symbol or graph queries.
+
 ### Project Context Bootstrap
 
 Before broad reads or repeated cross-file exploration, do a cheap state check:

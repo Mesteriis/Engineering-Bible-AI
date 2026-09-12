@@ -60,6 +60,15 @@ This repo intentionally does not include local worker/runtime configuration:
 The portable package installs skills and standards only. Your existing Codex
 worker, MCP, notify, Computer Use, and model provider setup remain local.
 
+Installed prompt profiles carry a context-efficient code-discovery contract for
+every compatible agent host. When the current session exposes them, agents use
+a code knowledge graph for cross-file structure, dependencies, call paths, and
+impact, then LSP-backed symbolic navigation for precise definitions, references,
+diagnostics, and minimal symbol bodies. Literal, configuration, and non-code
+lookups continue to use targeted text search. The package does not install or
+configure those runtime services; hosts discover them from local session
+capabilities and fall back honestly when either service is unavailable.
+
 See `docs/worker-runtime-boundary.md`.
 
 ## Prompt Profiles

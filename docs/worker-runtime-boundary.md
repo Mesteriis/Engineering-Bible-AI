@@ -8,6 +8,8 @@ package a local worker runtime.
 - Engineering standards.
 - Codex-compatible skills.
 - Router and wrapper skills.
+- A provider-neutral contract for context-efficient graph and symbolic code
+  navigation when the current agent host exposes those capabilities.
 - `code-wiki-ru` scripts and references.
 - Install and validation helpers.
 - Documentation and templates.
@@ -46,6 +48,20 @@ visible skill root prevents duplicate entries in Codex UI while preserving
 
 The installer must not write or synthesize secrets, model provider config, MCP
 server credentials, or auth files.
+
+## Compatible Agent Hosts
+
+The global prompt profiles may be reused by Codex-compatible agent hosts. The
+host remains responsible for exposing and authorizing its local code knowledge
+graph and LSP-backed symbolic navigation services. The portable package names
+capability roles, not provider identifiers, launch commands, endpoints, or
+credentials.
+
+Agents should reuse fresh indexes and active project state, use graph evidence
+for cross-file structure and impact, use symbolic navigation for the smallest
+necessary definitions and references, and fall back to targeted text search for
+literals, configuration, non-code files, or unavailable services. Local host
+configuration must remain untracked and be validated on that machine.
 
 ## Existing Codex Worker
 

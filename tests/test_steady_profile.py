@@ -81,6 +81,22 @@ class SteadyProfileContractTests(unittest.TestCase):
         self.assertIn("Host Adapter Contract", adapter)
         self.assertIn("be mcp refresh", adapter)
 
+    def test_every_profile_uses_context_efficient_code_discovery(self) -> None:
+        for relative in (
+            "instructions/global/steady.md",
+            "instructions/global/full.md",
+            "instructions/global/minimal.md",
+            "instructions/global/fast.md",
+        ):
+            with self.subTest(profile=relative):
+                text = self.read(relative)
+                self.assertIn("Context-Efficient Code Discovery", text)
+                self.assertRegex(text, r"code knowledge\s+graph")
+                self.assertRegex(text, r"LSP-backed\s+symbolic navigation")
+                self.assertRegex(text, r"targeted text\s+search")
+                self.assertNotIn("codebase-memory-mcp", text)
+                self.assertNotIn("Serena", text)
+
     def test_installed_routing_healthcheck_accepts_every_supported_profile(self) -> None:
         script = self.read("skills/workflow-router/scripts/validate-routing.sh")
 

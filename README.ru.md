@@ -60,6 +60,16 @@ Optional wiki group по умолчанию не ставится.
 Пакет устанавливает только standards и skills. Существующий Codex worker, MCP,
 notify, Computer Use и model provider остаются локальными.
 
+Устанавливаемые prompt profiles задают context-efficient контракт навигации по
+коду для каждого совместимого agent host. Если текущая сессия предоставляет
+такие возможности, агент использует code knowledge graph для межфайловой
+структуры, зависимостей, call paths и impact, затем LSP-backed symbolic
+navigation для точных definitions, references, diagnostics и минимально
+необходимых symbol bodies. Literals, configuration и non-code файлы остаются за
+targeted text search. Пакет не устанавливает и не настраивает эти runtime
+services: host обнаруживает их в локальной сессии и честно использует fallback,
+если одна из возможностей недоступна.
+
 Смотри `docs/worker-runtime-boundary.md`.
 
 ## Prompt profiles

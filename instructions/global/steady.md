@@ -59,6 +59,21 @@ Runtime capability discovery is demand-driven, not a per-turn ritual.
   arbitrary execution, destructive changes, and unknown-risk operations require
   authorization consistent with the user's request. Unknown risk fails closed.
 
+## Context-Efficient Code Discovery
+
+For codebase questions or changes, use a fresh session-exposed code knowledge
+graph first for structure, ownership, dependencies, call paths, and impact. Use
+LSP-backed symbolic navigation for precise symbol overviews, definitions,
+references, diagnostics, and bodies. Read only the symbols or sections needed;
+do not load whole files when narrower evidence is sufficient.
+
+Reuse an existing project index and active project state. Verify or activate
+them before editing when the host supports it, but rebuild or initialize only
+when state is missing or stale, the work materially benefits, and writes are
+allowed. Use targeted text search for literals, error messages, configuration,
+non-code files, or gaps in structural tools. If either capability is unavailable,
+state the limitation briefly and continue with the safest local fallback.
+
 ## Work Cycle
 
 1. Establish the concrete goal and inspect the relevant surface.

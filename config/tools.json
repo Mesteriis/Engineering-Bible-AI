@@ -184,7 +184,7 @@
       "package": "ty",
       "executable": "ty",
       "groups": ["python"],
-      "version": "0.0.58",
+      "version": "0.0.79",
       "source": "https://pypi.org/project/ty/",
       "platforms": ["linux", "macos"]
     },
@@ -195,7 +195,7 @@
       "package": "graphifyy",
       "executable": "graphify",
       "groups": ["analysis"],
-      "version": "0.9.11",
+      "version": "0.9.56",
       "source": "https://pypi.org/project/graphifyy/",
       "platforms": ["linux", "macos"]
     },
@@ -206,10 +206,11 @@
       "package": "serena-agent",
       "executable": "serena",
       "groups": ["analysis"],
-      "version": "1.5.3",
+      "version": "1.7.0",
       "python": "3.13",
       "source": "https://pypi.org/project/serena-agent/",
-      "platforms": ["linux", "macos"]
+      "platforms": ["linux", "macos"],
+      "healthcheck": ["--version"]
     },
     {
       "id": "context-mode",
@@ -243,8 +244,8 @@
       "executable": "bd",
       "groups": ["workflow"],
       "capabilities": ["persistent-task-state"],
-      "version": "1.1.0",
-      "integrity": "sha512-sV19u8DbfFvIlof4EgNDon4iaUWuriMKseUjI+jQXu5agoAQp6kSmSmUqgp8QH/qYmyDmcEu5XqewHpUqyEiOg==",
+      "version": "1.2.2",
+      "integrity": "sha512-vhAqVbExpKL4BlZ453oSMx1Ki3AEG9lmAzwizCl4ZMpUlupqZ1jbcWabOmCB5YcvdvC4jJXNuvxcoNT/+mwBSw==",
       "source": "https://www.npmjs.com/package/@beads/bd",
       "platforms": ["linux", "macos"],
       "setup": [
@@ -260,8 +261,8 @@
       "executable": "agent-browser",
       "groups": ["browser"],
       "capabilities": ["browser-runtime", "browser-evidence"],
-      "version": "0.31.1",
-      "integrity": "sha512-RjgfT0EsHe1oZQbwzUqJTPb7w3sU8DGbbAjMxLNI5dW1y0cc81TbVsqgjqQJmsy3GEbEcKe/ryARwmWGqJAXXQ==",
+      "version": "0.37.1",
+      "integrity": "sha512-NDojTSXrIq7zS090T0VwI1uzBryZWvewgxXvS0swj8/5GGnziBZLmyhEkfETO8n4n3DsJpZbZkq9F/MV2rIQKw==",
       "source": "https://www.npmjs.com/package/agent-browser",
       "platforms": ["linux", "macos"],
       "setup": [
@@ -291,8 +292,8 @@
       "executable": "ctx7",
       "groups": ["dependency-context"],
       "capabilities": ["dependency-docs"],
-      "version": "0.5.4",
-      "integrity": "sha512-A4Dp+vtN3yrYrB9M7MxZ//oTjn5jwIsiTj2a/R9SzqY7eCdz+riXeE2WM9kEkIv5bcjOwVc5oCqSFZRPfO/TXg==",
+      "version": "0.5.11",
+      "integrity": "sha512-Zbwzh50YgXclro88UQVyEZJLzINyCCOxqSeCINXMl06kTAl4wI4VmMTboDbPoxzWkPiZ31eEnu80oc/E4ur6Ag==",
       "source": "https://www.npmjs.com/package/ctx7",
       "platforms": ["linux", "macos"],
       "setup": [

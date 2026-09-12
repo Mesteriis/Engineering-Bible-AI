@@ -60,6 +60,14 @@ class SkillCatalogTests(unittest.TestCase):
 
         self.assertEqual(missing, [])
 
+    def test_core_engineering_routes_shared_context_tools_by_role(self) -> None:
+        text = (ROOT / "skills" / "core-engineering" / "SKILL.md").read_text(encoding="utf-8")
+
+        self.assertIn("### Context Tooling Tiers", text)
+        self.assertIn("Tier 1 — Serena", text)
+        self.assertIn("Tier 2 — Graphify", text)
+        self.assertIn("Repomix is an export tool, not a live code index", text)
+
 
 if __name__ == "__main__":
     unittest.main()

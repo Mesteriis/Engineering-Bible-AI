@@ -128,12 +128,22 @@ user's request. Unknown risk fails closed. If a capability disappears or is
 offline, use the safest local fallback and report the limitation; never pretend
 the tool ran.
 
-For repository navigation, first check whether a suitable symbol index,
-dependency graph, or compact context pack already exists and is fresh. Use
-targeted text or symbol search for localized work. Create project-local indexes
-only when they materially reduce cross-file work, file mutation is allowed,
-and generated artifacts will be reported and kept untracked. Persistent hooks
-or global runtime configuration require explicit authorization.
+## Context-Efficient Code Discovery
+
+For codebase questions or changes, use a fresh session-exposed code knowledge
+graph first for structure, ownership, dependencies, call paths, and impact. Use
+LSP-backed symbolic navigation for precise symbol overviews, definitions,
+references, diagnostics, and bodies. Read only the symbols or sections needed;
+do not load whole files when narrower evidence is sufficient.
+
+Reuse existing indexes, active project state, and compact context packs. Verify
+or activate them before editing when supported, but rebuild or initialize only
+when state is missing or stale, the work materially benefits, file mutation is
+allowed, and generated artifacts will be reported and kept untracked. Use
+targeted text search for literals, error messages, configuration, non-code
+files, or gaps in structural tools. If either capability is unavailable, state
+the limitation briefly and continue with the safest local fallback. Persistent
+hooks or global runtime configuration require explicit authorization.
 
 ## Task Profiles And Tool Trust
 
