@@ -57,6 +57,14 @@ Common lanes:
 - Merge through one owner after reviewing diffs.
 - If lanes conflict, stop and re-plan before editing more.
 
+For multi-step runs, the optional offline `scripts/worker-evidence.py continue`
+command evaluates fixed resource budgets, repeated failures, unchanged progress,
+and checkpoint acknowledgments. The launcher must persist the returned state,
+stop on `stop` or `blocked`, and save a checkpoint before acknowledging it. Supply
+actual cumulative counters and evidence hashes; a rewritten summary is not
+progress. This decision helper does not enforce an in-flight timeout or cancel
+processes. See `docs/worker-evidence.md` for the transition contract.
+
 ## Merge Contract
 
 Before finalizing:

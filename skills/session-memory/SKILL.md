@@ -39,6 +39,14 @@ Prefer existing project docs:
 - `AGENTS.md` when the rule should affect future agents;
 - a user-approved memory file if the repository already has one.
 
+When a natural-language query misses relevant documents, the optional offline
+`scripts/memory-retrieval.py` helper can plan a content-word variant and fuse the
+ranked lists returned by the existing authorized search capability. Keep the
+original results, per-query ranks, and source hashes. Verify the captured source
+files before using the fused result as current evidence; without that check the
+helper reports `SKIP`. It does not search, create another index, or authenticate
+the search service. See `docs/memory-retrieval.md` for the input contract.
+
 If there is no existing convention, output a proposed memory delta instead of
 writing a new file automatically.
 

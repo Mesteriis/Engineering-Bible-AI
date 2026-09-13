@@ -79,6 +79,84 @@ class InstallerTests(unittest.TestCase):
             backup_dir=be_home / "backups" / "pre-backup-failure",
         )
 
+    def test_installed_evidence_and_retrieval_run_outside_checkout(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            self.install(tmp)
+            source = tmp / "synthetic-source"
+            source.mkdir()
+            (source / "input.txt").write_text("synthetic input", encoding="utf-8")
+            cli = tmp / "engineering-bible/current/scripts/worker-evidence.py"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(cli),
+                    "snapshot",
+                    "--root",
+                    str(source),
+                    "--file",
+                    "input.txt",
+                ],
+                cwd=tmp,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            snapshot = json.loads(result.stdout)
+            manifest = snapshot["snapshot"]
+            self.assertEqual(manifest["files"][0]["path"], "input.txt")
+            self.assertEqual(manifest["files"][0]["bytes"], len(b"synthetic input"))
+            memory_cli = cli.with_name("memory-retrieval.py")
+            plan = subprocess.run(
+                [sys.executable, str(memory_cli), "plan", "How can I find input?"],
+                cwd=tmp,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(plan.returncode, 0, plan.stderr)
+            planned = json.loads(plan.stdout)
+            candidate = {
+                "id": "input",
+                "path": "input.txt",
+                "sha256": manifest["files"][0]["sha256"],
+                "score": 1.0,
+            }
+            payload = {
+                "query": planned["query"],
+                "source": snapshot,
+                "rankings": [
+                    {
+                        "query": query,
+                        "snapshot_sha256": manifest["sha256"],
+                        "results": [candidate],
+                    }
+                    for query in planned["variants"]
+                ],
+            }
+            rankings = tmp / "rankings.json"
+            rankings.write_text(json.dumps(payload), encoding="utf-8")
+            fused = subprocess.run(
+                [
+                    sys.executable,
+                    str(memory_cli),
+                    "fuse",
+                    str(rankings),
+                    "--source-root",
+                    str(source),
+                ],
+                cwd=tmp,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(fused.returncode, 0, fused.stdout + fused.stderr)
+            evidence = json.loads(fused.stdout)
+            self.assertEqual(evidence["source_status"], "PASS")
+            self.assertEqual(evidence["baseline"], [candidate])
+            self.assertEqual(evidence["results"][0]["id"], "input")
+
     def test_lock_symlink_is_rejected_without_mutating_victim(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)

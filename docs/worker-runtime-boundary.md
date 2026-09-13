@@ -63,6 +63,13 @@ necessary definitions and references, and fall back to targeted text search for
 literals, configuration, non-code files, or unavailable services. Local host
 configuration must remain untracked and be validated on that machine.
 
+The portable [worker evidence helper](worker-evidence.md) can fingerprint an
+explicit source allowlist, validate launcher-supplied records against source and
+artifact roots, and compare matched historical workloads. Its consistency checks
+do not authenticate metadata, prove execution, or enforce a sandbox. The launcher
+still records execution facts independently; an artifact's existence is not proof
+of its contents. Comparison never activates a route or selects a winner.
+
 ## Existing Codex Worker
 
 If a machine already has a working Codex worker, keep its runtime configuration

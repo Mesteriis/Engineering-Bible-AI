@@ -75,6 +75,15 @@
 Validation profiles: `quick`, `bootstrap`, `full`, and `release`.
 The release snapshot is derived exclusively from `git ls-files`.
 
+Worker evidence uses `scripts/worker-evidence.py` with `scripts/worker_snapshot.py`,
+`scripts/worker_results.py`, and `scripts/worker_control.py`; its snapshot,
+comparison, and bounded continuation commands are documented in
+[docs/worker-evidence.md](docs/worker-evidence.md). Optional retrieval uses
+`scripts/memory-retrieval.py` and `scripts/memory_retrieval.py`, documented in
+[docs/memory-retrieval.md](docs/memory-retrieval.md). These are portable offline
+helpers. Actual run records, source snapshots, and raw artifacts stay untracked.
+The [Ruflo adoption decision](docs/ruflo-adoption.md) records the scoped evaluation.
+
 Prompt profiles: `steady` (new-install default), `full`, `minimal`, and `fast`.
 All profiles except `fast` retain the complete selected skill catalog. Existing
 installation manifests preserve their recorded profile during update.

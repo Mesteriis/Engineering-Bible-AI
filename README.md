@@ -57,8 +57,9 @@ This repo intentionally does not include local worker/runtime configuration:
 - no MCP server secrets;
 - no Codex session/cache/worktree state.
 
-The portable package installs skills and standards only. Your existing Codex
-worker, MCP, notify, Computer Use, and model provider setup remain local.
+The portable package includes engineering instructions, skills, standards,
+documentation, and CLI helpers. Your existing Codex worker, MCP, notify,
+Computer Use, and model provider setup remain local.
 
 Installed prompt profiles carry a context-efficient code-discovery contract for
 every compatible agent host. When the current session exposes them, agents use
@@ -70,6 +71,19 @@ configure those runtime services; hosts discover them from local session
 capabilities and fall back honestly when either service is unavailable.
 
 See `docs/worker-runtime-boundary.md`.
+
+The offline [worker evidence helper](docs/worker-evidence.md) fingerprints an
+explicit file allowlist, validates the common worker result contract, and
+compares matched historical workloads. It preserves failed/skipped checks and
+unknown measurements; it installs no runtime and does not authenticate execution.
+It also evaluates bounded run decisions from measured counters, progress hashes,
+and checkpoint state. The optional [memory retrieval helper](docs/memory-retrieval.md)
+plans query variants and combines ranked results from an existing search service
+while retaining source hashes and the original results. See the
+[Ruflo adoption decision and pilot results](docs/ruflo-adoption.md).
+
+These new helper scripts are available from this source checkout. The published
+`v0.3.0` release does not contain them; use `make install` from this checkout.
 
 ## Prompt Profiles
 
@@ -90,8 +104,9 @@ be update --dry-run --prompt-profile steady
 be update --prompt-profile steady
 ```
 
-This changes routing policy, not the available specialist catalog. Explicit
-skill invocations and all default specialist workflows remain available.
+Switching between `steady`, `full`, and `minimal` changes routing policy while
+preserving the selected specialist catalog. Switching from `fast` to `steady`
+also restores the default specialist skills.
 
 ## Install
 
@@ -105,11 +120,15 @@ make dry-run
 make install
 ```
 
-Install optional wiki tooling:
+Install optional wiki skills:
 
 ```bash
 make install-wiki
 ```
+
+This preserves the existing prompt profile. If it is `fast`, first switch to
+`steady` using the commands above; `fast` activates only its own skill even when
+additional groups are requested. The same rule applies to `make install-all`.
 
 Inspect and explicitly select optional companion CLI tools:
 
@@ -143,7 +162,7 @@ make install-all
 Stable install from a GitHub release:
 
 ```bash
-RELEASE=v0.1.0
+RELEASE=v0.3.0
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -288,7 +307,9 @@ GitHub Actions runs repository-local validation on pushes and pull requests.
 - Language-specific rules live in ecosystem skills.
 - Broad engineering principles live in `engineering/`; use
   `engineering/README.md` to select only the relevant reference documents.
-- `workflow-router` is reserved for ambiguous, mixed-domain, or materially
-  changed tasks. Clear tasks select the narrowest leaf skill directly.
+- In `steady` and `minimal`, clear tasks select the narrowest leaf skill;
+  `workflow-router` handles ambiguous or mixed-domain work. `full` routes the
+  first non-trivial turn through `workflow-router` unless a narrower skill was
+  explicitly requested.
 - `engineering-standards` is read only when standards, boundaries, smells,
   naming, refactoring, complexity, or task/TODO structure matter.

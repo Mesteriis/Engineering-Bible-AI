@@ -57,8 +57,9 @@ Optional wiki group по умолчанию не ставится.
 - нет MCP secrets;
 - нет Codex session/cache/worktree state.
 
-Пакет устанавливает только standards и skills. Существующий Codex worker, MCP,
-notify, Computer Use и model provider остаются локальными.
+Переносимый пакет включает инженерные инструкции, skills, standards,
+документацию и CLI helpers. Существующий Codex worker, MCP, notify,
+Computer Use и model provider остаются локальными.
 
 Устанавливаемые prompt profiles задают context-efficient контракт навигации по
 коду для каждого совместимого agent host. Если текущая сессия предоставляет
@@ -71,6 +72,19 @@ services: host обнаруживает их в локальной сессии 
 если одна из возможностей недоступна.
 
 Смотри `docs/worker-runtime-boundary.md`.
+
+[Worker evidence helper](docs/worker-evidence.md) работает офлайн: фиксирует хеши
+явно разрешённых файлов, проверяет общий контракт результатов worker и сравнивает
+записанные прогоны одинаковых задач. Он сохраняет FAIL/SKIP и неизвестные метрики,
+не устанавливает runtime и не подтверждает подлинность выполнения.
+Он также определяет продолжение или остановку длительной задачи по измеренным
+счётчикам, хешам прогресса и состоянию checkpoint. Опциональный
+[memory retrieval helper](docs/memory-retrieval.md) готовит варианты запроса и
+объединяет выдачу существующего поиска, сохраняя хеши источников и исходные
+результаты. [Решение по Ruflo и результаты пилотов](docs/ruflo-adoption.md).
+
+Новые скрипты доступны из текущего исходного кода. Опубликованный релиз `v0.3.0`
+их ещё не содержит; используйте `make install` из этого checkout.
 
 ## Prompt profiles
 
@@ -93,8 +107,9 @@ be update --dry-run --prompt-profile steady
 be update --prompt-profile steady
 ```
 
-Меняется routing policy, а не доступный specialist-каталог. Явные вызовы skills
-и все default specialist workflows остаются доступными.
+Переход между `steady`, `full` и `minimal` меняет routing policy, сохраняя
+выбранный specialist-каталог. Переход с `fast` на `steady` также возвращает
+default specialist skills.
 
 ## Установка
 
@@ -108,11 +123,15 @@ make dry-run
 make install
 ```
 
-Установить optional wiki tooling:
+Установить опциональные wiki skills:
 
 ```bash
 make install-wiki
 ```
+
+Команда сохраняет текущий prompt profile. Если выбран `fast`, сначала перейдите
+на `steady` командами выше: `fast` активирует только собственный skill даже при
+запросе дополнительных групп. Это правило действует и для `make install-all`.
 
 Просмотреть и явно выбрать optional companion CLI tools:
 
@@ -146,7 +165,7 @@ make install-all
 Stable install из GitHub release:
 
 ```bash
-RELEASE=v0.1.0
+RELEASE=v0.3.0
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -290,7 +309,9 @@ GitHub Actions запускает repo-local валидацию на push и pul
 - Языковые правила живут в ecosystem skills.
 - Общие инженерные принципы живут в `engineering/`; используй
   `engineering/README.md`, чтобы выбирать только релевантные reference-доки.
-- `workflow-router` используется для неоднозначных, multi-domain или заметно
-  изменившихся задач. Ясные задачи выбирают узкий leaf skill напрямую.
+- В `steady` и `minimal` ясные задачи выбирают узкий leaf skill напрямую;
+  `workflow-router` обрабатывает неоднозначные или multi-domain задачи. В `full`
+  первый нетривиальный ход проходит через `workflow-router`, если явно не
+  запрошен более узкий skill.
 - `engineering-standards` читается только когда нужны standards, boundaries,
   smells, naming, refactoring, complexity или структура больших TODO/task plans.
