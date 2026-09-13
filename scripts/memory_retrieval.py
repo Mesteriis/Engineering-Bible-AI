@@ -106,7 +106,7 @@ def query_plan(query: object) -> QueryPlan:
 def _object(value: object, fields: set[str], label: str) -> dict[str, object]:
     if not isinstance(value, dict) or set(value) != fields:
         raise RetrievalError(f"{label} must contain exactly: {', '.join(sorted(fields))}")
-    return value
+    return cast(dict[str, object], value)
 
 
 def _validate_payload(payload: object) -> tuple[QueryPlan, Source, list[Ranking]]:

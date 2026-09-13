@@ -60,7 +60,7 @@ def _list(value: object, name: str, issues: list[str]) -> list[object]:
     if not isinstance(value, list):
         issues.append(f"{name} must be a list")
         return []
-    return value
+    return cast(list[object], value)
 
 
 def _source(value: object, artifacts: list[object], name: str, issues: list[str]) -> None:
@@ -178,7 +178,7 @@ def inspect_record(payload: object) -> dict[str, object]:
 
     raw_files = snapshot.get("files")
     known_paths = {
-        entry["path"]
+        cast(dict[str, object], entry)["path"]
         for entry in (raw_files if isinstance(raw_files, list) else [])
         if isinstance(entry, dict) and isinstance(entry.get("path"), str)
     }
@@ -251,10 +251,15 @@ def _metric_summary(
     pairs: list[tuple[float, float]] = []
     for task_id, before in baseline.items():
         old, new = before["usage"], candidate[task_id]["usage"]
-        if not isinstance(old, dict) or not isinstance(new, dict) or old["method"] != new["method"]:
+        if not isinstance(old, dict) or not isinstance(new, dict):
+            continue
+        old = cast(dict[str, object], old)
+        new = cast(dict[str, object], new)
+        if old["method"] != new["method"]:
             continue
         if old[key] is not None and new[key] is not None:
-            pairs.append((old[key], new[key]))
+            # The series validator has already checked every metric's numeric type.
+            pairs.append((cast(float, old[key]), cast(float, new[key])))
     complete = len(pairs) == len(baseline)
     before_total = sum(pair[0] for pair in pairs) if complete else None
     after_total = sum(pair[1] for pair in pairs) if complete else None

@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import stat
 import sys
+from typing import cast
 
 from worker_results import compare_runs, inspect_record
 from worker_control import evaluate_continuation
@@ -106,8 +107,10 @@ def main(argv: list[str] | None = None) -> int:
             result.update(source_status="SKIP", artifact_status="SKIP")
             if result["contract_status"] == "PASS":
                 assert isinstance(record, dict)
+                record = cast(dict[str, object], record)
                 issues = result["issues"]
                 assert isinstance(issues, list)
+                issues = cast(list[str], issues)
                 if args.source_root:
                     errors = verify_snapshot(
                         args.source_root, record["snapshot"], record["base_commit"]

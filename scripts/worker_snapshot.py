@@ -19,6 +19,7 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 import re
 import stat
 import subprocess
+from typing import cast
 
 
 MAX_FILES = 256
@@ -235,6 +236,7 @@ def validate_snapshot_manifest(expected: object, base_commit: object) -> list[st
         return ["base_commit must be a full lowercase Git object ID or unknown"]
     if not isinstance(expected, dict) or set(expected) != {"state", "sha256", "files"}:
         return ["snapshot must contain exactly state, sha256 and files"]
+    expected = cast(dict[str, object], expected)
     if expected["state"] != "captured":
         return ["snapshot state must be captured"]
     digest = expected["sha256"]
@@ -248,6 +250,7 @@ def validate_snapshot_manifest(expected: object, base_commit: object) -> list[st
     for entry in entries:
         if not isinstance(entry, dict) or set(entry) != {"path", "sha256", "bytes"}:
             return ["snapshot file must contain exactly path, sha256 and bytes"]
+        entry = cast(dict[str, object], entry)
         try:
             path = _normalized_path(entry["path"])
         except SnapshotError as exc:
@@ -265,7 +268,7 @@ def validate_snapshot_manifest(expected: object, base_commit: object) -> list[st
             return ["snapshot exceeds total byte limit"]
     if paths != sorted(set(paths)):
         return ["snapshot files must be sorted and unique"]
-    if digest != snapshot_digest(base_commit, entries):
+    if digest != snapshot_digest(base_commit, cast(list[dict[str, object]], entries)):
         return ["snapshot digest does not match base commit and file manifest"]
     return []
 
@@ -276,10 +279,12 @@ def verify_snapshot(root: Path, expected: object, base_commit: object) -> list[s
     if errors:
         return errors
     assert isinstance(expected, dict)
+    expected = cast(dict[str, object], expected)
     entries = expected["files"]
     assert isinstance(entries, list)
+    entries = cast(list[dict[str, object]], entries)
     try:
-        actual = capture_snapshot(root, [entry["path"] for entry in entries])
+        actual = capture_snapshot(root, [cast(str, entry["path"]) for entry in entries])
     except SnapshotError as exc:
         return [str(exc)]
     errors = []
