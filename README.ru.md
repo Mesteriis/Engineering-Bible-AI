@@ -165,9 +165,6 @@ agent framework. Пилоты внешних runtime используют общ
 объединяет выдачу существующего поиска, сохраняя хеши источников и исходные
 результаты. [Решение по Ruflo и результаты пилотов](docs/ruflo-adoption.md).
 
-Новые скрипты доступны из текущего исходного кода. Опубликованный релиз `v0.3.0`
-их ещё не содержит; используйте `make install` из этого checkout.
-
 ## Prompt profiles
 
 - `steady` используется по умолчанию для новых установок. Он сохраняет полный
@@ -275,7 +272,7 @@ make install-all
 Stable install из GitHub release:
 
 ```bash
-RELEASE=v0.3.0
+RELEASE=v0.4.0
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -296,6 +293,9 @@ ownership manifest хранит hash и mode каждого managed file. Unmana
 перезаписываются и не удаляются даже с `--force`. `--migrate-legacy` используется
 только для осознанного переноса идентичной legacy installation. Операции
 journaled, создают backup и откатываются при ошибке.
+При обновлении удаляются только устаревшие пустые каталоги внутри portable
+snapshot; rollback восстанавливает прежние права каталогов. Активные каталоги
+пользовательских навыков в эту очистку не входят.
 
 После установки пакет ставит маленькую команду `be` в `~/.local/bin/be` по
 умолчанию. Если `~/.local/bin` не входит в shell `PATH`, запускай команду через

@@ -2,8 +2,7 @@
 
 ## Supported Versions
 
-The `main` branch is the supported development line until release tags are
-introduced.
+The `main` development branch and the latest stable release are supported.
 
 ## Reporting Security Issues
 

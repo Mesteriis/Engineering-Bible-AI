@@ -161,9 +161,6 @@ plans query variants and combines ranked results from an existing search service
 while retaining source hashes and the original results. See the
 [Ruflo adoption decision and pilot results](docs/ruflo-adoption.md).
 
-These new helper scripts are available from this source checkout. The published
-`v0.3.0` release does not contain them; use `make install` from this checkout.
-
 ## Prompt Profiles
 
 - `steady` is the default for new installs. It keeps the complete default skill
@@ -267,7 +264,7 @@ make install-all
 Stable install from a GitHub release:
 
 ```bash
-RELEASE=v0.3.0
+RELEASE=v0.4.0
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -290,6 +287,9 @@ file hash and mode. Unmanaged files are never overwritten or removed, including
 with `--force`. Use `--migrate-legacy` only for an intentional takeover of an
 identical legacy installation. Installation is journaled, backed up, and rolled
 back on failure.
+Upgrades prune retired empty directories only inside the portable package
+snapshot; rollback restores their prior modes. Active custom skill directories
+remain outside this cleanup.
 
 After installation, the package installs a small `be` manager command into
 `~/.local/bin/be` by default. If `~/.local/bin` is not on your shell `PATH`,
