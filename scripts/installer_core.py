@@ -343,6 +343,9 @@ def build_desired_files(options: InstallerOptions, skills: list[str]) -> list[De
         "skills/registry.yml",
     )
     add_tree("engineering", "agents_home", "engineering")
+    add_tree("engineering", "codex_home", "engineering")
+    add_tree("docs", "codex_home", "docs")
+    add_tree("templates", "codex_home", "templates")
     for skill in skills:
         add_tree(f"skills/{skill}", "codex_home", f"skills/{skill}")
 

@@ -272,7 +272,7 @@ make install-all
 Stable install из GitHub release:
 
 ```bash
-RELEASE=v0.4.0
+RELEASE=v0.4.1
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -288,8 +288,12 @@ bash engineering-bible-install.sh --ref main --allow-unstable --dry-run
 ```
 
 Полный portable snapshot устанавливается в `$ENGINEERING_BIBLE_HOME/current`.
-Активные instructions и skills проецируются в `CODEX_HOME`/`AGENTS_HOME`, а
-ownership manifest хранит hash и mode каждого managed file. Unmanaged files не
+Активные instructions и skills проецируются в `CODEX_HOME`/`AGENTS_HOME`.
+Managed-копии `engineering/`, `docs/` и `templates/` также находятся в
+`CODEX_HOME`, чтобы относительные ссылки активных owner skills разрешались.
+Адаптеры Claude должны привязывать пути helpers и references к реальному
+каталогу выбранного canonical skill. Ownership manifest хранит hash и mode
+каждого managed file. Unmanaged files не
 перезаписываются и не удаляются даже с `--force`. `--migrate-legacy` используется
 только для осознанного переноса идентичной legacy installation. Операции
 journaled, создают backup и откатываются при ошибке.

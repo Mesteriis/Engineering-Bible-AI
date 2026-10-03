@@ -6,6 +6,7 @@ import json
 import errno
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -411,6 +412,78 @@ class InstallerTests(unittest.TestCase):
 
             self.assertEqual(options.manifest_path.read_bytes(), original)
             self.assertEqual(options.manifest_path.stat().st_mode & 0o777, 0o640)
+
+    def test_installed_owner_support_references_resolve(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            self.install(tmp, "--group", "wiki")
+            codex = tmp / "codex"
+            namespaces: set[str] = set()
+            references = 0
+            for skill in (codex / "skills").glob("*/SKILL.md"):
+                for match in re.finditer(
+                    r"\.\./\.\./(engineering|docs)/[A-Za-z0-9_./-]+\.md",
+                    skill.read_text(encoding="utf-8"),
+                ):
+                    target = skill.parent / match.group()
+                    self.assertTrue(target.is_file(), f"{skill.name}: {match.group()}")
+                    namespaces.add(match.group(1))
+                    references += 1
+            self.assertEqual(namespaces, {"engineering", "docs"})
+            self.assertGreater(references, 0)
+
+            template_references = 0
+            for doc in (codex / "docs").rglob("*.md"):
+                for match in re.finditer(r"\]\((\.\./templates/[^)#]+)", doc.read_text()):
+                    self.assertTrue((doc.parent / match.group(1)).is_file(), str(doc))
+                    template_references += 1
+            self.assertGreater(template_references, 0)
+            standard = "engineering/35_evidence_contract.md"
+            self.assertEqual(
+                (codex / standard).read_bytes(), (tmp / "agents" / standard).read_bytes()
+            )
+            self.assertEqual(
+                (codex / standard).read_bytes(),
+                (tmp / "engineering-bible/current" / standard).read_bytes(),
+            )
+
+    def test_support_document_collision_preserves_unowned_file_even_with_force(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            collision = tmp / "codex/docs/cross-provider-review.md"
+            collision.parent.mkdir(parents=True)
+            collision.write_bytes(b"user-owned support document\n")
+            collision.chmod(0o640)
+
+            result = self.run_installer(tmp, "--install", "--force")
+
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("unmanaged target(s) preserved", result.stderr)
+            self.assertEqual(collision.read_bytes(), b"user-owned support document\n")
+            self.assertEqual(collision.stat().st_mode & 0o777, 0o640)
+            self.assertFalse((tmp / "engineering-bible/install-manifest.json").exists())
+
+    def test_no_overwrite_support_document_records_partial_install_and_preserves_custom_files(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            self.install(tmp)
+            document = tmp / "codex/docs/cross-provider-review.md"
+            document.write_bytes(b"locally edited managed document\n")
+            custom = document.parent / "LOCAL.md"
+            custom.write_bytes(b"user-owned local notes\n")
+
+            result = self.install(tmp, "--no-overwrite")
+
+            self.assertIn("SKIP", result.stdout)
+            self.assertEqual(document.read_bytes(), b"locally edited managed document\n")
+            self.assertEqual(custom.read_bytes(), b"user-owned local notes\n")
+            manifest = json.loads((tmp / "engineering-bible/install-manifest.json").read_text())
+            self.assertFalse(manifest["complete"])
+            entries = {(item["root"], item["path"]) for item in manifest["files"]}
+            self.assertIn(("codex_home", "docs/cross-provider-review.md"), entries)
+            self.assertNotIn(("codex_home", "docs/LOCAL.md"), entries)
 
     def test_install_creates_namespaced_snapshot_and_manifest(self) -> None:
         with tempfile.TemporaryDirectory(prefix="be installer $path ") as raw:

@@ -264,7 +264,7 @@ make install-all
 Stable install from a GitHub release:
 
 ```bash
-RELEASE=v0.4.0
+RELEASE=v0.4.1
 curl -fSLo engineering-bible-install.sh \
   "https://github.com/Mesteriis/Engineering-Bible-AI/releases/download/${RELEASE}/install.sh"
 bash engineering-bible-install.sh --dry-run --diff
@@ -282,7 +282,10 @@ bash engineering-bible-install.sh --ref main --allow-unstable --dry-run
 
 The complete portable snapshot is installed under
 `$ENGINEERING_BIBLE_HOME/current`. Active instructions and skills are projected
-into `CODEX_HOME`/`AGENTS_HOME`; the ownership manifest records every managed
+into `CODEX_HOME`/`AGENTS_HOME`. Managed `engineering/`, `docs/` and `templates/`
+copies also live in `CODEX_HOME` so relative links from active owner skills
+resolve. Claude adapters should bind helper and reference paths to the resolved
+canonical skill directory. The ownership manifest records every managed
 file hash and mode. Unmanaged files are never overwritten or removed, including
 with `--force`. Use `--migrate-legacy` only for an intentional takeover of an
 identical legacy installation. Installation is journaled, backed up, and rolled

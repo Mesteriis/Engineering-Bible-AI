@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## [0.4.1] - 2026-10-03
+
+- Installed managed standards, documentation and templates beside active owner
+  skills so their relative references resolve in Codex and linked Claude skills.
+  Existing unowned files retain the installer's conflict protection; original
+  author trees and their reviewed pins are unchanged.
+- Added installation regressions for owner references, documentation template
+  links and unowned reference-file conflicts.
+
 ## [0.4.0] - 2026-10-03
 
 - Separated owner rules and routing from 30 complete, independently updated
