@@ -104,6 +104,22 @@ class SteadyProfileContractTests(unittest.TestCase):
         self.assertIn("## Initial Task Routing", script)
         self.assertIn("## Routing Discipline", script)
 
+    def test_profiles_keep_author_workflows_separate_from_owner_policy(self) -> None:
+        for profile in ("steady", "full", "minimal", "fast"):
+            with self.subTest(profile=profile):
+                text = " ".join(self.read(f"instructions/global/{profile}.md").split())
+                self.assertIn("Bible owns", text)
+                self.assertIn("complete", text)
+                self.assertIn("personal", text)
+                self.assertIn("separate", text)
+                self.assertIn("Bible summary", text)
+
+    def test_fast_profile_does_not_install_missing_author_providers(self) -> None:
+        text = self.read("instructions/global/fast.md")
+
+        self.assertIn("missing provider stays unavailable", text)
+        self.assertIn("switch profile before installation", text)
+
 
 if __name__ == "__main__":
     unittest.main()

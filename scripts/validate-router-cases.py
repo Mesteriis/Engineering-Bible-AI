@@ -12,7 +12,7 @@ import subprocess
 import sys
 from typing import cast
 
-from registry import all_registered_skills, load_registry
+from registry import all_registered_skills, cast_dict, cast_list, load_registry
 
 
 class RouterCaseError(RuntimeError):
@@ -58,6 +58,8 @@ def parse_router_cases(path: Path) -> list[dict[str, object]]:
 def validate_fixtures(root: Path) -> int:
     registry = load_registry(root)
     registered = set(all_registered_skills(registry))
+    for skills in cast_dict(registry.get("upstream", {})).values():
+        registered.update(cast_list(skills))
     errors: list[str] = []
     cases = parse_router_cases(root / "tests" / "router-cases.yml")
 
@@ -183,6 +185,86 @@ def validate_runtime(root: Path, evaluator: str | None) -> int:
     return 0
 
 
+def validate_installed_providers(
+    root: Path, codex_home: Path, agents_home: Path, be_home: Path
+) -> int:
+    """Check profile-selected author files without claiming host exposure."""
+    from registry import RegistryError, selected_upstream_skills
+    from upstream_catalog import UpstreamError, load_catalog, select_skills
+    from upstream_skills import SkillManager
+
+    manifest_path = be_home / "install-manifest.json"
+    try:
+        if (
+            manifest_path.is_symlink()
+            or not manifest_path.is_file()
+            or manifest_path.stat().st_size > 8 * 1024 * 1024
+        ):
+            raise RouterCaseError("missing or unsafe installation manifest")
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        if not isinstance(manifest, dict) or manifest.get("schema_version") != 1:
+            raise RouterCaseError("unsupported installation manifest")
+        groups = manifest.get("groups")
+        if not isinstance(groups, dict):
+            raise RouterCaseError("installation manifest has no group selection")
+        if groups.get("prompt_profile") not in {"steady", "full", "minimal", "fast"}:
+            raise RouterCaseError("invalid installation prompt profile")
+        if (
+            type(groups.get("include_all")) is not bool
+            or type(groups.get("upstream_complete")) is not bool
+        ):
+            raise RouterCaseError("invalid installation group or author readiness flags")
+        requested = groups.get("requested", [])
+        recorded = groups.get("selected_upstream_skills")
+        roots = groups.get("upstream_skill_roots", [])
+        for label, value in (
+            ("requested groups", requested),
+            ("author selection", recorded),
+            ("provider roots", roots),
+        ):
+            if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+                raise RouterCaseError(f"invalid installation {label}")
+        if any(not Path(value).is_absolute() for value in roots):
+            raise RouterCaseError("provider roots must be absolute")
+        registry = load_registry(root)
+        identities = (
+            []
+            if groups.get("prompt_profile") == "fast"
+            else selected_upstream_skills(
+                registry,
+                groups=requested,
+                include_all=groups.get("include_all") is True,
+            )
+        )
+        catalog = load_catalog(
+            root / "config" / "upstream-skills.json", root / "skills" / "registry.yml"
+        )
+        selected = select_skills(catalog, identities, [], False) if identities else []
+        expected = {skill.id for skill in selected}
+        if len(recorded) != len(set(recorded)) or set(recorded) != expected:
+            raise RouterCaseError("installation author selection differs from its profile")
+        if groups.get("upstream_complete") is not True:
+            print("SKIP: author readiness was explicitly skipped during installation")
+            print("SKIP: current-session author skill exposure is unverified")
+            return 2
+        manager = SkillManager(
+            catalog,
+            be_home,
+            codex_home / "skills",
+            existing_roots=(agents_home / "skills", *(Path(value) for value in roots)),
+        )
+        failed = False
+        for item in manager.plan(selected):
+            passed = item["status"] in {"SATISFIED", "REUSE"}
+            print(f"{'PASS' if passed else 'FAIL'}: author {item['id']} {item['status']}")
+            failed = failed or not passed
+        print("SKIP: current-session author skill exposure is unverified")
+        return 1 if failed else 0
+    except (OSError, ValueError, RegistryError, RouterCaseError, UpstreamError) as exc:
+        print(f"FAIL: author routing: {exc}", file=sys.stderr)
+        return 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate router case fixtures")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
@@ -198,6 +280,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--runtime", action="store_true", help="Run the configured evaluator")
     parser.add_argument(
+        "--installed-providers", action="store_true", help="Validate installed profile author files"
+    )
+    parser.add_argument("--codex-home", type=Path)
+    parser.add_argument("--agents-home", type=Path)
+    parser.add_argument("--be-home", type=Path)
+    parser.add_argument(
         "--runtime-evaluator",
         metavar="PATH",
         help="Executable implementing the JSON runtime-evaluator protocol",
@@ -208,8 +296,8 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    if not args.fixtures and not args.static and not args.runtime:
-        parser.error("choose --fixtures, --runtime, or both")
+    if not args.fixtures and not args.static and not args.runtime and not args.installed_providers:
+        parser.error("choose --fixtures, --runtime, or --installed-providers")
     if args.static:
         print("warning: --static is deprecated; use --fixtures", file=sys.stderr)
     root = args.root.expanduser().resolve()
@@ -219,6 +307,30 @@ def main(argv: list[str] | None = None) -> int:
             result = validate_fixtures(root) or result
         if args.runtime:
             result = validate_runtime(root, args.runtime_evaluator) or result
+        if args.installed_providers:
+            codex_home = (
+                (args.codex_home or Path(os.environ.get("CODEX_HOME", "~/.codex")))
+                .expanduser()
+                .resolve()
+            )
+            agents_home = (
+                (args.agents_home or Path(os.environ.get("AGENTS_HOME", "~/.agents")))
+                .expanduser()
+                .resolve()
+            )
+            be_home = (
+                (
+                    args.be_home
+                    or Path(
+                        os.environ.get(
+                            "ENGINEERING_BIBLE_HOME", str(codex_home / "engineering-bible")
+                        )
+                    )
+                )
+                .expanduser()
+                .resolve()
+            )
+            result = validate_installed_providers(root, codex_home, agents_home, be_home) or result
         return result
     except RouterCaseError as exc:
         print(f"router-cases: {exc}", file=sys.stderr)

@@ -37,6 +37,27 @@ def write_catalog(root: Path, tools: list[dict[str, object]]) -> Path:
 
 
 class ToolCatalogTests(unittest.TestCase):
+    def test_optional_worker_search_and_scanner_are_packages_only(self) -> None:
+        tools = tool_catalog.load_catalog(ROOT / "config" / "tools.json")
+        by_id = {tool.id: tool for tool in tools}
+        for tool_id, package in (
+            ("opencode", "opencode-ai"),
+            ("qmd", "@tobilu/qmd"),
+            ("semgrep", "semgrep"),
+        ):
+            with self.subTest(tool=tool_id):
+                tool = by_id[tool_id]
+                self.assertEqual(tool.package, package)
+                self.assertIsNotNone(tool.version)
+                self.assertFalse(tool.unpinned)
+                self.assertTrue(tool.healthcheck)
+                self.assertEqual(tool.setup, ())
+                self.assertNotIn("foundation", tool.groups)
+                self.assertNotIn("model", tool.capabilities)
+        self.assertEqual(by_id["rtk"].license, "Apache-2.0")
+        for tool_id in ("context-mode", "distill", "graphify", "rtk", "repomix"):
+            self.assertIn(by_id[tool_id].healthcheck, (("--help",), ("--version",)))
+
     def test_repository_catalog_contains_pinned_setup_metadata(self) -> None:
         tools = tool_catalog.load_catalog(ROOT / "config" / "tools.json")
         by_id = {tool.id: tool for tool in tools}

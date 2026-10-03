@@ -23,6 +23,12 @@ Only persist:
 - unresolved questions;
 - next steps with dates or commit references when useful.
 
+Attach the source revision or file hash and evidence date to claims that can
+become stale. A passed command records its actual exit code and raw artifact
+pointer; a summary alone does not establish validation. A configured model is
+not a verified route: retain requested and observed metadata separately under
+the `subagent-result-merge` contract, with unknowns preserved.
+
 Do not persist:
 
 - credentials, tokens, private keys, `.env` values;
@@ -38,6 +44,17 @@ Prefer existing project docs:
 - `docs/`
 - `AGENTS.md` when the rule should affect future agents;
 - a user-approved memory file if the repository already has one.
+
+Only portable project decisions belong there. Keep machine configuration,
+model mappings, capability snapshots, installation reports and raw validation
+artifacts outside tracked files in private local state. Generated project-local
+capabilities may live in ignored `.engineering-bible/`; derive them from actual
+host discovery, not a package catalog.
+
+Beads owns task status, session-memory owns verified durable decisions, and
+QMD searches existing documents. Store each fact once in its owning system and
+use references; do not replicate all records across these tools. Do not
+initialize Beads or new memory stores across other projects automatically.
 
 When a natural-language query misses relevant documents, the optional offline
 `scripts/memory-retrieval.py` helper can plan a content-word variant and fuse the

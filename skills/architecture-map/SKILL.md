@@ -1,6 +1,6 @@
 ---
 name: architecture-map
-description: "Maps domains, ownership, dependencies, entry points, tests, services, and risks before broad changes, review, migration, or handoff."
+description: "Maps verified domains, dependencies, entrypoints, flows and risks for broad changes or review."
 ---
 
 # Architecture Map
@@ -57,6 +57,24 @@ If Graphify is unavailable or not useful for the repository shape, fall back to
 
 When Graphify state is created or reused, report whether it was existing,
 fresh, stale/uncertain, or newly generated.
+
+## Optional Diagram Rendering
+
+Use Archify as an optional renderer when a shareable architecture or process
+diagram helps the task and the current runtime is verified. Build its
+structured input from source-backed facts after mapping; keep source paths and
+revision evidence alongside the diagram. Graphify discovers candidate
+relationships; a renderer presents the supplied relationships.
+
+Validate the structured input and rendered artifact, then visually inspect
+labels, edges and layout. A valid diagram does not prove a relationship exists
+in code, runtime impact, security, or merge safety. Keep uncertain links marked
+as hypotheses. Do not add rendering to ordinary localized edits.
+
+For offline/private work, disable the renderer's update check through the
+documented runtime option. Keep generated HTML, snapshots and machine paths
+outside tracked files unless the user requests a documentation artifact.
+No renderer installation or diagram generation is implied by this skill alone.
 
 ## Output
 

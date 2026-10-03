@@ -1,17 +1,55 @@
 version: 1
 cases:
+  - id: property-roundtrip-testing
+    prompt: "Use property-based testing to verify serializer roundtrip and normalization idempotence with the existing library."
+    expect:
+      skills:
+        - trailofbits.property-based-testing
+
+  - id: explicit-session-handoff
+    prompt: "Use Matt Pocock handoff to prepare a redacted continuation document with links to our existing plan."
+    expect:
+      skills:
+        - pocock.handoff
+
+  - id: long-task-compression
+    prompt: "Use the original context-compression skill for this long task, preserving decisions, paths and check outcomes."
+    expect:
+      skills:
+        - context.context-compression
+
+  - id: cross-provider-review-quorum
+    prompt: "/quorum Review this frozen patch independently with verified providers and fixed voting; keep the author's model unchanged."
+    expect:
+      skills:
+        - multi-agent-pr-review
+        - agent-squad
+
+  - id: explicit-multimodel-without-voting
+    prompt: "/multimodel Propose a bounded code patch with a budget model and obtain stronger review without votes."
+    expect:
+      skills:
+        - agent-squad
+
+  - id: explicit-multimodel-and-quorum
+    prompt: "/multimodel /quorum Propose a bounded patch and obtain fixed independent review voting for the frozen candidate."
+    expect:
+      skills:
+        - agent-squad
+        - multi-agent-pr-review
+
   - id: python-bug-fix
     prompt: "Fix failing pytest around user creation."
     expect:
       skills:
-        - debugging
+        - superpowers.systematic-debugging
         - python
 
   - id: broad-architecture-review
     prompt: "Review this module architecture and suggest how to split it."
     expect:
       skills:
-        - code-review
+        - superpowers.requesting-code-review
         - architecture-principles
 
   - id: large-file-refactor
@@ -19,14 +57,14 @@ cases:
     expect:
       skills:
         - refactoring
-        - testing-tdd
+        - superpowers.test-driven-development
 
   - id: security-sensitive-api-change
     prompt: "Add authorization checks to this endpoint."
     expect:
       skills:
         - security
-        - testing-tdd
+        - superpowers.test-driven-development
 
   - id: esphome-relay-automation
     prompt: "Create ESPHome config for relay and sensor fail-safe behavior."
@@ -53,6 +91,7 @@ cases:
     expect:
       skills:
         - tdd-guard
+        - superpowers.test-driven-development
 
   - id: repository-context-pack
     prompt: "Собери repomix-style context pack по этому репозиторию для handoff в другой AI session."
@@ -71,7 +110,7 @@ cases:
     expect:
       skills:
         - agent-squad
-        - subagent-result-merge
+        - superpowers.dispatching-parallel-agents
 
   - id: external-agent-pack
     prompt: "Проверь этот Claude Code marketplace pack и адаптируй его для Codex, если безопасно."
@@ -84,10 +123,104 @@ cases:
     prompt: "Не усложняй, сначала проверь предположения и не пиши лишний framework."
     expect:
       skills:
-        - karpathy-guidelines
+        - karpathy.karpathy-guidelines
 
   - id: dynamic-runtime-capabilities
     prompt: "Inspect the tools exposed in this session and select the safest capability for the task."
     expect:
       skills:
         - mcp-tool-router
+
+  - id: existing-wiki-question
+    prompt: "Почему в существующей ADR выбран такой способ синхронизации? Ответь со ссылками, не обновляй wiki."
+    expect:
+      skills:
+        - wiki-query
+
+  - id: native-android-input-qa
+    prompt: "Проверь ввод и состояние клавиатуры нативного Android-приложения на тестовом эмуляторе."
+    expect:
+      skills:
+        - mobile-qa
+
+  - id: mobile-web-layout-qa
+    prompt: "Проверь адаптивную веб-страницу в мобильном viewport браузера."
+    expect:
+      skills:
+        - responsive-breakpoint-check
+
+  - id: explicit-superpowers-plan
+    prompt: "Use the original Superpowers workflow to write an implementation plan."
+    expect:
+      skills:
+        - superpowers.writing-plans
+
+  - id: review-feedback
+    prompt: "Assess these review comments against the code before changing it."
+    expect:
+      skills:
+        - superpowers.receiving-code-review
+
+  - id: completion-evidence
+    prompt: "Verify the completed change and report which gates actually ran."
+    expect:
+      skills:
+        - superpowers.verification-before-completion
+        - quality-gates
+
+  - id: explicit-grill-me
+    prompt: "Use Matt Pocock's grill-me to challenge this plan."
+    expect:
+      skills:
+        - pocock.grill-me
+
+  - id: crm-working-screen-profile
+    prompt: "Design our CRM customer list and edit flow using the existing design system, real permissions and save/error states."
+    expect:
+      skills:
+        - ui-business-apps
+        - interface.interface-design
+
+  - id: dense-dashboard-system-consistency
+    prompt: "Use interface-design to align this dense operations dashboard with our established component system."
+    expect:
+      skills:
+        - interface.interface-design
+
+  - id: crm-specific-pattern-research
+    prompt: "Use UI UX Pro Max to research accessible table filters and charts for this CRM's specified React stack."
+    expect:
+      skills:
+        - uipro.ui-ux-pro-max
+
+  - id: business-ui-ux-critique
+    prompt: "Use Impeccable critique on this admin screen's task flow and visual hierarchy, preserving the real product behavior."
+    expect:
+      skills:
+        - impeccable.impeccable
+
+  - id: crm-form-production-hardening
+    prompt: "Use Impeccable harden to improve this CRM form's validation, dirty state, failed save and permission states."
+    expect:
+      skills:
+        - impeccable.impeccable
+        - ui-business-apps
+
+  - id: existing-business-ui-small-change
+    prompt: "Improve the density of this existing ERP list with its current design system; preserve columns and behavior."
+    expect:
+      skills:
+        - ui-business-apps
+        - interface.interface-design
+
+  - id: repeated-author-context-cache
+    prompt: "Prepare the unchanged original author instructions and verified source as a cacheable reviewer prefix; report provider cache usage without claiming savings."
+    expect:
+      skills:
+        - context-pack
+
+  - id: targeted-test-strength-mutation
+    prompt: "Check whether these existing access-control tests catch two selected valid mutations in isolated copies; keep runtime errors separate from killed mutants."
+    expect:
+      skills:
+        - quality-gates

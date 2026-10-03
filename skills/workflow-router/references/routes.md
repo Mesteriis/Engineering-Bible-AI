@@ -47,11 +47,16 @@ ambiguous or mixed request.
 - Architecture boundary or dependency-direction work ->
   `architecture-principles`.
 - Maintainability cleanup or explicit code-quality review -> `code-quality`.
-- Strict test-first gate explicitly requested -> `tdd-guard`; practical behavior
-  testing -> `testing-tdd`.
+- Strict test-first gate explicitly requested -> `tdd-guard` with the original
+  `superpowers.test-driven-development`; behavior testing uses that author
+  provider directly.
+- Useful invariants, roundtrips or generated-input testing -> original
+  `trailofbits.property-based-testing`; preserve target dependency policy.
 - Assumption checking or explicit anti-overengineering discipline ->
-  `karpathy-guidelines`.
+  `karpathy.karpathy-guidelines`.
 - Completion evidence, release gates, or drift audit -> `quality-gates`.
+- Explicit targeted mutation or weak-test assessment -> `quality-gates` with
+  `docs/targeted-mutation-testing.md`; execute only the selected isolated pilot.
 - Documentation change -> `documentation`.
 - Python, TypeScript/JavaScript, Rust, Go, C/C++, Home Assistant, ESPHome, or
   ESP32 work -> matching ecosystem skill.
@@ -74,7 +79,14 @@ runtime-tool inventory.
 
 ## Context And Memory
 
+- Explicit fresh-agent handoff -> original `pocock.handoff`; long-task
+  compression -> original `context.context-compression`. Both are opt-in;
+  checkpoint facts and source freshness remain owner policy in
+  `docs/task-continuation.md`.
+
 - Repository handoff or Repomix-style bundle -> `context-pack`.
+- Repeated authorized worker context or cache-hit evidence -> `context-pack`
+  with `docs/context-cache.md`; a prepared prefix does not activate a provider.
 - Project-local context tooling state, Serena `.serena/`, Graphify
   `graphify-out/`, Repomix-pack reuse, or whether to initialize indexes ->
   `core-engineering`; add `architecture-map` for graph/dependency questions or
@@ -88,7 +100,16 @@ runtime-tool inventory.
 
 ## Agents And External Packs
 
-- Parallel implementation lanes or worktrees -> `agent-squad`.
+- `/multimodel` -> `agent-squad` budget-proposal/stronger-review policy;
+  `/quorum` -> `multi-agent-pr-review` fixed voting and `docs/worker-quorum.md`
+  evidence. Use both commands for both modes. They are off for ordinary tasks;
+  same-model parallel lanes do not activate them. Apply `agent-squad` export limits.
+  A provider-neutral record does not establish a working model launcher.
+
+- Parallel independent tasks -> `superpowers.dispatching-parallel-agents` with
+  `agent-squad` owner policy; implementation from an approved plan ->
+  `superpowers.subagent-driven-development` with that policy.
+- Isolated Git worktree setup -> `superpowers.using-git-worktrees`.
 - Specialist role/team selection -> `specialist-dispatch`.
 - External skill, plugin, hook, marketplace, or agent pack import ->
   `external-agent-pack-audit`; add `supply-chain-review` when executable or
@@ -125,3 +146,58 @@ copying its procedure into Engineering Bible. Examples include GitHub, OpenAI,
 Cloudflare, documents, PDFs, spreadsheets, slides, Gmail, calendar, Drive,
 Canva, and Hugging Face workflows. Availability must come from the current
 session, not memory.
+
+## Reviewed Upstream Workflows
+
+The opt-in upstream groups and their skill IDs are owned by `skills/registry.yml`;
+`config/upstream-skills.json` records immutable sources and workflow intents.
+Use `be skills list --json` to inspect them only when provider selection needs
+that information. Do not copy a third-party workflow into a Bible route.
+
+- Explicit assumption interview -> catalog intent `grill-me`.
+- Interview with glossary and ADRs -> catalog intent `grill-with-docs`.
+- Author guidance for writing agent instructions -> `writing-for-agents`.
+- Author PR workflow -> `pr`; respect the user's authorization for publication.
+- Author retrospective -> `retro`; `agent-retrospective` remains a separately
+  named owner workflow.
+- Questions for an external requirements expert -> `to-questionnaire`.
+
+Resolve the selected intent or canonical ID with `be skills route INTENT --json`.
+The command reports filesystem availability, required tools/setup, and
+unverified session exposure. Use the real host invocation after exposure is
+established. An absent provider is a dependency of the selected installation
+profile; use its missing-only install and report pending reload or unavailable
+host tools. Keep author procedures and owner policy separate. Updates require
+reviewed catalog pins, not a mutable tracking tip. These routes never imply
+background monitoring.
+
+## Original Superpowers Providers
+
+Use complete author skills from `obra/superpowers`. The registry owns membership
+and profile dependencies; the catalog owns reviewed revisions and tree digests.
+Native compatible plugins retain their ownership. Every selection below uses
+the provider-resolution contract above and the actual current host invocation.
+
+| Intent | Canonical author provider | Separate Bible policy |
+| --- | --- | --- |
+| Clarify a design before building | `superpowers.brainstorming` | User scope and personal decision rules |
+| Write an implementation plan | `superpowers.writing-plans` | Repository validation commands |
+| Execute an approved plan | `superpowers.executing-plans` | Existing authorization and checkpoints |
+| Implement through planned subagents | `superpowers.subagent-driven-development` | `agent-squad`, worker permissions |
+| Dispatch independent investigations | `superpowers.dispatching-parallel-agents` | `agent-squad`, worker permissions |
+| Investigate a failure | `superpowers.systematic-debugging` | Global evidence rules, ecosystem skill |
+| Test behavior before implementation | `superpowers.test-driven-development` | Explicit `tdd-guard` policy when requested |
+| Request an engineering review | `superpowers.requesting-code-review` | Repository review scope and findings policy |
+| Process review feedback | `superpowers.receiving-code-review` | Current source evidence and user scope |
+| Verify before a completion claim | `superpowers.verification-before-completion` | `quality-gates`, release and drift rules |
+| Create an isolated checkout | `superpowers.using-git-worktrees` | Existing worktree reuse and export limits |
+| Finish a development branch | `superpowers.finishing-a-development-branch` | User authorization for publication and merge |
+| Create or update an author skill | `superpowers.writing-skills` | `external-agent-pack-audit` when importing |
+| Enter the author pack explicitly | `superpowers.using-superpowers` | Current user instructions and host invocation |
+| Diagnose pack behavior | `superpowers.diagnosing-superpowers` | Verified runtime evidence |
+
+`debugging`, `testing-tdd` and `code-review` are thin compatibility route names.
+They must load their author provider; none stores a shortened author workflow.
+The original `karpathy-guidelines` is the separately pinned
+`karpathy.karpathy-guidelines` provider. Owner standards, security policy,
+context/export controls and result contracts remain Bible content.

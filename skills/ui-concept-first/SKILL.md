@@ -1,26 +1,31 @@
 ---
 name: ui-concept-first
-description: "Establishes visual direction from Figma, screenshots, generated references, evidence, or an existing design system before implementation."
+description: "Sets visual direction from Figma, screenshots or an existing design system for major UI implementation."
 ---
 
 # UI Concept First
 
-Establish the visual target before implementation.
+Establish enough visual evidence for a major new UI or redesign. Bible owns the
+reference choice and product constraints; author skills own their design process.
 
-## Workflow
+An existing design system, verified current screenshot or selected Figma frame
+can provide the target. Read `design-system-extractor` only when the reference
+needs implementation constraints extracted. Do not route through `ui-router`
+again for an already clear task or require a new concept for ordinary changes.
 
-1. Read `ui-router` and classify the UI request.
-2. Gather evidence first when needed through `ui-research`.
-3. Use `frontend-app-builder`, Product Design `ideate`, Figma, ImageGen, or an
-   existing screenshot/design system to establish the visual reference.
-4. Extract tokens, typography, layout, components, states, and responsive rules
-   with `design-system-extractor`.
-5. Implement only after the visual direction is clear.
-6. Validate with `playwright-visual-qa`.
+When a direction is missing, select the complete original provider exposed in
+the current session: `interface.interface-design` for working app screens;
+`impeccable.impeccable` with its `shape` reference for UX planning;
+`product-design:ideate` for requested visual alternatives; or an exposed Figma
+provider for editable design work. Use `ui-business-apps` for the business-app
+owner constraints. Keep native plugin and reviewed upstream ownership; provider
+files alone do not establish exposure.
 
-## Rules
+Generated imagery is optional and only useful when it helps the requested
+surface. Dashboard and CRM interactions may be better represented by a working
+prototype or screen reference. No image-generation or recurring approval step
+is required by this owner policy. Preserve the user's selected direction and
+scope, and report unavailable providers or missing evidence precisely.
 
-- Do not start major UI implementation from text-only vibes.
-- Do not add unapproved large UI sections after concept selection.
-- If concept generation is blocked, state the blocker and use the strongest
-  available reference.
+Use `playwright-visual-qa` when the rendered result needs visual verification;
+select other `ui-qa` evidence only as the task requires.

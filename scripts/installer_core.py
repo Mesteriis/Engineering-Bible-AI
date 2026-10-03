@@ -17,6 +17,8 @@ import stat
 import uuid
 
 from registry import default_group_names, load_registry
+from upstream_catalog import SkillSpec
+from upstream_skills import SkillManager
 
 
 MANIFEST_SCHEMA = 1
@@ -118,6 +120,8 @@ class InstallerOptions:
     migrate_legacy: bool
     prompt_profile: str
     backup_dir: Path
+    skip_upstream: bool = False
+    skill_roots: tuple[Path, ...] = ()
 
     def roots(self) -> dict[str, Path]:
         return {
@@ -478,6 +482,8 @@ def build_actions(
             status = "MODE"
         elif options.no_overwrite:
             status = "SKIP"
+        elif state_matches(observed, prior.sha256, prior.mode):
+            status = "UPDATE"
         elif options.force:
             status = "UPDATE"
         else:
@@ -634,6 +640,8 @@ def build_manifest(
     registry: dict[str, object],
     skills: list[str],
     previous: ManifestState | None,
+    upstream_skills: list[str] | None = None,
+    upstream_complete: bool = False,
 ) -> dict[str, object]:
     return {
         "schema_version": MANIFEST_SCHEMA,
@@ -650,6 +658,9 @@ def build_manifest(
             "include_all": options.all_groups,
             "prompt_profile": options.prompt_profile,
             "selected_skills": skills,
+            "selected_upstream_skills": upstream_skills or [],
+            "upstream_complete": upstream_complete,
+            "upstream_skill_roots": [str(path) for path in options.skill_roots],
         },
         "complete": not any(action.status == "SKIP" for action in actions),
         "files": [manifest_entry(item) for item in final_owned_files(actions)],
@@ -889,11 +900,7 @@ def parse_failure_injection() -> int | None:
     return value
 
 
-def apply_transaction(
-    actions: list[PlannedAction],
-    manifest: dict[str, object],
-    options: InstallerOptions,
-) -> None:
+def validate_action_conflicts(actions: list[PlannedAction]) -> None:
     conflicts = [action for action in actions if action.status in CONFLICT_STATUSES]
     if conflicts:
         unmanaged = [action.relative for action in conflicts if action.status == "UNMANAGED"]
@@ -908,6 +915,13 @@ def apply_transaction(
             details.append("changed managed target(s) require --force: " + ", ".join(changed))
         raise InstallError("; ".join(details))
 
+
+def apply_transaction(
+    actions: list[PlannedAction],
+    manifest: dict[str, object],
+    options: InstallerOptions,
+) -> None:
+    validate_action_conflicts(actions)
     manifest_bytes = encode_json(manifest)
     manifest_state = file_state(options.manifest_path)
     manifest_changed = not (
@@ -1027,6 +1041,8 @@ def print_header(options: InstallerOptions, skills: list[str]) -> None:
     print(f"Migrate legacy: {'yes' if options.migrate_legacy else 'no'}")
     print(f"Install tools: {'yes' if options.install_tools else 'no'}")
     print("Skills: " + ", ".join(skills))
+    if options.skip_upstream:
+        print("SKIP upstream dependency installation: --skip-upstream")
 
 
 def load_install_inputs(
@@ -1039,22 +1055,175 @@ def load_install_inputs(
     return registry, desired, previous
 
 
+def verified_legacy_skill(
+    options: InstallerOptions,
+    previous: ManifestState,
+    name: str,
+) -> str:
+    """Prove an entire former package-owned leaf before the ownership handoff."""
+    from upstream_catalog import fingerprint_tree
+
+    prefix = f"skills/{name}/"
+    owned = {
+        item.path.removeprefix(prefix): item
+        for item in previous.files.values()
+        if item.root == "codex_home" and item.path.startswith(prefix)
+    }
+    if "SKILL.md" not in owned:
+        raise InstallError(f"author skill handoff lacks prior package ownership: {name}")
+    target = safe_target(options.codex_home, prefix.rstrip("/"))
+    if target.is_symlink() or not target.is_dir():
+        raise InstallError(f"unsafe prior package skill: {name}")
+    current: set[str] = set()
+    for entry in target.rglob("*"):
+        if entry.is_symlink() or not (entry.is_file() or entry.is_dir()):
+            raise InstallError(f"unsafe prior package skill entry: {name}")
+        if entry.is_file():
+            relative = entry.relative_to(target).as_posix()
+            current.add(relative)
+            prior = owned.get(relative)
+            if prior is None or not state_matches(file_state(entry), prior.sha256, prior.mode):
+                raise InstallError(f"local changes prevent author skill handoff: {name}")
+    if current != set(owned):
+        raise InstallError(f"prior package skill inventory changed: {name}")
+    return fingerprint_tree(target)
+
+
+def prepare_upstream_install(
+    options: InstallerOptions,
+    registry: dict[str, object],
+    previous: ManifestState | None,
+) -> tuple[SkillManager | None, list[SkillSpec], dict[str, str], ManifestState | None]:
+    """Select originals and release only ownership that can be verified locally."""
+    from registry import selected_upstream_skills
+    from upstream_catalog import load_catalog, select_skills
+
+    identities = (
+        []
+        if options.prompt_profile == "fast"
+        else selected_upstream_skills(
+            registry, groups=options.groups, include_all=options.all_groups
+        )
+    )
+    catalog_path = options.repo_root / "config" / "upstream-skills.json"
+    if not catalog_path.is_file():
+        if identities:
+            raise InstallError("missing reviewed upstream skill catalog")
+        return None, [], {}, previous
+    catalog = load_catalog(catalog_path, options.repo_root / "skills" / "registry.yml")
+    selection = select_skills(catalog, identities, [], False) if identities else []
+    manager = SkillManager(
+        catalog,
+        options.be_home,
+        options.codex_home / "skills",
+        existing_roots=(options.agents_home / "skills", *options.skill_roots),
+    )
+    if selection and not (options.dry_run or options.skip_upstream or options.backup_only):
+        if manager.recover():
+            print("RECOVERED author dependency transaction before ownership preflight")
+    if previous is None:
+        return manager, selection, {}, None
+    owned_names = {
+        path.split("/")[1]
+        for root, path in previous.files
+        if root == "codex_home" and path.startswith("skills/") and path.count("/") >= 2
+    }
+    selected_names = {skill.name for skill in selection}
+    canonical = [skill for skill in catalog.skills.values() if skill.name in owned_names]
+    plan = manager.plan(canonical) if canonical else []
+    legacy_owned: dict[str, str] = {}
+    release: set[str] = set()
+    for skill, item in zip(canonical, plan):
+        # A previous dependency commit may already have completed the handoff,
+        # while the package transaction was interrupted. Never retire that tree.
+        if item["status"] == "RECOVERY_REQUIRED":
+            raise InstallError("author dependency recovery is required before package installation")
+        if (
+            item["status"] in {"SATISFIED", "ATTRIBUTION_REQUIRED", "UPDATE_AVAILABLE", "MODIFIED"}
+            and item["owner"] == "bible"
+        ):
+            release.add(skill.name)
+        elif (
+            item["status"] in {"SATISFIED", "REUSE"}
+            and item["owner"] == "external"
+            and not (options.codex_home / "skills" / skill.name).exists()
+            and not (options.codex_home / "skills" / skill.name).is_symlink()
+        ):
+            release.add(skill.name)
+        elif not options.backup_only:
+            if item["status"] != "MISSING":
+                digest = verified_legacy_skill(options, previous, skill.name)
+                if skill.name in selected_names and not options.skip_upstream:
+                    if options.no_overwrite:
+                        raise InstallError(
+                            f"author skill handoff requires replacing the owned leaf {skill.name}; "
+                            "rerun without --no-overwrite"
+                        )
+                    legacy_owned[skill.name] = digest
+                    release.add(skill.name)
+            elif skill.name in selected_names and not options.skip_upstream:
+                release.add(skill.name)
+    if not release:
+        return manager, selection, legacy_owned, previous
+    retained = {
+        key: value
+        for key, value in previous.files.items()
+        if not (
+            key[0] == "codex_home" and any(key[1].startswith(f"skills/{name}/") for name in release)
+        )
+    }
+    return manager, selection, legacy_owned, ManifestState(previous.payload, retained)
+
+
 def run_install(options: InstallerOptions, skills: list[str]) -> list[PlannedAction]:
     def prepare_and_maybe_apply() -> list[PlannedAction]:
         registry, desired, previous = load_install_inputs(options, skills)
+        original_previous = previous
+        manager, upstream, legacy_owned, previous = prepare_upstream_install(
+            options, registry, previous
+        )
         if options.backup_only:
-            actions = backup_actions(desired, previous, options)
+            actions = backup_actions(desired, original_previous, options)
         else:
             actions = build_actions(desired, previous, options)
         print_header(options, skills)
         print_actions(actions)
+        upstream_ids = [skill.id for skill in upstream]
+        if manager is not None and upstream and not options.skip_upstream:
+            for item in manager.plan(upstream, legacy_owned=legacy_owned):
+                print(f"{item['status']:18} upstream:{item['id']} -> {item['path']}")
         if options.dry_run:
             return actions
         if options.backup_only:
             apply_backup_only(actions, options)
         else:
-            manifest = build_manifest(options, desired, actions, registry, skills, previous)
-            apply_transaction(actions, manifest, options)
+            validate_action_conflicts(actions)
+            ensured = None
+            if manager is not None and upstream and not options.skip_upstream:
+                ensured = manager.ensure(upstream, legacy_owned=legacy_owned)
+            manifest = build_manifest(
+                options,
+                desired,
+                actions,
+                registry,
+                skills,
+                original_previous,
+                upstream_skills=upstream_ids,
+                upstream_complete=not options.skip_upstream,
+            )
+            try:
+                apply_transaction(actions, manifest, options)
+            except Exception as exc:
+                if ensured is not None and ensured.get("backup") is not None:
+                    backup_identity = ensured["backup"]
+                    assert isinstance(backup_identity, str) and manager is not None
+                    try:
+                        manager.rollback(expected_backup=backup_identity)
+                    except Exception as recovery:
+                        raise InstallError(
+                            f"package install failed: {exc}; author dependency rollback incomplete: {recovery}"
+                        ) from exc
+                raise
         return actions
 
     if options.dry_run:

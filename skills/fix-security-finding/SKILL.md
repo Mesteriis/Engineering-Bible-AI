@@ -1,31 +1,27 @@
 ---
 name: fix-security-finding
-description: "Fixes one security finding with the smallest safe patch, regression coverage, and verification."
+description: "Routes an explicitly requested security fix to the original native fix-finding skill with owner authorization and scope rules."
 ---
 
 # Fix Security Finding
 
-Fix one finding without broad refactors.
+Use only when the user explicitly asks to fix and verify a security
+vulnerability. Load and follow the complete original
+`codex-security:fix-finding` skill exposed by the current host, including its
+references and remediation-stage constraints. Preserve native ownership;
+this adapter does not reproduce the patch or verification workflow.
 
-## Workflow
+If the original provider or a required capability is missing, the route is
+unavailable. Use the host's official Codex Security plugin setup to install
+or enable it and refresh session exposure. Do not silently substitute a
+condensed local fix procedure or report a pending provider as completed.
 
-1. Read `fix-finding` from Codex Security if available.
-2. Confirm source, sink, control point, affected asset, and attacker input.
-3. Reproduce, encode, or reason through the failure path.
-4. Apply the smallest correct fix.
-5. Add regression coverage when the repo supports tests.
-6. Validate that the old path is blocked and normal behavior still works.
+## Owner Policy
 
-## Output
-
-- finding fixed
-- files changed
-- regression coverage
-- validation commands
-- remaining proof gaps
-
-## Rules
-
-- Do not fix unrelated findings.
-- Do not hide uncertainty.
-- Do not weaken validation or authorization for convenience.
+- The user's finding, target and authorized remediation stage bound the work.
+  Preserve unrelated findings, local changes and legitimate behavior.
+- Review authorization does not authorize fixes, and preparation does not
+  authorize deployment or publication. Reuse authorization already granted.
+- Protect credentials, private runtime configuration and raw sensitive data.
+- Report the original provider's actual outcome, changed files, exact
+  validation results and remaining proof gaps without weakening its evidence.

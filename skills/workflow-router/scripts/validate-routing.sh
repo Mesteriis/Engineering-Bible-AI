@@ -19,6 +19,8 @@ Default --codex-only validates ~/.codex/AGENTS.md and ~/.codex/skills. It also
 checks that managed Engineering Bible skills are not duplicated in
 ~/.agents/skills. --all-agents additionally validates optional Claude, OpenCode,
 and Gemini roots when their instruction files or skill roots exist.
+CODEX_HOME, AGENTS_HOME and ENGINEERING_BIBLE_HOME may select another installation.
+Author files are checked against the installed profile; host exposure is SKIP.
 USAGE
     exit 0
     ;;
@@ -27,6 +29,12 @@ USAGE
     exit 2
     ;;
 esac
+
+routing_codex_home="${CODEX_HOME:-$HOME/.codex}"
+routing_agents_home="${AGENTS_HOME:-$HOME/.agents}"
+routing_be_home="${ENGINEERING_BIBLE_HOME:-$routing_codex_home/engineering-bible}"
+routing_package_root="$routing_be_home/current"
+routing_python="${ENGINEERING_BIBLE_PYTHON:-python3}"
 
 fail() {
     printf 'FAIL: %s\n' "$*" >&2
@@ -38,9 +46,9 @@ warn() {
 }
 
 read_required_skills() {
-    local registry_script="$HOME/.codex/scripts/registry.py"
-    if [[ -f "$registry_script" && -f "$HOME/.codex/skills/registry.yml" ]]; then
-        python3 "$registry_script" --root "$HOME/.codex" skills
+    local registry_script="$routing_package_root/scripts/registry.py"
+    if [[ -f "$registry_script" && -f "$routing_package_root/skills/registry.yml" ]]; then
+        "$routing_python" "$registry_script" --root "$routing_package_root" skills
         return
     fi
 
@@ -57,9 +65,9 @@ read_required_skills() {
 }
 
 read_registered_skills() {
-    local registry_script="$HOME/.codex/scripts/registry.py"
-    if [[ -f "$registry_script" && -f "$HOME/.codex/skills/registry.yml" ]]; then
-        python3 "$registry_script" --root "$HOME/.codex" skills --all
+    local registry_script="$routing_package_root/scripts/registry.py"
+    if [[ -f "$registry_script" && -f "$routing_package_root/skills/registry.yml" ]]; then
+        "$routing_python" "$registry_script" --root "$routing_package_root" skills --all
         return
     fi
 
@@ -77,11 +85,11 @@ while IFS= read -r skill; do
 done < <(read_registered_skills)
 
 skill_roots=(
-    "$HOME/.codex/skills"
+    "$routing_codex_home/skills"
 )
 
 instruction_files=(
-    "$HOME/.codex/AGENTS.md"
+    "$routing_codex_home/AGENTS.md"
 )
 
 if [[ "$mode" == "--all-agents" ]]; then
@@ -118,13 +126,13 @@ for root in "${skill_roots[@]}"; do
     done
 done
 
-if [[ ! -f "$HOME/.agents/engineering/README.md" ]]; then
-    fail "missing $HOME/.agents/engineering/README.md"
+if [[ ! -f "$routing_agents_home/engineering/README.md" ]]; then
+    fail "missing $routing_agents_home/engineering/README.md"
 fi
 
-if [[ -d "$HOME/.agents/skills" ]]; then
+if [[ -d "$routing_agents_home/skills" ]]; then
     for skill in "${registered_skills[@]}"; do
-        if [[ -f "$HOME/.agents/skills/$skill/SKILL.md" ]]; then
+        if [[ -f "$routing_agents_home/skills/$skill/SKILL.md" ]]; then
             fail "duplicate managed skill in ~/.agents: $skill"
         fi
     done
@@ -132,17 +140,31 @@ fi
 
 managed_skill_files=()
 for skill in "${required_skills[@]}"; do
-    managed_skill_files+=("$HOME/.codex/skills/$skill/SKILL.md")
+    managed_skill_files+=("$routing_codex_home/skills/$skill/SKILL.md")
 done
+
+author_status=0
+author_validator="$routing_package_root/scripts/validate-router-cases.py"
+test -f "$author_validator" || fail "missing installed author routing validator"
+if "$routing_python" "$author_validator" --root "$routing_package_root" \
+    --installed-providers --codex-home "$routing_codex_home" \
+    --agents-home "$routing_agents_home" --be-home "$routing_be_home"; then
+    :
+else
+    author_status=$?
+    if [[ "$author_status" != 2 ]]; then
+        fail "required author provider readiness failed"
+    fi
+fi
 
 if grep -n -E 'TODO:|Structuring This Skill|\[TODO' "${managed_skill_files[@]}"; then
     fail "template TODO text found in managed workflow skills"
 fi
 
-quick_validate="$HOME/.codex/skills/.system/skill-creator/scripts/quick_validate.py"
+quick_validate="$routing_codex_home/skills/.system/skill-creator/scripts/quick_validate.py"
 if [[ -f "$quick_validate" ]]; then
     for skill in "${required_skills[@]}"; do
-        if ! python3 "$quick_validate" "$HOME/.codex/skills/$skill" >/dev/null 2>/dev/null; then
+        if ! "$routing_python" "$quick_validate" "$routing_codex_home/skills/$skill" >/dev/null 2>/dev/null; then
             warn "quick_validate.py failed for $skill; skipped optional skill structure smoke"
             break
         fi
@@ -164,4 +186,8 @@ else
     warn "codex CLI not found; skipped prompt visibility check"
 fi
 
-printf 'OK: workflow routing healthcheck passed\n'
+if [[ "$author_status" == 2 ]]; then
+    printf 'SKIP: author readiness; owner routing filesystem checks passed\n'
+else
+    printf 'OK: workflow routing filesystem healthcheck passed; session exposure SKIP\n'
+fi

@@ -1,74 +1,23 @@
 ---
 name: tdd-guard
-description: "Strict test-first gate only when explicitly requested or required by repository policy. Do not use for ordinary practical testing."
+description: "Strict test-first owner policy only when explicitly requested or required by repository rules; delegates the workflow to original Superpowers TDD."
 ---
 
-# TDD Guard
+# Test-First Owner Policy
 
-Use this skill when a task changes behavior and there is a realistic way to
-write or update tests before implementation.
+Use only when the user or repository explicitly requires a strict test-first
+gate. The author workflow is `superpowers.test-driven-development`; resolve it
+with `be skills route superpowers.test-driven-development --json` and read the
+complete exposed author skill and required references. Reuse compatible native
+providers or install the missing reviewed dependency through the selected
+profile. Report pending exposure instead of replacing it with a local summary.
 
-This is a Codex-native adaptation of TDD guardrail ideas. It does not install
-Claude Code hooks or reporters. It enforces sequencing through task gates,
-evidence, and explicit validation.
+Bible owns the explicit gate: preserve the first failing command and raw result
+as evidence before implementation, and report the actual validation outcome.
+An exception requires an explicit user instruction or applicable repository
+rule; state its reason, alternative evidence and residual risk. An unrun check
+does not satisfy this gate.
 
-## When To Use
-
-Use for:
-
-- bug fixes;
-- features;
-- parser or API behavior changes;
-- business logic;
-- security fixes where regression coverage is possible;
-- refactors that must preserve behavior.
-
-Do not force TDD for:
-
-- docs-only changes;
-- formatting-only changes;
-- generated files;
-- exploratory read-only analysis;
-- emergency repair where the user explicitly accepts a no-test path.
-
-## Workflow
-
-1. Identify the behavior under change.
-2. Find the nearest existing test style and command.
-3. Add or update the smallest failing test first.
-4. Run the focused test and record the failing result.
-5. Implement the minimal code needed to pass.
-6. Run the focused test again.
-7. Run broader validation if the blast radius is shared.
-8. Refactor only after the test passes.
-
-## Guard Rules
-
-- Do not edit production behavior before a test plan exists.
-- If a failing test cannot be added, state why and choose the strongest
-  alternative validation.
-- Do not add broad abstractions before the test demands them.
-- Do not hide behind snapshots when explicit assertions are practical.
-- Keep one behavior per test unless the existing suite uses scenario tests.
-- Preserve existing test runner, fixture, factory, and assertion conventions.
-
-## Escape Hatch
-
-If TDD is not appropriate, write a short exception:
-
-```markdown
-TDD exception:
-- Reason:
-- Alternative validation:
-- Residual risk:
-```
-
-## Output
-
-Report:
-
-- test added or updated;
-- first failing command and result, when available;
-- implementation summary;
-- passing validation command;
-- exception reason if no failing test was created.
+This policy does not install Claude Code hooks or claim runtime enforcement.
+Hook tooling, if requested, must be separately reviewed and configured through
+the host. Keep author content unchanged and personal exceptions in this layer.

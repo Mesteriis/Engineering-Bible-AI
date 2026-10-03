@@ -43,6 +43,10 @@ package_required_files=(
     "scripts/install-tools.sh"
     "scripts/install_codex.py"
     "scripts/installer_core.py"
+    "scripts/upstream_catalog.py"
+    "scripts/upstream_sources.py"
+    "scripts/upstream_skills.py"
+    "scripts/upstream_cli.py"
     "scripts/mcp_catalog.py"
     "scripts/mcp_catalog_cli.py"
     "scripts/mcp_catalog_storage.py"
@@ -76,6 +80,7 @@ package_required_files=(
     "skills/mcp-tool-router/SKILL.md"
     "skills/mcp-tool-router/references/host-adapter.md"
     "config/tools.json"
+    "config/upstream-skills.json"
     "schemas/runtime-capabilities.schema.json"
     "examples/runtime-capabilities.synthetic.json"
     "pyproject.toml"
@@ -135,6 +140,8 @@ agents_root = Path(sys.argv[4]).resolve()
 sys.path.insert(0, str(package_root / "scripts"))
 import installer_core  # noqa: E402
 import registry  # noqa: E402
+import upstream_catalog  # noqa: E402
+import upstream_skills  # noqa: E402
 
 try:
     if stat.S_IMODE(manifest_path.stat().st_mode) != 0o600:
@@ -266,6 +273,35 @@ try:
     )
     if selected != expected_skills:
         raise ValueError("selected skills do not match registry and group metadata")
+    required_ids = [] if profile == "fast" else registry.selected_upstream_skills(
+        registry.load_registry(package_root), groups=list(requested), include_all=include_all,
+    )
+    catalog = upstream_catalog.load_catalog(
+        package_root / "config/upstream-skills.json", package_root / "skills/registry.yml",
+    )
+    author_skills = upstream_catalog.select_skills(catalog, required_ids, [], False) if required_ids else []
+    expected_upstream = [skill.id for skill in author_skills]
+    if groups.get("selected_upstream_skills", []) != expected_upstream:
+        raise ValueError("selected author skills do not match registry requirements")
+    upstream_complete = groups.get("upstream_complete", False)
+    native_roots = groups.get("upstream_skill_roots", [])
+    if not isinstance(upstream_complete, bool) or not isinstance(native_roots, list) or any(
+        not isinstance(path, str) or not Path(path).is_absolute() for path in native_roots
+    ):
+        raise ValueError("invalid author dependency metadata")
+    if upstream_complete:
+        manager = upstream_skills.SkillManager(
+            catalog, root_paths["be_home"], codex_root / "skills",
+            existing_roots=(agents_root / "skills", *(Path(path) for path in native_roots)),
+        )
+        unresolved = [item for item in manager.plan(author_skills) if item["status"] not in {"SATISFIED", "REUSE"}]
+        if unresolved:
+            raise ValueError("author dependencies are not ready: " + ", ".join(
+                f"{item['id']} ({item['status']})" for item in unresolved
+            ))
+        print("[PASS] reviewed author dependency files; session exposure unverified", file=sys.stderr)
+    else:
+        print("[SKIP] author dependency readiness (--skip-upstream)", file=sys.stderr)
     options = installer_core.InstallerOptions(
         repo_root=package_root,
         codex_home=root_paths["codex_home"],
@@ -283,6 +319,8 @@ try:
         migrate_legacy=False,
         prompt_profile=profile,
         backup_dir=root_paths["be_home"] / "backups" / "validation-unused",
+        skip_upstream=not upstream_complete,
+        skill_roots=tuple(Path(path) for path in native_roots),
     )
     expected_files = installer_core.build_desired_files(options, expected_skills)
     expected_keys = {(item.root, item.path) for item in expected_files}
@@ -302,6 +340,7 @@ except (
     ValueError,
     installer_core.InstallError,
     registry.RegistryError,
+    upstream_catalog.UpstreamError,
 ) as exc:
     raise SystemExit(f"invalid install manifest: {exc}") from exc
 

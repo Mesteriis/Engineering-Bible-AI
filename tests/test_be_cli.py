@@ -44,6 +44,8 @@ class BeCliTests(unittest.TestCase):
         )
         if extra_env:
             env.update(extra_env)
+        if args and args[0] == "install" and "--skip-upstream" not in args:
+            args = (*args, "--skip-upstream")
         return subprocess.run(
             [supported_python(), str(BE), *args],
             cwd=ROOT,
@@ -252,7 +254,7 @@ class BeCliTests(unittest.TestCase):
                 }
             )
             installed_result = subprocess.run(
-                [str(wrapper), "install"],
+                [str(wrapper), "install", "--skip-upstream"],
                 cwd=ROOT,
                 env=env,
                 text=True,

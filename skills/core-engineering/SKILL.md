@@ -1,6 +1,6 @@
 ---
 name: core-engineering
-description: "General implementation only when no narrower task or ecosystem skill fits. Do not combine with a clear specialist skill."
+description: "General implementation only when no narrower task or ecosystem skill fits."
 ---
 
 # Skill: core-engineering
@@ -90,22 +90,23 @@ only when it materially affects confidence or reproducibility.
 
 ### Context Tooling Tiers
 
-Use each context tool for its narrow role instead of treating the stack as a
-flat set of interchangeable indexers.
+Use the same question-based routing as the steady global prompt, when the
+current host exposes the relevant capability:
 
-**Tier 1 — Serena:** prefer Serena's LSP-backed symbol overview, definition,
-and reference tools before broad file reads when a task requires repeated or
-cross-file code navigation. The same policy applies in Codex and Claude when
-the current runtime exposes Serena. For a localized task, `rg` and targeted
-reads remain cheaper than creating or refreshing an index.
+| Need | First route |
+| --- | --- |
+| Local edit or literal | `rg`, path filters, and targeted reads |
+| Definitions and references | Serena's LSP-backed symbol navigation |
+| Architecture and impact | Graphify, with fresh source verification |
+| Documentation and ADRs | QMD over allowed roots; `wiki-query` for read-only wiki questions |
+| External library documentation | Context7 for the installed library version |
+| Dependency source | opensrc for the exact dependency revision |
+| Worker handoff | `context-pack`; Repomix when an export is useful |
 
-**Tier 2 — Graphify:** use Graphify for architecture, dependency and call
-graphs, blast-radius exploration, and repeated onboarding to a large codebase.
-Treat its graph as an index and verify consequential claims against source.
-
-Repomix is an export tool, not a live code index. Use it for an explicit
-handoff, review bundle, or architecture context pack; do not substitute a
-Repomix snapshot for fresh symbol or graph queries.
+Do not run every search tool for each task. Keep path filters and bounded
+excerpts. A package installation does not prove host availability. If a route
+is unavailable, use targeted local evidence and report the material gap.
+Repomix is an export, not a live code index.
 
 ### Project Context Bootstrap
 
@@ -119,7 +120,9 @@ Before broad reads or repeated cross-file exploration, do a cheap state check:
 Use the result as a decision gate:
 
 - localized task -> use `rg`, symbol lookup, and targeted reads;
-- existing Serena or Graphify state -> use it before scanning many files;
+- existing Serena, Graphify, or QMD state -> compare its source revision and
+  file hashes with the required scope, including uncommitted changes, before
+  trusting it; an index older than an edit is stale evidence;
 - missing state but architecture-heavy, symbol-heavy, dependency/call-graph, or
   repeated onboarding task -> initialize the narrowest useful project-local
   state when file mutation is allowed;
@@ -135,19 +138,29 @@ Graphify belongs to architecture/dependency/call-graph work. If no graph
 exists, build a scoped graph only when it will reduce repeated reading; report
 `graphify-out/` as generated state and verify important claims against source.
 
+After edits, refresh the affected index scope and confirm one changed symbol
+or document is found. If freshness cannot be established, read current source
+and mark the index unverified. QMD roots must be an explicit allowlist; do not
+add other repositories, personal notes, or home directories automatically.
+
 Do not run persistent hook/config upgrades such as Graphify hooks or Git hooks
 without an explicit user request.
 
 ### Output Compression Guardrail
 
-RTK, Context Mode, and Distill may be used for noisy commands, large logs, test
-output, browser/tool snapshots, or MCP output when they reduce context without
-hiding the signal.
+Select one transformation: `jq` or deterministic filters for structured data,
+RTK for supported noisy CLI output, Context Mode for large results with
+selective retrieval, or Distill for semantic grouping. Do not chain multiple
+summarizers by default. Distill is not sole evidence of a successful test.
 
-For failures, debugging, security work, and validation-critical commands, make
-sure raw output remains retrievable. If a compressed summary is ambiguous,
-surprising, or insufficient to explain the result, read the raw output before
-claiming cause, impact, or validation status.
+Capture stdout/stderr and the original command's exit code before any filter
+or summarizer. Store raw artifacts outside tracked files. Record command,
+working directory, source revision, and raw artifact path separately from the
+summary. A nonzero test exit remains FAIL even when a filter exits zero;
+preserve scanner errors separately from findings and SKIP separately from PASS.
+Before enabling an automatic wrapper, run an intentionally failing test and
+verify its raw exit code and failure remain visible. Read raw evidence before
+claiming validation or explaining ambiguous failures.
 
 Context Mode hook enablement is a separate decision from using output
 compression. `context-mode doctor` may diagnose missing hooks, but that result

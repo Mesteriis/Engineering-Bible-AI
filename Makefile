@@ -84,10 +84,16 @@ validate-install:
 	AGENTS_HOME="$$tmp_dir/home/.agents" \
 	ENGINEERING_BIBLE_HOME="$$tmp_dir/home/.engineering-bible" \
 	ENGINEERING_BIBLE_BIN_DIR="$$tmp_dir/home/.local/bin" \
-	bash scripts/install-codex.sh --install; \
-	HOME="$$tmp_dir/home" bash "$$tmp_dir/home/.engineering-bible/current/scripts/validate-installed-tree.sh" \
+	bash scripts/install-codex.sh --install --skip-upstream; \
+	HOME="$$tmp_dir/home" \
+	ENGINEERING_BIBLE_HOME="$$tmp_dir/home/.engineering-bible" \
+	bash "$$tmp_dir/home/.engineering-bible/current/scripts/validate-installed-tree.sh" \
 		"$$tmp_dir/home/.engineering-bible/current" "$$tmp_dir/home/.codex" "$$tmp_dir/home/.agents"; \
-	HOME="$$tmp_dir/home" bash "$$tmp_dir/home/.codex/skills/workflow-router/scripts/validate-routing.sh" --codex-only
+	HOME="$$tmp_dir/home" \
+	CODEX_HOME="$$tmp_dir/home/.codex" \
+	AGENTS_HOME="$$tmp_dir/home/.agents" \
+	ENGINEERING_BIBLE_HOME="$$tmp_dir/home/.engineering-bible" \
+	bash "$$tmp_dir/home/.codex/skills/workflow-router/scripts/validate-routing.sh" --codex-only
 
 size:
 	$(PYTHON) scripts/check-file-size.py . --hard 10000

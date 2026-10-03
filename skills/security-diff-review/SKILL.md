@@ -1,35 +1,26 @@
 ---
 name: security-diff-review
-description: "Reviews authorized diffs for auth, input, filesystem, network, secrets, parsers, injection, CI/CD, and supply-chain regressions."
+description: "Routes an authorized Git diff security review to the original native security-diff-scan skill."
 ---
 
 # Security Diff Review
 
-Run a diff-scoped security review.
+Load and follow the complete original `codex-security:security-diff-scan`
+skill exposed by the current host. Its references, capability preflight,
+findings and completion contracts remain native author responsibilities.
+This adapter selects the provider and does not reproduce its scan stages.
 
-## Workflow
+If the original provider or a required capability is missing, the route is
+unavailable. Use the host's official Codex Security plugin setup to install
+or enable it and refresh session exposure. Do not use abbreviated local
+scan steps as a counterfeit fallback or claim completion from registration.
 
-1. If `security-diff-scan` from Codex Security is available, read and follow it.
-2. Otherwise resolve the exact diff and review changed files plus directly
-   supporting code.
-3. Build a narrow threat model for touched assets and trust boundaries.
-4. Discover plausible findings.
-5. Validate each finding with code evidence or mark it unvalidated.
-6. Report severity, exploit path, confidence, remediation, and proof gaps.
+## Owner Policy
 
-## Focus
-
-- authentication and authorization
-- tenant isolation and ownership checks
-- input validation and parsers
-- filesystem paths and archive handling
-- network calls, SSRF, redirects, webhooks
-- secrets, config defaults, logs
-- dependency and CI/CD changes
-
-## Rules
-
-- Authorized code only.
-- Review-only by default; do not edit files.
-- Do not claim exploitability without evidence.
-- Route concrete fixes to `fix-security-finding`.
+- Review authorized code and the user's selected Git range or working-tree
+  patch. Preserve unrelated changes and private machine state.
+- Review-only by default; do not patch findings without an explicit fix
+  request. Route authorized remediation to `fix-security-finding`.
+- Keep exploitability, confirmed findings and unknowns tied to source evidence.
+- Return the original provider's report and actual coverage, validation
+  results and unresolved gaps. A failed or skipped gate is not PASS.

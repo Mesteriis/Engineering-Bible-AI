@@ -94,5 +94,16 @@ outside tracked files; do not discard critical errors to meet the target.
 
 ## Rule
 
+Only when `/quorum` is active for this task, keep these original worker records and
+use the separately bound target, fixed roster and ballots described in
+[Worker Quorum](../../docs/worker-quorum.md). Verify current source/artifact
+roots; preserve disagreement and veto evidence instead of averaging confidence.
+Unknown execution facts or missing verification cannot become an approval.
+
+Without `/quorum`, merge findings without votes or majority decisions.
+`/multimodel` alone does not enable voting; ordinary same-model parallel work
+activates neither mode. Follow the task-scoped
+[command contract](../../docs/cross-provider-review.md#explicit-activation).
+
 Do not average confidence across reviewers. Prefer the most concrete evidence
 and mark disagreement explicitly.

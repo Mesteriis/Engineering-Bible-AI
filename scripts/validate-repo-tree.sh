@@ -35,6 +35,17 @@ required_files=(
     "docs/memory-retrieval.md"
     "docs/ruflo-adoption.md"
     "docs/oss-release-checklist.md"
+    "docs/upstream-skills.md"
+    "docs/absorbed-skills-migration.md"
+    "docs/business-ui-profile.md"
+    "docs/quality-context-authors.md"
+    "docs/task-continuation.md"
+    "docs/worker-quorum.md"
+    "docs/cross-provider-review.md"
+    "docs/context-cache.md"
+    "docs/targeted-mutation-testing.md"
+    "templates/business-ui-brief.md"
+    "templates/task-resume-checkpoint.md"
     "skills/registry.yml"
     "skills/fast/SKILL.md"
     "skills/workflow-router/references/routes.md"
@@ -50,6 +61,10 @@ required_files=(
     "scripts/mcp_catalog_storage.py"
     "scripts/registry.py"
     "scripts/tool_catalog.py"
+    "scripts/upstream_catalog.py"
+    "scripts/upstream_sources.py"
+    "scripts/upstream_skills.py"
+    "scripts/upstream_cli.py"
     "scripts/build-release.py"
     "scripts/validate-actions-pins.py"
     "scripts/validate-release-contract.py"
@@ -62,6 +77,12 @@ required_files=(
     "scripts/memory_retrieval.py"
     "scripts/worker_control.py"
     "scripts/worker_results.py"
+    "scripts/worker_quorum.py"
+    "scripts/context-cache.py"
+    "scripts/context_cache.py"
+    "scripts/mutation-check.py"
+    "scripts/mutation_check.py"
+    "scripts/mutation_unittest.py"
     "scripts/worker_snapshot.py"
     "scripts/validate-installed-tree.sh"
     "scripts/validate-repo-tree.sh"
@@ -114,8 +135,17 @@ required_files=(
     "tests/test_mcp_catalog.py"
     "tests/test_release_contract.py"
     "tests/test_tool_catalog.py"
+    "tests/test_upstream_catalog.py"
+    "tests/test_upstream_sources.py"
+    "tests/test_upstream_skills.py"
+    "tests/test_upstream_cli.py"
+    "tests/test_upstream_installer.py"
     "tests/test_validation.py"
     "tests/test_worker_results.py"
+    "tests/test_worker_quorum.py"
+    "tests/test_worker_context_contract.py"
+    "tests/test_context_cache.py"
+    "tests/test_mutation_check.py"
     "tests/test_worker_control.py"
     "tests/test_memory_retrieval.py"
     "tests/test_worker_snapshot.py"
@@ -124,6 +154,7 @@ required_files=(
     "tests/test_skill_frontmatter.py"
     "tests/test_steady_profile.py"
     "config/tools.json"
+    "config/upstream-skills.json"
     "config/legacy-install-signatures.json"
     "schemas/runtime-capabilities.schema.json"
     "schemas/acceptance-verdict.schema.json"
@@ -147,6 +178,19 @@ if [[ "$missing" -ne 0 ]]; then
     exit 1
 fi
 
+# Generated runtime/vendor state is allowed locally only while untracked. Keep
+# it out of scans, but fail if anyone explicitly adds it to the public tree.
+if git -C "$ROOT" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    if ! tracked_private="$(git -C "$ROOT" ls-files -- .engineering-bible | awk 'END { if (NR > 0) print "tracked" }')"; then
+        echo "could not verify tracked private runtime paths" >&2
+        exit 1
+    fi
+    if [[ -n "$tracked_private" ]]; then
+        echo "private runtime files are tracked under .engineering-bible" >&2
+        exit 1
+    fi
+fi
+
 python3 "$ROOT/scripts/registry.py" --root "$ROOT" validate
 
 if ! grep -q "workflow-router" "$ROOT/AGENTS.md"; then
@@ -161,14 +205,21 @@ if ! grep -Eq \
     exit 1
 fi
 
-if find "$ROOT" -path "$ROOT/.git" -prune -o -type f \( \
+if ! forbidden_file="$(find "$ROOT" \( \
+    -name .git -o \
+    -path "$ROOT/.engineering-bible" \
+    \) -prune -o -type f \( \
     -name ".env" -o \
     -name ".env.*" -o \
     -name "auth.json" -o \
     -name "config.toml" -o \
     -name "*.pem" -o \
     -name "*.key" \
-    \) -print | grep -q .; then
+    \) -print | awk 'NR == 1 { found = 1 } END { if (found) print "found" }')"; then
+    echo "portable tree scan failed" >&2
+    exit 1
+fi
+if [[ -n "$forbidden_file" ]]; then
     echo "runtime or secret-like file found in portable tree" >&2
     exit 1
 fi

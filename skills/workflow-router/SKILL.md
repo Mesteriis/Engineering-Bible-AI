@@ -30,18 +30,37 @@ requested leaf skill takes precedence.
 6. If the common routes below are insufficient, read
    `references/routes.md` for the exhaustive route table.
 
+## Author-Maintained Providers
+
+Keep owner rules and route policy separate from the author's workflow. For a
+catalog intent, `be skills route INTENT --json` resolves the reviewed provider
+and its local dependency state without installation or an author update check.
+Use an explicitly named, current-session skill first. Otherwise load the actual
+compatible upstream instructions only when exposed by the host; files alone
+mean exposure is unverified. Report missing providers, setup, or a pending reload.
+
+Install missing reviewed dependencies through the selected profile's lifecycle;
+reuse compatible native providers. Updates use a separate, explicitly selected
+reviewed pin. Preserve the complete author tree and dependencies; never replace
+it with a summary or silently bypass conflicting steps. Keep personal policy
+separate, same-task routes stable and avoid per-turn lifecycle probes.
+
 ## Common Routes
 
-- Bug or failure investigation: `debugging` plus the relevant ecosystem skill.
-- Behavior implementation: relevant ecosystem skill; add `testing-tdd` when
-  regression coverage or test-first work is required.
-- Explicit review: `code-review`; use `security-router` or `ui-router` when that
-  domain is central.
+- Bug or failure investigation: `superpowers.systematic-debugging` plus the
+  relevant ecosystem skill.
+- Behavior implementation: relevant ecosystem skill; add
+  `superpowers.test-driven-development` when behavior coverage is required.
+- Explicit review: `superpowers.requesting-code-review`; use `security-router`
+  or `ui-router` when that domain is central.
 - Refactor without behavior change: `refactoring` plus the ecosystem skill.
 - Performance investigation: `performance` plus the ecosystem skill.
 - Migration, architecture, multi-agent, external pack, durable memory, or
   runtime-capability selection: use the matching specialist route in the
   reference table.
+
+`debugging`, `testing-tdd` and `code-review` are compatibility aliases that load
+these original providers. They contain no author procedure.
 
 ## Output
 

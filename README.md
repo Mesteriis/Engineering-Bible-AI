@@ -33,18 +33,92 @@ The optional wiki group is not installed by default.
 <!-- BEGIN GENERATED SKILL REGISTRY -->
 ### Default groups
 
-- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `context-pack`, `session-memory`.
 - **ecosystems:** `python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, `esp32`.
 - **routers:** `review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`, `ui-figma`, `ui-qa`.
 - **review:** `architecture-map`, `architecture-normalizer`, `migration-planner`, `multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`, `subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`, `agents-md-retrospective`.
 - **security:** `security-diff-review`, `fix-security-finding`, `threat-model`, `dependency-advisory-audit`, `secrets-and-config-review`, `authz-boundary-review`, `deserialization-parser-review`, `supply-chain-review`.
-- **ui:** `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
+- **ui:** `ui-business-apps`, `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `mobile-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
 
 ### Optional groups
 
 - **fast:** `fast`.
-- **wiki:** `code-wiki-ru`.
+- **wiki:** `wiki-query`, `code-wiki-ru`.
+
+### Opt-in upstream groups
+
+- **pocock-interview:** `pocock.grill-me`, `pocock.grilling`, `pocock.grill-with-docs`, `pocock.domain-modeling`.
+- **pocock-writing:** `pocock.writing-for-agents`, `pocock.pr`.
+- **pocock-retro:** `pocock.retro`.
+- **pocock-questionnaire:** `pocock.to-questionnaire`.
+- **superpowers:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **karpathy:** `karpathy.karpathy-guidelines`.
+- **business-ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
+- **property-testing:** `trailofbits.property-based-testing`.
+- **context-continuation:** `pocock.handoff`, `context.context-compression`.
+
+### Author dependencies of owner groups
+
+- **core:** `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.requesting-code-review`, `superpowers.receiving-code-review`, `superpowers.verification-before-completion`, `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
+- **review:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
 <!-- END GENERATED SKILL REGISTRY -->
+
+## Author-Maintained Skill Dependencies
+
+Bible owns policy, standards and routers; reviewed author skill trees retain
+their origin and update independently. The catalog contains 30 original trees:
+all 15 Superpowers 6.4.2 skills, the original Karpathy-inspired guidelines, and
+nine Matt Pocock skills, three business UI specialists, property-based testing
+and context compression. Normal profiles install their 20 required originals;
+Pocock groups remain explicit selections. Local debugging, TDD and review names
+are thin adapters; the Karpathy rewrite is removed. See the
+[complete 62-skill migration ledger](docs/absorbed-skills-migration.md).
+
+The [business UI profile](docs/business-ui-profile.md) focuses on dashboards,
+CRM and working applications. It selects original Interface Design, UI UX Pro
+Max and Impeccable 4.5.0, alongside native component and data-visualization tools.
+`implement-spec` and unverified additional sources remain deferred.
+
+[Testing and context authors](docs/quality-context-authors.md) add original
+property-based testing and optional handoff/compression. The
+[continuation policy](docs/task-continuation.md) preserves concise state and
+fresh evidence. [Cross-provider review](docs/cross-provider-review.md) and the
+[offline quorum evaluator](docs/worker-quorum.md) bind decisions to a fixed
+target and verified records; they do not install a model runtime.
+
+Both modes are off by default. Use `/multimodel <task>` for budget code proposals
+and stronger review, `/quorum <task>` for fixed review voting, or both commands
+for both modes. Ordinary tasks keep the selected model. These task-text commands
+are documented in [Explicit Activation](docs/cross-provider-review.md#explicit-activation).
+
+[Context cache preparation](docs/context-cache.md) preserves stable author and
+source text, checks freshness and reads provider-reported cache usage.
+[Targeted mutation checks](docs/targeted-mutation-testing.md) run selected Python
+test-strength probes in isolated copies. Both are opt-in; they do not activate
+cloud accounts, guarantee billed savings or install a mutation framework.
+
+```bash
+be skills list --json
+be install --dry-run
+be skills plan --group pocock-interview --json
+be skills ensure --group pocock-interview
+be skills route grill-me --json
+be skills check --group pocock-interview --json
+be skills update --group pocock-interview --dry-run --json
+```
+
+`ensure` installs missing reviewed dependencies and reuses identical existing
+trees. `update` applies the catalog's reviewed revision; an author tracking tip
+is only reported by `check`. `be update` updates Bible and fills missing profile
+dependencies; author version changes remain separate. `--skip-upstream` prepares
+portable files only and reports incomplete author readiness as `SKIP`.
+The selected Codex skill root is inspected recursively, including `external/`;
+extra native provider roots can be inspected through repeated `--skill-root`.
+Files on disk do not prove current-session exposure. See the
+[lifecycle and recovery guide](docs/upstream-skills.md),
+[architecture](docs/superpowers/specs/2026-10-03-upstream-managed-skills-design.md),
+and [addition queue](docs/upstream-skills-backlog.md).
 
 ## Runtime Boundary
 
@@ -61,14 +135,19 @@ The portable package includes engineering instructions, skills, standards,
 documentation, and CLI helpers. Your existing Codex worker, MCP, notify,
 Computer Use, and model provider setup remain local.
 
-Installed prompt profiles carry a context-efficient code-discovery contract for
-every compatible agent host. When the current session exposes them, agents use
-a code knowledge graph for cross-file structure, dependencies, call paths, and
-impact, then LSP-backed symbolic navigation for precise definitions, references,
-diagnostics, and minimal symbol bodies. Literal, configuration, and non-code
-lookups continue to use targeted text search. The package does not install or
-configure those runtime services; hosts discover them from local session
-capabilities and fall back honestly when either service is unavailable.
+Installed profiles select a discovery route for the question: targeted text
+search for literals, LSP navigation for symbols, a fresh code graph for
+architecture, and scoped document search for docs and ADRs. They do not require
+every tool on every task. Runtime services remain local and their availability
+must be verified in the current host.
+
+Focused workflows include `wiki-query` for read-only answers from an existing
+wiki (optional `wiki` group), `mobile-qa` for native Android/iOS checks using a
+selected device and expected-state assertions, and optional Archify rendering
+after `architecture-map` verifies source facts. These skills do not install
+Mobile MCP, another wiki manager, a renderer, or an agent framework. External
+runtime pilots retain the common worker contract and must demonstrate their
+actual scope before activation.
 
 See `docs/worker-runtime-boundary.md`.
 
@@ -145,13 +224,39 @@ The versioned catalog reports `OK`, `MISMATCH`, `UNPINNED`, `MISSING`, and
 `UNSUPPORTED` when a catalog entry is not available on the current platform.
 No install starts without `--group`, `--tool`, or `--all`. Core Bible install
 does not install companion tools; configure one setup step at a time with
-explicit side-effect permissions. The command never enables hooks, provider
-configuration, credentials, or local runtime services implicitly.
+explicit side-effect permissions. Bible does not synthesize hooks, provider
+configuration, credentials, or local runtime services. Upstream package install
+scripts can still modify user settings: inspect those scripts and back up only
+affected settings before installation, then compare them after the smoke test.
+Do not treat a package's automatic plugin activation as a verified integration.
 
 The audited optional catalog includes pinned workflow state, browser evidence,
 dependency source, and dependency documentation capabilities. Browser runtime
 setup is explicit and headless; project task state uses stealth mode; external
 documentation authentication is never part of the Bible install.
+
+The pinned `opencode`, `qmd`, and `semgrep` CLIs are separate opt-in selections:
+
+```bash
+be tools plan --tool opencode --tool qmd --tool semgrep
+be tools install --tool opencode --tool qmd --tool semgrep
+be tools doctor --tool opencode --tool qmd --tool semgrep
+```
+
+`doctor` proves CLI startup, not a working provider or MCP integration. Check
+the executable path as well: a private installation may be available to the host
+without appearing in its package manager's global inventory. Do not install a
+duplicate solely because the catalog reports `MISSING`. Worker configuration,
+keys, MCP, scanner rules, document collections, model weights, and functional
+evidence stay outside the public package. Delegation evidence follows
+`skills/subagent-result-merge/SKILL.md`.
+
+Claude Code uses its own format. Its personal `CLAUDE.md` can import the installed
+`instructions/global/steady.md`, and personal skill directories can link to the
+installed skills. Verify support in the installed host version and preserve
+existing custom files. Keep one discoverable Bible skill root per host; never
+copy Codex TOML into Claude settings. The main installer still owns only its
+Codex-compatible files, not Claude authorization or runtime configuration.
 
 Install every registry group:
 

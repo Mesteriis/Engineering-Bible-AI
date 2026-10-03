@@ -1,4 +1,4 @@
-version: 1
+version: 3
 default_groups:
   - core
   - ecosystems
@@ -23,7 +23,6 @@ groups:
     - refactoring
     - documentation
     - quality-gates
-    - karpathy-guidelines
     - context-pack
     - session-memory
   ecosystems:
@@ -64,15 +63,87 @@ groups:
     - deserialization-parser-review
     - supply-chain-review
   ui:
+    - ui-business-apps
     - ui-concept-first
     - design-system-extractor
     - figma-to-code
     - code-to-figma
     - playwright-visual-qa
+    - mobile-qa
     - responsive-breakpoint-check
     - accessibility-ui-review
 optional:
   fast:
     - fast
   wiki:
+    - wiki-query
     - code-wiki-ru
+upstream:
+  pocock-interview:
+    - pocock.grill-me
+    - pocock.grilling
+    - pocock.grill-with-docs
+    - pocock.domain-modeling
+  pocock-writing:
+    - pocock.writing-for-agents
+    - pocock.pr
+  pocock-retro:
+    - pocock.retro
+  pocock-questionnaire:
+    - pocock.to-questionnaire
+  superpowers:
+    - superpowers.brainstorming
+    - superpowers.diagnosing-superpowers
+    - superpowers.dispatching-parallel-agents
+    - superpowers.executing-plans
+    - superpowers.finishing-a-development-branch
+    - superpowers.receiving-code-review
+    - superpowers.requesting-code-review
+    - superpowers.subagent-driven-development
+    - superpowers.systematic-debugging
+    - superpowers.test-driven-development
+    - superpowers.using-git-worktrees
+    - superpowers.using-superpowers
+    - superpowers.verification-before-completion
+    - superpowers.writing-plans
+    - superpowers.writing-skills
+  karpathy:
+    - karpathy.karpathy-guidelines
+  business-ui:
+    - interface.interface-design
+    - uipro.ui-ux-pro-max
+    - impeccable.impeccable
+  property-testing:
+    - trailofbits.property-based-testing
+  context-continuation:
+    - pocock.handoff
+    - context.context-compression
+upstream_required:
+  core:
+    - superpowers.systematic-debugging
+    - superpowers.test-driven-development
+    - superpowers.requesting-code-review
+    - superpowers.receiving-code-review
+    - superpowers.verification-before-completion
+    - karpathy.karpathy-guidelines
+    - trailofbits.property-based-testing
+  review:
+    - superpowers.brainstorming
+    - superpowers.diagnosing-superpowers
+    - superpowers.dispatching-parallel-agents
+    - superpowers.executing-plans
+    - superpowers.finishing-a-development-branch
+    - superpowers.receiving-code-review
+    - superpowers.requesting-code-review
+    - superpowers.subagent-driven-development
+    - superpowers.systematic-debugging
+    - superpowers.test-driven-development
+    - superpowers.using-git-worktrees
+    - superpowers.using-superpowers
+    - superpowers.verification-before-completion
+    - superpowers.writing-plans
+    - superpowers.writing-skills
+  ui:
+    - interface.interface-design
+    - uipro.ui-ux-pro-max
+    - impeccable.impeccable

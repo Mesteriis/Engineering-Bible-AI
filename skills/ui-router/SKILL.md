@@ -5,22 +5,27 @@ description: "Routes ambiguous multi-stage UI work across research, concept, Fig
 
 # UI Router
 
-Use this skill as the first stop for any product UI request.
+Use this skill when a product UI request is ambiguous or spans several stages.
+Select a clear leaf task directly. Bible owns the route and personal constraints;
+original author skills stay under their native plugin or reviewed upstream
+ownership. Read complete provider instructions and prerequisites from the
+current-session catalog. Missing providers or connections are unresolved
+dependencies, not a reason to recreate an author workflow locally.
+Files on disk do not establish host exposure or a working connection.
 
-## Workflow
-
-1. Classify the prompt.
-2. Pick the smallest coherent set of downstream skills.
-3. Read every selected skill's `SKILL.md` before taking action.
-4. State which skill(s) are active and which additional skill(s) still need
-   to be read if the prompt spans multiple UI modes.
-5. Prefer the order: evidence/research -> design direction -> implementation
-   -> QA.
+Choose one primary skill and at most one supporting skill by default. State the
+route only when a handoff or provider limitation matters. Reuse the established
+route and already-read instructions for same-task follow-up turns.
 
 ## Routing
 
-- New UI, redesign, landing page, dashboard, mobile concept, or any prompt
-  where visual direction matters -> `ui-concept-first`.
+- Working screens for dashboards, CRM, ERP, admin or internal business tools
+  with several UI concerns -> `ui-business-apps`.
+- Clear dense-interface design -> `interface.interface-design`; specific
+  pattern/stack research -> `uipro.ui-ux-pro-max`; targeted UX critique or
+  refinement -> `impeccable.impeccable`. Select these leaves directly.
+- New visual direction or major redesign without a sufficient current design
+  reference -> `ui-concept-first`.
 - Evidence, critique, compare, improve, or "what do other apps do" ->
   `ui-research`.
 - Extract tokens, typography, components, or responsive rules from a reference
@@ -37,5 +42,7 @@ Use this skill as the first stop for any product UI request.
 
 ## Rule
 
-If the prompt spans multiple UI modes, name the primary skill and the next
-skill to read. Do not skip the reading step.
+Read each selected provider's complete `SKILL.md` before its use. A matching
+existing design system is a sufficient visual reference; ordinary component
+changes do not require generated concepts or repeated approval. Provider setup,
+authentication and publishing are separate from selecting a route.

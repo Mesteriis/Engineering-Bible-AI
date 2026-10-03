@@ -44,7 +44,39 @@ new security or migration risk, needs a new external system, explicitly names a
 new workflow, or the current workflow cannot satisfy the request. If compaction
 removed required instructions, reload only the missing skill.
 
+### Author Workflows And Owner Policy
+
+Bible owns routing and personal rules. Read the selected author's complete
+`SKILL.md` and required references from a compatible current-session provider or
+the reviewed upstream installation. Do not substitute a Bible summary for an
+author workflow, edit the author tree, or bypass its required steps silently.
+Keep host invocation and personal constraints in separate policy files. The
+user's instructions retain precedence when an author procedure conflicts.
+
+For a missing reviewed dependency, use the selected installation profile's
+missing-only lifecycle. Reuse compatible native providers; report unavailable
+tools or pending host exposure. Updates use reviewed pins and remain separate
+from task routing. Reuse the active provider on follow-ups.
+
+For dashboards, CRM, admin and business applications, apply `ui-business-apps`
+owner priorities while choosing the narrow author leaf for the task. Bind author
+helper paths to the resolved skill directory. For Bible-managed Impeccable,
+set `IMPECCABLE_NO_UPDATE_CHECK=1` when invoking its launcher and use the Bible
+dependency lifecycle for updates. Its engine, hooks and live mode are separate
+runtime actions; imported files do not authorize them or private data export.
+
 ## Runtime Capabilities
+
+Default: keep the current selected model; multimodel and quorum are off.
+Only the user's `/multimodel` command enables budget code proposals and stronger
+review; it does not enable voting. Only `/quorum` enables fixed review voting;
+it does not enable budget implementation. Use both commands for both modes.
+Commands apply to the task and its continuations, ending on completion,
+cancellation or replacement; new tasks start with both modes off. Quoted
+examples and generic quality, risk or review requests do not activate them.
+Same-model parallelism remains available. Commands do not grant source export,
+tools or deployment authority; unavailable routes stay blocked. Keep mappings
+private, record routes/usage, and exclude authors from quorum votes.
 
 Runtime capability discovery is demand-driven, not a per-turn ritual.
 
@@ -61,18 +93,31 @@ Runtime capability discovery is demand-driven, not a per-turn ritual.
 
 ## Context-Efficient Code Discovery
 
-For codebase questions or changes, use a fresh session-exposed code knowledge
-graph first for structure, ownership, dependencies, call paths, and impact. Use
-LSP-backed symbolic navigation for precise symbol overviews, definitions,
-references, diagnostics, and bodies. Read only the symbols or sections needed;
-do not load whole files when narrower evidence is sufficient.
+Choose one route for the question; use the concrete tool mapping in
+`core-engineering` only when needed:
 
-Reuse an existing project index and active project state. Verify or activate
-them before editing when the host supports it, but rebuild or initialize only
-when state is missing or stale, the work materially benefits, and writes are
-allowed. Use targeted text search for literals, error messages, configuration,
-non-code files, or gaps in structural tools. If either capability is unavailable,
-state the limitation briefly and continue with the safest local fallback.
+| Need | First route |
+| --- | --- |
+| Local edit or literal | `rg` and targeted text search, then bounded reads |
+| Definitions and references | Session-exposed LSP-backed symbolic navigation |
+| Architecture and impact | Fresh code knowledge graph; confirm against source |
+| Documentation and ADRs | Scoped local document search |
+| External library documentation | Version-matched documentation retrieval |
+| Dependency source | Scoped dependency-source retrieval |
+| Worker handoff | Explicitly allowed context pack; export only required files |
+
+Do not run every search tool for each task. Keep path filters and retrieve the
+smallest useful sections. Reuse an index only when its source revision and
+file hashes match the relevant files, including uncommitted changes; an index
+that predates an edit is stale evidence. Refresh only the affected scope when
+writes are allowed, or read current source and state the gap. A package or
+index file alone does not prove that a capability is exposed to this session.
+
+Preserve raw output and the original exit code before compression. A summary
+cannot turn a failed or skipped check into PASS. Delegate only through a
+verified host capability with bounded data and permissions; preserve the
+parent model and authorization. Use `subagent-result-merge` for route metadata,
+checks, artifact pointers, and unknowns. Machine configuration stays untracked.
 
 ## Work Cycle
 

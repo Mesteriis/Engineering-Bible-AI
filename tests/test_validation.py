@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import importlib.util
+from contextlib import redirect_stderr, redirect_stdout
+import io
 import json
 import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest import mock
 
@@ -94,6 +97,98 @@ class ValidationTests(unittest.TestCase):
                 2,
                 f"{case.get('id')}: steady routes should use one primary and at most one support",
             )
+
+    def test_router_fixtures_accept_registered_author_ids_without_local_copies(self) -> None:
+        registry = {
+            "groups": {"routers": ["workflow-router"]},
+            "optional": {},
+            "upstream": {"interview": ["pocock.grill-me"]},
+        }
+        cases = [
+            {"id": "interview", "prompt": "Challenge this plan.", "skills": ["pocock.grill-me"]}
+        ]
+        with (
+            mock.patch.object(router_cases, "load_registry", return_value=registry),
+            mock.patch.object(router_cases, "parse_router_cases", return_value=cases),
+            redirect_stdout(io.StringIO()),
+        ):
+            status = router_cases.validate_fixtures(ROOT)
+
+        self.assertEqual(status, 0)
+
+    def test_router_fixtures_reject_an_unregistered_author_alias(self) -> None:
+        registry = {
+            "groups": {"routers": ["workflow-router"]},
+            "optional": {},
+            "upstream": {"interview": ["pocock.grill-me"]},
+        }
+        cases = [{"id": "interview", "prompt": "Challenge this plan.", "skills": ["grill-me"]}]
+        error = io.StringIO()
+        with (
+            mock.patch.object(router_cases, "load_registry", return_value=registry),
+            mock.patch.object(router_cases, "parse_router_cases", return_value=cases),
+            redirect_stderr(error),
+        ):
+            status = router_cases.validate_fixtures(ROOT)
+
+        self.assertEqual(status, 1)
+        self.assertIn("expected skill is not registered: grill-me", error.getvalue())
+
+    def installed_provider_result(self, status: str, *, complete: bool = True) -> tuple[int, str]:
+        with tempfile.TemporaryDirectory() as raw:
+            home = Path(raw)
+            manifest = {
+                "schema_version": 1,
+                "groups": {
+                    "requested": [],
+                    "include_all": False,
+                    "prompt_profile": "steady",
+                    "selected_upstream_skills": ["author.example"],
+                    "upstream_complete": complete,
+                    "upstream_skill_roots": [],
+                },
+            }
+            (home / "install-manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+            output = io.StringIO()
+            with (
+                mock.patch("registry.selected_upstream_skills", return_value=["author.example"]),
+                mock.patch("upstream_catalog.load_catalog"),
+                mock.patch(
+                    "upstream_catalog.select_skills",
+                    return_value=[SimpleNamespace(id="author.example")],
+                ),
+                mock.patch("upstream_skills.SkillManager") as manager,
+                redirect_stdout(output),
+            ):
+                manager.return_value.plan.return_value = [
+                    {"id": "author.example", "status": status}
+                ]
+                result = router_cases.validate_installed_providers(
+                    ROOT, home / "codex", home / "agents", home
+                )
+            return result, output.getvalue()
+
+    def test_installed_provider_files_never_claim_session_exposure(self) -> None:
+        for status in ("SATISFIED", "REUSE"):
+            with self.subTest(status=status):
+                result, output = self.installed_provider_result(status)
+                self.assertEqual(result, 0)
+                self.assertIn(f"PASS: author author.example {status}", output)
+                self.assertIn("SKIP: current-session author skill exposure", output)
+
+    def test_missing_changed_and_unrecovered_providers_fail_readiness(self) -> None:
+        for status in ("MISSING", "MODIFIED", "CONFLICT", "RECOVERY_REQUIRED", "UPDATE_AVAILABLE"):
+            with self.subTest(status=status):
+                result, output = self.installed_provider_result(status)
+                self.assertEqual(result, 1)
+                self.assertIn(f"FAIL: author author.example {status}", output)
+
+    def test_explicit_skipped_author_install_is_not_a_readiness_pass(self) -> None:
+        result, output = self.installed_provider_result("MISSING", complete=False)
+
+        self.assertEqual(result, 2)
+        self.assertIn("SKIP: author readiness was explicitly skipped", output)
+        self.assertNotIn("PASS:", output)
 
     def test_unavailable_runtime_router_evaluation_is_not_success(self) -> None:
         env = os.environ.copy()

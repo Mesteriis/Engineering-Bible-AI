@@ -7,6 +7,9 @@ description: "Builds and validates Russian Obsidian repository wikis, architectu
 
 Use this skill to create, refresh, validate, and safely apply Russian Obsidian-compatible code wikis under `docs/wiki` or a user-specified wiki path.
 
+For a read-only question about an existing wiki or ADR, use `wiki-query` without
+running the indexing, planning, or drafting workflow below.
+
 Default variables used below:
 
 ```bash
@@ -77,13 +80,17 @@ Before invoking OpenCode, read:
 - `references/opencode-deepseek.md`
 - `references/prompt-contracts.md`
 
-Use OpenCode only with the bounded context pack:
+Dispatch only through the verified local `tests-docs` worker route described in
+the reference. Send the explicit export-authorized context through bounded
+stdin or a supported private file, never a large prompt argument. Keep the
+worker outside the repository with no source editing, shell, inherited MCP or
+parent auth access. Select provider/model from private runtime configuration;
+report BLOCKED when that exact route has not been verified. Preserve requested
+and observed metadata, checks, and artifacts using `subagent-result-merge`.
 
-```bash
-opencode run --model deepseek/deepseek-v4-pro --dir "$REPO_ROOT" --title "code-wiki-ru:$CHUNK_ID" "$(cat "$CONTEXT_PACK")"
-```
-
-Use `deepseek/deepseek-v4-flash` only for smoke tests. Stage model-authored page drafts under `${META_PATH:-docs/wiki/_meta}/drafts/`; do not apply them directly.
+Do not ask DeepSeek to apply patches. The parent reviews model-authored drafts
+before staging them under `${META_PATH:-docs/wiki/_meta}/drafts/`, validates
+them, and owns application to the wiki.
 
 ## Drift
 

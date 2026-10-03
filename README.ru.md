@@ -33,18 +33,97 @@ Optional wiki group по умолчанию не ставится.
 <!-- BEGIN GENERATED SKILL REGISTRY -->
 ### Группы по умолчанию
 
-- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `karpathy-guidelines`, `context-pack`, `session-memory`.
+- **core:** `workflow-router`, `mcp-tool-router`, `engineering-standards`, `core-engineering`, `code-quality`, `architecture-principles`, `testing-tdd`, `tdd-guard`, `debugging`, `code-review`, `security`, `performance`, `refactoring`, `documentation`, `quality-gates`, `context-pack`, `session-memory`.
 - **ecosystems:** `python`, `typescript`, `rust`, `go`, `c-cpp`, `homeassistant`, `esphome`, `esp32`.
 - **routers:** `review-router`, `security-router`, `ui-router`, `ui-research`, `ui-build`, `ui-figma`, `ui-qa`.
 - **review:** `architecture-map`, `architecture-normalizer`, `migration-planner`, `multi-agent-pr-review`, `agent-squad`, `specialist-dispatch`, `subagent-result-merge`, `external-agent-pack-audit`, `agent-retrospective`, `agents-md-retrospective`.
 - **security:** `security-diff-review`, `fix-security-finding`, `threat-model`, `dependency-advisory-audit`, `secrets-and-config-review`, `authz-boundary-review`, `deserialization-parser-review`, `supply-chain-review`.
-- **ui:** `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
+- **ui:** `ui-business-apps`, `ui-concept-first`, `design-system-extractor`, `figma-to-code`, `code-to-figma`, `playwright-visual-qa`, `mobile-qa`, `responsive-breakpoint-check`, `accessibility-ui-review`.
 
 ### Опциональные группы
 
 - **fast:** `fast`.
-- **wiki:** `code-wiki-ru`.
+- **wiki:** `wiki-query`, `code-wiki-ru`.
+
+### Навыки авторов по явному выбору
+
+- **pocock-interview:** `pocock.grill-me`, `pocock.grilling`, `pocock.grill-with-docs`, `pocock.domain-modeling`.
+- **pocock-writing:** `pocock.writing-for-agents`, `pocock.pr`.
+- **pocock-retro:** `pocock.retro`.
+- **pocock-questionnaire:** `pocock.to-questionnaire`.
+- **superpowers:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **karpathy:** `karpathy.karpathy-guidelines`.
+- **business-ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
+- **property-testing:** `trailofbits.property-based-testing`.
+- **context-continuation:** `pocock.handoff`, `context.context-compression`.
+
+### Авторские зависимости профилей
+
+- **core:** `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.requesting-code-review`, `superpowers.receiving-code-review`, `superpowers.verification-before-completion`, `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
+- **review:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
 <!-- END GENERATED SKILL REGISTRY -->
+
+## Обновляемые авторские навыки
+
+Bible владеет личными правилами, стандартами и роутерами. Авторские навыки
+сохраняют исходное содержимое, происхождение и отдельный цикл обновления.
+Каталог включает 30 оригиналов: все 15 навыков Superpowers 6.4.2, оригинальный
+навык Karpathy-inspired guidelines, девять навыков Matt Pocock, три специалиста
+по рабочим интерфейсам, property-based testing и context compression.
+Обычные профили устанавливают 20 обязательных авторских
+зависимостей; группы Pocock выбираются
+отдельно. Локальные debugging, TDD и review стали тонкими адаптерами; пересказ
+Karpathy удалён. Решения по всем 62 прежним навыкам записаны в
+[реестре миграции](docs/absorbed-skills-migration.md).
+
+[Профиль рабочих интерфейсов](docs/business-ui-profile.md) ориентирован на
+дашборды, CRM и приложения. Он выбирает оригинальные Interface Design,
+UI UX Pro Max и Impeccable 4.5.0, дополняя их нативными навыками компонентов
+и визуализации данных.
+`implement-spec` и авторские источники без подтверждённого происхождения отложены.
+
+[Новые навыки тестирования и контекста](docs/quality-context-authors.md)
+сохраняются оригиналами. [Продолжение задач](docs/task-continuation.md) использует
+короткий checkpoint и проверку свежести исходников.
+[Ревью разными провайдерами](docs/cross-provider-review.md) и
+[проверка кворума](docs/worker-quorum.md) связывают решение с фиксированным
+снимком и доказательствами; сами модели и ключи в пакет не входят.
+
+Оба режима по умолчанию выключены. `/multimodel <задача>` включает написание
+кода бюджетной моделью и ревью сильной; `/quorum <задача>` отдельно включает
+голосование ревьюеров. Для обоих режимов укажите обе команды. Обычная задача
+использует текущую выбранную модель. Это команды в тексте задачи:
+[правила включения](docs/cross-provider-review.md#explicit-activation).
+
+[Подготовка кэшируемого контекста](docs/context-cache.md) сохраняет оригинальный
+текст, проверяет свежесть и читает статистику кэша из ответа провайдера.
+[Точечные мутации](docs/targeted-mutation-testing.md) проверяют силу выбранных
+Python-тестов в изолированных копиях. Оба инструмента включаются явно; они не
+активируют облачные аккаунты, не гарантируют экономию и не устанавливают фреймворк.
+
+```bash
+be skills list --json
+be install --dry-run
+be skills plan --group pocock-interview --json
+be skills ensure --group pocock-interview
+be skills route grill-me --json
+be skills check --group pocock-interview --json
+be skills update --group pocock-interview --dry-run --json
+```
+
+`ensure` устанавливает недостающие проверенные зависимости и использует уже
+существующие идентичные навыки. `update` применяет проверенную версию из каталога;
+`check` только сообщает изменения у автора. Обычный `be update` обновляет Bible
+и добавляет недостающие зависимости профиля; обновления авторских версий
+выбираются отдельно. `--skip-upstream` подготавливает только файлы Библии;
+готовность авторских зависимостей при этом получает статус `SKIP`.
+Корень навыков Codex проверяется рекурсивно, включая `external/`; дополнительные
+корни существующих плагинов задаются повторяемым `--skill-root`.
+Наличие файлов не доказывает доступность навыка в текущей сессии. См.
+[установку и восстановление](docs/upstream-skills.md),
+[схему библиотеки](docs/superpowers/specs/2026-10-03-upstream-managed-skills-design.md)
+и [очередь добавлений](docs/upstream-skills-backlog.md).
 
 ## Граница worker/runtime
 
@@ -61,15 +140,18 @@ Optional wiki group по умолчанию не ставится.
 документацию и CLI helpers. Существующий Codex worker, MCP, notify,
 Computer Use и model provider остаются локальными.
 
-Устанавливаемые prompt profiles задают context-efficient контракт навигации по
-коду для каждого совместимого agent host. Если текущая сессия предоставляет
-такие возможности, агент использует code knowledge graph для межфайловой
-структуры, зависимостей, call paths и impact, затем LSP-backed symbolic
-navigation для точных definitions, references, diagnostics и минимально
-необходимых symbol bodies. Literals, configuration и non-code файлы остаются за
-targeted text search. Пакет не устанавливает и не настраивает эти runtime
-services: host обнаруживает их в локальной сессии и честно использует fallback,
-если одна из возможностей недоступна.
+Профили выбирают поиск по вопросу: точечный текстовый поиск для литералов,
+LSP для символов, актуальный граф кода для архитектуры и ограниченный поиск
+документов для docs и ADR. Все инструменты на каждую задачу не запускаются.
+Runtime-сервисы остаются локальными; их доступность проверяется в текущем host.
+
+Узкие workflows: `wiki-query` отвечает по существующей wiki без её изменения
+(опциональная группа `wiki`); `mobile-qa` проверяет нативные Android/iOS-приложения
+на выбранном устройстве с проверкой ожидаемого состояния; `architecture-map`
+допускает необязательный рендеринг Archify после подтверждения фактов по коду.
+Сами skills не устанавливают Mobile MCP, второй wiki-manager, renderer или
+agent framework. Пилоты внешних runtime используют общий контракт worker и
+подтверждают реальную область действий до активации.
 
 Смотри `docs/worker-runtime-boundary.md`.
 
@@ -148,13 +230,41 @@ be tools doctor --tool agent-browser
 `UNSUPPORTED`, если entry недоступен на текущей платформе.
 Без `--group`, `--tool` или `--all` установка не начинается. Установка Bible
 не устанавливает companion tools; настройка выполняется по одному шагу с явным
-разрешением side effects. Hooks, provider configuration, credentials и local
-runtime services автоматически не включаются.
+разрешением side effects. Bible не генерирует hooks, provider configuration,
+credentials или local runtime services. Однако install scripts самих пакетов
+могут менять настройки пользователя: изучите их и сохраните затрагиваемые
+настройки до установки, затем сравните их после smoke-теста. Автоматическое
+включение plugin пакетом не считается проверенной интеграцией.
 
 В optional-каталоге есть pinned capabilities для task state, browser evidence,
 исходников зависимостей и versioned документации. Browser runtime настраивается
 явно и headless; task state работает в stealth-режиме; авторизация внешней
 документации не входит в установку Bible.
+
+Отдельно выбираются pinned CLI `opencode`, `qmd` и `semgrep`:
+
+```bash
+be tools plan --tool opencode --tool qmd --tool semgrep
+be tools install --tool opencode --tool qmd --tool semgrep
+be tools doctor --tool opencode --tool qmd --tool semgrep
+```
+
+Проверка `doctor` подтверждает запуск CLI, а не работу провайдера или MCP.
+Перед установкой проверяйте также путь бинарника: отдельная локальная установка
+может быть доступна host, хотя отсутствует в глобальном реестре менеджера пакетов.
+Не устанавливайте второй экземпляр только из-за статуса `MISSING` в каталоге.
+Каталог не настраивает работников, ключи, MCP, правила сканирования, коллекции
+документов или веса моделей. Эти настройки и результаты функциональных тестов
+остаются вне публичного репозитория. Контракт доказательств делегирования задан
+в `skills/subagent-result-merge/SKILL.md`.
+
+Claude Code использует собственный формат: `~/.claude/CLAUDE.md` может импортировать
+установленный `instructions/global/steady.md`, а personal skills могут ссылаться
+на установленные каталоги skills. Перед локальным подключением проверьте
+поддержку ссылок в установленной версии и существующие файлы: сохраняйте
+пользовательские отличия, не создавайте второй обнаруживаемый корень Bible и не
+переносите Codex TOML. Основной installer по-прежнему управляет только своими
+Codex-compatible файлами; он не изменяет Claude auth или runtime configuration.
 
 Установить все группы из реестра:
 

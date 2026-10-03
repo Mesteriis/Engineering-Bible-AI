@@ -7,6 +7,12 @@ description: "Routes Figma creation, editing, inspection, connection, components
 
 Use this skill for any Figma-related UI work.
 
+Use complete original skills from the currently exposed Figma plugin. Read
+their mandatory prerequisites and use the host's actual invocation. Bible owns
+only routing and scope policy. Keep native skill files, references and tooling
+under native ownership. Missing skills or a missing Figma connection require
+official plugin setup and verified exposure; do not substitute a local summary.
+
 ## Workflow
 
 1. Identify the Figma task.
@@ -18,12 +24,12 @@ Use this skill for any Figma-related UI work.
 
 - Implement Figma as code -> `figma-to-code`
 - Sync implemented UI or component mappings back to Figma -> `code-to-figma`
-- Create or update screen/view in Figma -> `figma-generate-design`
-- Create or update design system/component library -> `figma-generate-library`
-- Work directly with Figma Plugin API -> `figma-use`
-- Add or inspect motion in Figma -> `figma-use-motion`
-- Create or edit Code Connect mappings -> `figma-code-connect`
-- Create a new blank Figma file -> `figma-create-new-file`
+- Create or update screen/view in Figma -> `figma:figma-generate-design`
+- Create or update design system/component library -> `figma:figma-generate-library`
+- Work directly with Figma Plugin API -> `figma:figma-use`
+- Add or inspect motion in Figma -> `figma:figma-use-motion`
+- Create or edit Code Connect mappings -> `figma:figma-code-connect`
+- Create a new blank Figma file -> `figma:figma-create-new-file`
 
 ## Rule
 

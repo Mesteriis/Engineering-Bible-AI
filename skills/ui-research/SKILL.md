@@ -1,33 +1,39 @@
 ---
 name: ui-research
-description: "Routes UI evidence, comparisons, critiques, references, best practices, and design research to one research workflow."
+description: "Routes UI research, examples and critique to original providers for the requested product or pattern."
 ---
 
 # UI Research Router
 
 Use this skill for UI prompts that need evidence or critique.
 
-## Workflow
-
-1. Read the brief.
-2. Pick the smallest matching Lazyweb mode.
-3. Read that Lazyweb skill's `SKILL.md`.
-4. Use Lazyweb MCP or the selected mode's workflow.
+Select an original research or design provider actually exposed by the current
+host. Read its complete skill and required references; keep reviewed upstream
+and native plugin ownership and updates. A route is not proof of availability.
+Report missing connections or official plugin setup and pending exposure instead
+of replacing the author's workflow with a local summary.
 
 ## Routing
 
-- Deep competitive analysis or full report -> `lazyweb-deep-design-research`
-- Quick examples or screenshot refs -> `lazyweb-lite-design-research`
-- Quick preflight search -> `lazyweb-quick-search`
-- Improve or critique an existing UI -> `lazyweb-design-improve`
-- Creative cross-category ideas -> `lazyweb-design-brainstorm`
-- Paywall optimization -> `lazyweb-optimize-paywall`
-- Paywall CTA rewrite -> `lazyweb-paywall-cta`
-- Sign-up optimization -> `lazyweb-optimize-sign-up`
-- A/B tests and monetization -> `lazyweb-ab-test-research`
-- Design best practices by topic -> `lazyweb-design-best-practices`
+- Research a particular business-app pattern, chart, density, typography or
+  implementation stack -> `uipro.ui-ux-pro-max`. Search for the actual product
+  task; generic product categorization or design-system output does not establish
+  user requirements or data truth. Use targeted UX, chart or stack lookup for a
+  working application rather than accepting a marketing showcase as its brief.
+- Critique an existing screen's UX and hierarchy -> `impeccable.impeccable`
+  with its `critique` reference; app surfaces use the author's Operate mode.
+- Audit an existing flow, journey or UI -> `product-design:audit`
+- Generate visual alternatives or concepts -> `product-design:ideate`
+- Competitive analysis, example references, best practices or monetization
+  research -> the exposed author research skill matching that evidence task.
+- Analyze consistency with an existing application design system ->
+  `interface.interface-design`.
 
 ## Rule
 
-If the prompt mixes research with build work, name `ui-build` as the next
-skill to read after this one.
+For dashboards, CRM and administrative tools, use `ui-business-apps` when the
+task needs the user's business-app constraints as well as research. Preserve
+the existing product's roles, tasks and factual copy; do not invent metrics,
+workflow steps or features to satisfy a reference. Follow an existing route on
+continuation turns. Name `ui-build` as the next stage only when implementation
+is part of the request.

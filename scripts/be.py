@@ -503,6 +503,10 @@ def command_install(args: argparse.Namespace) -> int:
         installer_args.append("--force")
     if args.migrate_legacy:
         installer_args.append("--migrate-legacy")
+    if getattr(args, "skip_upstream", False):
+        installer_args.append("--skip-upstream")
+    for root in getattr(args, "skill_root", []):
+        installer_args.extend(["--skill-root", root])
     if args.all:
         installer_args.append("--all")
     if args.install_tools:
@@ -537,6 +541,10 @@ def command_update(args: argparse.Namespace) -> int:
         installer_args.append("--force")
     if args.migrate_legacy:
         installer_args.append("--migrate-legacy")
+    if getattr(args, "skip_upstream", False):
+        installer_args.append("--skip-upstream")
+    for root in getattr(args, "skill_root", []):
+        installer_args.extend(["--skill-root", root])
 
     manifest = read_install_manifest(paths)
     source: dict[str, str] | None = None
@@ -703,6 +711,12 @@ def command_add_skill(args: argparse.Namespace) -> int:
             shutil.rmtree(cleanup_root, ignore_errors=True)
 
 
+def command_skills(args: argparse.Namespace) -> int:
+    from upstream_cli import command_skills as run_skills
+
+    return run_skills(args, resolve_paths(args))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="be", description="Engineering Bible AI manager")
     parser.add_argument("--home", help="Engineering Bible state directory")
@@ -779,6 +793,17 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Install optional companion CLI tools",
     )
+    install.add_argument(
+        "--skip-upstream",
+        action="store_true",
+        help="Install portable Bible files only; author dependencies remain incomplete",
+    )
+    install.add_argument(
+        "--skill-root",
+        action="append",
+        default=[],
+        help="Concrete existing author skill root to reuse without taking ownership",
+    )
     install.set_defaults(func=command_install)
 
     def add_update_options(command: argparse.ArgumentParser) -> None:
@@ -787,6 +812,17 @@ def build_parser() -> argparse.ArgumentParser:
             "--force", action="store_true", help="Replace modified manifest-owned files"
         )
         command.add_argument("--migrate-legacy", action="store_true")
+        command.add_argument(
+            "--skip-upstream",
+            action="store_true",
+            help="Update portable Bible files only; skip author dependency synchronization",
+        )
+        command.add_argument(
+            "--skill-root",
+            action="append",
+            default=[],
+            help="Concrete existing author skill root to reuse without taking ownership",
+        )
         command.add_argument("--prompt-profile", choices=("steady", "full", "minimal", "fast"))
         command.add_argument("--ref", help="Explicit release tag or unstable ref")
         command.add_argument(
@@ -886,6 +922,10 @@ def build_parser() -> argparse.ArgumentParser:
     add_skill.add_argument("--path", help="Relative path to skill directory inside source")
     add_skill.add_argument("--dry-run", action="store_true", help="Validate without copying files")
     add_skill.set_defaults(func=command_add_skill)
+
+    from upstream_cli import add_skills_parser
+
+    add_skills_parser(subparsers, command_skills)
 
     return parser
 

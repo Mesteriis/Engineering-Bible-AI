@@ -6,8 +6,10 @@ from __future__ import annotations
 import argparse
 from collections.abc import Iterable
 import json
+import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 
@@ -297,21 +299,39 @@ class Audit:
 
     def check_runtime_boundary(self) -> None:
         before = len(self.issues)
-        for path in self.root.rglob("*"):
-            relative_parts = set(path.relative_to(self.root).parts)
-            if path.is_dir():
-                if relative_parts.intersection(SKIP_DIRS):
-                    continue
-                continue
-            if any(part in SKIP_DIRS for part in path.relative_to(self.root).parts):
-                continue
-            if not path.is_file():
-                continue
-            relative = path.relative_to(self.root).as_posix()
-            if path.name in FORBIDDEN_NAMES or any(
-                path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES
-            ):
-                self.issues.append(f"forbidden runtime file: {relative}")
+        inside_worktree = subprocess.run(
+            ["git", "-C", str(self.root), "rev-parse", "--is-inside-work-tree"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+        if inside_worktree.returncode == 0:
+            tracked_private = subprocess.run(
+                ["git", "-C", str(self.root), "ls-files", "--", ".engineering-bible"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                text=True,
+                check=False,
+            )
+            if tracked_private.returncode != 0:
+                self.issues.append("could not verify tracked private runtime paths")
+            elif tracked_private.stdout.strip():
+                self.issues.append("private runtime path is tracked: .engineering-bible")
+
+        for current, directories, filenames in os.walk(self.root):
+            directories[:] = sorted(
+                name
+                for name in directories
+                if name not in SKIP_DIRS
+                and not (Path(current) == self.root and name == ".engineering-bible")
+            )
+            for filename in filenames:
+                path = Path(current) / filename
+                relative = path.relative_to(self.root).as_posix()
+                if path.name in FORBIDDEN_NAMES or any(
+                    path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES
+                ):
+                    self.issues.append(f"forbidden runtime file: {relative}")
         if len(self.issues) == before:
             self.passed.append("runtime boundary")
 

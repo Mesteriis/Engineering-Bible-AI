@@ -1,0 +1,4 @@
+interface:
+  display_name: "Business Application UI"
+  short_description: "Design working dashboards, CRM and admin screens"
+  default_prompt: "Use $ui-business-apps to improve this business application's working screens with original author design skills."

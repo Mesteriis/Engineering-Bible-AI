@@ -44,7 +44,7 @@ class InstallerTests(unittest.TestCase):
         if extra_env:
             env.update(extra_env)
         return subprocess.run(
-            [sys.executable, str(INSTALLER), *args],
+            [sys.executable, str(INSTALLER), *args, "--skip-upstream"],
             cwd=ROOT,
             env=env,
             text=True,
@@ -77,6 +77,7 @@ class InstallerTests(unittest.TestCase):
             migrate_legacy=False,
             prompt_profile="full",
             backup_dir=be_home / "backups" / "pre-backup-failure",
+            skip_upstream=True,
         )
 
     def test_installed_evidence_and_retrieval_run_outside_checkout(self) -> None:
@@ -306,6 +307,15 @@ class InstallerTests(unittest.TestCase):
             self.assertEqual(wrapper.read_text(encoding="utf-8"), "unmanaged\n")
             self.assertFalse((tmp / "engineering-bible" / "install-manifest.json").exists())
 
+    def test_reinstall_preserves_explicit_native_author_roots(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            native = tmp / "native"
+            self.install(tmp, "--skill-root", str(native), "--prompt-profile", "full")
+            self.install(tmp, "--prompt-profile", "full")
+            manifest = json.loads((tmp / "engineering-bible/install-manifest.json").read_text())
+            self.assertEqual(manifest["groups"]["upstream_skill_roots"], [str(native.resolve())])
+
     def test_migrate_legacy_adopts_only_identical_files(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             tmp = Path(raw)
@@ -361,7 +371,7 @@ class InstallerTests(unittest.TestCase):
             )
 
             result = subprocess.run(
-                [sys.executable, str(installed), "--install"],
+                [sys.executable, str(installed), "--install", "--skip-upstream"],
                 cwd=tmp,
                 env=env,
                 text=True,

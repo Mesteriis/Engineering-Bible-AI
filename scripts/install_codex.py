@@ -14,6 +14,7 @@ import uuid
 
 from installer_core import InstallError, InstallerOptions, load_manifest, run_install
 from registry import RegistryError, load_registry, selected_skills
+from upstream_catalog import UpstreamError
 
 
 SUPPORTED_PROMPT_PROFILES = frozenset({"steady", "full", "minimal", "fast"})
@@ -58,6 +59,17 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
         "--install-tools",
         action="store_true",
         help="Install optional companion CLI tools after the portable files",
+    )
+    parser.add_argument(
+        "--skip-upstream",
+        action="store_true",
+        help="Install portable Bible files only; author dependency readiness remains SKIP",
+    )
+    parser.add_argument(
+        "--skill-root",
+        action="append",
+        default=[],
+        help="Concrete native author skill root to inspect and reuse without modification",
     )
     args = parser.parse_args(argv)
 
@@ -107,17 +119,26 @@ def build_options(args: argparse.Namespace) -> InstallerOptions:
         migrate_legacy=bool(args.migrate_legacy),
         prompt_profile=str(args.prompt_profile or "steady"),
         backup_dir=backup_dir,
+        skip_upstream=bool(args.skip_upstream),
+        skill_roots=tuple(expand_path(path) for path in args.skill_root),
     )
-    if args.prompt_profile is None:
-        previous = load_manifest(options)
-        if previous is not None:
-            groups = previous.payload.get("groups")
-            if not isinstance(groups, dict):
-                raise InstallError("installation manifest has no group metadata")
+    previous = load_manifest(options)
+    if previous is not None:
+        groups = previous.payload.get("groups")
+        if not isinstance(groups, dict):
+            raise InstallError("installation manifest has no group metadata")
+        if args.prompt_profile is None:
             prompt_profile = groups.get("prompt_profile")
             if prompt_profile not in SUPPORTED_PROMPT_PROFILES:
                 raise InstallError("installation manifest prompt profile is invalid")
             options = replace(options, prompt_profile=str(prompt_profile))
+        if not args.skill_root:
+            roots = groups.get("upstream_skill_roots", [])
+            if not isinstance(roots, list) or any(
+                not isinstance(path, str) or not Path(path).is_absolute() for path in roots
+            ):
+                raise InstallError("installation manifest has invalid native author roots")
+            options = replace(options, skill_roots=tuple(Path(path) for path in roots))
     return options
 
 
@@ -154,7 +175,7 @@ def main(argv: list[str] | None = None) -> int:
         run_tool_installer(options)
         print("Done. Restart or open a new agent session to refresh prompt-visible skills.")
         return 0
-    except (InstallError, RegistryError) as exc:
+    except (InstallError, RegistryError, UpstreamError) as exc:
         print(f"install-codex: {exc}", file=sys.stderr)
         return 1
 

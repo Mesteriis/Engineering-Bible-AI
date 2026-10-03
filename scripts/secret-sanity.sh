@@ -2,6 +2,7 @@
 set -euo pipefail
 
 root="${1:-.}"
+root="$(cd "$root" && pwd)"
 allowlist_file="${root}/.secret-sanity-allowlist"
 
 secret_patterns=(
@@ -61,7 +62,7 @@ is_allowed() {
     return 1
 }
 
-if find "$root" -type f \
+if ! secret_file_found="$(find "$root" \( -name .git -o -path "$root/.engineering-bible" \) -prune -o -type f \
     \( \
     -name '.env' -o \
     -name '.env.*' -o \
@@ -75,9 +76,13 @@ if find "$root" -type f \
     -name '*.key' -o \
     -name '*.p8' -o \
     -name '*.p12' \
-    \) | grep -q .; then
+    \) -print | awk 'NR == 1 { found = 1 } END { if (found) print "found" }')"; then
+    echo "Secret-like file scan failed." >&2
+    exit 1
+fi
+if [[ -n "$secret_file_found" ]]; then
     echo "Secret-like file name found." >&2
-    find "$root" -type f \
+    find "$root" \( -name .git -o -path "$root/.engineering-bible" \) -prune -o -type f \
         \( \
         -name '.env' -o \
         -name '.env.*' -o \
@@ -91,7 +96,7 @@ if find "$root" -type f \
         -name '*.key' -o \
         -name '*.p8' -o \
         -name '*.p12' \
-        \) >&2
+        \) -print >&2
     exit 1
 fi
 
@@ -102,13 +107,62 @@ if ! command -v rg >/dev/null 2>&1; then
 fi
 
 secret_findings=0
+scan_paths_file="$(mktemp "${TMPDIR:-/tmp}/engineering-bible-scan-paths.XXXXXX")" || {
+    echo "Secret scan setup failed." >&2
+    exit 1
+}
+rg_output_file="$(mktemp "${TMPDIR:-/tmp}/engineering-bible-rg-output.XXXXXX")" || {
+    rm -f -- "$scan_paths_file"
+    echo "Secret scan setup failed." >&2
+    exit 1
+}
+trap 'rm -f -- "$scan_paths_file" "$rg_output_file"' EXIT
+if ! find "$root" -mindepth 1 -maxdepth 1 \
+    ! -path "$root/.engineering-bible" \
+    ! -path "$root/.git" \
+    -print0 >"$scan_paths_file"; then
+    echo "Secret scan path enumeration failed." >&2
+    exit 1
+fi
+declare -a scan_paths=()
+while IFS= read -r -d '' path; do
+    scan_paths+=("$path")
+done <"$scan_paths_file"
+if [[ "${#scan_paths[@]}" -eq 0 ]]; then
+    echo "secret sanity passed"
+    exit 0
+fi
+if rg -n --hidden --no-ignore \
+    --glob '!.git/**' \
+    -o "$secret_regex" "${scan_paths[@]}" |
+    awk -v max_bytes=8388608 '
+        {
+            if (!overflow) {
+                bytes += length($0) + 1
+                if (bytes > max_bytes) {
+                    overflow = 1
+                } else {
+                    print
+                }
+            }
+        }
+        END { if (overflow) exit 2 }
+    ' >"$rg_output_file"; then
+    rg_status=0
+else
+    rg_status=$?
+fi
+if [[ "$rg_status" -gt 1 ]]; then
+    echo "Secret content scan failed." >&2
+    exit 1
+fi
 while IFS=: read -r file line col match; do
     if is_allowed "$match"; then
         continue
     fi
     secret_findings=$((secret_findings + 1))
     printf '%s:%s:%s: %s\n' "$file" "$line" "$col" "$match" >&2
-done < <(rg -n --hidden --glob '!.git/**' -o "$secret_regex" "$root")
+done <"$rg_output_file"
 
 if [[ "$secret_findings" -ne 0 ]]; then
     echo "Secret-looking value found." >&2

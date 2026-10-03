@@ -9,6 +9,7 @@ The checks here are intentionally small and stable:
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 import sys
 
@@ -20,7 +21,6 @@ EMPTY_HEADING = "empty heading"
 
 def iter_markdown_files(root: Path) -> list[Path]:
     skipped_dirs = {
-        ".engineering-bible",
         ".git",
         ".serena",
         ".worktrees",
@@ -29,10 +29,14 @@ def iter_markdown_files(root: Path) -> list[Path]:
         "node_modules",
     }
     files: list[Path] = []
-    for path in root.rglob("*.md"):
-        if any(part in skipped_dirs for part in path.parts):
-            continue
-        files.append(path)
+    for current, directories, filenames in os.walk(root):
+        directories[:] = sorted(
+            name
+            for name in directories
+            if name not in skipped_dirs
+            and not (Path(current) == root and name == ".engineering-bible")
+        )
+        files.extend(Path(current) / filename for filename in filenames if filename.endswith(".md"))
     return sorted(files)
 
 

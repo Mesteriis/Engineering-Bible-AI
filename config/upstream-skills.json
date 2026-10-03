@@ -1,0 +1,553 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "mattpocock-skills",
+      "url": "https://github.com/mattpocock/skills",
+      "revision": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "id": "obra-superpowers",
+      "layout": "siblings",
+      "url": "https://github.com/obra/superpowers",
+      "revision": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "id": "karpathy-guidelines",
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "revision": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "README.md",
+      "license_sha256": "daf314efb31894b86d68b67786c820bd8470bb2126e578ba9cd0e3e2667883f8"
+    },
+    {
+      "id": "interface-skills",
+      "url": "https://github.com/Dammyjay93/interface-design",
+      "revision": "2f9be3206855bcb2d1d0af262c8bae25cba6658d",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "54c405ef24e71634b73c994133d028e7a96d1906f42615366296d6583dcaba8f",
+      "skill_roots": [".claude/skills"]
+    },
+    {
+      "id": "uipro-skills",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "revision": "09170eec67eefd46a7ae85de61b40c194020f997",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "738f69dfa83db5c347c678fb9d90e560877059f0de93a327c39001bff92dc014",
+      "skill_roots": [".claude/skills"]
+    },
+    {
+      "id": "impeccable-skills",
+      "url": "https://github.com/pbakaus/impeccable",
+      "revision": "508d7e8955de3b3caf2d8676e85206723d41a887",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
+      "skill_roots": [".agents/skills"],
+      "notices": [
+        {"path": "NOTICE.md", "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb"}
+      ]
+    },
+    {
+      "id": "trailofbits-skills",
+      "url": "https://github.com/trailofbits/skills",
+      "revision": "82fe8226252622fa807643bdca1710901198553a",
+      "tracking": "main",
+      "license": "CC-BY-SA-4.0",
+      "license_path": "LICENSE",
+      "license_sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+      "skill_roots": ["plugins/property-based-testing/skills"]
+    },
+    {
+      "id": "context-engineering-skills",
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "revision": "58b55a8921758d13453b440704fb1b5b208c0b0e",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "65bc33b0759a48b980962833b12bcb820404da9f5256bff39c00e89471bcf209"
+    }
+  ],
+  "skills": [
+    {
+      "id": "pocock.grill-me",
+      "name": "grill-me",
+      "source": "mattpocock-skills",
+      "path": "skills/productivity/grill-me",
+      "tree_sha256": "167b116ac6f039999701c1c42d2dbd2559572588a490c858c56548373a0cf5f0",
+      "requires": [
+        "pocock.grilling"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "grill-me",
+        "stress-test-plan"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "pocock.grilling",
+      "name": "grilling",
+      "source": "mattpocock-skills",
+      "path": "skills/productivity/grilling",
+      "tree_sha256": "096b4ec578e44e1e19f232d5da7c509bab8deb980d00e6d605e5e214dc531f63",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "grilling"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "pocock.grill-with-docs",
+      "name": "grill-with-docs",
+      "source": "mattpocock-skills",
+      "path": "skills/engineering/grill-with-docs",
+      "tree_sha256": "63f75d7aabb5b1095465098920f032fa84e277190dc768002b9dbd1726c239e7",
+      "requires": [
+        "pocock.grilling",
+        "pocock.domain-modeling"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "grill-with-docs",
+        "design-interview-with-docs"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "pocock.domain-modeling",
+      "name": "domain-modeling",
+      "source": "mattpocock-skills",
+      "path": "skills/engineering/domain-modeling",
+      "tree_sha256": "865b6ad4585c08965473732376c8a7606bc680128dae5b36ecc22c1f96ae30a4",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "domain-modeling",
+        "domain-glossary",
+        "architecture-decisions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "pocock.writing-for-agents",
+      "name": "writing-for-agents",
+      "source": "mattpocock-skills",
+      "path": "skills/productivity/writing-for-agents",
+      "tree_sha256": "270adffc315600fa584f912b8dbb3c47c3862696d2004113b3a833b4f5cfebfb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "writing-for-agents",
+        "agent-instructions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "pocock.pr",
+      "name": "pr",
+      "source": "mattpocock-skills",
+      "path": "skills/engineering/pr",
+      "tree_sha256": "ac726d97c386703680ff550c7f7471efa2491dd9a8312117b866c2493d4b3775",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "pr",
+        "pull-request-description"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "pocock.retro",
+      "name": "retro",
+      "source": "mattpocock-skills",
+      "path": "skills/engineering/retro",
+      "tree_sha256": "c09c6f467d46ff931049e7baa814e9022d56e052f0e1e114a3446be7358849e6",
+      "requires": [
+        "pocock.writing-for-agents"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "retro",
+        "session-retrospective"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "pocock.to-questionnaire",
+      "name": "to-questionnaire",
+      "source": "mattpocock-skills",
+      "path": "skills/productivity/to-questionnaire",
+      "tree_sha256": "f4dd3634781989dc044c8461620f8f46600ec3c70b320824b4132adbb5111f88",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "to-questionnaire",
+        "discovery-questionnaire"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "superpowers.brainstorming",
+      "name": "brainstorming",
+      "source": "obra-superpowers",
+      "path": "skills/brainstorming",
+      "tree_sha256": "78ddac1fe95a82373b11645a5de695190760f1d74bbef1887103090f728cd2f5",
+      "requires": [
+        "superpowers.writing-plans"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "brainstorming",
+        "feature-design"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.diagnosing-superpowers",
+      "name": "diagnosing-superpowers",
+      "source": "obra-superpowers",
+      "path": "skills/diagnosing-superpowers",
+      "tree_sha256": "b640fb298011955148c45e95c020d9c6b905b6cb5a2c0289066d0261518acb27",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "diagnosing-superpowers",
+        "superpowers-diagnostics"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.dispatching-parallel-agents",
+      "name": "dispatching-parallel-agents",
+      "source": "obra-superpowers",
+      "path": "skills/dispatching-parallel-agents",
+      "tree_sha256": "8a05a06d85e11fdefc824b8a14f505bcfd39d0432ace44457358bccf4ac20ec8",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "dispatching-parallel-agents",
+        "agent-squad",
+        "parallel-agent-work"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.executing-plans",
+      "name": "executing-plans",
+      "source": "obra-superpowers",
+      "path": "skills/executing-plans",
+      "tree_sha256": "aa181d1f482b1c2a615f9ee8892e8178b44349bdadc9d797947636b81356bd63",
+      "requires": [
+        "superpowers.using-superpowers",
+        "superpowers.subagent-driven-development",
+        "superpowers.systematic-debugging",
+        "superpowers.test-driven-development",
+        "superpowers.verification-before-completion"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "executing-plans",
+        "inline-plan-execution"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.finishing-a-development-branch",
+      "name": "finishing-a-development-branch",
+      "source": "obra-superpowers",
+      "path": "skills/finishing-a-development-branch",
+      "tree_sha256": "fdfb5d2acb38613c80e2f50d502554e9c437d1b37136449bf2f1dfb119efe92f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "finishing-a-development-branch",
+        "finish-development-branch"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.receiving-code-review",
+      "name": "receiving-code-review",
+      "source": "obra-superpowers",
+      "path": "skills/receiving-code-review",
+      "tree_sha256": "cc1e0b0c98550bd3c537f889dc82219c52234a19af87a9c30cf329e66076a1d1",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "receiving-code-review",
+        "review-feedback"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.requesting-code-review",
+      "name": "requesting-code-review",
+      "source": "obra-superpowers",
+      "path": "skills/requesting-code-review",
+      "tree_sha256": "e8fe966f921e73c616d483fb4676b25f8b23bb2b4d770cd38f689862356e065b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "requesting-code-review",
+        "code-review",
+        "request-code-review"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.subagent-driven-development",
+      "name": "subagent-driven-development",
+      "source": "obra-superpowers",
+      "path": "skills/subagent-driven-development",
+      "tree_sha256": "c6ce99dce1c7a3cffea12edc333d2e6059082d5866ad0529136bbbf8999db86c",
+      "requires": [
+        "superpowers.using-git-worktrees",
+        "superpowers.requesting-code-review",
+        "superpowers.finishing-a-development-branch",
+        "superpowers.test-driven-development",
+        "superpowers.verification-before-completion"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "subagent-driven-development",
+        "subagent-implementation"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.systematic-debugging",
+      "name": "systematic-debugging",
+      "source": "obra-superpowers",
+      "path": "skills/systematic-debugging",
+      "tree_sha256": "2c38c6417a3fab7ca3138c5c0f7ef82c9eac26cd6c28df4d21c2114742f333d2",
+      "requires": [
+        "superpowers.test-driven-development",
+        "superpowers.verification-before-completion"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "systematic-debugging",
+        "debugging",
+        "root-cause-investigation"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.test-driven-development",
+      "name": "test-driven-development",
+      "source": "obra-superpowers",
+      "path": "skills/test-driven-development",
+      "tree_sha256": "84020bc62277926246d8ec78720d2b6f9a95e9486abc6b21b84b77dbd50d8436",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "test-driven-development",
+        "testing-tdd",
+        "tdd-guard"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.using-git-worktrees",
+      "name": "using-git-worktrees",
+      "source": "obra-superpowers",
+      "path": "skills/using-git-worktrees",
+      "tree_sha256": "e963eeadf670a7c939fd72346d1a6e0786a3e9c8c93395b303248bc83ef85c75",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "using-git-worktrees",
+        "isolated-workspace"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.using-superpowers",
+      "name": "using-superpowers",
+      "source": "obra-superpowers",
+      "path": "skills/using-superpowers",
+      "tree_sha256": "f7cead420117fbf9c4ca777cd2a3dbe3b20a9189461b5c421956f6c9be53e4f2",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "using-superpowers",
+        "superpowers-bootstrap"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.verification-before-completion",
+      "name": "verification-before-completion",
+      "source": "obra-superpowers",
+      "path": "skills/verification-before-completion",
+      "tree_sha256": "7727ff1c960808f28884a1c0416d85a453fefab763046932d9633ce4b851eb07",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "verification-before-completion",
+        "quality-gates",
+        "completion-verification"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.writing-plans",
+      "name": "writing-plans",
+      "source": "obra-superpowers",
+      "path": "skills/writing-plans",
+      "tree_sha256": "e842f9e71fd3aab6bc193c15069297028d673b2b03fd8134f4c3a64215791293",
+      "requires": [
+        "superpowers.using-git-worktrees"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "writing-plans",
+        "implementation-plan"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "superpowers.writing-skills",
+      "name": "writing-skills",
+      "source": "obra-superpowers",
+      "path": "skills/writing-skills",
+      "tree_sha256": "1db42b6d7b8fbb62a6697ee040f5cbb1b2d35311486999744e631f329102e714",
+      "requires": [
+        "superpowers.using-superpowers",
+        "superpowers.test-driven-development"
+      ],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "writing-skills",
+        "author-skill-workflow"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "karpathy.karpathy-guidelines",
+      "name": "karpathy-guidelines",
+      "source": "karpathy-guidelines",
+      "path": "skills/karpathy-guidelines",
+      "tree_sha256": "8652e904d0e528a0d5e4d919dcac832437665d7f6de6e26761b6723f15f3de1d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "karpathy-guidelines",
+        "simplicity-review"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "interface.interface-design",
+      "name": "interface-design",
+      "source": "interface-skills",
+      "path": ".claude/skills/interface-design",
+      "tree_sha256": "3892e26294812000a8020e8572b69e5d61cd30deb46fcb60c529ce93f2277cfb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["business-ui-design", "crm-workspace-design", "product-interface-design"],
+      "user_invoked": false
+    },
+    {
+      "id": "uipro.ui-ux-pro-max",
+      "name": "ui-ux-pro-max",
+      "source": "uipro-skills",
+      "path": ".claude/skills/ui-ux-pro-max",
+      "tree_sha256": "e172059960ef7117201bfcf2dacc7063dd798ec9da65adf8f464abf1c84e6899",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["business-ui-pattern-research", "ui-ux-stack-guidance"],
+      "user_invoked": false
+    },
+    {
+      "id": "impeccable.impeccable",
+      "name": "impeccable",
+      "source": "impeccable-skills",
+      "path": ".agents/skills/impeccable",
+      "tree_sha256": "dc08bc4bd47d19b4fa4d46722e0a2ca675f1559dee38314524c8bb411abd798f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["business-ui-critique", "ui-polish", "ui-hardening", "operate-ui-shaping", "ui-accessibility-audit"],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.property-based-testing",
+      "name": "property-based-testing",
+      "source": "trailofbits-skills",
+      "path": "plugins/property-based-testing/skills/property-based-testing",
+      "tree_sha256": "93aba13ae9fc6a49a912d97860a786fe3b6716b79a8c666edb5a3a721d787152",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["property-based-testing", "invariant-test-review", "shrunk-counterexample-triage"],
+      "user_invoked": false
+    },
+    {
+      "id": "pocock.handoff",
+      "name": "handoff",
+      "source": "mattpocock-skills",
+      "path": "skills/productivity/handoff",
+      "tree_sha256": "54899340fc95ea8e35fab661ef722b1f09cfb6a7cc45627417d8e9a1122cfb28",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["handoff", "explicit-session-handoff"],
+      "user_invoked": true
+    },
+    {
+      "id": "context.context-compression",
+      "name": "context-compression",
+      "source": "context-engineering-skills",
+      "path": "skills/context-compression",
+      "tree_sha256": "e224beba84f9cbaa86be0bd273d4dbe20f82e3e3242124c5cbb475ea10c2370f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": ["context-compression", "long-task-continuation", "compression-quality-design"],
+      "user_invoked": false
+    }
+  ]
+}

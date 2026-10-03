@@ -14,6 +14,16 @@ and resistant to Engineering Bible drift.
 This skill does not replace language, security, UI, documentation, or review
 skills. It composes with them.
 
+## Author Verification Provider
+
+For workflow completion, resolve `superpowers.verification-before-completion`
+with `be skills route superpowers.verification-before-completion --json` and
+read the complete exposed author skill and its required references. Its
+procedure remains upstream. The evidence, release and library-drift rules below
+are Bible's separate owner policy. Reuse compatible native providers, install
+missing reviewed dependencies through the selected profile, and report pending
+exposure. Do not replace the author procedure with this policy checklist.
+
 ## Required References
 
 Read only the references needed for the task:
@@ -47,6 +57,19 @@ reference document.
 - Review behavior changes before completion.
 - Add or update regression coverage when a defect class is fixed.
 - Treat library drift as a repository bug, not as documentation polish.
+
+## Optional Test-Strength Check
+
+For explicitly selected critical logic or a suspected weak test, use
+[Targeted Mutation Testing](../../docs/targeted-mutation-testing.md). Select a
+small verified source/test allowlist and human-reviewed replacements. The
+Python helper executes baseline and mutant tests in separate temporary copies;
+those copies are not a sandbox for untrusted test code. Require a passing
+baseline and retain raw outputs and original exits. Assertion failures can kill
+a mutant; syntax, import and execution errors or timeouts cannot. A surviving
+mutant needs a concrete test-strength assessment, not a claimed passing gate.
+Do not run campaigns on every edit, install a framework implicitly, or mutate
+the working source. Select project-native Stryker separately for TypeScript.
 
 ## Output
 

@@ -13,6 +13,7 @@ from typing import cast
 
 from worker_results import compare_runs, inspect_record
 from worker_control import evaluate_continuation
+from worker_quorum import evaluate_quorum
 from worker_snapshot import capture_snapshot, verify_snapshot
 
 
@@ -89,6 +90,10 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument("candidate", type=Path)
     control = commands.add_parser("continue", help="Evaluate the next step of a bounded run")
     control.add_argument("request", type=Path)
+    quorum = commands.add_parser("quorum", help="Evaluate a fixed offline cross-provider review")
+    quorum.add_argument("request", type=Path)
+    quorum.add_argument("--source-root", type=Path, help="Verify the reviewed source snapshot")
+    quorum.add_argument("--artifacts-root", type=Path, help="Verify reviewed outputs and evidence")
     return parser
 
 
@@ -101,6 +106,60 @@ def main(argv: list[str] | None = None) -> int:
             result = compare_runs(read_json(args.baseline), read_json(args.candidate))
         elif args.command == "continue":
             result = evaluate_continuation(read_json(args.request))
+        elif args.command == "quorum":
+            request = read_json(args.request)
+            result = evaluate_quorum(request)
+            result.update(source_status="SKIP", artifact_status="SKIP")
+            if result["contract_status"] == "PASS":
+                assert isinstance(request, dict)
+                target = request["target"]
+                assert isinstance(target, dict)
+                issues = result["issues"]
+                assert isinstance(issues, list)
+                reasons = result["reasons"]
+                assert isinstance(reasons, list)
+                if args.source_root:
+                    errors = verify_snapshot(
+                        args.source_root, target["snapshot"], target["base_commit"]
+                    )
+                    issues.extend(errors)
+                    result["source_status"] = "FAIL" if errors else "PASS"
+                if args.artifacts_root:
+                    records = [
+                        request["gate_record"],
+                        *[ballot["record"] for ballot in request["ballots"]],
+                    ]
+                    errors = []
+                    for record in records:
+                        errors.extend(artifact_issues(record, args.artifacts_root))
+                    for manifest_name, manifest in (
+                        ("reviewed", target["artifacts"]),
+                        ("evidence", request["evidence_artifacts"]),
+                    ):
+                        try:
+                            actual = capture_snapshot(
+                                args.artifacts_root, [item["path"] for item in manifest]
+                            )
+                            actual_snapshot = actual["snapshot"]
+                            assert isinstance(actual_snapshot, dict)
+                            if actual_snapshot["files"] != manifest:
+                                errors.append(
+                                    f"{manifest_name} artifact bytes do not match the envelope"
+                                )
+                        except ValueError:
+                            errors.append(f"{manifest_name} artifact unavailable or unsafe")
+                    issues.extend(errors)
+                    result["artifact_status"] = "FAIL" if errors else "PASS"
+                if issues:
+                    result.update(decision="INVALID", outcome="FAIL", contract_status="FAIL")
+                    reasons.append("local_verification_failed")
+                elif result["outcome"] == "PASS" and (
+                    result["source_status"] == "SKIP" or result["artifact_status"] == "SKIP"
+                ):
+                    result.update(
+                        policy_decision=result["decision"], decision="BLOCKED", outcome="SKIP"
+                    )
+                    reasons.append("local_verification_missing")
         else:
             record = read_json(args.record)
             result = inspect_record(record)

@@ -51,6 +51,27 @@ required tools, and requested workflow have not changed:
 Reroute only the changed portion. If context compaction removed required
 instructions, reload only the missing skill instead of rebuilding the route.
 
+## Author Workflows And Owner Policy
+
+Bible owns routing and personal rules. Read the selected author's complete
+`SKILL.md` and required references from a compatible current-session provider or
+the reviewed upstream installation. Do not substitute a Bible summary for an
+author workflow, edit the author tree, or bypass its required steps silently.
+Keep host invocation and personal constraints in separate policy files. The
+user's instructions retain precedence when an author procedure conflicts.
+
+For a missing reviewed dependency, use the selected installation profile's
+missing-only lifecycle. Reuse compatible native providers; report unavailable
+tools or pending host exposure. Updates use reviewed pins and remain separate
+from task routing. Reuse the active provider on follow-ups.
+
+For dashboards, CRM, admin and business applications, apply `ui-business-apps`
+owner priorities while choosing the narrow author leaf for the task. Bind author
+helper paths to the resolved skill directory. For Bible-managed Impeccable,
+set `IMPECCABLE_NO_UPDATE_CHECK=1` when invoking its launcher and use the Bible
+dependency lifecycle for updates. Its engine, hooks and live mode are separate
+runtime actions; imported files do not authorize them or private data export.
+
 ## Truth And Evidence
 
 Do not invent files, paths, symbols, APIs, libraries, schemas, commands,
@@ -103,6 +124,17 @@ global state. Do not leave fake placeholders or TODOs presented as completed
 behavior.
 
 ## Runtime Capability Discovery
+
+Default: keep the current selected model; multimodel and quorum are off.
+Only the user's `/multimodel` command enables budget code proposals and stronger
+review; it does not enable voting. Only `/quorum` enables fixed review voting;
+it does not enable budget implementation. Use both commands for both modes.
+Commands apply to the named task and its continuations, ending on completion,
+cancellation or replacement; new tasks start with both modes off. Quoted
+examples and generic quality, risk or review requests do not activate them.
+Same-model parallel work remains available. Commands do not grant source export,
+tools or deployment authority; unavailable routes stay blocked. Keep mappings
+private, record actual routes/usage, and exclude authors from quorum votes.
 
 Treat the available runtime tool set as unknown and changeable. On the first
 non-trivial turn of a task, inspect the capabilities actually exposed in the

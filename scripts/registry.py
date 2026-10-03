@@ -31,9 +31,12 @@ def parse_registry(path: Path) -> dict[str, object]:
         "default_groups": [],
         "groups": {},
         "optional": {},
+        "upstream": {},
+        "upstream_required": {},
     }
     section: str | None = None
     current_group: str | None = None
+    top_level_keys: set[str] = set()
 
     for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         line = raw_line.split("#", 1)[0].rstrip()
@@ -45,10 +48,22 @@ def parse_registry(path: Path) -> dict[str, object]:
 
         if indent == 0:
             current_group = None
+            top_key = stripped.split(":", 1)[0]
+            if top_key in top_level_keys:
+                raise RegistryError(f"{path}:{line_number}: duplicate registry key: {top_key}")
+            top_level_keys.add(top_key)
             if stripped.endswith(":"):
                 section = stripped[:-1]
-                if section not in {"default_groups", "groups", "optional"}:
-                    payload[section] = {}
+                if section not in {
+                    "default_groups",
+                    "groups",
+                    "optional",
+                    "upstream",
+                    "upstream_required",
+                }:
+                    raise RegistryError(
+                        f"{path}:{line_number}: unknown registry section: {section}"
+                    )
                 continue
             if ":" in stripped:
                 key, value = stripped.split(":", 1)
@@ -61,13 +76,19 @@ def parse_registry(path: Path) -> dict[str, object]:
             cast_list(payload["default_groups"]).append(stripped[2:].strip())
             continue
 
-        if section in {"groups", "optional"} and indent == 2 and stripped.endswith(":"):
+        if (
+            section in {"groups", "optional", "upstream", "upstream_required"}
+            and indent == 2
+            and stripped.endswith(":")
+        ):
             current_group = stripped[:-1]
+            if current_group in cast_dict(payload[section]):
+                raise RegistryError(f"{path}:{line_number}: duplicate group: {current_group}")
             cast_dict(payload[section])[current_group] = []
             continue
 
         if (
-            section in {"groups", "optional"}
+            section in {"groups", "optional", "upstream", "upstream_required"}
             and current_group is not None
             and indent == 4
             and stripped.startswith("- ")
@@ -77,6 +98,23 @@ def parse_registry(path: Path) -> dict[str, object]:
 
         raise RegistryError(f"{path}:{line_number}: unsupported registry line: {raw_line}")
 
+    if type(payload.get("version")) is not int or payload["version"] not in {1, 2, 3}:
+        raise RegistryError("registry version must be 1, 2 or 3")
+    version = payload["version"]
+    assert isinstance(version, int)
+    if payload["upstream"] and version < 2:
+        raise RegistryError("upstream groups require registry version 2 or newer")
+    if payload["upstream_required"] and payload["version"] != 3:
+        raise RegistryError("profile upstream requirements require registry version 3")
+    available = group_map(payload, include_optional=True)
+    known_ids = {
+        item for entries in cast_dict(payload["upstream"]).values() for item in cast_list(entries)
+    }
+    for group, entries in cast_dict(payload["upstream_required"]).items():
+        if group not in available:
+            raise RegistryError(f"unknown local group for upstream requirements: {group}")
+        if not set(cast_list(entries)) <= known_ids:
+            raise RegistryError(f"unknown upstream dependency for local group: {group}")
     return payload
 
 
@@ -154,6 +192,27 @@ def selected_skills(
     return unique(skills)
 
 
+def selected_upstream_skills(
+    registry: dict[str, object], *, groups: list[str], include_all: bool
+) -> list[str]:
+    """Select author dependencies attached to the selected owner skill groups."""
+    available = group_map(registry, include_optional=True)
+    selection = (
+        list(cast_dict(registry["groups"])) + list(cast_dict(registry["optional"]))
+        if include_all
+        else default_group_names(registry) + groups
+    )
+    missing = [name for name in selection if name not in available]
+    if missing:
+        raise RegistryError("unknown skill group(s): " + ", ".join(missing))
+    required = cast_dict(registry.get("upstream_required", {}))
+    return unique(
+        identity
+        for group in selection
+        for identity in cast_list(required.get(group.removeprefix("optional."), []))
+    )
+
+
 def all_registered_skills(registry: dict[str, object]) -> list[str]:
     skills: list[str] = []
     for value in cast_dict(registry["groups"]).values():
@@ -178,6 +237,12 @@ def render_generated_block(
     optional = {name: cast_list(skills) for name, skills in cast_dict(registry["optional"]).items()}
     default_lines = [render_group(name, groups[name]) for name in default_group_names(registry)]
     optional_lines = [render_group(name, skills) for name, skills in optional.items()]
+    upstream = cast_dict(registry.get("upstream", {}))
+    upstream_lines = [render_group(name, cast_list(skills)) for name, skills in upstream.items()]
+    required_lines = [
+        render_group(name, cast_list(skills))
+        for name, skills in cast_dict(registry.get("upstream_required", {})).items()
+    ]
     if not default_lines:
         default_lines = ["- None."]
     if not optional_lines:
@@ -192,6 +257,36 @@ def render_generated_block(
             f"### {optional_heading}",
             "",
             *optional_lines,
+            *(
+                [
+                    "",
+                    "### "
+                    + (
+                        "Навыки авторов по явному выбору"
+                        if default_heading == "Группы по умолчанию"
+                        else "Opt-in upstream groups"
+                    ),
+                    "",
+                    *upstream_lines,
+                ]
+                if upstream_lines
+                else []
+            ),
+            *(
+                [
+                    "",
+                    "### "
+                    + (
+                        "Авторские зависимости профилей"
+                        if default_heading == "Группы по умолчанию"
+                        else "Author dependencies of owner groups"
+                    ),
+                    "",
+                    *required_lines,
+                ]
+                if required_lines
+                else []
+            ),
             GENERATED_END,
         ]
     )
@@ -260,6 +355,15 @@ def validate_registry(root: Path) -> list[str]:
             errors.append(f"default group is not defined under groups: {group}")
 
     registered = set(all_registered_skills(registry))
+    if cast_dict(registry.get("upstream", {})):
+        try:
+            try:
+                from .upstream_catalog import load_catalog, UpstreamError
+            except ImportError:
+                from upstream_catalog import load_catalog, UpstreamError
+            load_catalog(root / "config" / "upstream-skills.json", registry_path(root))
+        except UpstreamError as exc:
+            errors.append(f"upstream catalog: {exc}")
     for skill in sorted(registered):
         if not (root / "skills" / skill / "SKILL.md").is_file():
             errors.append(f"registry skill is missing SKILL.md: {skill}")
