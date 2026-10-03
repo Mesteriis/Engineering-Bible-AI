@@ -44,7 +44,6 @@ For multi-step work, write or follow a task plan with:
 Implement the smallest correct change.
 
 Rules:
-Rules:
 
 - preserve existing boundaries;
 - avoid unrelated refactors;

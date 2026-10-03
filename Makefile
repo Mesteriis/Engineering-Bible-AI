@@ -7,7 +7,7 @@ AGENTS_HOME ?= $(HOME)/.agents
 
 .DEFAULT_GOAL := help
 
-.PHONY: help validate validate-quick validate-bootstrap validate-release test audit quality-audit-tests validate-tree validate-skills validate-registry registry-docs validate-router-cases validate-install size secrets shell-syntax shell-lint markdown-lint py-compile be-smoke be-audit be-update be-self-update be-add-skill dry-run tools-dry-run install install-tools install-all install-wiki install-command
+.PHONY: help validate validate-quick validate-bootstrap validate-release test audit quality-audit quality-audit-tests validate-tree validate-skills validate-registry registry-docs validate-router-cases validate-install size secrets shell-syntax shell-lint markdown-lint py-compile be-smoke be-audit be-update be-self-update be-add-skill dry-run tools-dry-run install install-tools install-all install-wiki install-command
 
 help:
 	@printf '%s\n' \
@@ -15,6 +15,7 @@ help:
 		'  make validate-quick        Run fast repository checks and discovered tests' \
 		'  make validate-bootstrap    Run dependency-light artifact checks' \
 		'  make audit                Run be audit (quality gate checks)' \
+		'  make quality-audit        Compatibility alias for make audit' \
 		'  make quality-audit-tests  Run quality gate audit tests' \
 		'  make validate              Run the full validation profile' \
 		'  make validate-release      Run full release gates; SKIP is a failure' \
@@ -133,6 +134,8 @@ py-compile:
 
 audit:
 	$(PYTHON) scripts/audit-quality-gates.py .
+
+quality-audit: audit
 
 quality-audit-tests:
 	$(PYTHON) -m unittest discover -s tests -p 'test_quality_audit.py' -v

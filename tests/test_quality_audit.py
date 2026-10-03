@@ -16,7 +16,7 @@ def copy_repo(target: Path) -> Path:
     repo = target / "repo"
 
     def ignore(directory: str, names: list[str]) -> set[str]:
-        ignored = {".git", ".engineering-bible", "node_modules", "__pycache__"}
+        ignored = {".git", ".engineering-bible", ".worktrees", "node_modules", "__pycache__"}
         return {name for name in names if name in ignored or name.endswith(".pyc")}
 
     shutil.copytree(ROOT, repo, ignore=ignore)
@@ -115,6 +115,55 @@ class QualityAuditTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 1)
         self.assertIn("forbidden runtime file: .env", result.stdout)
+
+    def test_dotenv_variant_runtime_file_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            repo = copy_repo(Path(raw))
+            (repo / ".env.local").write_text("local fixture only\n")
+            result = run_audit(repo)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("forbidden runtime file: .env.local", result.stdout)
+
+    def test_root_local_worktree_runtime_is_pruned(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            repo = copy_repo(Path(raw))
+            worktree = repo / ".worktrees" / "local"
+            worktree.mkdir(parents=True)
+            for name in (".env", ".env.local", "auth.json", "config.toml", "deploy.pem"):
+                (worktree / name).write_text("local fixture only\n")
+            result = run_audit(repo)
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("- runtime boundary: ok", result.stdout)
+        self.assertNotIn(".worktrees/local/", result.stdout)
+
+    def test_nested_public_worktree_runtime_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            repo = copy_repo(Path(raw))
+            nested = repo / "public" / ".worktrees"
+            nested.mkdir(parents=True)
+            (nested / "auth.json").write_text("local fixture only\n")
+            result = run_audit(repo)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("forbidden runtime file: public/.worktrees/auth.json", result.stdout)
+
+    def test_tracked_root_worktree_runtime_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            repo = copy_repo(Path(raw))
+            subprocess.run(["git", "init", "-q", str(repo)], check=True)
+            private = repo / ".worktrees" / "local" / "runtime.json"
+            private.parent.mkdir(parents=True)
+            private.write_text("{}\n")
+            subprocess.run(
+                ["git", "-C", str(repo), "add", "-f", ".worktrees/local/runtime.json"],
+                check=True,
+            )
+            result = run_audit(repo)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("private runtime path is tracked: .worktrees", result.stdout)
 
     def test_only_designated_private_runtime_is_pruned(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

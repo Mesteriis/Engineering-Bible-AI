@@ -96,6 +96,8 @@ SKIP_DIRS = {
     "__pycache__",
 }
 
+PRIVATE_RUNTIME_ROOTS = (".engineering-bible", ".worktrees")
+
 
 class Audit:
     def __init__(self, root: Path) -> None:
@@ -306,30 +308,33 @@ class Audit:
             check=False,
         )
         if inside_worktree.returncode == 0:
-            tracked_private = subprocess.run(
-                ["git", "-C", str(self.root), "ls-files", "--", ".engineering-bible"],
-                stdout=subprocess.PIPE,
-                stderr=subprocess.DEVNULL,
-                text=True,
-                check=False,
-            )
-            if tracked_private.returncode != 0:
-                self.issues.append("could not verify tracked private runtime paths")
-            elif tracked_private.stdout.strip():
-                self.issues.append("private runtime path is tracked: .engineering-bible")
+            for private_root in PRIVATE_RUNTIME_ROOTS:
+                tracked_private = subprocess.run(
+                    ["git", "-C", str(self.root), "ls-files", "--", private_root],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.DEVNULL,
+                    text=True,
+                    check=False,
+                )
+                if tracked_private.returncode != 0:
+                    self.issues.append("could not verify tracked private runtime paths")
+                elif tracked_private.stdout.strip():
+                    self.issues.append(f"private runtime path is tracked: {private_root}")
 
         for current, directories, filenames in os.walk(self.root):
             directories[:] = sorted(
                 name
                 for name in directories
                 if name not in SKIP_DIRS
-                and not (Path(current) == self.root and name == ".engineering-bible")
+                and not (Path(current) == self.root and name in PRIVATE_RUNTIME_ROOTS)
             )
             for filename in filenames:
                 path = Path(current) / filename
                 relative = path.relative_to(self.root).as_posix()
-                if path.name in FORBIDDEN_NAMES or any(
-                    path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES
+                if (
+                    path.name in FORBIDDEN_NAMES
+                    or path.name.startswith(".env.")
+                    or any(path.name.endswith(suffix) for suffix in FORBIDDEN_SUFFIXES)
                 ):
                     self.issues.append(f"forbidden runtime file: {relative}")
         if len(self.issues) == before:
