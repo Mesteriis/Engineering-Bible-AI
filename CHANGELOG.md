@@ -27,7 +27,9 @@ All notable changes to this project are documented here.
   configuration, credentials and model mappings outside the public package.
 - Fixed compatibility with the pinned CI type checker without weakening
   runtime validation or changing the CI tool version.
-
+- Preserved the `quality-audit` compatibility target, rejected `.env.*` runtime
+  files and excluded local root worktrees while rejecting tracked private state.
+- Merged pinned Checkout 7.0.1 and Setup Python 7.0.0 action updates.
 - Added the `steady` prompt profile as the new-install default while preserving
   the complete default skill catalog.
 - Preserved manifest-selected profiles during both update and reinstall unless

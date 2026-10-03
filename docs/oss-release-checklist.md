@@ -18,11 +18,15 @@ Confirm the repository does not include:
 
 - `~/.codex/config.toml`;
 - auth files;
-- `.env` files;
+- `.env` and `.env.*` files;
 - provider or gateway credentials;
 - MCP server secrets;
 - Codex session, cache, rollout, or worktree state;
 - private SSH material.
+
+Only local root `.engineering-bible/` and `.worktrees/` directories are excluded
+from the quality audit walk. Tracked files in either directory fail the audit;
+similarly named nested directories are scanned.
 
 ## Validation
 
