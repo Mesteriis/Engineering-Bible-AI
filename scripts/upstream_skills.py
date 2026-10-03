@@ -11,7 +11,7 @@ from pathlib import Path
 import re
 import shutil
 import tempfile
-from typing import Iterator
+from typing import AbstractSet, Iterator, cast
 import urllib.request
 from urllib.parse import urlparse
 import uuid
@@ -255,7 +255,7 @@ class SkillManager:
         result: list[dict[str, object]] = []
         for skill in skills:
             value = records.get(skill.id)
-            record = value if isinstance(value, dict) else None
+            record = cast(dict[str, object], value) if isinstance(value, dict) else None
             candidates = self._providers(skill, record)
             source = self.catalog.sources[skill.source]
             item: dict[str, object] = {
@@ -428,7 +428,7 @@ class SkillManager:
         self._target(name)
         return self.skill_root / f".upstream-{operation}-{identity}-{name}"
 
-    def _displace(self, target: Path, retained: Path, expected: set[str | None]) -> None:
+    def _displace(self, target: Path, retained: Path, expected: AbstractSet[object]) -> None:
         if retained.exists() or retained.is_symlink():
             raise UpstreamError("interrupted active tree displacement requires recovery")
         os.rename(target, retained)
@@ -444,12 +444,13 @@ class SkillManager:
         # Retain displaced trees until state commit; validate again before disposal.
         for name, raw_info in targets.items():
             assert isinstance(raw_info, dict)
+            info = cast(dict[str, object], raw_info)
             for operation in ("previous", "rollback"):
                 retained = self._displaced(identity, name, operation)
                 if retained.exists() or retained.is_symlink():
                     if fingerprint_tree(retained) not in {
-                        raw_info["before_digest"],
-                        raw_info["after_digest"],
+                        info["before_digest"],
+                        info["after_digest"],
                     }:
                         raise UpstreamError(
                             f"local changes preserved in displaced tree: {retained}"
@@ -503,7 +504,9 @@ class SkillManager:
             previous = self._validate_state(_read_json(root / "state.json"))
         if validate_only:
             return
+        targets = cast(dict[str, object], targets)
         for name, info in targets.items():
+            info = cast(dict[str, object], info)
             target = self._target(name)
             expected = {info["before_digest"], info["after_digest"]}
             if target.exists() and info["existed"]:
@@ -630,8 +633,9 @@ class SkillManager:
                 backup_digest = self._backup_digest(backup)
                 if self.plan(skills, legacy_owned=legacy_owned) != plan:
                     raise UpstreamError("provider state changed during backup")
-                backup_targets = _read_json(backup / "backup.json")["targets"]
-                assert isinstance(backup_targets, dict)
+                raw_backup_targets = _read_json(backup / "backup.json")["targets"]
+                assert isinstance(raw_backup_targets, dict)
+                backup_targets = cast(dict[str, object], raw_backup_targets)
                 new_state: dict[str, object] = {
                     "schema_version": 1,
                     "skills": desired,
@@ -649,8 +653,9 @@ class SkillManager:
                         temporary = self.skill_root / f".upstream-{uuid.uuid4().hex}"
                         shutil.copytree(tree, temporary)
                         try:
-                            info = backup_targets[name]
-                            assert isinstance(info, dict)
+                            raw_info = backup_targets[name]
+                            assert isinstance(raw_info, dict)
+                            info = cast(dict[str, object], raw_info)
                             if target.exists():
                                 self._displace(
                                     target,
@@ -669,8 +674,9 @@ class SkillManager:
                         if item["status"] != "MIGRATE_REUSE":
                             continue
                         name = str(item["name"])
-                        info = backup_targets[name]
-                        assert isinstance(info, dict)
+                        raw_info = backup_targets[name]
+                        assert isinstance(raw_info, dict)
+                        info = cast(dict[str, object], raw_info)
                         self._displace(
                             self._target(name),
                             self._displaced(identity, name, "previous"),

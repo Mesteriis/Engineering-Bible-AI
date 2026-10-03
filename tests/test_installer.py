@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import errno
 import os
 from pathlib import Path
 import subprocess
@@ -79,6 +80,177 @@ class InstallerTests(unittest.TestCase):
             backup_dir=be_home / "backups" / "pre-backup-failure",
             skip_upstream=True,
         )
+
+    def remove_action(
+        self,
+        options: installer_core.InstallerOptions,
+        root: str,
+        relative: str,
+    ) -> installer_core.PlannedAction:
+        target = options.roots()[root] / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"retired managed file\n")
+        target.chmod(0o640)
+        return installer_core.PlannedAction(
+            root=root,
+            path=relative,
+            target=target,
+            status="REMOVE",
+            observed=installer_core.file_state(target),
+        )
+
+    def test_retired_package_skill_removes_empty_parents_and_retains_backup(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            options = self.installer_options(Path(raw))
+            action = self.remove_action(
+                options, "be_home", "current/skills/retired/references/guide.md"
+            )
+            package_root = options.be_home / "current"
+            retained = package_root / "retained-empty-directory"
+            retained.mkdir()
+
+            installer_core.apply_transaction([action], {"replacement": True}, options)
+
+            self.assertFalse((package_root / "skills").exists())
+            self.assertTrue(package_root.is_dir())
+            self.assertTrue(retained.is_dir())
+            backup = installer_core.backup_path(options, action)
+            self.assertEqual(backup.read_bytes(), b"retired managed file\n")
+            self.assertEqual(backup.stat().st_mode & 0o777, 0o640)
+
+    def test_retired_package_skill_preserves_nonempty_custom_and_cache_parents(self) -> None:
+        for retained_path in ("LOCAL.md", "__pycache__/helper.pyc", "references/local.txt"):
+            with self.subTest(retained_path=retained_path), tempfile.TemporaryDirectory() as raw:
+                options = self.installer_options(Path(raw))
+                action = self.remove_action(options, "be_home", "current/skills/retired/SKILL.md")
+                retained = action.target.parent / retained_path
+                retained.parent.mkdir(parents=True, exist_ok=True)
+                retained.write_bytes(b"unmanaged content\n")
+
+                installer_core.apply_transaction([action], {"replacement": True}, options)
+
+                self.assertFalse(action.target.exists())
+                self.assertEqual(retained.read_bytes(), b"unmanaged content\n")
+                self.assertTrue(action.target.parent.is_dir())
+
+    def test_removed_files_outside_package_cache_do_not_prune_parent_directories(self) -> None:
+        for root, relative in (
+            ("codex_home", "skills/retired/SKILL.md"),
+            ("agents_home", "skills/retired/SKILL.md"),
+            ("be_home", "dependencies/retired/SKILL.md"),
+            ("be_home", "current-copy/skills/retired/SKILL.md"),
+            ("be_home", "current/VERSION"),
+        ):
+            with self.subTest(root=root, relative=relative), tempfile.TemporaryDirectory() as raw:
+                options = self.installer_options(Path(raw))
+                action = self.remove_action(options, root, relative)
+
+                installer_core.apply_transaction([action], {"replacement": True}, options)
+
+                self.assertFalse(action.target.exists())
+                self.assertTrue(action.target.parent.is_dir())
+
+    def test_package_parent_pruning_never_follows_symlink_ancestors(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            options = self.installer_options(tmp)
+            package_root = options.be_home / "current"
+            package_root.mkdir(parents=True)
+            outside = tmp / "outside"
+            descendant = outside / "empty"
+            descendant.mkdir(parents=True)
+            link = package_root / "linked"
+            link.symlink_to(outside, target_is_directory=True)
+            action = installer_core.PlannedAction(
+                root="be_home",
+                path="current/linked/empty/SKILL.md",
+                target=link / "empty" / "SKILL.md",
+                status="REMOVE",
+                observed=installer_core.FileState("missing"),
+            )
+            pruned: dict[Path, int] = {}
+
+            installer_core.prune_removed_package_parents(options, action, pruned)
+
+            self.assertTrue(link.is_symlink())
+            self.assertTrue(descendant.is_dir())
+            self.assertEqual(pruned, {})
+
+    def test_package_pruning_stays_anchored_when_parent_is_replaced_with_symlink(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            tmp = Path(raw)
+            options = self.installer_options(tmp)
+            parent = options.be_home / "current/skills/retired"
+            (parent / "references").mkdir(parents=True)
+            outside = tmp / "outside"
+            (outside / "references").mkdir(parents=True)
+            action = installer_core.PlannedAction(
+                root="be_home",
+                path="current/skills/retired/references/guide.md",
+                target=parent / "references/guide.md",
+                status="REMOVE",
+                observed=installer_core.FileState("missing"),
+            )
+            original_rmdir = os.rmdir
+            changed = False
+
+            def replaced_rmdir(path: str | Path, *, dir_fd: int | None = None) -> None:
+                nonlocal changed
+                if not changed:
+                    parent.rename(parent.with_name("detached"))
+                    parent.symlink_to(outside, target_is_directory=True)
+                    changed = True
+                original_rmdir(path, dir_fd=dir_fd)
+
+            with mock.patch.object(installer_core.os, "rmdir", replaced_rmdir):
+                installer_core.prune_removed_package_parents(options, action, {})
+
+            self.assertTrue(parent.is_symlink())
+            self.assertTrue((outside / "references").is_dir())
+            self.assertTrue(parent.with_name("detached").is_dir())
+
+    def test_rollback_restores_removed_package_file_and_pruned_directory_modes(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            options = self.installer_options(Path(raw))
+            action = self.remove_action(options, "be_home", "current/skills/retired/SKILL.md")
+            action.target.parent.chmod(0o700)
+            action.target.parent.parent.chmod(0o750)
+            original_manifest = b'{"previous": true}\n'
+            options.manifest_path.write_bytes(original_manifest)
+            options.manifest_path.chmod(0o640)
+
+            with mock.patch.dict(os.environ, {"ENGINEERING_BIBLE_TEST_FAIL_AFTER": "1"}):
+                with self.assertRaisesRegex(
+                    installer_core.InstallError, "injected transaction failure"
+                ):
+                    installer_core.apply_transaction([action], {"replacement": True}, options)
+
+            self.assertEqual(action.target.read_bytes(), b"retired managed file\n")
+            self.assertEqual(action.target.stat().st_mode & 0o777, 0o640)
+            self.assertEqual(action.target.parent.stat().st_mode & 0o777, 0o700)
+            self.assertEqual(action.target.parent.parent.stat().st_mode & 0o777, 0o750)
+            self.assertEqual(options.manifest_path.read_bytes(), original_manifest)
+            self.assertEqual(options.manifest_path.stat().st_mode & 0o777, 0o640)
+
+    def test_package_pruning_failure_rolls_back_removed_file_and_preserves_error(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            options = self.installer_options(Path(raw))
+            action = self.remove_action(options, "be_home", "current/skills/retired/SKILL.md")
+            original_rmdir = os.rmdir
+
+            def failed_rmdir(path: str | Path, *, dir_fd: int | None = None) -> None:
+                if path == "retired" and dir_fd is not None:
+                    raise OSError(errno.EACCES, "injected package cleanup failure")
+                original_rmdir(path, dir_fd=dir_fd)
+
+            with mock.patch.object(installer_core.os, "rmdir", failed_rmdir):
+                with self.assertRaisesRegex(
+                    installer_core.InstallError, "injected package cleanup failure"
+                ):
+                    installer_core.apply_transaction([action], {"replacement": True}, options)
+
+            self.assertEqual(action.target.read_bytes(), b"retired managed file\n")
+            self.assertTrue(installer_core.backup_path(options, action).is_file())
 
     def test_installed_evidence_and_retrieval_run_outside_checkout(self) -> None:
         with tempfile.TemporaryDirectory() as raw:

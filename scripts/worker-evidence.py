@@ -112,12 +112,16 @@ def main(argv: list[str] | None = None) -> int:
             result.update(source_status="SKIP", artifact_status="SKIP")
             if result["contract_status"] == "PASS":
                 assert isinstance(request, dict)
+                request = cast(dict[str, object], request)
                 target = request["target"]
                 assert isinstance(target, dict)
+                target = cast(dict[str, object], target)
                 issues = result["issues"]
                 assert isinstance(issues, list)
+                issues = cast(list[str], issues)
                 reasons = result["reasons"]
                 assert isinstance(reasons, list)
+                reasons = cast(list[str], reasons)
                 if args.source_root:
                     errors = verify_snapshot(
                         args.source_root, target["snapshot"], target["base_commit"]
@@ -126,22 +130,26 @@ def main(argv: list[str] | None = None) -> int:
                     result["source_status"] = "FAIL" if errors else "PASS"
                 if args.artifacts_root:
                     records = [
-                        request["gate_record"],
-                        *[ballot["record"] for ballot in request["ballots"]],
+                        cast(dict[str, object], request["gate_record"]),
+                        *[
+                            cast(dict[str, object], ballot["record"])
+                            for ballot in cast(list[dict[str, object]], request["ballots"])
+                        ],
                     ]
                     errors = []
                     for record in records:
                         errors.extend(artifact_issues(record, args.artifacts_root))
                     for manifest_name, manifest in (
-                        ("reviewed", target["artifacts"]),
-                        ("evidence", request["evidence_artifacts"]),
+                        ("reviewed", cast(list[dict[str, object]], target["artifacts"])),
+                        ("evidence", cast(list[dict[str, object]], request["evidence_artifacts"])),
                     ):
                         try:
                             actual = capture_snapshot(
-                                args.artifacts_root, [item["path"] for item in manifest]
+                                args.artifacts_root, [cast(str, item["path"]) for item in manifest]
                             )
                             actual_snapshot = actual["snapshot"]
                             assert isinstance(actual_snapshot, dict)
+                            actual_snapshot = cast(dict[str, object], actual_snapshot)
                             if actual_snapshot["files"] != manifest:
                                 errors.append(
                                     f"{manifest_name} artifact bytes do not match the envelope"

@@ -54,6 +54,11 @@ Explicit `--skip-upstream` installs portable owner files only and records
 incomplete author dependencies; installed validation reports their readiness
 as `SKIP`. This is an offline preparation mode, not a complete usable profile.
 
+When an upgrade retires a package-owned skill file, it also removes its empty
+parent directories inside the namespaced `current` package cache. Nonempty
+directories and active host skill roots are preserved; transaction rollback
+restores removed files and the modes of pruned cache directories.
+
 Additional author selections use their independent lifecycle:
 
 ```bash

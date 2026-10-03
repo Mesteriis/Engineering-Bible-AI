@@ -166,14 +166,15 @@ def prepare_request(request: object, source_root: Path) -> dict[str, object]:
     data, blocks = _validate_request(request)
     base_commit = cast(str, data["base_commit"])
     snapshot = data["snapshot"]
-    if (
-        isinstance(snapshot, dict)
-        and set(snapshot) == {"state", "sha256", "files"}
-        and snapshot["state"] == "not_created"
-        and snapshot["sha256"] == "unknown"
-        and snapshot["files"] == []
-    ):
-        raise CacheBlocked("source snapshot was not created; source preparation is blocked")
+    if isinstance(snapshot, dict):
+        snapshot = cast(dict[str, object], snapshot)
+        if (
+            set(snapshot) == {"state", "sha256", "files"}
+            and snapshot["state"] == "not_created"
+            and snapshot["sha256"] == "unknown"
+            and snapshot["files"] == []
+        ):
+            raise CacheBlocked("source snapshot was not created; source preparation is blocked")
     manifest_errors = validate_snapshot_manifest(snapshot, base_commit)
     if manifest_errors:
         raise CacheInputError("invalid source snapshot: " + "; ".join(manifest_errors))
@@ -186,6 +187,7 @@ def prepare_request(request: object, source_root: Path) -> dict[str, object]:
     entries = snapshot.get("files")
     if not isinstance(entries, list):
         raise CacheInputError("snapshot files must be a list")
+    entries = cast(list[dict[str, object]], entries)
     expected_paths: list[str] = []
     for entry in entries:
         if not isinstance(entry, dict) or not isinstance(entry.get("path"), str):

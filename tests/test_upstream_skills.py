@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 import stat
 import tempfile
+from typing import cast
 import unittest
 from unittest.mock import patch
 
@@ -132,6 +133,7 @@ class UpstreamLifecycleTests(unittest.TestCase):
         self.assertEqual(entry.stat().st_ino, before)
         rows = result["skills"]
         assert isinstance(rows, list)
+        rows = cast(list[dict[str, object]], rows)
         self.assertEqual(rows[0]["status"], "SATISFIED")
         self.assertEqual(manager.route("interview")["status"], "available")
         self.stage_mock.reset_mock()
@@ -367,6 +369,7 @@ class UpstreamLifecycleTests(unittest.TestCase):
         result = manager.ensure([self.skill], legacy_owned={"sample": legacy_digest})
         result_skills = result["skills"]
         assert isinstance(result_skills, list)
+        result_skills = cast(list[dict[str, object]], result_skills)
         self.assertEqual(result_skills[0]["owner"], "external")
         self.assertFalse(rewritten.exists())
         self.stage_mock.assert_not_called()

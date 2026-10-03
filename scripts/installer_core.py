@@ -7,6 +7,7 @@ from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import errno
 import fcntl
 import hashlib
 import json
@@ -851,12 +852,53 @@ def remove_regular_file(path: Path) -> None:
     path.unlink()
 
 
+def prune_removed_package_parents(
+    options: InstallerOptions,
+    action: PlannedAction,
+    pruned: dict[Path, int],
+) -> None:
+    """Remove only empty cache parents; active skill roots are never pruned."""
+    if action.root != "be_home" or action.status != "REMOVE":
+        return
+    package_root = options.be_home / "current"
+    parent = action.target.parent
+    try:
+        relative = parent.relative_to(package_root)
+    except ValueError:
+        return
+    if not relative.parts or ".." in relative.parts:
+        return
+    descriptors: list[int] = []
+    flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    try:
+        descriptors.append(os.open(package_root, flags))
+        for part in relative.parts:
+            descriptors.append(os.open(part, flags, dir_fd=descriptors[-1]))
+        for depth in range(len(descriptors) - 1, 0, -1):
+            state = os.fstat(descriptors[depth])
+            os.rmdir(relative.parts[depth - 1], dir_fd=descriptors[depth - 1])
+            pruned[package_root.joinpath(*relative.parts[:depth])] = stat.S_IMODE(state.st_mode)
+    except OSError as exc:
+        if exc.errno not in {
+            errno.ENOTEMPTY,
+            errno.EEXIST,
+            errno.ENOENT,
+            errno.ENOTDIR,
+            errno.ELOOP,
+        }:
+            raise
+    finally:
+        for descriptor in reversed(descriptors):
+            os.close(descriptor)
+
+
 def rollback_actions(
     options: InstallerOptions,
     applied: list[PlannedAction],
     stage_roots: dict[str, Path],
     *,
     manifest_touched: bool,
+    pruned_parents: dict[Path, int] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     for action in reversed(applied):
@@ -872,6 +914,17 @@ def rollback_actions(
                 remove_regular_file(action.target)
         except (InstallError, OSError) as exc:
             errors.append(f"{action.relative}: {exc}")
+
+    for parent, mode in (pruned_parents or {}).items():
+        try:
+            if parent.is_symlink():
+                raise InstallError(
+                    f"refusing to restore mode of symlink package directory: {parent}"
+                )
+            parent.mkdir(parents=True, exist_ok=True)
+            parent.chmod(mode)
+        except (InstallError, OSError) as exc:
+            errors.append(f"package directory {parent}: {exc}")
 
     if manifest_touched:
         manifest_backup = options.backup_dir / "manifest.before.json"
@@ -936,6 +989,7 @@ def apply_transaction(
     transaction_id = uuid.uuid4().hex
     stage_roots: dict[str, Path] = {}
     applied: list[PlannedAction] = []
+    pruned_parents: dict[Path, int] = {}
     manifest_touched = False
     failure_after = parse_failure_injection()
     try:
@@ -968,6 +1022,7 @@ def apply_transaction(
             elif action.status == "REMOVE":
                 remove_regular_file(action.target)
             applied.append(action)
+            prune_removed_package_parents(options, action, pruned_parents)
             write_journal(options, transaction_id, "applying", mutations, len(applied))
             if failure_after is not None and len(applied) == failure_after:
                 raise InstallError(
@@ -983,6 +1038,7 @@ def apply_transaction(
             applied,
             stage_roots,
             manifest_touched=manifest_touched,
+            pruned_parents=pruned_parents,
         )
         try:
             write_journal(

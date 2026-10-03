@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from typing import cast
 import uuid
 
 from installer_core import InstallError, InstallerOptions, load_manifest, run_install
@@ -138,7 +139,7 @@ def build_options(args: argparse.Namespace) -> InstallerOptions:
                 not isinstance(path, str) or not Path(path).is_absolute() for path in roots
             ):
                 raise InstallError("installation manifest has invalid native author roots")
-            options = replace(options, skill_roots=tuple(Path(path) for path in roots))
+            options = replace(options, skill_roots=tuple(Path(cast(str, path)) for path in roots))
     return options
 
 

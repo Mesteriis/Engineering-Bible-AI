@@ -563,13 +563,13 @@ def run_plan(plan_value: object, source_root: Path, artifacts_root: Path) -> dic
         and not baseline["stderr_truncated"]
         and baseline["exit_code"] == 0
         and isinstance(baseline_report, dict)
-        and baseline_report.get("tests_run", 0) > 0
+        and cast(int, baseline_report.get("tests_run", 0)) > 0
         and baseline_report.get("failures") == []
         and baseline_report.get("errors") == []
         and baseline_report.get("unexpected_successes") == []
-        and len(baseline_report.get("skipped", []))
-        + len(baseline_report.get("expected_failures", []))
-        < baseline_report.get("tests_run", 0)
+        and len(cast(list[object], baseline_report.get("skipped", [])))
+        + len(cast(list[object], baseline_report.get("expected_failures", [])))
+        < cast(int, baseline_report.get("tests_run", 0))
         and baseline_ids is not None
     )
     if not baseline_good:
@@ -579,9 +579,9 @@ def run_plan(plan_value: object, source_root: Path, artifacts_root: Path) -> dic
             and isinstance(baseline_report, dict)
             and (
                 baseline_report.get("tests_run") == 0
-                or len(baseline_report.get("skipped", []))
-                + len(baseline_report.get("expected_failures", []))
-                >= baseline_report.get("tests_run", 0)
+                or len(cast(list[object], baseline_report.get("skipped", [])))
+                + len(cast(list[object], baseline_report.get("expected_failures", [])))
+                >= cast(int, baseline_report.get("tests_run", 0))
             )
             and baseline_report.get("errors") == []
             and baseline_report.get("failures") == []
