@@ -43,12 +43,17 @@ how it is attached to the host, and how to restore the prior configuration.
 Use the same acceptance criteria for the baseline and the candidate.
 
 In bb, use the provider-agnostic user instructions as a small entry point to
-the installed Bible and expose its selected skills through the user skill
-root. Keep project instructions scoped to the project. Use the provider's
+the installed Bible. The host distributes skills and MCP servers to every
+provider; see [hosts that manage skills and MCP](host-managed-skills-and-mcp.md).
+Keep project instructions scoped to the project. Use the provider's
 available context and usage evidence. Report missing usage independently
 from the outcome of a task.
 
-## Project MCP in bb
+## Project MCP in bb (superseded)
+
+This section records the 2026-11-15 pilot. The current setup runs every MCP
+server through the host's bridge and writes no provider MCP files; see
+[hosts that manage skills and MCP](host-managed-skills-and-mcp.md).
 
 Keep the project tool list in `.bb/mcp.json` if the host has MCP Hub.
 Add only servers used by the project. Run `bb mcp-hub plan --path <project>`

@@ -16,13 +16,13 @@ skills. It composes with them.
 
 ## Author Verification Provider
 
-For workflow completion, resolve `superpowers.verification-before-completion`
-with `be skills route superpowers.verification-before-completion --json` and
-read the complete exposed author skill and its required references. Its
-procedure remains upstream. The evidence, release and library-drift rules below
-are Bible's separate owner policy. Reuse compatible native providers, install
-missing reviewed dependencies through the selected profile, and report pending
-exposure. Do not replace the author procedure with this policy checklist.
+For workflow completion, invoke `superpowers:verification-before-completion`
+(author skill `superpowers.verification-before-completion`, provided by the
+agent's own `superpowers` plugin) and read the complete exposed author skill and
+its required references. Its procedure remains upstream. The evidence, release
+and library-drift rules below are Bible's separate owner policy. Bible never
+installs a copy of Superpowers; report a missing plugin. Do not replace the
+author procedure with this policy checklist.
 
 ## Required References
 

@@ -38,6 +38,8 @@ class SourceSpec:
     notices: tuple[NoticeSpec, ...] = ()
     installation: str = "managed"
     support: tuple[NoticeSpec, ...] = ()
+    # Skill name prefix of the provider plugin that ships a "provider" source.
+    provider_namespace: str = ""
 
 
 @dataclass(frozen=True)
@@ -178,8 +180,13 @@ def validate_source(source: SourceSpec) -> None:
         raise UpstreamError("source license path contains runtime state")
     if source.layout not in {"independent", "siblings"}:
         raise UpstreamError("source layout must be independent or siblings")
-    if source.installation not in {"managed", "native"}:
-        raise UpstreamError("source installation must be managed or native")
+    if source.installation not in {"managed", "native", "provider"}:
+        raise UpstreamError("source installation must be managed, native or provider")
+    if source.installation == "provider":
+        # Provider sources come from each agent's own plugin; Bible never copies them.
+        identifier(source.provider_namespace, "source provider_namespace")
+    elif source.provider_namespace:
+        raise UpstreamError("provider_namespace is only valid for provider installation")
     if not isinstance(source.skill_roots, tuple) or not source.skill_roots:
         raise UpstreamError("source skill_roots must be a nonempty list of narrow skill roots")
     for root in source.skill_roots:
@@ -251,7 +258,15 @@ def load_catalog(path: Path, registry_path: Path | None = None) -> Catalog:
         record = fields(
             item,
             {"id", "url", "revision", "tracking", "license", "license_sha256"},
-            {"license_path", "layout", "skill_roots", "notices", "installation", "support"},
+            {
+                "license_path",
+                "layout",
+                "skill_roots",
+                "notices",
+                "installation",
+                "support",
+                "provider_namespace",
+            },
             "source",
         )
         raw_notices = record.get("notices", [])

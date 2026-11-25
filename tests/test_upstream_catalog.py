@@ -122,6 +122,31 @@ class UpstreamCatalogTests(unittest.TestCase):
         with self.assertRaises(UpstreamError):
             load_catalog(self.path)
 
+    def test_provider_source_requires_a_namespace(self) -> None:
+        payload = catalog_payload()
+        payload["sources"][0]["installation"] = "provider"
+        self.write(payload)
+        with self.assertRaises(UpstreamError):
+            load_catalog(self.path)
+        payload["sources"][0]["provider_namespace"] = "superpowers"
+        self.write(payload)
+        source = load_catalog(self.path).sources["author"]
+        self.assertEqual(source.installation, "provider")
+        self.assertEqual(source.provider_namespace, "superpowers")
+        payload["sources"][0]["installation"] = "managed"
+        self.write(payload)
+        with self.assertRaises(UpstreamError):
+            load_catalog(self.path)
+
+    def test_superpowers_comes_only_from_the_provider_plugin(self) -> None:
+        catalog = load_catalog(ROOT / "config" / "upstream-skills.json")
+        source = catalog.sources["obra-superpowers"]
+        self.assertEqual(source.installation, "provider")
+        self.assertEqual(source.provider_namespace, "superpowers")
+        parsed = registry.load_registry(ROOT)
+        selected = registry.selected_upstream_skills(parsed, groups=[], include_all=False)
+        self.assertFalse([identity for identity in selected if identity.startswith("superpowers.")])
+
     def test_declared_author_skill_roots_preserve_provider_paths(self) -> None:
         for root in ("skills", ".agents/skills", ".claude/skills", "plugin/skills"):
             with self.subTest(root=root):
@@ -418,8 +443,7 @@ class UpstreamCatalogTests(unittest.TestCase):
             for identity in registry.cast_list(required.get(group, []))
         }
         self.assertEqual(set(selected), expected)
-        self.assertIn("superpowers.systematic-debugging", selected)
-        self.assertIn("superpowers.writing-skills", selected)
+        self.assertNotIn("superpowers.systematic-debugging", selected)
         self.assertIn("karpathy.karpathy-guidelines", selected)
         self.assertNotIn("pocock.grill-me", selected)
         self.assertNotIn(

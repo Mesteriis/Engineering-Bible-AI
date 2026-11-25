@@ -281,7 +281,17 @@ class SkillManager:
                 "tree_sha256": skill.tree_sha256,
                 "exposure": "unverified",
             }
-            if source.installation == "native" and not candidates:
+            if source.installation == "provider":
+                # Installed and updated by the provider's own plugin. A leftover
+                # Bible copy in the skill root is not a second source of truth.
+                item.update(
+                    status="PROVIDER",
+                    owner="provider",
+                    path=None,
+                    invocation_name=f"{source.provider_namespace}:{skill.name}",
+                    reason="provided by the agent's own plugin; never copied by Bible",
+                )
+            elif source.installation == "native" and not candidates:
                 item.update(
                     status="NATIVE_REQUIRED",
                     owner="external",
@@ -641,6 +651,8 @@ class SkillManager:
             assert isinstance(records, dict)
             desired = dict(records)
             for skill, item in zip(skills, plan):
+                if item["status"] == "PROVIDER":
+                    continue
                 desired[skill.id] = self._record(skill, item)
             attribution_sources: dict[str, SourceSpec] = {}
             for skill, item in zip(skills, plan):
@@ -852,6 +864,22 @@ class SkillManager:
         visit(skill)
         plan = self.plan(required)
         item = plan[-1]
+        if item["status"] == "PROVIDER":
+            return {
+                "intent": intent,
+                "skill_id": skill.id,
+                "skill_name": skill.name,
+                "status": "provider",
+                "invocation_name": item["invocation_name"],
+                "path": None,
+                "revision": item["revision"],
+                "exposure": "unverified",
+                "dependencies": plan,
+                "invocation": "explicit" if skill.user_invoked else "explicit-or-implicit",
+                "required_tools": list(
+                    dict.fromkeys(tool for part in required for tool in part.required_tools)
+                ),
+            }
         available = all(row["status"] in {"SATISFIED", "REUSE"} for row in plan)
         return {
             "intent": intent,

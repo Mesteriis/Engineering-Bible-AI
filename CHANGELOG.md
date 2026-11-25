@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented here.
 
+## [Unreleased]
+
+- Added `installation: provider` for author sources that each agent installs
+  through its own plugin. Superpowers is now such a source: normal profiles no
+  longer require or copy it, `be skills plan`, `ensure` and `route` report it
+  as `PROVIDER` with the invocation name (`superpowers:<name>`), and the
+  compatibility skills invoke the plugin skill instead of installing a copy.
+  Normal profiles require 5 originals.
+- UI routers name `product-design` as one entry skill with internal workflows
+  instead of `product-design:<mode>` skills.
+- `validate-routing.sh --all-agents` reports providers listed in
+  `ENGINEERING_BIBLE_HOST_MANAGED` as `SKIP`.
+- Documented [hosts that manage skills and MCP](docs/host-managed-skills-and-mcp.md);
+  the earlier bb MCP Hub notes are marked superseded.
+- Optional domain skill packs and native plugin preparation (catalog of 247
+  originals); all packs stay optional.
+
 ## [0.4.1] - 2026-10-03
 
 - Installed managed standards, documentation and templates beside active owner

@@ -69,8 +69,7 @@ The optional wiki group is not installed by default.
 
 ### Author dependencies of owner groups
 
-- **core:** `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.requesting-code-review`, `superpowers.receiving-code-review`, `superpowers.verification-before-completion`, `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
-- **review:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **core:** `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
 - **ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
 <!-- END GENERATED SKILL REGISTRY -->
 
@@ -86,7 +85,7 @@ Routers select their narrow task workflows through
 The original selection includes
 all 15 Superpowers 7.0.0 skills, the original Karpathy-inspired guidelines, and
 nine Matt Pocock skills, three business UI specialists, property-based testing
-and context compression. Normal profiles install their 20 required originals;
+and context compression. Normal profiles install their 5 required originals (Superpowers comes from the provider plugin);
 Pocock groups remain explicit selections. Local debugging, TDD and review names
 are thin adapters; the Karpathy rewrite is removed. See the
 [complete 62-skill migration ledger](docs/absorbed-skills-migration.md).
@@ -266,7 +265,8 @@ evidence stay outside the public package. Delegation evidence follows
 
 Claude Code uses its own format. Its personal `CLAUDE.md` can import the installed
 `instructions/global/steady.md`, and personal skill directories can link to the
-installed skills. Verify support in the installed host version and preserve
+installed skills. On a host that distributes skills and MCP servers itself, do
+not link them; see [hosts that manage skills and MCP](docs/host-managed-skills-and-mcp.md). Verify support in the installed host version and preserve
 existing custom files. Keep one discoverable Bible skill root per host; never
 copy Codex TOML into Claude settings. The main installer still owns only its
 Codex-compatible files, not Claude authorization or runtime configuration.

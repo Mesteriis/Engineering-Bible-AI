@@ -20,6 +20,9 @@ checks that managed Engineering Bible skills are not duplicated in
 ~/.agents/skills. --all-agents additionally validates optional Claude, OpenCode,
 and Gemini roots when their instruction files or skill roots exist.
 CODEX_HOME, AGENTS_HOME and ENGINEERING_BIBLE_HOME may select another installation.
+ENGINEERING_BIBLE_HOST_MANAGED is a comma-separated list of providers (claude,
+opencode, gemini) whose skills and instructions a host such as BB manages; they
+are reported as SKIP instead of being checked.
 Author files are checked against the installed profile; host exposure is SKIP.
 USAGE
     exit 0
@@ -92,7 +95,20 @@ instruction_files=(
     "$routing_codex_home/AGENTS.md"
 )
 
+host_managed=",${ENGINEERING_BIBLE_HOST_MANAGED:-},"
+IFS=',' read -r -a host_managed_names <<<"${ENGINEERING_BIBLE_HOST_MANAGED:-}"
+for name in "${host_managed_names[@]}"; do
+    case "$name" in
+    "" | claude | opencode | gemini) ;;
+    *)
+        printf 'unknown host-managed provider: %s\n' "$name" >&2
+        exit 2
+        ;;
+    esac
+done
+
 if [[ "$mode" == "--all-agents" ]]; then
+    optional_providers=(claude opencode gemini)
     optional_skill_roots=(
         "$HOME/.claude/skills"
         "$HOME/.config/opencode/skills"
@@ -103,10 +119,15 @@ if [[ "$mode" == "--all-agents" ]]; then
         "$HOME/.config/opencode/AGENTS.md"
         "$HOME/.gemini/GEMINI.md"
     )
-    for root in "${optional_skill_roots[@]}"; do
+    for index in "${!optional_providers[@]}"; do
+        provider="${optional_providers[$index]}"
+        if [[ "$host_managed" == *",$provider,"* ]]; then
+            printf 'SKIP: %s skills and instructions are managed by the host\n' "$provider" >&2
+            continue
+        fi
+        root="${optional_skill_roots[$index]}"
+        instruction_file="${optional_instruction_files[$index]}"
         [[ -d "$root" ]] && skill_roots+=("$root")
-    done
-    for instruction_file in "${optional_instruction_files[@]}"; do
         [[ -f "$instruction_file" ]] && instruction_files+=("$instruction_file")
     done
 fi

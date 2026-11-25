@@ -6,7 +6,7 @@ the current catalog contains 247 originals.
 
 The owner selected all eight researched projects for installation and bounded
 demonstrations. Five sources contribute 82 optional original skills to the
-catalog, bringing it to 112. The default profiles still require 20 originals.
+catalog, bringing it to 112. The default profiles require 5 originals; Superpowers comes from the provider plugin.
 Internal author test skills, malicious scanner fixtures, repository setup and
 root instructions are not active skills. Explicit plugin entry paths expose
 only the 82 selected leaves while retaining their complete referenced trees.

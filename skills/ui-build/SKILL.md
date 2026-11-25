@@ -31,9 +31,9 @@ official setup or reviewed dependency, never a local workflow replacement.
   `build-web-apps:frontend-app-builder`
 - Analytics, data storytelling, chart choice or visualization implementation
   -> `build-web-data-visualization:data-visualization`
-- Image-based alternatives or mobile concepts -> `product-design:ideate`
-- Translate a selected visual into code -> `product-design:image-to-code`
-- Implement from a live URL reference -> `product-design:url-to-code`
+- Image-based alternatives or mobile concepts -> `product-design` (its `ideate` workflow)
+- Translate a selected visual into code -> `product-design` (its `image-to-code` workflow)
+- Implement from a live URL reference -> `product-design` (its `url-to-code` workflow)
 - Build a complete Sites website -> `sites:sites-building`
 - shadcn/component composition -> `build-web-apps:shadcn`
 - React/Next.js implementation performance -> `build-web-apps:react-best-practices`

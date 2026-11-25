@@ -6,11 +6,11 @@ description: "Strict test-first owner policy only when explicitly requested or r
 # Test-First Owner Policy
 
 Use only when the user or repository explicitly requires a strict test-first
-gate. The author workflow is `superpowers.test-driven-development`; resolve it
-with `be skills route superpowers.test-driven-development --json` and read the
-complete exposed author skill and required references. Reuse compatible native
-providers or install the missing reviewed dependency through the selected
-profile. Report pending exposure instead of replacing it with a local summary.
+gate. The author workflow is `superpowers.test-driven-development`, provided by
+the agent's own `superpowers` plugin: invoke `superpowers:test-driven-development`
+and read the complete exposed author skill and required references. Bible never
+installs a copy. Report a missing plugin instead of replacing it with a local
+summary.
 
 Bible owns the explicit gate: preserve the first failing command and raw result
 as evidence before implementation, and report the actual validation outcome.

@@ -12,8 +12,11 @@ the complete 15-skill Superpowers 7.0.0
 pack, the original Karpathy-inspired guidelines, nine Matt Pocock skills,
 three [business UI specialists](business-ui-profile.md), property-based testing
 and context compression. See [testing and context authors](quality-context-authors.md).
-The normal `steady`, `full` and `minimal` installation includes the 20 originals
-required by the `core`, `review` and `ui` groups. `fast` retains its compact owner-only
+The normal `steady`, `full` and `minimal` installation includes the 5 originals
+required by the `core` and `ui` groups. Superpowers is recorded with
+`installation: provider`: it comes from each agent's own `superpowers` plugin,
+is invoked as `superpowers:<name>`, and is never copied by Bible (see
+[hosts that manage skills and MCP](host-managed-skills-and-mcp.md)). `fast` retains its compact owner-only
 selection. See [the complete migration ledger](absorbed-skills-migration.md) for
 the disposition of all 62 previous local skill trees.
 
@@ -23,7 +26,7 @@ The [domain expansion](domain-skill-packs.md) adds 135 originals from Trail of B
 HashiCorp, Sentry's Codex distribution, dbt and Neon. Reviewed
 [domain routes](../skills/workflow-router/references/upstream-domains.md) select
 their task-specific leaves and retain author invocation boundaries.
-Default profile requirements remain the same 20 originals.
+Default profiles require 5 originals.
 
 The nine Matt Pocock skills remain an explicit selection at reviewed commit
 `5beb35b040e3de97e54fa9e386d7e42d15c295c2`:
@@ -51,7 +54,7 @@ dependencies without enabling upstream hooks, running setup or starting helpers:
 ```bash
 be install --dry-run
 be install
-be install --skill-root /path/to/existing/superpowers/skills
+be install --skill-root /path/to/existing/author/skills
 ```
 
 An existing compatible provider is reused with external ownership. Installation
@@ -61,10 +64,9 @@ with the original source-relative paths. Missing providers report `NATIVE_REQUIR
 `ensure` and `update` refuse to flatten or download them into individual skill
 directories. Native provider preparation and host activation are documented in
 [the pilot guide](skill-discovery-pilot.md#native-provider-installation).
-Superpowers relies on payloads in sibling skill directories. Its selected
-originals must share one provider root; a partial native pack cannot be combined
-with managed siblings in another root. Such a split is a conflict before any
-author files are installed. Point `--skill-root` to the complete compatible pack.
+Sources marked `installation: provider` are never copied, planned as missing
+or refused: `plan`, `ensure` and `route` report them as `PROVIDER` with the
+provider invocation name. Superpowers is such a source.
 Explicit `--skip-upstream` installs portable owner files only and records
 incomplete author dependencies; installed validation reports their readiness
 as `SKIP`. This is an offline preparation mode, not a complete usable profile.

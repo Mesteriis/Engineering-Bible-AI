@@ -7,11 +7,11 @@ description: "Selects scoped architecture, backend, frontend, security, data, De
 
 For parallel author workflows, select
 `superpowers.dispatching-parallel-agents` or
-`superpowers.subagent-driven-development` through `be skills route ID --json`
-and read the complete exposed provider. This skill retains Bible's specialist
-selection and worker authorization policy separately. Missing providers or
-delegation capabilities stay unresolved until the selected profile supplies
-them and host exposure is verified.
+`superpowers.subagent-driven-development` and invoke it from the agent's own
+`superpowers` plugin (`superpowers:<name>`); read the complete exposed provider.
+This skill retains Bible's specialist selection and worker authorization policy
+separately. A missing plugin or delegation capability stays unresolved; Bible
+does not install a copy.
 
 Use this skill when a task benefits from a specialist lens but does not require
 installing a large external agent marketplace.

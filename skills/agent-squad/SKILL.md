@@ -33,12 +33,12 @@ Avoid for:
 
 Author workflow providers are `superpowers.dispatching-parallel-agents` for
 independent tasks and `superpowers.subagent-driven-development` for an approved
-implementation plan. Resolve the selected provider with `be skills route ID
---json`, then read its complete exposed instructions and required references.
-These author procedures remain upstream; the lane, export and worker boundaries
-below are separate owner policy. Reuse compatible native providers, install a
-missing reviewed dependency through the selected profile, and report unavailable
-delegation or pending exposure. The author workflow does not grant workers
+implementation plan. Invoke the selected provider from the agent's own
+`superpowers` plugin (`superpowers:<name>`), then read its complete exposed
+instructions and required references. These author procedures remain upstream;
+the lane, export and worker boundaries below are separate owner policy. Bible
+does not install a copy; report a missing plugin, unavailable delegation or
+pending exposure. The author workflow does not grant workers
 additional permissions.
 
 Each lane needs:

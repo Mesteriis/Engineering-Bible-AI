@@ -51,7 +51,7 @@ than universal desktop requirements or accessibility certification.
 | Frontend implementation | `build-web-apps:frontend-app-builder` |
 | Table/form/menu composition | `build-web-apps:shadcn` |
 | React/Next.js performance | `build-web-apps:react-best-practices` |
-| Journey audit or alternative directions | `product-design:audit` / `product-design:ideate` |
+| Journey audit or alternative directions | `product-design` (its `audit` or `ideate` workflow) |
 | Explicit Figma or multi-screen Superdesign work | Matching native Figma / `superdesign:superdesign` provider |
 
 Native providers retain native ownership. Their availability and connections
@@ -61,7 +61,7 @@ authentication or authorize customer-data export.
 ## Installation And Updates
 
 Normal Bible profiles require these three originals through
-`upstream_required.ui`. They are part of the 20 required originals; the complete
+`upstream_required.ui`. They are part of the 5 required originals; the complete
 catalog has 247 after [discovery additions](skill-discovery-pilot.md) and the
 [domain expansion](domain-skill-packs.md).
 Fast remains owner-only. Select this author group directly:

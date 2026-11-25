@@ -69,8 +69,7 @@ Optional wiki group по умолчанию не ставится.
 
 ### Авторские зависимости профилей
 
-- **core:** `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.requesting-code-review`, `superpowers.receiving-code-review`, `superpowers.verification-before-completion`, `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
-- **review:** `superpowers.brainstorming`, `superpowers.diagnosing-superpowers`, `superpowers.dispatching-parallel-agents`, `superpowers.executing-plans`, `superpowers.finishing-a-development-branch`, `superpowers.receiving-code-review`, `superpowers.requesting-code-review`, `superpowers.subagent-driven-development`, `superpowers.systematic-debugging`, `superpowers.test-driven-development`, `superpowers.using-git-worktrees`, `superpowers.using-superpowers`, `superpowers.verification-before-completion`, `superpowers.writing-plans`, `superpowers.writing-skills`.
+- **core:** `karpathy.karpathy-guidelines`, `trailofbits.property-based-testing`.
 - **ui:** `interface.interface-design`, `uipro.ui-ux-pro-max`, `impeccable.impeccable`.
 <!-- END GENERATED SKILL REGISTRY -->
 
@@ -273,7 +272,9 @@ be tools doctor --tool opencode --tool qmd --tool semgrep
 
 Claude Code использует собственный формат: `~/.claude/CLAUDE.md` может импортировать
 установленный `instructions/global/steady.md`, а personal skills могут ссылаться
-на установленные каталоги skills. Перед локальным подключением проверьте
+на установленные каталоги skills. Если хост сам раздаёт навыки и серверы MCP
+(например, BB), ссылки не создавайте: см. [хосты, которые управляют навыками и
+MCP](docs/host-managed-skills-and-mcp.md). Перед локальным подключением проверьте
 поддержку ссылок в установленной версии и существующие файлы: сохраняйте
 пользовательские отличия, не создавайте второй обнаруживаемый корень Bible и не
 переносите Codex TOML. Основной installer по-прежнему управляет только своими

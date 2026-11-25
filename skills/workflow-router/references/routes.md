@@ -179,10 +179,11 @@ background monitoring.
 
 ## Original Superpowers Providers
 
-Use complete author skills from `obra/superpowers`. The registry owns membership
-and profile dependencies; the catalog owns reviewed revisions and tree digests.
-Native compatible plugins retain their ownership. Every selection below uses
-the provider-resolution contract above and the actual current host invocation.
+Use complete author skills from `obra/superpowers`, provided by the agent's own
+`superpowers` plugin and invoked as `superpowers:<name>`. The catalog marks the
+source as `provider`: Bible records the reviewed revision but never copies the
+skills, and `be skills route` reports `provider` with the invocation name. When
+the session does not expose the plugin, report it as missing.
 
 | Intent | Canonical author provider | Separate Bible policy |
 | --- | --- | --- |

@@ -112,6 +112,34 @@ class UpstreamLifecycleTests(unittest.TestCase):
         self.stage_mock.assert_not_called()
         self.assertFalse(self.active.exists())
 
+    def test_provider_source_is_never_copied_and_names_the_provider_skill(self) -> None:
+        source = replace(self.source, installation="provider", provider_namespace="superpowers")
+        catalog = replace(self.catalog, sources={source.id: source})
+        manager = SkillManager(catalog, self.home, self.active)
+        row = manager.plan([self.skill])[0]
+        self.assertEqual(row["status"], "PROVIDER")
+        self.assertEqual(row["owner"], "provider")
+        self.assertEqual(row["invocation_name"], "superpowers:sample")
+        result = manager.ensure([self.skill])
+        self.assertEqual(result["status"], "ok")
+        rows = result["skills"]
+        assert isinstance(rows, list)
+        self.assertEqual(rows[0]["status"], "PROVIDER")
+        self.stage_mock.assert_not_called()
+        self.assertFalse((self.active / "sample").exists())
+        route = manager.route("interview")
+        self.assertEqual(route["status"], "provider")
+        self.assertEqual(route["invocation_name"], "superpowers:sample")
+
+    def test_provider_source_ignores_an_old_bible_copy(self) -> None:
+        self.manager.ensure([self.skill])
+        self.assertTrue((self.active / "sample" / "SKILL.md").exists())
+        source = replace(self.source, installation="provider", provider_namespace="superpowers")
+        catalog = replace(self.catalog, sources={source.id: source})
+        manager = SkillManager(catalog, self.home, self.active)
+        self.assertEqual(manager.plan([self.skill])[0]["status"], "PROVIDER")
+        self.assertEqual(manager.route("interview")["status"], "provider")
+
     def test_native_source_reuses_original_paths_and_rejects_flattened_provider(self) -> None:
         source = replace(self.source, installation="native")
         skill = replace(self.skill, path="skills/group/sample")

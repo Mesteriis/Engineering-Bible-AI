@@ -16,7 +16,7 @@ again for an already clear task or require a new concept for ordinary changes.
 When a direction is missing, select the complete original provider exposed in
 the current session: `interface.interface-design` for working app screens;
 `impeccable.impeccable` with its `shape` reference for UX planning;
-`product-design:ideate` for requested visual alternatives; or an exposed Figma
+`product-design` (its `ideate` workflow) for requested visual alternatives; or an exposed Figma
 provider for editable design work. Use `ui-business-apps` for the business-app
 owner constraints. Keep native plugin and reviewed upstream ownership; provider
 files alone do not establish exposure.

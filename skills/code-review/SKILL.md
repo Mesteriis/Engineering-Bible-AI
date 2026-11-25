@@ -9,10 +9,9 @@ Provider: `superpowers.requesting-code-review` from the reviewed upstream
 catalog. This compatibility name selects the author skill; it supplies no
 replacement review procedure.
 
-Resolve the provider with `be skills route superpowers.requesting-code-review --json`.
-Reuse a compatible exposed native provider, or install the missing reviewed
-dependency through the selected Bible profile. Files alone do not prove host
-exposure. Read the author's complete `SKILL.md` and required references using
+Superpowers is provided by the agent's own `superpowers` plugin, never copied by Bible: invoke
+`superpowers:requesting-code-review`. If the session does not expose it, say so; do not
+install a copy. Files alone do not prove host exposure. Read the author's complete `SKILL.md` and required references using
 the actual host invocation before continuing.
 
 Preserve the user's read-only or patch-producing scope. Review findings and

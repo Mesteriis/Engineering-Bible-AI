@@ -4,7 +4,7 @@ The owner selected all five proposed directions and requested router integration
 This expansion adds 135 original skills, bringing the catalog to 247. There are
 18 source records for 17 repositories: the existing Trail of Bits property-based
 testing source stays managed, and its other leaves have a separate native source
-at the same commit. Default profiles still require 20 originals. The 217 optional
+at the same commit. Default profiles require 5 originals; Superpowers comes from the provider plugin. The 217 optional
 native skills are explicit additions, not new dependencies for every installation.
 
 ## Reviewed Sources

@@ -22,8 +22,11 @@ of replacing the author's workflow with a local summary.
   working application rather than accepting a marketing showcase as its brief.
 - Critique an existing screen's UX and hierarchy -> `impeccable.impeccable`
   with its `critique` reference; app surfaces use the author's Operate mode.
-- Audit an existing flow, journey or UI -> `product-design:audit`
-- Generate visual alternatives or concepts -> `product-design:ideate`
+- Audit an existing flow, journey or UI -> `product-design` (its `audit` workflow)
+- Generate visual alternatives or concepts -> `product-design` (its `ideate` workflow)
+  `product-design` is one entry skill whose workflows (`audit`, `ideate`,
+  `image-to-code`, `url-to-code`, `design-qa`, `research`, `share`) are read
+  from inside it, not separate skills; use it only when the session exposes it.
 - Competitive analysis, example references, best practices or monetization
   research -> the exposed author research skill matching that evidence task.
 - Analyze consistency with an existing application design system ->
