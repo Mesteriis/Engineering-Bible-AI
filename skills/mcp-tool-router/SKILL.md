@@ -11,17 +11,13 @@ required. Do not use it for ordinary local repository work.
 
 ## Session Reuse
 
-The host-provided current-session registry is the source of truth. If its
-metadata or fingerprint is already available and there is no evidence it
-changed, reuse it. Do not refresh a catalog, repeat discovery, or probe helpers
-on same-task follow-ups merely to reconfirm availability.
+The host's current-session registry is authoritative. Reuse its metadata.
+Do not refresh catalogs, repeat discovery, or probe helpers unless:
 
-Refresh only when:
-
-- the host reports a changed capability set or fingerprint;
-- the selected capability disappeared or contradicted cached metadata;
-- the task now requires a capability not covered by the existing shortlist;
-- no current-session metadata has been obtained yet.
+- the host reports changed capabilities or a changed fingerprint;
+- the selected capability disappears or contradicts cached metadata;
+- the task requires a capability outside the existing shortlist;
+- current-session metadata is absent.
 
 ## Selection Workflow
 
@@ -37,7 +33,10 @@ Refresh only when:
    parameter details for at most the first three.
 5. Immediately before invocation, verify the selected capability remains
    available in the host registry.
-6. Report absence or failure honestly and use the safest fallback.
+6. Report absence or failure honestly. A safe fallback must preserve the requested
+   outcome and constraints. Agree on changes to the user's working environment,
+   interaction, or security guarantees before applying them. Verify one result
+   against the requested outcome before bulk operations.
 
 ## Safety Invariants
 

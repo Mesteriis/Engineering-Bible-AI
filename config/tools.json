@@ -266,14 +266,53 @@
       "executable": "agent-browser",
       "groups": ["browser"],
       "capabilities": ["browser-runtime", "browser-evidence"],
-      "version": "0.37.1",
-      "integrity": "sha512-NDojTSXrIq7zS090T0VwI1uzBryZWvewgxXvS0swj8/5GGnziBZLmyhEkfETO8n4n3DsJpZbZkq9F/MV2rIQKw==",
+      "version": "0.39.1",
+      "integrity": "sha512-0zdIq0v2r9Gio7K5wIe/e2W9nyLoVC6tUGpGV+btuynBQT9aCgOk5IEIyK+6OtfKRzQjp96DQ/3akBqxccigTQ==",
       "source": "https://www.npmjs.com/package/agent-browser",
       "platforms": ["linux", "macos"],
       "setup": [
         {"id": "browser-runtime", "args": ["install"], "effects": ["network", "browser-runtime"]}
       ],
       "healthcheck": ["doctor", "--offline", "--quick"]
+    },
+    {
+      "id": "skillet",
+      "license": "MIT",
+      "manager": "npm",
+      "package": "@sentry/skillet",
+      "executable": "skillet",
+      "groups": ["skill-evaluation"],
+      "version": "1.8.0",
+      "integrity": "sha512-/X5rh9e5jlr5AxmqHiQ7L52FBAqUmsoLwHHUkt4jQUAROUPjJTF3NyTgTauUFwq0NbzQ4hMseUxksxlNPD9SAA==",
+      "source": "https://www.npmjs.com/package/@sentry/skillet",
+      "platforms": ["linux", "macos"],
+      "healthcheck": ["--version"]
+    },
+    {
+      "id": "skill-scanner",
+      "license": "Apache-2.0",
+      "manager": "uv",
+      "package": "cisco-ai-skill-scanner",
+      "executable": "skill-scanner",
+      "groups": ["skill-evaluation"],
+      "version": "2.3.0",
+      "python": "3.11",
+      "source": "https://pypi.org/project/cisco-ai-skill-scanner/2.3.0/",
+      "platforms": ["linux", "macos"],
+      "healthcheck": ["--version"]
+    },
+    {
+      "id": "agent-skill-eval",
+      "license": "MIT",
+      "manager": "uv",
+      "package": "agent-skill-eval",
+      "executable": "agent-skill-eval",
+      "groups": ["skill-evaluation"],
+      "version": "0.7.0",
+      "python": "3.11",
+      "source": "https://pypi.org/project/agent-skill-eval/0.7.0/",
+      "platforms": ["linux", "macos"],
+      "healthcheck": ["--help"]
     },
     {
       "id": "opensrc",

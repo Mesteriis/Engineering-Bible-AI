@@ -1,7 +1,11 @@
 # Upstream Skill Additions
 
 Recorded: 2026-10-03, following the owner's request.
-Status: 30 original author trees are cataloged; default profiles require 20:
+Current status: 247 original author trees are cataloged; default profiles require 20.
+The [October 20 discovery pilot](skill-discovery-pilot.md) adds 82 optional native
+skills and four evaluation/scanning CLIs. The
+[domain expansion](domain-skill-packs.md) adds 135 more optional originals and
+task-specific router branches. The original 30 comprise
 the complete Superpowers pack, original Karpathy-inspired guidelines and three
 business UI specialists and original property-based testing. Nine Pocock skills
 and context compression remain opt-in.
@@ -103,9 +107,9 @@ at the same reviewed revision; it does not upgrade the other leaves.
 
 - Verify native host exposure and actual invocation for each selected workflow;
   `be skills route` deliberately reports exposure as unverified.
-- Review host-specific tool and setup needs during invocation. The 30 current
-  catalog records declare no package-manager tool dependencies; this does not
-  prove that external operations or native tools are available.
+- Review host-specific tool and setup needs during invocation. New optional
+  packs disclose their companion CLIs; this does not establish external service
+  access or authorize setup.
 - Keep the migration ledger current when adding or replacing local workflows;
   unknown provenance must not be attributed to an unrelated author.
 - Evaluate `implement-spec` and further authors as separately reviewed sources.

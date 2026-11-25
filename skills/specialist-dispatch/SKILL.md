@@ -35,6 +35,11 @@ Choose the smallest set:
 - performance: evidence-led bottleneck analysis;
 - product: user workflow, scope, acceptance criteria.
 
+For data, DevOps, security or QA tasks involving the reviewed domain packs,
+select the matching author leaf from
+[Reviewed Domain Routes](../workflow-router/references/upstream-domains.md).
+A specialist role selects expertise; it grants no worker or provider authority.
+
 ## Dispatch Rules
 
 - Do not spawn a specialist without a concrete question.

@@ -15,6 +15,10 @@ Before acting, identify:
 
 Ask only when ambiguity blocks correct work.
 
+When a pending answer determines the tool, scope, or expected result, wait for
+that answer before dependent execution. Continue inspection or preparation only
+when it remains useful across the possible answers. Elapsed time is not an answer.
+
 ## Gate 2: Inspection
 
 Before editing, inspect relevant files:
@@ -61,6 +65,13 @@ Run the best available validation:
 - manual verification only when automated checks are unavailable.
 
 Report exact commands.
+
+When changing an external program invocation, verify the candidate with the
+actual executable, relevant arguments, and target environment before switching
+the working service to it. Use a bounded check of the changed behavior; a related
+utility or synthetic subprocess test does not establish compatibility. If this
+check is unavailable, report it as unverified and keep the working service in
+place unless the user authorizes proceeding with that specific gap.
 
 ## Gate 6: Review And Risk
 

@@ -6,7 +6,9 @@ requirements in `skills/registry.yml` own membership. Author instructions and th
 references remain intact. A tracking ref is used only to report newer author
 commits, never to select installation content automatically.
 
-The catalog contains 30 original skills: the complete 15-skill Superpowers 6.4.2
+The catalog contains 247 original skills in 18 source records (17 repositories).
+Its original 30 include
+the complete 15-skill Superpowers 7.0.0
 pack, the original Karpathy-inspired guidelines, nine Matt Pocock skills,
 three [business UI specialists](business-ui-profile.md), property-based testing
 and context compression. See [testing and context authors](quality-context-authors.md).
@@ -15,8 +17,16 @@ required by the `core`, `review` and `ui` groups. `fast` retains its compact own
 selection. See [the complete migration ledger](absorbed-skills-migration.md) for
 the disposition of all 62 previous local skill trees.
 
+The [discovery pilot](skill-discovery-pilot.md) adds 82 optional originals from
+five native packs, plus independently installed evaluation/scanning tools.
+The [domain expansion](domain-skill-packs.md) adds 135 originals from Trail of Bits,
+HashiCorp, Sentry's Codex distribution, dbt and Neon. Reviewed
+[domain routes](../skills/workflow-router/references/upstream-domains.md) select
+their task-specific leaves and retain author invocation boundaries.
+Default profile requirements remain the same 20 originals.
+
 The nine Matt Pocock skills remain an explicit selection at reviewed commit
-`d81f3a183412e71a5b1e84ca21bc1a35eea03a60`:
+`5beb35b040e3de97e54fa9e386d7e42d15c295c2`:
 
 | Opt-in group | Author skills |
 | --- | --- |
@@ -46,6 +56,11 @@ be install --skill-root /path/to/existing/superpowers/skills
 
 An existing compatible provider is reused with external ownership. Installation
 never upgrades an existing original to a different catalog pin implicitly.
+Sources marked `installation: native` require an externally installed provider
+with the original source-relative paths. Missing providers report `NATIVE_REQUIRED`;
+`ensure` and `update` refuse to flatten or download them into individual skill
+directories. Native provider preparation and host activation are documented in
+[the pilot guide](skill-discovery-pilot.md#native-provider-installation).
 Superpowers relies on payloads in sibling skill directories. Its selected
 originals must share one provider root; a partial native pack cannot be combined
 with managed siblings in another root. Such a split is a conflict before any
@@ -111,6 +126,10 @@ remain the responsibility of the native manager.
 
 ## Track, Review and Update
 
+See the [October 20 review](upstream-review-2026-10-20.md) for the current
+source pins, changed payloads and runtime validation limits. Historical migration
+reports retain their original revisions.
+
 ```bash
 be skills check --group pocock-interview --json
 be skills update --group pocock-interview --dry-run --json
@@ -166,7 +185,9 @@ but are not installed automatically. Unsupported required tools stop before
 mutation. Unpinned missing tools or existing version mismatches require a separate
 reviewed `be tools install` selection with its existing explicit flags.
 
-The current 30 records declare no package-manager tool dependencies.
+The Agent Browser discovery skill requires the pinned `agent-browser` CLI.
+Skillet authoring discloses `skillet` as an optional companion tool. Installing
+either CLI does not authorize browser setup, skill initialization or eval runs.
 Author workflows may still need native host capabilities or external services;
 read their actual instructions and verify those prerequisites when invoking them.
 The generic tool integration is not evidence of functional execution of a pilot

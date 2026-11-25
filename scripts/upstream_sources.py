@@ -148,7 +148,7 @@ def stage_source(source: SourceSpec, destination: Path) -> Path:
                     *(notice.path for notice in source.notices),
                 } or any(
                     relative_name == root or relative_name.startswith(root + "/")
-                    for root in source.skill_roots
+                    for root in (*source.skill_roots, *(payload.path for payload in source.support))
                 )
                 if not in_scope:
                     continue
@@ -190,6 +190,10 @@ def stage_source(source: SourceSpec, destination: Path) -> Path:
                     or hashlib.sha256(notice_file.read_bytes()).hexdigest() != notice.sha256
                 ):
                     raise UpstreamError("upstream notice digest mismatch or missing notice")
+            for payload in source.support:
+                path = staging / payload.path
+                if support_digest(path) != payload.sha256:
+                    raise UpstreamError("upstream support digest mismatch")
             for path, mode in reversed(directories):
                 path.chmod(mode)
         os.replace(staging, destination)
@@ -202,3 +206,14 @@ def stage_source(source: SourceSpec, destination: Path) -> Path:
     finally:
         if staging is not None:
             shutil.rmtree(staging, ignore_errors=True)
+
+
+def support_digest(path: Path) -> str:
+    """Hash a reviewed inactive support file or complete directory tree."""
+    if path.is_symlink() or not path.exists():
+        raise UpstreamError("missing or linked upstream support payload")
+    if path.is_dir():
+        return fingerprint_tree(path)
+    if not path.is_file():
+        raise UpstreamError("support payload must be a regular file or directory")
+    return hashlib.sha256(path.read_bytes()).hexdigest()

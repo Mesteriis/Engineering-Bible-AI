@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 import tempfile
 import unittest
 
@@ -65,6 +66,58 @@ class UpstreamCatalogTests(unittest.TestCase):
         self.write(payload)
         self.assertEqual(load_catalog(self.path).sources["author"].layout, "siblings")
         payload["sources"][0]["layout"] = "unknown"
+        self.write(payload)
+        with self.assertRaises(UpstreamError):
+            load_catalog(self.path)
+
+    def test_reviewed_native_support_contract(self) -> None:
+        payload = catalog_payload()
+        source = payload["sources"][0]
+        source["installation"] = "native"
+        source["support"] = [{"path": "plugins/one/agents", "sha256": "d" * 64}]
+        self.write(payload)
+        parsed = load_catalog(self.path)
+        self.assertEqual(parsed.sources["author"].support[0].path, "plugins/one/agents")
+        for path in [
+            "../outside",
+            "skills",
+            "plugins/one/hooks",
+            ".codex-plugin",
+            ".env",
+            "mcp.json",
+        ]:
+            with self.subTest(path=path):
+                source["support"][0]["path"] = path
+                self.write(payload)
+                with self.assertRaises(UpstreamError):
+                    load_catalog(self.path)
+        source["support"][0]["path"] = "agents"
+        source["installation"] = "managed"
+        self.write(payload)
+        with self.assertRaises(UpstreamError):
+            load_catalog(self.path)
+
+    def test_domain_route_ids_resolve_uniquely_to_reviewed_leaves(self) -> None:
+        catalog = load_catalog(ROOT / "config/upstream-skills.json", ROOT / "skills/registry.yml")
+        text = (ROOT / "skills/workflow-router/references/upstream-domains.md").read_text()
+        identities = set(re.findall(r"`([a-z][a-z0-9-]*\.[a-z][a-z0-9-]*)`", text))
+        self.assertGreater(len(identities), 35)
+        for identity in identities:
+            with self.subTest(route=identity):
+                self.assertIn(identity, catalog.skills)
+                matches = [
+                    s for s in catalog.skills.values() if identity in {s.id, s.name, *s.intents}
+                ]
+                self.assertEqual(len(matches), 1)
+        for group in ("trailofbits-extended", "hashicorp", "sentry", "dbt", "neon"):
+            self.assertTrue(catalog.groups[group])
+
+    def test_native_source_installation_mode_is_explicit(self) -> None:
+        payload = catalog_payload()
+        payload["sources"][0]["installation"] = "native"
+        self.write(payload)
+        self.assertEqual(load_catalog(self.path).sources["author"].installation, "native")
+        payload["sources"][0]["installation"] = "unknown"
         self.write(payload)
         with self.assertRaises(UpstreamError):
             load_catalog(self.path)
@@ -331,6 +384,30 @@ class UpstreamCatalogTests(unittest.TestCase):
             ["grilling", "domain-modeling", "grill-with-docs"],
         )
 
+    def test_discovery_packs_require_native_paths_and_remain_optional(self) -> None:
+        catalog = load_catalog(ROOT / "config/upstream-skills.json", ROOT / "skills/registry.yml")
+        parsed = registry.load_registry(ROOT)
+        required = set(registry.selected_upstream_skills(parsed, groups=[], include_all=False))
+        for group in (
+            "sentry-authoring",
+            "evals",
+            "grafana",
+            "opentelemetry",
+            "browser-cli",
+            "trailofbits-extended",
+            "hashicorp",
+            "sentry",
+            "dbt",
+            "neon",
+        ):
+            members = catalog.groups[group]
+            self.assertTrue(members)
+            self.assertTrue(set(members).isdisjoint(required))
+            for identity in members:
+                skill = catalog.skills[identity]
+                self.assertEqual(catalog.sources[skill.source].installation, "native")
+        self.assertEqual(catalog.skills["grafana-skills.promql"].path, "skills/grafana-core/promql")
+
     def test_default_owner_groups_require_original_workflows(self) -> None:
         parsed = registry.load_registry(ROOT)
         selected = registry.selected_upstream_skills(parsed, groups=[], include_all=False)
@@ -416,26 +493,26 @@ class UpstreamCatalogTests(unittest.TestCase):
         self.assertTrue(catalog.skills["pocock.handoff"].user_invoked)
         self.assertFalse(catalog.skills["context.context-compression"].user_invoked)
 
-    def test_quality_authors_keep_reviewed_license_scope_and_existing_pocock_pin(self) -> None:
+    def test_quality_authors_keep_reviewed_license_scope_and_shared_pocock_pin(self) -> None:
         catalog = load_catalog(ROOT / "config/upstream-skills.json", ROOT / "skills/registry.yml")
         pbt = catalog.skills["trailofbits.property-based-testing"]
         source = catalog.sources[pbt.source]
         self.assertEqual(source.license, "CC-BY-SA-4.0")
         self.assertEqual(source.skill_roots, ("plugins/property-based-testing/skills",))
         self.assertEqual(pbt.path, source.skill_roots[0] + "/property-based-testing")
-        self.assertEqual(source.revision, "82fe8226252622fa807643bdca1710901198553a")
+        self.assertEqual(source.revision, "5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0")
         handoff = catalog.skills["pocock.handoff"]
         previous = catalog.skills["pocock.grill-me"]
         self.assertEqual(handoff.source, previous.source)
         self.assertEqual(
             catalog.sources[handoff.source].revision,
-            "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
         )
         compression = catalog.skills["context.context-compression"]
         self.assertEqual(catalog.sources[compression.source].license, "MIT")
         self.assertEqual(
             catalog.sources[compression.source].revision,
-            "58b55a8921758d13453b440704fb1b5b208c0b0e",
+            "9ff0c99108b36d3b886defd825d8ac1f47dba374",
         )
         for skill in (pbt, handoff, compression):
             self.assertEqual(skill.requires, ())

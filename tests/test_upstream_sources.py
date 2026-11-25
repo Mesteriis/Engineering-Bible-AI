@@ -4,6 +4,7 @@ from dataclasses import replace
 import hashlib
 import io
 from pathlib import Path
+import shutil
 import stat
 import tarfile
 import tempfile
@@ -73,6 +74,26 @@ class UpstreamSourceTests(unittest.TestCase):
         response = io.BytesIO(archive(entries))
         with patch("scripts.upstream_sources.urlopen", return_value=response):
             return stage_source(reviewed_source or source(), self.root / "staged")
+
+    def test_native_support_is_extracted_and_its_digest_is_checked(self) -> None:
+        body = b"Original inactive workflow\n"
+        reviewed = replace(
+            source(),
+            installation="native",
+            support=(NoticeSpec("workflows/a.md", hashlib.sha256(body).hexdigest()),),
+        )
+        entries = valid_entries() + [
+            (PREFIX + "/workflows/a.md", body, 0o644, tarfile.REGTYPE),
+            (PREFIX + "/hooks/run.sh", b"excluded", 0o755, tarfile.REGTYPE),
+        ]
+        staged = self.stage(entries, reviewed)
+        self.assertEqual((staged / "workflows/a.md").read_bytes(), body)
+        self.assertFalse((staged / "hooks").exists())
+        shutil.rmtree(staged)
+        changed = replace(reviewed, support=(NoticeSpec("workflows/a.md", "b" * 64),))
+        with self.assertRaisesRegex(UpstreamError, "support digest mismatch"):
+            self.stage(entries, changed)
+        self.assertFalse(staged.exists())
 
     def test_declared_provider_root_preserves_complete_leaf_and_excludes_config(self) -> None:
         reviewed = replace(source(), skill_roots=(".claude/skills",))

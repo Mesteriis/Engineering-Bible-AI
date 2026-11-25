@@ -29,3 +29,6 @@ Route review/planning requests without mixing read-only review and editing.
   `agents-md-retrospective`.
 - Security-sensitive review -> route through `security-router` first.
 - UI/frontend review -> route through `ui-router` first.
+- Test-strength campaigns, specification compliance or author-specific security
+  evidence -> matching Trail of Bits leaf in
+  [Reviewed Domain Routes](../workflow-router/references/upstream-domains.md).

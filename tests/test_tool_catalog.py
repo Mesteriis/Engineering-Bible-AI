@@ -61,7 +61,7 @@ class ToolCatalogTests(unittest.TestCase):
     def test_repository_catalog_contains_pinned_setup_metadata(self) -> None:
         tools = tool_catalog.load_catalog(ROOT / "config" / "tools.json")
         by_id = {tool.id: tool for tool in tools}
-        self.assertEqual(by_id["agent-browser"].version, "0.37.1")
+        self.assertEqual(by_id["agent-browser"].version, "0.39.1")
         self.assertTrue(by_id["agent-browser"].integrity.startswith("sha512-"))
         self.assertEqual(by_id["serena"].version, "1.7.0")
         self.assertEqual(by_id["serena"].healthcheck, ("--version",))

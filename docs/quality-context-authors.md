@@ -1,15 +1,16 @@
 # Testing And Context Author Skills
 
 Reviewed on 2026-10-03. The catalog adds three complete original leaves while
-keeping Bible's routing and owner policy separate. The catalog now contains
-30 author skills from eight sources; default owner groups require 20. Installing
+keeping Bible's routing and owner policy separate. After the
+[discovery additions](skill-discovery-pilot.md), the catalog contains
+247 author skills in 18 source records; default owner groups require 20. Installing
 a skill does not prove the host exposes it or that a model follows its routing.
 
 | Original | Reviewed revision | License | Selection and purpose |
 | --- | --- | --- | --- |
-| [Trail of Bits property-based-testing](https://github.com/trailofbits/skills/tree/82fe8226252622fa807643bdca1710901198553a/plugins/property-based-testing) | `82fe8226252622fa807643bdca1710901198553a` | CC-BY-SA-4.0 | Required by the `core` owner group; use for real invariants, roundtrips, oracles and shrunk counterexamples |
-| [Matt Pocock handoff](https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/handoff/SKILL.md) | `d81f3a183412e71a5b1e84ca21bc1a35eea03a60` | MIT | Opt-in `context-continuation` group; explicit invocation for a fresh-agent handoff |
-| [Context Engineering context-compression](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/58b55a8921758d13453b440704fb1b5b208c0b0e/skills/context-compression) | `58b55a8921758d13453b440704fb1b5b208c0b0e` | MIT | Opt-in `context-continuation` group; structured compression for long tasks |
+| [Trail of Bits property-based-testing](https://github.com/trailofbits/skills/tree/5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0/plugins/property-based-testing) | `5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0` | CC-BY-SA-4.0 | Required by the `core` owner group; use for real invariants, roundtrips, oracles and shrunk counterexamples |
+| [Matt Pocock handoff](https://github.com/mattpocock/skills/blob/5beb35b040e3de97e54fa9e386d7e42d15c295c2/skills/productivity/handoff/SKILL.md) | `5beb35b040e3de97e54fa9e386d7e42d15c295c2` | MIT | Opt-in `context-continuation` group; explicit invocation for a fresh-agent handoff |
+| [Context Engineering context-compression](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/9ff0c99108b36d3b886defd825d8ac1f47dba374/skills/context-compression) | `9ff0c99108b36d3b886defd825d8ac1f47dba374` | MIT | Opt-in `context-continuation` group; structured compression for long tasks |
 
 `handoff` already exists in the previously reviewed Pocock revision. Its addition
 does not upgrade any of the other eight Pocock leaves. The two new sources use

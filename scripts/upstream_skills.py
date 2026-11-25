@@ -7,7 +7,7 @@ import fcntl
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import re
 import shutil
 import tempfile
@@ -18,10 +18,10 @@ import uuid
 
 try:
     from .upstream_catalog import Catalog, SkillSpec, SourceSpec, UpstreamError, fingerprint_tree
-    from .upstream_sources import stage_source
+    from .upstream_sources import stage_source, support_digest
 except ImportError:
     from upstream_catalog import Catalog, SkillSpec, SourceSpec, UpstreamError, fingerprint_tree
-    from upstream_sources import stage_source
+    from upstream_sources import stage_source, support_digest
 
 
 NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -107,7 +107,20 @@ def _validate_skill(tree: Path, skill: SkillSpec) -> None:
     names = [
         line[5:].strip().strip('"').strip("'") for line in lines[1:end] if line.startswith("name:")
     ]
-    descriptions = [line[12:].strip() for line in lines[1:end] if line.startswith("description:")]
+    descriptions = []
+    for index, line in enumerate(lines[1:end], 1):
+        if not line.startswith("description:"):
+            continue
+        value = line[12:].strip().strip('"').strip("'")
+        if not value or value in {">", ">-", ">+", "|", "|-", "|+"}:
+            continuation = []
+            for following in lines[index + 1 : end]:
+                if following and not following[0].isspace():
+                    break
+                if following.strip() and not following.lstrip().startswith("#"):
+                    continuation.append(following.strip())
+            value = " ".join(continuation)
+        descriptions.append(value)
     if names != [skill.name] or len(descriptions) != 1 or not descriptions[0]:
         raise UpstreamError(f"skill name/description does not match reviewed catalog: {skill.id}")
 
@@ -268,7 +281,21 @@ class SkillManager:
                 "tree_sha256": skill.tree_sha256,
                 "exposure": "unverified",
             }
-            if len(candidates) > 1:
+            if source.installation == "native" and not candidates:
+                item.update(
+                    status="NATIVE_REQUIRED",
+                    owner="external",
+                    reason="install the reviewed native provider preserving source paths",
+                )
+            elif source.installation == "native" and any(
+                path.parts[-len(PurePosixPath(skill.path).parts) :]
+                != PurePosixPath(skill.path).parts
+                for path in candidates
+            ):
+                item.update(
+                    status="CONFLICT", owner="external", reason="native source paths differ"
+                )
+            elif len(candidates) > 1:
                 target = self._target(skill.name)
                 others = [path for path in candidates if path != target]
                 reuse = None
@@ -337,6 +364,39 @@ class SkillManager:
         # Original packs can reference payloads in adjacent skill directories.
         # Reusing only part of such a pack across roots would break those paths.
         for source in self.catalog.sources.values():
+            if source.installation == "native":
+                pairs = [
+                    (skill, item)
+                    for skill, item in zip(skills, result)
+                    if skill.source == source.id
+                ]
+                roots = {
+                    Path(str(item["path"])).parents[len(PurePosixPath(skill.path).parts) - 1]
+                    for skill, item in pairs
+                    if item["status"] in {"REUSE", "SATISFIED"}
+                }
+                if len(roots) > 1:
+                    for _, item in pairs:
+                        if item["status"] in {"REUSE", "SATISFIED"}:
+                            item.update(
+                                status="CONFLICT",
+                                reason="native payloads require a common original source root",
+                            )
+                for root in roots:
+                    try:
+                        valid = all(
+                            support_digest(root / payload.path) == payload.sha256
+                            for payload in source.support
+                        )
+                    except (UpstreamError, OSError):
+                        valid = False
+                    if not valid:
+                        for _, item in pairs:
+                            if item["status"] in {"REUSE", "SATISFIED"}:
+                                item.update(
+                                    status="CONFLICT",
+                                    reason="native support payload missing or modified",
+                                )
             if source.layout != "siblings":
                 continue
             rows = [item for skill, item in zip(skills, result) if skill.source == source.id]
@@ -563,7 +623,7 @@ class SkillManager:
             }
         with self._lock():
             plan = self.plan(skills, legacy_owned=legacy_owned)
-            refused = {"MODIFIED", "CONFLICT", "UNSUPPORTED"}
+            refused = {"MODIFIED", "CONFLICT", "UNSUPPORTED", "NATIVE_REQUIRED"}
             if not upgrade:
                 refused.add("UPDATE_AVAILABLE")
             conflicts = [item for item in plan if item["status"] in refused]

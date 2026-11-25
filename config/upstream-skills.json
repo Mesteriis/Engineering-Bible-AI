@@ -4,7 +4,7 @@
     {
       "id": "mattpocock-skills",
       "url": "https://github.com/mattpocock/skills",
-      "revision": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "revision": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
       "tracking": "main",
       "license": "MIT",
       "license_path": "LICENSE",
@@ -14,7 +14,7 @@
       "id": "obra-superpowers",
       "layout": "siblings",
       "url": "https://github.com/obra/superpowers",
-      "revision": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "revision": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
       "tracking": "main",
       "license": "MIT",
       "license_path": "LICENSE",
@@ -37,49 +37,524 @@
       "license": "MIT",
       "license_path": "LICENSE",
       "license_sha256": "54c405ef24e71634b73c994133d028e7a96d1906f42615366296d6583dcaba8f",
-      "skill_roots": [".claude/skills"]
+      "skill_roots": [
+        ".claude/skills"
+      ]
     },
     {
       "id": "uipro-skills",
       "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
-      "revision": "09170eec67eefd46a7ae85de61b40c194020f997",
+      "revision": "56ea9cf174ed86786187daa9de0e6247cb0747e4",
       "tracking": "main",
       "license": "MIT",
       "license_path": "LICENSE",
       "license_sha256": "738f69dfa83db5c347c678fb9d90e560877059f0de93a327c39001bff92dc014",
-      "skill_roots": [".claude/skills"]
+      "skill_roots": [
+        ".claude/skills"
+      ]
     },
     {
       "id": "impeccable-skills",
       "url": "https://github.com/pbakaus/impeccable",
-      "revision": "508d7e8955de3b3caf2d8676e85206723d41a887",
+      "revision": "dad8dbb3aac21ad1fa236c110315ef4abece23e8",
       "tracking": "main",
       "license": "Apache-2.0",
       "license_path": "LICENSE",
       "license_sha256": "02bb8c3b4e70190e3986c0404ad2fd8d639b4f534252d82379cc1b502b6d1812",
-      "skill_roots": [".agents/skills"],
+      "skill_roots": [
+        ".agents/skills"
+      ],
       "notices": [
-        {"path": "NOTICE.md", "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb"}
+        {
+          "path": "NOTICE.md",
+          "sha256": "c60a093c2845fd9fb82f9c6f742ece31f379f8190b535309d32d66c45ccffdcb"
+        }
       ]
     },
     {
       "id": "trailofbits-skills",
       "url": "https://github.com/trailofbits/skills",
-      "revision": "82fe8226252622fa807643bdca1710901198553a",
+      "revision": "5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0",
       "tracking": "main",
       "license": "CC-BY-SA-4.0",
       "license_path": "LICENSE",
       "license_sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
-      "skill_roots": ["plugins/property-based-testing/skills"]
+      "skill_roots": [
+        "plugins/property-based-testing/skills"
+      ]
     },
     {
       "id": "context-engineering-skills",
       "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
-      "revision": "58b55a8921758d13453b440704fb1b5b208c0b0e",
+      "revision": "9ff0c99108b36d3b886defd825d8ac1f47dba374",
       "tracking": "main",
       "license": "MIT",
       "license_path": "LICENSE",
       "license_sha256": "65bc33b0759a48b980962833b12bcb820404da9f5256bff39c00e89471bcf209"
+    },
+    {
+      "id": "sentry-skillet",
+      "url": "https://github.com/getsentry/skillet",
+      "revision": "6938fd269958440a5b160ee3370ebed3e5fb1d4a",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "e461061fa4bef657e865451fa889cc60073649855989b53548f6133dfcce19cc",
+      "installation": "native"
+    },
+    {
+      "id": "evals-course",
+      "url": "https://github.com/ai-evals-course/evals-skills",
+      "revision": "80d5f7b0127c7572ed9e9339937adbfd7240ffeb",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "installation": "native"
+    },
+    {
+      "id": "grafana-skills",
+      "url": "https://github.com/grafana/skills",
+      "revision": "cc33318b60a7fbc2c69a25122164baf00e805f79",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "efb4d91baa7cd9559d3452f79deb2b3d9dc819c83d7058a1f90ac70484a1a23e",
+      "installation": "native"
+    },
+    {
+      "id": "ollygarden-otel",
+      "url": "https://github.com/ollygarden/opentelemetry-agent-skills",
+      "revision": "06b42b61399c8bb3ed54d14ca0daa8c0c4cbaaa9",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "installation": "native"
+    },
+    {
+      "id": "vercel-agent-browser",
+      "url": "https://github.com/vercel-labs/agent-browser",
+      "revision": "5ee8691339a5a002e4d7454eec95250253bc7419",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "014bb31e83d5c2e76aea1cc6e82217346ab41362f32cb355ad0f5c10aa0aeaff",
+      "installation": "native"
+    },
+    {
+      "id": "trailofbits-extended",
+      "url": "https://github.com/trailofbits/skills",
+      "revision": "5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0",
+      "tracking": "main",
+      "license": "CC-BY-SA-4.0",
+      "license_path": "LICENSE",
+      "license_sha256": "7abe19ec9bb73b36141b999b861d24ad855e808bafe0f81e84cce28556f6c297",
+      "installation": "native",
+      "skill_roots": [
+        "plugins/agentic-actions-auditor/skills",
+        "plugins/audit-context-building/skills",
+        "plugins/building-secure-contracts/skills",
+        "plugins/burpsuite-project-parser/skills",
+        "plugins/c-review/skills",
+        "plugins/chrome-mcp-troubleshooting/skills",
+        "plugins/code-improver/skills",
+        "plugins/constant-time-analysis/skills",
+        "plugins/culture-index/skills",
+        "plugins/devcontainer-setup/skills",
+        "plugins/differential-review/skills",
+        "plugins/dimensional-analysis/skills",
+        "plugins/dwarf-expert/skills",
+        "plugins/entry-point-analyzer/skills",
+        "plugins/firebase-apk-scanner/skills",
+        "plugins/fp-check/skills",
+        "plugins/gh-cli/skills",
+        "plugins/github-triage/skills",
+        "plugins/goal-prompt/skills",
+        "plugins/let-fate-decide/skills",
+        "plugins/modern-cpp/skills",
+        "plugins/modern-python/skills",
+        "plugins/mutation-testing/skills",
+        "plugins/open-sourcing/skills",
+        "plugins/post-patch-validation/skills",
+        "plugins/review-walkthrough/skills",
+        "plugins/rust-review/skills",
+        "plugins/second-opinion/skills",
+        "plugins/semgrep-rule-creator/skills",
+        "plugins/semgrep-rule-variant-creator/skills",
+        "plugins/sharp-edges/skills",
+        "plugins/spec-to-code-compliance/skills",
+        "plugins/static-analysis/skills",
+        "plugins/supply-chain-risk-auditor/skills",
+        "plugins/testing-handbook-skills/skills",
+        "plugins/trailmark/skills",
+        "plugins/variant-analysis/skills",
+        "plugins/vulnerability-triage-brocards/skills",
+        "plugins/writing-lean-proofs/skills",
+        "plugins/yara-authoring/skills",
+        "plugins/zeroize-audit/skills"
+      ],
+      "support": [
+        {
+          "path": "plugins/agentic-actions-auditor/README.md",
+          "sha256": "33957610a958423d9bacf4cf5fc09810046980c81c1b81dac9991ec8620d463a"
+        },
+        {
+          "path": "plugins/audit-context-building/README.md",
+          "sha256": "5271ba702fbd84ea78e29e050676d05c0ae23e75608044e3cfdb261836b28076"
+        },
+        {
+          "path": "plugins/audit-context-building/agents",
+          "sha256": "1d3fb2d39a456beea80f8dfd00d5467a8ed55e6be194c7b8262adcb8992b26c0"
+        },
+        {
+          "path": "plugins/audit-context-building/workflows",
+          "sha256": "dcd5ccbc536d51b220403e8f7779ef63577f4fb4fbac98b6c989d3d1a7ac1951"
+        },
+        {
+          "path": "plugins/building-secure-contracts/README.md",
+          "sha256": "d70a9c95e6ea8d2b1a26e97981cdae1c525170afbdc4fb63c9535b27935f8807"
+        },
+        {
+          "path": "plugins/burpsuite-project-parser/README.md",
+          "sha256": "c039a3ce0d3c8097fede9e2e79eb78506b6e76355e13c3a622e406ff53eaae7c"
+        },
+        {
+          "path": "plugins/burpsuite-project-parser/commands",
+          "sha256": "21fcbd0d329289dfb0229ea617c38505ce4da690f9bfc4c752756162eafb92ee"
+        },
+        {
+          "path": "plugins/c-review/AGENTS.md",
+          "sha256": "92e9e1d8765494b65efebccbb4b5c8468ba2790eef14fd6e85e855502bf301c6"
+        },
+        {
+          "path": "plugins/c-review/README.md",
+          "sha256": "583930f66a1bffa172f994f02c410351ff34ca66adfb3c6b02bd55d3b9fa2ce3"
+        },
+        {
+          "path": "plugins/c-review/agents",
+          "sha256": "7cf5b6e6600897fdc0d3848693594474be7f30b7e017cd835e1bdb879ac2c701"
+        },
+        {
+          "path": "plugins/c-review/scripts",
+          "sha256": "d7dc20f7e4cc1e027556d892576fad71c89e92970cbf94794ab32cf774cf5e39"
+        },
+        {
+          "path": "plugins/c-review/workflows",
+          "sha256": "e2778a30b56199ea3be4d794718242d091d26dd188207fb1db6c99f6eee0dae2"
+        },
+        {
+          "path": "plugins/chrome-mcp-troubleshooting/README.md",
+          "sha256": "c5e31b2565e42cc33989ee9dba77a00314bf5417e8a24d19f715f9ceffc171a3"
+        },
+        {
+          "path": "plugins/code-improver/README.md",
+          "sha256": "1406e7b8061d861b2b268271b3dc422b47740803fc8346b3e8d7aeff13b340d6"
+        },
+        {
+          "path": "plugins/code-improver/agents",
+          "sha256": "4fd358e72550355e347d115dab1938f54fe6893ce1f510899f5fabfbe797b4b4"
+        },
+        {
+          "path": "plugins/code-improver/scripts",
+          "sha256": "601875b1db68309a2b57a65e99eeb9e0968006872f35a7424f7b5214d97f8b41"
+        },
+        {
+          "path": "plugins/code-improver/workflows",
+          "sha256": "7e05d5ffa60ee55e22ff51a94c8bf35a68688710d3ad3de9fe48b4409ec52734"
+        },
+        {
+          "path": "plugins/constant-time-analysis/README.md",
+          "sha256": "223ba7e61aa073aafd9fb838ff73dbc9e39bdcf9782373ff76f9ce709897a448"
+        },
+        {
+          "path": "plugins/constant-time-analysis/commands",
+          "sha256": "f05a7bddd05af93fee2b18436e634c2314b312143ee679afc2af748775907a1d"
+        },
+        {
+          "path": "plugins/constant-time-analysis/ct_analyzer",
+          "sha256": "97a150f5aa3dcc40e86d0910a65df17009a6d9c1dd4292f8f9143d05a9eebf95"
+        },
+        {
+          "path": "plugins/constant-time-analysis/pyproject.toml",
+          "sha256": "312bd8b704d6a0f300d53de63a13ddad902a5021f86477a339b97d57578657e5"
+        },
+        {
+          "path": "plugins/constant-time-analysis/uv.lock",
+          "sha256": "9e2d1695ed08e6113bae16b640a4452df3df807ef37359357034d9e08d355ec9"
+        },
+        {
+          "path": "plugins/culture-index/README.md",
+          "sha256": "00b0f1a67350b1a49298e6495a79e9b4b2e50f7a0d0704a1c215b6397836828c"
+        },
+        {
+          "path": "plugins/devcontainer-setup/README.md",
+          "sha256": "9f29a59e1f83a73b69ffefc3b9f95d6446d4f1b3bf5ce697507741525e7d981e"
+        },
+        {
+          "path": "plugins/differential-review/README.md",
+          "sha256": "b1fcfb0c225a31fbf7742463f1e6bf962ef2d58d249749276798f969bcbd3087"
+        },
+        {
+          "path": "plugins/differential-review/agents",
+          "sha256": "b1eb296205c6055c316b7b252c630945df77f63e5747012f2ba693040feb8c2d"
+        },
+        {
+          "path": "plugins/differential-review/commands",
+          "sha256": "2c47cce9fe342d5aa5f833d8d641bfb601786d4697d1c9bb56ebb5cc638f7b1e"
+        },
+        {
+          "path": "plugins/dimensional-analysis/README.md",
+          "sha256": "3716ad52c7ab04429f6159ae47d4c2a212a3e12c0286cf2844509ec95966a44d"
+        },
+        {
+          "path": "plugins/dimensional-analysis/agents",
+          "sha256": "067ad98d455186e854e746000a07ce4063ea3c54fbfe563386284d4c5cbd069e"
+        },
+        {
+          "path": "plugins/dwarf-expert/README.md",
+          "sha256": "53a21c63d4d0a64e3a214655a3553c9bf04ec29d92a7708156bcff18da5cf60e"
+        },
+        {
+          "path": "plugins/entry-point-analyzer/README.md",
+          "sha256": "55b61db2f23f17752f9bb680c9aacd1787cf4547c37ba1b53f237d6407fdaa22"
+        },
+        {
+          "path": "plugins/entry-point-analyzer/commands",
+          "sha256": "4aff2932103aa720ee28544b0848035e767e173003c3cb0b81d92a2a311f778c"
+        },
+        {
+          "path": "plugins/firebase-apk-scanner/README.md",
+          "sha256": "415cd0a0d498a5598959a01db1d6b6a0a5e01cd574b4f156addd7dc2bc04a24b"
+        },
+        {
+          "path": "plugins/firebase-apk-scanner/commands",
+          "sha256": "c08d46a49484f99e0ff3670d97cb8ac9dc2a3a141bf97733ea1164065a1af23c"
+        },
+        {
+          "path": "plugins/fp-check/README.md",
+          "sha256": "1c67a96622d2abe8d3305b2a9ebd64b80e48b8b3ca7829fbfb55e1a3bb7a337b"
+        },
+        {
+          "path": "plugins/fp-check/agents",
+          "sha256": "42a5aba77dc730cd66f75660e1f354fead166cf0e4d3ac35ed4d59ea15b09796"
+        },
+        {
+          "path": "plugins/gh-cli/README.md",
+          "sha256": "d60b5251cc5293b2f5d94ca431f8fbb7905aac6eda11fbf800c091ea81b5d2a0"
+        },
+        {
+          "path": "plugins/github-triage/README.md",
+          "sha256": "e36ebacbd7b54acaa3b1ccee2308f2f13e79e6a047ee319b0eda1ad7911b81e7"
+        },
+        {
+          "path": "plugins/goal-prompt/README.md",
+          "sha256": "ae2262c3236e5c06a9e2dc780dc6a9569d3f46bb1030f1f24ff58c8dc725b0c8"
+        },
+        {
+          "path": "plugins/let-fate-decide/README.md",
+          "sha256": "ba1e4d8f5cf344e49af16a19eca0a294389885482bd8e9f759f1b0d8484eb092"
+        },
+        {
+          "path": "plugins/let-fate-decide/agents",
+          "sha256": "e441558ab03724981a9325a7437c28e70d1164221a9099307a5f23f969c0621f"
+        },
+        {
+          "path": "plugins/modern-cpp/README.md",
+          "sha256": "efd9505370485905ab943ed0176df1abd3ff9fc3a8090f9a60a86a6a2a4b3266"
+        },
+        {
+          "path": "plugins/modern-python/README.md",
+          "sha256": "1f1248aa48fb6f0f74c3c10b49aebdb59561afb070e237699ee79777e094da64"
+        },
+        {
+          "path": "plugins/mutation-testing/README.md",
+          "sha256": "d6101d896e86fc15ee429f0ab5d34d8ed3960b77125d0b8f7b677f225038e0c9"
+        },
+        {
+          "path": "plugins/open-sourcing/README.md",
+          "sha256": "f2c2655ca7ce4be9a52147f51e499819a80095b3ccd24bf33cc3a736f103f221"
+        },
+        {
+          "path": "plugins/post-patch-validation/README.md",
+          "sha256": "ee5441ec008dd3f1d5f660401ef17b77021bc7825ac37e22baa875e64a0a841e"
+        },
+        {
+          "path": "plugins/post-patch-validation/workflows",
+          "sha256": "41f3cf7f535838d8e27e71df667ef071f6e3bb79e37f909f4ad1b0ac3e04406c"
+        },
+        {
+          "path": "plugins/review-walkthrough/README.md",
+          "sha256": "5a5aaeab2f949aebd0beb9677611df17ca175a18b7183ab9cafcb327e927c804"
+        },
+        {
+          "path": "plugins/rust-review/README.md",
+          "sha256": "9fb4965b92b365679632fafa087a6a669078bccda0b887c600c3b0651f37a571"
+        },
+        {
+          "path": "plugins/rust-review/agents",
+          "sha256": "5fb3468bb2ef84acc8751c97f37e3245ac38073684c0fc49b6b586a60982eb54"
+        },
+        {
+          "path": "plugins/rust-review/prompts",
+          "sha256": "32e1b46e1d6ec92ee15a5d57f0ea2c8045824dda89060f0dba650db65536e536"
+        },
+        {
+          "path": "plugins/rust-review/scripts",
+          "sha256": "5c0d06850e462107ba1a78c244797440e4d5048b31b05abe6e1b940c724ae13c"
+        },
+        {
+          "path": "plugins/second-opinion/README.md",
+          "sha256": "cf6fe4623dd749749696eb6e9c8ae6f21ea17ab38cfe32f8faecb412cd46fa85"
+        },
+        {
+          "path": "plugins/semgrep-rule-creator/README.md",
+          "sha256": "33563b6478490e76ff421c8734a19955c428ccfa1ef5ebf07692fd257fe5b08f"
+        },
+        {
+          "path": "plugins/semgrep-rule-creator/commands",
+          "sha256": "674b455744cfdf8d03e14e1eb3179be8b2f34fe87a3ab935665e8d18b0802e11"
+        },
+        {
+          "path": "plugins/semgrep-rule-variant-creator/README.md",
+          "sha256": "34bd85ddc0c533d0b0e192294f256ca26c9c4e16dc022729175ea9042e1b1bd1"
+        },
+        {
+          "path": "plugins/semgrep-rule-variant-creator/workflows",
+          "sha256": "b2632bdfc5e3eac10e4cce5b5e86e1ef329c0e8efa4e2e5a4a004ab5c3987b0a"
+        },
+        {
+          "path": "plugins/sharp-edges/README.md",
+          "sha256": "50731a8fa2619c16a55d6bda57a9e07f9f54a8117bd0ba587827782537d43f1f"
+        },
+        {
+          "path": "plugins/sharp-edges/agents",
+          "sha256": "b64fb6e87dda78fc9d165c38511dc32623037f38099fbc267d7b208041148ca6"
+        },
+        {
+          "path": "plugins/spec-to-code-compliance/README.md",
+          "sha256": "454774836a48ea2f144f044c370df24c54ed828543eaab1ebf8fd6ee8cd2fd38"
+        },
+        {
+          "path": "plugins/spec-to-code-compliance/agents",
+          "sha256": "6348be46db2339b8868fa4a9d669d15da4caf0eb2fe683af1049fcc72667b4f0"
+        },
+        {
+          "path": "plugins/spec-to-code-compliance/workflows",
+          "sha256": "7618a924198deeb415bf6a1ebc3ae372268d9824ca14325215cbad5f99dc0cb2"
+        },
+        {
+          "path": "plugins/static-analysis/README.md",
+          "sha256": "75f71945e9b98eda4184762763da9814b4b5dbb21dd6a2b21cf9f56aa3795e9d"
+        },
+        {
+          "path": "plugins/static-analysis/workflows",
+          "sha256": "198509384b2b11e96d0c803d9ea926244c3527099ad2782540ab4456712c6118"
+        },
+        {
+          "path": "plugins/supply-chain-risk-auditor/README.md",
+          "sha256": "a1de260cf368cd1ab1e595ec5268876b9cc413187de9bbc808ae19c170f28fb8"
+        },
+        {
+          "path": "plugins/testing-handbook-skills/README.md",
+          "sha256": "c0edf50d52c562852f94a354e0f24d1729bd3640dd09aad4fe39769a8fe4745f"
+        },
+        {
+          "path": "plugins/testing-handbook-skills/scripts",
+          "sha256": "61e195134de0d0f50502170465a1740a8ac5c49d564b7c04bc632ab859600a0f"
+        },
+        {
+          "path": "plugins/trailmark/README.md",
+          "sha256": "ff4fd03ecd79f6de70595d624adad6c325a009bc10d513031e0b55201f94c34c"
+        },
+        {
+          "path": "plugins/trailmark/agents",
+          "sha256": "a7a09f9dfeab6e79fb08af6fc6b75308b5d815cb1d3b47b6fc796cadaeb18dfe"
+        },
+        {
+          "path": "plugins/variant-analysis/README.md",
+          "sha256": "bfacc3ad4e93eb2c9922e8b8ac01fed4f02e350e2e9a6f5ae95b01e7f33a8a33"
+        },
+        {
+          "path": "plugins/variant-analysis/workflows",
+          "sha256": "58f2c07c4607e5b1a94810358c081072bd11a947acd47061590068b3590157cd"
+        },
+        {
+          "path": "plugins/vulnerability-triage-brocards/README.md",
+          "sha256": "e53858b8d86fcdb82b4f4b3843ec839b1fbbc026d0f916e74992f864d9d8b144"
+        },
+        {
+          "path": "plugins/writing-lean-proofs/README.md",
+          "sha256": "6be50c5c935fd5020d8aaf65bda80d3e445fa95deaf571b4e81fcdb49008569b"
+        },
+        {
+          "path": "plugins/yara-authoring/README.md",
+          "sha256": "0d7d78ba9f32d4476ab48c7a3d7060aaacb9f20628cc87db61dcb15333759e6a"
+        },
+        {
+          "path": "plugins/zeroize-audit/README.md",
+          "sha256": "0f40bf63dae14e24e12411d4ebbe422a3cf7d6bb0ca250c2a14d6d8a9c7266b6"
+        },
+        {
+          "path": "plugins/zeroize-audit/agents",
+          "sha256": "0768d7598f6c68709bc8a4de577aad2321e71a9b3650c95cfc2a46b87361f4fb"
+        }
+      ]
+    },
+    {
+      "id": "hashicorp-skills",
+      "url": "https://github.com/hashicorp/agent-skills",
+      "revision": "f706481af9b8fedb66de909f6243ad29601afa0c",
+      "tracking": "main",
+      "license": "MPL-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04",
+      "installation": "native",
+      "skill_roots": [
+        "plugins/packer/skills",
+        "plugins/terraform/skills"
+      ]
+    },
+    {
+      "id": "sentry-codex",
+      "url": "https://github.com/getsentry/plugin-codex",
+      "revision": "420a2f80f58870d2a42489b759ffddba3f0f3841",
+      "tracking": "main",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_sha256": "d4a59a34056a3a4943d7b5fff9c4125432692069c811fcbabd5385d890ccfcbd",
+      "installation": "native",
+      "skill_roots": [
+        "plugins/sentry/skills"
+      ]
+    },
+    {
+      "id": "dbt-skills",
+      "url": "https://github.com/dbt-labs/dbt-agent-skills",
+      "revision": "ef5710860f199897a304eabc8cd5c1973beb60ae",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "a25c0f444db00399e225e96559b376d92188fbab622b50c5d4db7c556f77daff",
+      "installation": "native",
+      "skill_roots": [
+        "skills/dbt-extras/skills",
+        "skills/dbt-migration/skills",
+        "skills/dbt/skills"
+      ]
+    },
+    {
+      "id": "neon-skills",
+      "url": "https://github.com/neondatabase/agent-skills",
+      "revision": "d814689cbba1506b7a25a7a6df5346258ba8ccf8",
+      "tracking": "main",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "installation": "native",
+      "skill_roots": [
+        "skills"
+      ]
     }
   ],
   "skills": [
@@ -105,7 +580,7 @@
       "name": "grilling",
       "source": "mattpocock-skills",
       "path": "skills/productivity/grilling",
-      "tree_sha256": "096b4ec578e44e1e19f232d5da7c509bab8deb980d00e6d605e5e214dc531f63",
+      "tree_sha256": "f6dc4587b046f8c2995f157048998589d88673845dfffb43ac321c311cec4bd2",
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
@@ -215,7 +690,7 @@
       "name": "brainstorming",
       "source": "obra-superpowers",
       "path": "skills/brainstorming",
-      "tree_sha256": "78ddac1fe95a82373b11645a5de695190760f1d74bbef1887103090f728cd2f5",
+      "tree_sha256": "69f69c87193374e3a5c2b612b0b0b8323f8789f6a1581c521f7eb9049e48794d",
       "requires": [
         "superpowers.writing-plans"
       ],
@@ -263,7 +738,7 @@
       "name": "executing-plans",
       "source": "obra-superpowers",
       "path": "skills/executing-plans",
-      "tree_sha256": "aa181d1f482b1c2a615f9ee8892e8178b44349bdadc9d797947636b81356bd63",
+      "tree_sha256": "36359ac1c24bef73aeb75798c71311ef7f3aaf0c868dd90211cff0c13877cb79",
       "requires": [
         "superpowers.using-superpowers",
         "superpowers.subagent-driven-development",
@@ -314,7 +789,7 @@
       "name": "requesting-code-review",
       "source": "obra-superpowers",
       "path": "skills/requesting-code-review",
-      "tree_sha256": "e8fe966f921e73c616d483fb4676b25f8b23bb2b4d770cd38f689862356e065b",
+      "tree_sha256": "adcd734463c76d126cab9a12e33d531d44e725f91d8fb675edca810aed379c97",
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
@@ -330,7 +805,7 @@
       "name": "subagent-driven-development",
       "source": "obra-superpowers",
       "path": "skills/subagent-driven-development",
-      "tree_sha256": "c6ce99dce1c7a3cffea12edc333d2e6059082d5866ad0529136bbbf8999db86c",
+      "tree_sha256": "c409db75949b092fcbce40863e5b300374205abb29ab1dca02faffa8b5ae7d1d",
       "requires": [
         "superpowers.using-git-worktrees",
         "superpowers.requesting-code-review",
@@ -351,7 +826,7 @@
       "name": "systematic-debugging",
       "source": "obra-superpowers",
       "path": "skills/systematic-debugging",
-      "tree_sha256": "2c38c6417a3fab7ca3138c5c0f7ef82c9eac26cd6c28df4d21c2114742f333d2",
+      "tree_sha256": "61bdc190ee68690976e1211c589bd7088e786e1c34cfe6b4eba7e66427d11988",
       "requires": [
         "superpowers.test-driven-development",
         "superpowers.verification-before-completion"
@@ -486,7 +961,11 @@
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["business-ui-design", "crm-workspace-design", "product-interface-design"],
+      "intents": [
+        "business-ui-design",
+        "crm-workspace-design",
+        "product-interface-design"
+      ],
       "user_invoked": false
     },
     {
@@ -494,11 +973,14 @@
       "name": "ui-ux-pro-max",
       "source": "uipro-skills",
       "path": ".claude/skills/ui-ux-pro-max",
-      "tree_sha256": "e172059960ef7117201bfcf2dacc7063dd798ec9da65adf8f464abf1c84e6899",
+      "tree_sha256": "3ddcf2b71f49c50b293af4701d6a915760b0408daf8bc27b3784bf75e7f64591",
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["business-ui-pattern-research", "ui-ux-stack-guidance"],
+      "intents": [
+        "business-ui-pattern-research",
+        "ui-ux-stack-guidance"
+      ],
       "user_invoked": false
     },
     {
@@ -506,11 +988,17 @@
       "name": "impeccable",
       "source": "impeccable-skills",
       "path": ".agents/skills/impeccable",
-      "tree_sha256": "dc08bc4bd47d19b4fa4d46722e0a2ca675f1559dee38314524c8bb411abd798f",
+      "tree_sha256": "48a5dcfaa7b4e2b58624a135cfc9efde7dbb028947b79f5f88961c74ca4619fe",
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["business-ui-critique", "ui-polish", "ui-hardening", "operate-ui-shaping", "ui-accessibility-audit"],
+      "intents": [
+        "business-ui-critique",
+        "ui-polish",
+        "ui-hardening",
+        "operate-ui-shaping",
+        "ui-accessibility-audit"
+      ],
       "user_invoked": false
     },
     {
@@ -522,7 +1010,11 @@
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["property-based-testing", "invariant-test-review", "shrunk-counterexample-triage"],
+      "intents": [
+        "property-based-testing",
+        "invariant-test-review",
+        "shrunk-counterexample-triage"
+      ],
       "user_invoked": false
     },
     {
@@ -530,11 +1022,14 @@
       "name": "handoff",
       "source": "mattpocock-skills",
       "path": "skills/productivity/handoff",
-      "tree_sha256": "54899340fc95ea8e35fab661ef722b1f09cfb6a7cc45627417d8e9a1122cfb28",
+      "tree_sha256": "4bfd093eb0e244f01648c20e7dd6fc9ab5388edab7d9c27387b9dd7b2d420582",
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["handoff", "explicit-session-handoff"],
+      "intents": [
+        "handoff",
+        "explicit-session-handoff"
+      ],
       "user_invoked": true
     },
     {
@@ -546,7 +1041,3053 @@
       "requires": [],
       "required_tools": [],
       "optional_tools": [],
-      "intents": ["context-compression", "long-task-continuation", "compression-quality-design"],
+      "intents": [
+        "context-compression",
+        "long-task-continuation",
+        "compression-quality-design"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry-skillet.skillet-authoring",
+      "name": "skillet-authoring",
+      "source": "sentry-skillet",
+      "path": "skills/skillet-authoring",
+      "tree_sha256": "a111e51d29fc5b7c159a8227faba8d293b2c1176ff5c0e77ca2a237bb484ca1e",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [
+        "skillet"
+      ],
+      "intents": [
+        "skillet-authoring"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.build-review-interface",
+      "name": "build-review-interface",
+      "source": "evals-course",
+      "path": "skills/build-review-interface",
+      "tree_sha256": "a669e0f11b4f538a92610c9d113ffaf7b4527bae23221d1baada6f00c9ff7eb5",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "build-review-interface"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.error-discovery",
+      "name": "error-discovery",
+      "source": "evals-course",
+      "path": "skills/error-discovery",
+      "tree_sha256": "28e7a9b629997f7235eea03a7251ce3aea21088400a2e53ffe2c00c1ea898d00",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "error-discovery"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.eval-audit",
+      "name": "eval-audit",
+      "source": "evals-course",
+      "path": "skills/eval-audit",
+      "tree_sha256": "f589e9e776b49d26279694bf599b54120020e5cd6f2a2657ae2ada55ed649bf9",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "eval-audit"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.evals-start",
+      "name": "evals-start",
+      "source": "evals-course",
+      "path": "skills/evals-start",
+      "tree_sha256": "54bcf1d59a214d36228c3bc4fb6d06ea690ab3339fb2115f3902695c298ddc27",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "evals-start"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.evaluate-rag",
+      "name": "evaluate-rag",
+      "source": "evals-course",
+      "path": "skills/evaluate-rag",
+      "tree_sha256": "fb3e10999a675ed769cf6f4017eefcab3305b5d5cc6cc2c2ecbe7da64cdf8212",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "evaluate-rag"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.generate-synthetic-data",
+      "name": "generate-synthetic-data",
+      "source": "evals-course",
+      "path": "skills/generate-synthetic-data",
+      "tree_sha256": "c8e3a0bfda1f8470f3ae0e8ef363fbfdfed15ef5b6f4a93f8c0e512a41417fee",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "generate-synthetic-data"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.validate-evaluator",
+      "name": "validate-evaluator",
+      "source": "evals-course",
+      "path": "skills/validate-evaluator",
+      "tree_sha256": "267a7165581d85c2582cbf598144076b8f8ac619e17f41d6dc01325cbac9e864",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "validate-evaluator"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.write-code-eval",
+      "name": "write-code-eval",
+      "source": "evals-course",
+      "path": "skills/write-code-eval",
+      "tree_sha256": "b207ba13705fac131ce4a0993a1580fd331f85c2404f6a4a879d6a30e2cbc35d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "write-code-eval"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "evals-course.write-judge-prompt",
+      "name": "write-judge-prompt",
+      "source": "evals-course",
+      "path": "skills/write-judge-prompt",
+      "tree_sha256": "528ea730f362a143fdae8efccd666aa38a133b9f2cd76b3c26d47798590d3c0c",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "write-judge-prompt"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.admission-control",
+      "name": "admission-control",
+      "source": "grafana-skills",
+      "path": "skills/grafana-app-sdk/admission-control",
+      "tree_sha256": "363360a0004a31d6113b007a318d6ab9c2bb4f591f55a807090db4f7283278f3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "admission-control"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.app-sdk-concepts",
+      "name": "app-sdk-concepts",
+      "source": "grafana-skills",
+      "path": "skills/grafana-app-sdk/app-sdk-concepts",
+      "tree_sha256": "3cde825ec3a07decb36f4e90be43cbbeac3df15516a465a205b4606fbb89409f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "app-sdk-concepts"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.cue-kind-definition",
+      "name": "cue-kind-definition",
+      "source": "grafana-skills",
+      "path": "skills/grafana-app-sdk/cue-kind-definition",
+      "tree_sha256": "de0e3ab80a366ca0c7a21e518705a49f8ded245e08f9a4bf07a41ddce6597cff",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cue-kind-definition"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.reconciler-logic",
+      "name": "reconciler-logic",
+      "source": "grafana-skills",
+      "path": "skills/grafana-app-sdk/reconciler-logic",
+      "tree_sha256": "5833af2f7748fa8f2951a779b81fe8385fcdf48a6adf89f05ecd8d521de42a78",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "reconciler-logic"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.adaptive-metrics",
+      "name": "adaptive-metrics",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/adaptive-metrics",
+      "tree_sha256": "3b7273017b9eeb9d672754aa705798e3a775a4f64bc83e368877fa4d2ba38b79",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "adaptive-metrics"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.admin",
+      "name": "admin",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/admin",
+      "tree_sha256": "76e3eafbb65b799b1dbb409a6f3d9f1c6bc95f6cdb7c538a6d6489c48cb12086",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "admin"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.app-observability",
+      "name": "app-observability",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/app-observability",
+      "tree_sha256": "c9a28f6e7e0da1e5090990ba5dee3f01d1f0a9cf7c8175d436ba864c43c6a1b8",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "app-observability"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.assistant-mcp",
+      "name": "assistant-mcp",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/assistant-mcp",
+      "tree_sha256": "022a5e29603cd18fd40e7dda72a716406e535cb73e1143de294adb0c6aabfd1b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "assistant-mcp"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.cloud-integrations",
+      "name": "cloud-integrations",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/cloud-integrations",
+      "tree_sha256": "5ccdbf2d11f785d9ddfb4e8fecb42911da1da0e060beaee0d0ba539bdf424cf2",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cloud-integrations"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.cost-management",
+      "name": "cost-management",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/cost-management",
+      "tree_sha256": "5e12e5d2417d1d124eca3cf6102cfed95fdbf31304a9a2569086d036ba7a2a34",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cost-management"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.database-observability",
+      "name": "database-observability",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/database-observability",
+      "tree_sha256": "8ead108f0b60ee6639910b5c801570866ee96f99eede35981c1d93bb9af15765",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "database-observability"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.dpm-finder",
+      "name": "dpm-finder",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/dpm-finder",
+      "tree_sha256": "c16a2a90b9dd24cd5019be27a915a4e31bff10e6446f9fd1fafbe534af370e5f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "dpm-finder"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.fleet-management",
+      "name": "fleet-management",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/fleet-management",
+      "tree_sha256": "ace465f6a9ccd251851064eaacccf0d0651d3b6be777d3d5d1621088339a7c0d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "fleet-management"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.frontend-session-rca",
+      "name": "frontend-session-rca",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/frontend-session-rca",
+      "tree_sha256": "5a85db295a5b9f8d0bc316b556efe07b46e5550a29a1fe0aabcd33a2cc87e3aa",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "frontend-session-rca"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.infrastructure",
+      "name": "infrastructure",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/infrastructure",
+      "tree_sha256": "14b10ab0afa0f241c3f1948f4ea209bdc5e3f190774473a774d4dd9e38f4d2b7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "infrastructure"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.loki-label-analyzer",
+      "name": "loki-label-analyzer",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/loki-label-analyzer",
+      "tree_sha256": "4fc2ebc53254f071d0036631ab94668116443c9950e978e5627a347a9de43920",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "loki-label-analyzer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.ml-ai",
+      "name": "ml-ai",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/ml-ai",
+      "tree_sha256": "159c4a1b84467a81b2d57c0a78c6f5433aaf70f878a47b764f46d13b5326a4d5",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "ml-ai"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.oncall-irm",
+      "name": "oncall-irm",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/oncall-irm",
+      "tree_sha256": "efe48979b32d58d59aca87f252a3b9c845bbbbd21f16aa57555f2165a5bf0319",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "oncall-irm"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.private-connectivity",
+      "name": "private-connectivity",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/private-connectivity",
+      "tree_sha256": "38e616679595898fc1bdbe63fdab9d1b4c064c67a0b6f541a0234f7e52e2d167",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "private-connectivity"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.prometheus-cardinality-troubleshooter",
+      "name": "prometheus-cardinality-troubleshooter",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/prometheus-cardinality-troubleshooter",
+      "tree_sha256": "2c4251a4ddf19fb2aa8e48eadc7a04c77b08ad899c00a8201ce514f9e3e20fa7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "prometheus-cardinality-troubleshooter"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.prometheus-label-strategy",
+      "name": "prometheus-label-strategy",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/prometheus-label-strategy",
+      "tree_sha256": "b0d5be0d845367f73e0b0bcf9bae7435a8abedddd161e0cba0498f16c34f4dba",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "prometheus-label-strategy"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.send-data",
+      "name": "send-data",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/send-data",
+      "tree_sha256": "110b93b0adaca1a2628ff4c0596e4c522c4d14274202eb819428d7bc72178b97",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "send-data"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.synthetic-monitoring-checks",
+      "name": "synthetic-monitoring-checks",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/synthetic-monitoring-checks",
+      "tree_sha256": "9e08f43f072757d4b7466bb3bb323ae89b1c796f9228b8a8319855397378bf85",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "synthetic-monitoring-checks"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.testing",
+      "name": "testing",
+      "source": "grafana-skills",
+      "path": "skills/grafana-cloud/testing",
+      "tree_sha256": "62503b723a1d57bd093c42d736cbeb432a5c7a0fa9d4be62f786a2f303eb222f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "testing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.alerting-irm",
+      "name": "alerting-irm",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/alerting-irm",
+      "tree_sha256": "97a951af0e4c7348d8e3fe6542bf3f29382171759e70804a2bccd59e8b14f06e",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "alerting-irm"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.alloy",
+      "name": "alloy",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/alloy",
+      "tree_sha256": "3a5a523c13ef2eaff9b770eb7da1bf30f05d8a5b4b79203b6b7022b5115cbb19",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "alloy"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.beyla",
+      "name": "beyla",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/beyla",
+      "tree_sha256": "ebc0d76bc41a9e1278fe1ee60a53587087752ccf62cad550352b4f0cc64bdb15",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "beyla"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.dashboarding",
+      "name": "dashboarding",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/dashboarding",
+      "tree_sha256": "da798c2d30dcc1a141fb288e240120bdaec953821fa9589ea403def5d4088c95",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "dashboarding"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.grafana-oss",
+      "name": "grafana-oss",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/grafana-oss",
+      "tree_sha256": "d387249971210bf2fdb62bdfdaad239ef2def7ce8e79801e178a49f3425fbe2d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "grafana-oss"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.opentelemetry",
+      "name": "opentelemetry",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/opentelemetry",
+      "tree_sha256": "c0866fdfbf57d9d39733ad2fc0cea48e254967777336199b09314a38a318ebc0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "opentelemetry"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.promql",
+      "name": "promql",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/promql",
+      "tree_sha256": "869b8913391b22778a35bf9d308ebe3fec3d87dd0aa0bb8a829d2fb9fab82b1f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "promql"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.skill-authoring",
+      "name": "skill-authoring",
+      "source": "grafana-skills",
+      "path": "skills/grafana-core/skill-authoring",
+      "tree_sha256": "82d1fb15bb4e91af51d45e914dc3ac61dc571c7054a0f5b28427eabbcb9dad24",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "skill-authoring"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.datasources-provisioning",
+      "name": "datasources-provisioning",
+      "source": "grafana-skills",
+      "path": "skills/grafana-datasources/datasources-provisioning",
+      "tree_sha256": "ad4a8269cde2f3f878bedc7550226088ea8629adf4f6e9a3496599be102db559",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "datasources-provisioning"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6",
+      "name": "k6",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6",
+      "tree_sha256": "fada01999fde7097440c80b0fad557c7595f233eb7d731c365a45893f664e352",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-browser-test",
+      "name": "k6-browser-test",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-browser-test",
+      "tree_sha256": "70f9df853eccc8785a959f7f1d164ad8e67e065d8b505acded2e44bccb86e0bb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-browser-test"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-cloud-investigate-test",
+      "name": "k6-cloud-investigate-test",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-cloud-investigate-test",
+      "tree_sha256": "3236dd0802f98fdd726539bda8a817c4b0dcfffd41f7721f0defe64fbcaab673",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-cloud-investigate-test"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-docs",
+      "name": "k6-docs",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-docs",
+      "tree_sha256": "22886f3cb61b771c7683b48ab6dd7c19d4998f8a46f6f4d9515c31b33f613f46",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-docs"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-manage",
+      "name": "k6-manage",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-manage",
+      "tree_sha256": "817a1f118212010706fe9d734c64ea53ad1b8cfa7e64569a3c23e8fc9bdb823d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-manage"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-perf-test-website",
+      "name": "k6-perf-test-website",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-perf-test-website",
+      "tree_sha256": "d991fc62f6d9b28031d1a851ca867c126b80efd436487a60b64e7abc56080b04",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-perf-test-website"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-test-maintenance",
+      "name": "k6-test-maintenance",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-test-maintenance",
+      "tree_sha256": "43126ff021263c132af87a80dbcb0fa365a67388418c5a107aa323ef9f948b24",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-test-maintenance"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.k6-trend-analysis",
+      "name": "k6-trend-analysis",
+      "source": "grafana-skills",
+      "path": "skills/grafana-k6/k6-trend-analysis",
+      "tree_sha256": "ed1e12b7764100d274b6a7af23464940f5638e30de73cd8a7c8dd64d1f53b841",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "k6-trend-analysis"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.loki",
+      "name": "loki",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/loki",
+      "tree_sha256": "0b386451b8d7361ad929abd37217d02f087e7d185f9aa4f9a36987fc7b6d2693",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "loki"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.mimir",
+      "name": "mimir",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/mimir",
+      "tree_sha256": "1a164508a973f0a5f643f2f5a158f7595bd9c7e162e1e3b329b017177c7495b4",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "mimir"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.profilecli-insights",
+      "name": "profilecli-insights",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/profilecli-insights",
+      "tree_sha256": "44593f9ae05bac576d1e1b3f094ee3118b4cb3cfe621c4b303d6e8c83300a583",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "profilecli-insights"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.prometheus",
+      "name": "prometheus",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/prometheus",
+      "tree_sha256": "2ee1170628616266b1d785207d461b78ee933c35993acf9c1ad3a654a4e2adbe",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "prometheus"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.pyroscope",
+      "name": "pyroscope",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/pyroscope",
+      "tree_sha256": "f2df05e8832a88bf064136791380d812d4afc6994449b44e0f4f0db7aab61333",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "pyroscope"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.tempo",
+      "name": "tempo",
+      "source": "grafana-skills",
+      "path": "skills/grafana-lgtm/tempo",
+      "tree_sha256": "7c4ecb013aa367624f3456f4cfc81c8cbc33fab074d02604bc240eb409e94b14",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "tempo"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.audit-and-reduce-dependencies",
+      "name": "audit-and-reduce-dependencies",
+      "source": "grafana-skills",
+      "path": "skills/grafana-plugins/audit-and-reduce-dependencies",
+      "tree_sha256": "da568c7d5f32545482a6cb084cc83e3f69398766f99b86a057522999d4877a98",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "audit-and-reduce-dependencies"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.check-npm",
+      "name": "check-npm",
+      "source": "grafana-skills",
+      "path": "skills/grafana-plugins/check-npm",
+      "tree_sha256": "914c44483254d6f3f26d8672e6efe9eba6c2af7c918c88414f404ff64b82feb1",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "check-npm"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.grafana-scenes",
+      "name": "grafana-scenes",
+      "source": "grafana-skills",
+      "path": "skills/grafana-plugins/grafana-scenes",
+      "tree_sha256": "b0556353b5791878f28418d021f7213c7115303929062be845b155d54fb46ef6",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "grafana-scenes"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.plugin-bundle-size",
+      "name": "plugin-bundle-size",
+      "source": "grafana-skills",
+      "path": "skills/grafana-plugins/plugin-bundle-size",
+      "tree_sha256": "c8ab6d887b9ec5cf4a8f50edc07f0178fd7ced148e7e7b6dc010246fe1a2f944",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "plugin-bundle-size"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "grafana-skills.react-19-plugin-migration",
+      "name": "react-19-plugin-migration",
+      "source": "grafana-skills",
+      "path": "skills/grafana-plugins/react-19-plugin-migration",
+      "tree_sha256": "1670e43f2e2a87b137e0765780b7ff5469a748328d09acfa1cd013b5b2572a26",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "react-19-plugin-migration"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-browser",
+      "name": "otel-browser",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-browser",
+      "tree_sha256": "7fc57e837ce3932a02e4416c308eda9c20b21f75f86a65c2cf9a3a8148f62115",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-browser"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-collector",
+      "name": "otel-collector",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-collector",
+      "tree_sha256": "ac3d03927e557184a34e07f8b0759255599a2e10b8c5c13a52a4584bc3fa314d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-collector"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-collector-builder",
+      "name": "otel-collector-builder",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-collector-builder",
+      "tree_sha256": "6e5d20c8cd59b22de936619c44ccbb1b6a706b3c84cb6bcf8ab23bcf47fe375a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-collector-builder"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-declarative-config",
+      "name": "otel-declarative-config",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-declarative-config",
+      "tree_sha256": "b795501078da7637614cd791d3e756acd16a43e74dd1fb053d76a72a37790bf5",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-declarative-config"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-dotnet",
+      "name": "otel-dotnet",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-dotnet",
+      "tree_sha256": "6e17ce5fcecb21c4d7f1cbf38d258ccca52b8269be47f643d1221fe46f96c440",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-dotnet"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-go",
+      "name": "otel-go",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-go",
+      "tree_sha256": "dda5af837b1d583ace0c8bfe3a4f15c8aedbcf257de456f7cffa3cc232bb1a68",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-go"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-java",
+      "name": "otel-java",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-java",
+      "tree_sha256": "1c63e8bcc01141c0d09c458ac3bee3ee7dbce2957b2be191c730c3830c57248a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-java"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-js",
+      "name": "otel-js",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-js",
+      "tree_sha256": "34508e3a9db4284622652c439b160b93d1333ce49bd239b00f5a99d7a9ec3585",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-js"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-ottl",
+      "name": "otel-ottl",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-ottl",
+      "tree_sha256": "d821b2b09c911c858e52158dba4c70af02c5b410e8d74ab7de1f5bcee7a23ab0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-ottl"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-profiles",
+      "name": "otel-profiles",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-profiles",
+      "tree_sha256": "5ee6883fc3632f7fd9404f505623926c08dd3f087370c3ff15b3b32614ad2249",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-profiles"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-python",
+      "name": "otel-python",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-python",
+      "tree_sha256": "ca524415dd55c068c4604a2b636f4142b009c28e9c172473e50af2ec435daff0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-python"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-ruby",
+      "name": "otel-ruby",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-ruby",
+      "tree_sha256": "38c13ae85e1d00e93ca4cf177bed8587b06ebcb4c6367bf44032d21056efde79",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-ruby"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-sdk-versions",
+      "name": "otel-sdk-versions",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-sdk-versions",
+      "tree_sha256": "32495b770546867037fbd730d6ab0ee8b74d60f7e75e97c5f8d762bd5189e231",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-sdk-versions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-semantic-conventions",
+      "name": "otel-semantic-conventions",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-semantic-conventions",
+      "tree_sha256": "077f8592439d14df3c1dd8ca76c60b6ec04e8b3e9ed8440141670bd2ec5e2c35",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-semantic-conventions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-span-events-to-logs-migration",
+      "name": "otel-span-events-to-logs-migration",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-span-events-to-logs-migration",
+      "tree_sha256": "9d6c088beaf60f98abf40a2b30bed3c2364626ea8ef6e682764c72d892ef1f00",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-span-events-to-logs-migration"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-telemetry-emissions",
+      "name": "otel-telemetry-emissions",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-telemetry-emissions",
+      "tree_sha256": "0dd9ff46ff8e1b2084c46d053fd2a5247cd3d22b65c88dfae7768b7b289dfc9a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-telemetry-emissions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-telemetrygen",
+      "name": "otel-telemetrygen",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-telemetrygen",
+      "tree_sha256": "6d2494466ac07aab59b28b36718388275e519214016e71f254c39f8f37cf859b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-telemetrygen"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-upgrade",
+      "name": "otel-upgrade",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-upgrade",
+      "tree_sha256": "c8ce5ff4ede1f73e03ac598dc2b1b65b4651e7e64d8603be6a8e4a42c92947da",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-upgrade"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "ollygarden-otel.otel-weaver",
+      "name": "otel-weaver",
+      "source": "ollygarden-otel",
+      "path": "skills/otel-weaver",
+      "tree_sha256": "1c4857789a490b05a4f0efa411187c486daac39f50b00e0a19234b6d9330fb12",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "otel-weaver"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "vercel-agent-browser.agent-browser",
+      "name": "agent-browser",
+      "source": "vercel-agent-browser",
+      "path": "skills/agent-browser",
+      "tree_sha256": "c589a192434a47e9e93bbabd5f244c9f49341d4f9c8a1e7312bf0a731d84bec5",
+      "requires": [],
+      "required_tools": [
+        "agent-browser"
+      ],
+      "optional_tools": [],
+      "intents": [
+        "agent-browser"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.agentic-actions-auditor",
+      "name": "agentic-actions-auditor",
+      "source": "trailofbits-extended",
+      "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor",
+      "tree_sha256": "f07e28f6bdce894701783ac72fc8a265f6764e60897d3f0cde87bf42f38462a7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "agentic-actions-auditor"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.audit-context-building",
+      "name": "audit-context-building",
+      "source": "trailofbits-extended",
+      "path": "plugins/audit-context-building/skills/audit-context-building",
+      "tree_sha256": "5c6b5b8e9093b9f0924da41e3413397c79513e1cc0decb5c6995700205e88ab7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "audit-context-building"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.algorand-vulnerability-scanner",
+      "name": "algorand-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner",
+      "tree_sha256": "2d1abd7cae03ff5452e7de4d881a2f8bd718d191aa9fd6e427d494e269a9efbf",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "algorand-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.audit-prep-assistant",
+      "name": "audit-prep-assistant",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/audit-prep-assistant",
+      "tree_sha256": "146b992bccc00f705ea47aed8858fb8b0386c0e5283c207b46102f979f7cc0ea",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "audit-prep-assistant"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.cairo-vulnerability-scanner",
+      "name": "cairo-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/cairo-vulnerability-scanner",
+      "tree_sha256": "50750fb0383bf4144faf03d4f5196bba2053dae7c1dbd16046f60899e5eb6adb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cairo-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.code-maturity-assessor",
+      "name": "code-maturity-assessor",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/code-maturity-assessor",
+      "tree_sha256": "65b619fbf0c61da9ca138f67b4e5b439a6603258a04e8bad6f721fe0767134a1",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "code-maturity-assessor"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.cosmos-vulnerability-scanner",
+      "name": "cosmos-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/cosmos-vulnerability-scanner",
+      "tree_sha256": "cd0cda28a01b04dca11ab21d548a52ed367d02a5c3339bf9b003d119cb47d15d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cosmos-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.guidelines-advisor",
+      "name": "guidelines-advisor",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/guidelines-advisor",
+      "tree_sha256": "bbe8a3f9f64a95e50bad97931f7a71b92c424c7f2bdc8e40aa5a02e1210672a3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "guidelines-advisor"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.secure-workflow-guide",
+      "name": "secure-workflow-guide",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/secure-workflow-guide",
+      "tree_sha256": "23e97abc4adde8c150588114b6ba5cd56bdded0426b953a2d853cce8283e3f16",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "secure-workflow-guide"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.solana-vulnerability-scanner",
+      "name": "solana-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/solana-vulnerability-scanner",
+      "tree_sha256": "eb5f63b60dbbb7332a7a7ff00ffaa539c5749790130df49ecbe07eaedccd2ed7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "solana-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.substrate-vulnerability-scanner",
+      "name": "substrate-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/substrate-vulnerability-scanner",
+      "tree_sha256": "0337c17351a71729f14e07efdc9fb665c48de96693bd4c30cae60710b2634f92",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "substrate-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.token-integration-analyzer",
+      "name": "token-integration-analyzer",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/token-integration-analyzer",
+      "tree_sha256": "0c1b44bc84c29f53e00d65d767917b1b0decac172823f38e517f9cb87efa4dbc",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "token-integration-analyzer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.ton-vulnerability-scanner",
+      "name": "ton-vulnerability-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/building-secure-contracts/skills/ton-vulnerability-scanner",
+      "tree_sha256": "c3d68c8b97ea573ea781c630114df430e2bfd9e30bb0c6032207d26467d70dad",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "ton-vulnerability-scanner"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.burpsuite-project-parser",
+      "name": "burpsuite-project-parser",
+      "source": "trailofbits-extended",
+      "path": "plugins/burpsuite-project-parser/skills/burpsuite-project-parser",
+      "tree_sha256": "42e05358e9150822f717056f31a2f5177f34cc2ada51279cd8f2084daca95c48",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "burpsuite-project-parser"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.c-review",
+      "name": "c-review",
+      "source": "trailofbits-extended",
+      "path": "plugins/c-review/skills/c-review",
+      "tree_sha256": "b9cf3cede180ca28e77e631eb3748f4e89359e7bf65a33e863b0b6316f24f680",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "c-review"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.chrome-mcp-troubleshooting",
+      "name": "chrome-mcp-troubleshooting",
+      "source": "trailofbits-extended",
+      "path": "plugins/chrome-mcp-troubleshooting/skills/chrome-mcp-troubleshooting",
+      "tree_sha256": "05cb0d064767c93bfc86a55cfc960b1bb67d78c2c7200172c19148dc12cbbc80",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "chrome-mcp-troubleshooting"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.code-improver",
+      "name": "code-improver",
+      "source": "trailofbits-extended",
+      "path": "plugins/code-improver/skills/code-improver",
+      "tree_sha256": "fd524002d82e1d9dac3bbc71d5e69d92ff7732106fd3827ac22f4348061c2314",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "code-improver"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.pr-improver",
+      "name": "pr-improver",
+      "source": "trailofbits-extended",
+      "path": "plugins/code-improver/skills/pr-improver",
+      "tree_sha256": "04fe5d5b78254e7ad368560e55eed600a62c3168b63b47f7dd45bf5877d10c9c",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "pr-improver"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.skill-improver",
+      "name": "skill-improver",
+      "source": "trailofbits-extended",
+      "path": "plugins/code-improver/skills/skill-improver",
+      "tree_sha256": "406b8e9a79282216d6d2fbf0a13ebb853845826076a7a4703272041ad4bb6b82",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "skill-improver"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.constant-time-analysis",
+      "name": "constant-time-analysis",
+      "source": "trailofbits-extended",
+      "path": "plugins/constant-time-analysis/skills/constant-time-analysis",
+      "tree_sha256": "85d5b6b6ad0ddfe268c33da9d287d9e117181164f1646b378ae04a439e5819cc",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "constant-time-analysis"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.interpreting-culture-index",
+      "name": "interpreting-culture-index",
+      "source": "trailofbits-extended",
+      "path": "plugins/culture-index/skills/interpreting-culture-index",
+      "tree_sha256": "6079dbee48774b8933c07f623d232e61577db1b16085959d969f191f82739cec",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "interpreting-culture-index"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.devcontainer-setup",
+      "name": "devcontainer-setup",
+      "source": "trailofbits-extended",
+      "path": "plugins/devcontainer-setup/skills/devcontainer-setup",
+      "tree_sha256": "e1481470d5cfe0a6ee783ba9a81310bcd070b00906641b78f08da7526d66991a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "devcontainer-setup"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.differential-review",
+      "name": "differential-review",
+      "source": "trailofbits-extended",
+      "path": "plugins/differential-review/skills/differential-review",
+      "tree_sha256": "c19ba00ad1fce5f03575fbfb5ef1fd535b3f231fbc27752d0a65109a3dd8e5e7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "differential-review"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.dimensional-analysis",
+      "name": "dimensional-analysis",
+      "source": "trailofbits-extended",
+      "path": "plugins/dimensional-analysis/skills/dimensional-analysis",
+      "tree_sha256": "833e7d6aa1f555a072a3e8345c2cfa7caf0bf134e4fd51422c052411c981ce8d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "dimensional-analysis"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.dwarf-expert",
+      "name": "dwarf-expert",
+      "source": "trailofbits-extended",
+      "path": "plugins/dwarf-expert/skills/dwarf-expert",
+      "tree_sha256": "b57b924e22de367fcba4bd8024370d9229dbf5b7288f758e6811cdb2b18c2e00",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "dwarf-expert"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.entry-point-analyzer",
+      "name": "entry-point-analyzer",
+      "source": "trailofbits-extended",
+      "path": "plugins/entry-point-analyzer/skills/entry-point-analyzer",
+      "tree_sha256": "a966ae8f7c84cd50d1c722ccd50a3bc82ac51a712503e6862596135972c45e2e",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "entry-point-analyzer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.firebase-apk-scanner",
+      "name": "firebase-apk-scanner",
+      "source": "trailofbits-extended",
+      "path": "plugins/firebase-apk-scanner/skills/firebase-apk-scanner",
+      "tree_sha256": "dd8be113467b15d851342d5b665b3b4a542662d14f48183965652f7c1ee8be43",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "firebase-apk-scanner"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "trailofbits.fp-check",
+      "name": "fp-check",
+      "source": "trailofbits-extended",
+      "path": "plugins/fp-check/skills/fp-check",
+      "tree_sha256": "f590d8150defa8a39218c22a47b4609f38317ff810fd3969d214a9ae69aa4137",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "fp-check"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.gh-cli",
+      "name": "gh-cli",
+      "source": "trailofbits-extended",
+      "path": "plugins/gh-cli/skills/gh-cli",
+      "tree_sha256": "5566783cbb743387ae5f216d2f3a9319b0837c2db0c212c0e99f4551c34ed552",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "gh-cli"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.github-triage",
+      "name": "github-triage",
+      "source": "trailofbits-extended",
+      "path": "plugins/github-triage/skills/github-triage",
+      "tree_sha256": "0152ebefdf2054a70eb1f21091563a3662bb0f41f55b0d2506f47497d4f329e4",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "github-triage"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "trailofbits.goal-prompt",
+      "name": "goal-prompt",
+      "source": "trailofbits-extended",
+      "path": "plugins/goal-prompt/skills/goal-prompt",
+      "tree_sha256": "687dd26005f4330900a452270fcb40bd410127f1fa1b2710843870e69a831f56",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "goal-prompt"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.let-fate-decide",
+      "name": "let-fate-decide",
+      "source": "trailofbits-extended",
+      "path": "plugins/let-fate-decide/skills/let-fate-decide",
+      "tree_sha256": "50860de3b1e7c077988743e7cdebedb8047a59114d015b2e6ec064bd8b840af7",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "let-fate-decide"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.modern-cpp",
+      "name": "modern-cpp",
+      "source": "trailofbits-extended",
+      "path": "plugins/modern-cpp/skills/modern-cpp",
+      "tree_sha256": "62e2ea4a6c1db1fe0d15eab612113d5f5a4cd8b5afc9b0d57d6c00c8b5bef48a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "modern-cpp"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.modern-python",
+      "name": "modern-python",
+      "source": "trailofbits-extended",
+      "path": "plugins/modern-python/skills/modern-python",
+      "tree_sha256": "8f2b1c0fd349ff549b533e5da54184dd195e3e05e983acf5977998b8baf90569",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "modern-python"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.mutation-testing",
+      "name": "mutation-testing",
+      "source": "trailofbits-extended",
+      "path": "plugins/mutation-testing/skills/mutation-testing",
+      "tree_sha256": "03710d4173b1fd5b03114bec162e3193648a6cc92bdac9b1960da8e3edaac117",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "mutation-testing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.open-sourcing",
+      "name": "open-sourcing",
+      "source": "trailofbits-extended",
+      "path": "plugins/open-sourcing/skills/open-sourcing",
+      "tree_sha256": "af3950feb99e6fbe47aae364e13c0a5b603ecbdfb807f588b1cc39ef7f995f7b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "open-sourcing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.post-patch-validation",
+      "name": "post-patch-validation",
+      "source": "trailofbits-extended",
+      "path": "plugins/post-patch-validation/skills/post-patch-validation",
+      "tree_sha256": "2e19de3353fb6713254d20be6387c20430924e6ace2c95df52a73f8cd79eb484",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "post-patch-validation"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.review-walkthrough",
+      "name": "review-walkthrough",
+      "source": "trailofbits-extended",
+      "path": "plugins/review-walkthrough/skills/review-walkthrough",
+      "tree_sha256": "b353dfcc1bac1940fd01ebfa9c0f074129b6c9a2f106ec6d26cd107dbd35343d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "review-walkthrough"
+      ],
+      "user_invoked": true
+    },
+    {
+      "id": "trailofbits.rust-review",
+      "name": "rust-review",
+      "source": "trailofbits-extended",
+      "path": "plugins/rust-review/skills/rust-review",
+      "tree_sha256": "91b7e0da17f2a80d427c8d1f42f1be10e126071d01ead7ca8c538fe7cdcea1de",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "rust-review"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.second-opinion",
+      "name": "second-opinion",
+      "source": "trailofbits-extended",
+      "path": "plugins/second-opinion/skills/second-opinion",
+      "tree_sha256": "4da8d6f0679534fa9ecfc84c89c7f9f7b8ebf577fc5c725c1c84150360a74865",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "second-opinion"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.semgrep-rule-creator",
+      "name": "semgrep-rule-creator",
+      "source": "trailofbits-extended",
+      "path": "plugins/semgrep-rule-creator/skills/semgrep-rule-creator",
+      "tree_sha256": "46272591cc3b1e93f9fc87cb8ddd6dd9e423f2b86012f712edc39183f4415b86",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "semgrep-rule-creator"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.semgrep-rule-variant-creator",
+      "name": "semgrep-rule-variant-creator",
+      "source": "trailofbits-extended",
+      "path": "plugins/semgrep-rule-variant-creator/skills/semgrep-rule-variant-creator",
+      "tree_sha256": "31800fe85fbdb80796d008242b35022f4afcfc96e959a5ff209434f5427f4098",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "semgrep-rule-variant-creator"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.sharp-edges",
+      "name": "sharp-edges",
+      "source": "trailofbits-extended",
+      "path": "plugins/sharp-edges/skills/sharp-edges",
+      "tree_sha256": "a13c05eefffd5f6aded25caaf2f9c101caa67349ad3d7565243317b9fd21c3a3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sharp-edges"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.spec-to-code-compliance",
+      "name": "spec-to-code-compliance",
+      "source": "trailofbits-extended",
+      "path": "plugins/spec-to-code-compliance/skills/spec-to-code-compliance",
+      "tree_sha256": "a1cc70d9a2b28e14c833606218eae0a5b3ba45294abefdff0dfd01b47118d2c4",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "spec-to-code-compliance"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.codeql",
+      "name": "codeql",
+      "source": "trailofbits-extended",
+      "path": "plugins/static-analysis/skills/codeql",
+      "tree_sha256": "1e2b20915e0a9eac2730853ef121c1518a41ad910768479c9593f5292af3da71",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "codeql"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.sarif-parsing",
+      "name": "sarif-parsing",
+      "source": "trailofbits-extended",
+      "path": "plugins/static-analysis/skills/sarif-parsing",
+      "tree_sha256": "b61cc6794f7e7bda45b63ea0defde8ab09a1d9bd5348e604874ba5be55cda57d",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sarif-parsing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.semgrep",
+      "name": "semgrep",
+      "source": "trailofbits-extended",
+      "path": "plugins/static-analysis/skills/semgrep",
+      "tree_sha256": "b359ff4ff5e7193b008b0ae711bab27ad737d9afba99fc89656c40ba5cbb6146",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "semgrep"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.supply-chain-risk-auditor",
+      "name": "supply-chain-risk-auditor",
+      "source": "trailofbits-extended",
+      "path": "plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor",
+      "tree_sha256": "1b1be98655f4253d49f0ea429291c411efee2e8577b21e960649da2a4a4baed6",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "supply-chain-risk-auditor"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.address-sanitizer",
+      "name": "address-sanitizer",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/address-sanitizer",
+      "tree_sha256": "a0b44b38b61670439e6b8b2ceadd1018708cc2b0cc0810d435c16f79faa58bc0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "address-sanitizer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.aflpp",
+      "name": "aflpp",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/aflpp",
+      "tree_sha256": "3c196470e036dfb7fb18e35fe5e6a5dad71c6c0e81430f2413b581c890342511",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "aflpp"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.atheris",
+      "name": "atheris",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/atheris",
+      "tree_sha256": "4c8b1ad680622862549b02e823a85bbfbb5324be5fe182649b134a729a5cd0f6",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "atheris"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.cargo-fuzz",
+      "name": "cargo-fuzz",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/cargo-fuzz",
+      "tree_sha256": "825b0d171e4d051980c0ad7db3f0f00b51ad077af08bac71bc83ea2d645dc775",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "cargo-fuzz"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.constant-time-testing",
+      "name": "constant-time-testing",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/constant-time-testing",
+      "tree_sha256": "016130eb8254c211a042cb65d355bf1c36fa57042c1d64f3c00cbce1fe4cef79",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "constant-time-testing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.coverage-analysis",
+      "name": "coverage-analysis",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/coverage-analysis",
+      "tree_sha256": "675a001d134a1d9df9d7ad9195eb4bfd2a2b674d5edf68f4a8088fd29d92d545",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "coverage-analysis"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.fuzzing-dictionary",
+      "name": "fuzzing-dictionary",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/fuzzing-dictionary",
+      "tree_sha256": "3ec54a28c3475eb99744609afce5ca51036652907d85157d3cac4b778c0232fb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "fuzzing-dictionary"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.fuzzing-obstacles",
+      "name": "fuzzing-obstacles",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/fuzzing-obstacles",
+      "tree_sha256": "d4e7d828143a3756c004084c9ef99f5180ddbfb2052c534a29fa4e712148a667",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "fuzzing-obstacles"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.harness-writing",
+      "name": "harness-writing",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/harness-writing",
+      "tree_sha256": "5d5fe80dff0406c366bab08fc6e25adeeb8f7d4596c1b82c157eb724f4fcf491",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "harness-writing"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.libafl",
+      "name": "libafl",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/libafl",
+      "tree_sha256": "c8d0ef505986152c10d51d794d4d8495e2b27e00c60e55d7e1a2d4eed2409451",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "libafl"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.libfuzzer",
+      "name": "libfuzzer",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/libfuzzer",
+      "tree_sha256": "f803c28255a68a7577ee85ab91738bec631926b677732aa13681466d1f56026e",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "libfuzzer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.ossfuzz",
+      "name": "ossfuzz",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/ossfuzz",
+      "tree_sha256": "2f030cbbf5d35234dd949a2dcb8db1ae53ead44b6012d69a0de1b6e7a93d3634",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "ossfuzz"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.ruzzy",
+      "name": "ruzzy",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/ruzzy",
+      "tree_sha256": "51b097f044d7762d995e0c78c5176af9420f0598e5c2d8c08b2ebcc15f35f084",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "ruzzy"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.testing-handbook-generator",
+      "name": "testing-handbook-generator",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/testing-handbook-generator",
+      "tree_sha256": "4b37ac4b51f43f0045d4fc5e2ea1ffd7fb15fd74083d72b2801781f930812981",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "testing-handbook-generator"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.wycheproof",
+      "name": "wycheproof",
+      "source": "trailofbits-extended",
+      "path": "plugins/testing-handbook-skills/skills/wycheproof",
+      "tree_sha256": "b3f3331b8effe82fc59d49896abafd3f1ef0c9a5e6607db731e75791cabf72b3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "wycheproof"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.audit-augmentation",
+      "name": "audit-augmentation",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/audit-augmentation",
+      "tree_sha256": "d4d72123b9776470784784e9bd511ee14cbc551c43d9e1afd733de14c10d1253",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "audit-augmentation"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.crypto-protocol-diagram",
+      "name": "crypto-protocol-diagram",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/crypto-protocol-diagram",
+      "tree_sha256": "855aa3f9800fb57dc6011ebad26a27a20e92d72ca61bd836ed4580f084f7486c",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "crypto-protocol-diagram"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.diagramming-code",
+      "name": "diagramming-code",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/diagramming-code",
+      "tree_sha256": "ec186be834d5e4062eab2d660ef0fda82923fab98b9ae040306e3341c67a28be",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "diagramming-code"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.genotoxic",
+      "name": "genotoxic",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/genotoxic",
+      "tree_sha256": "6df309fddd323cf810ba56746df1f63571865726a6ec4c2f95dd793dceb1d9ee",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "genotoxic"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.graph-evolution",
+      "name": "graph-evolution",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/graph-evolution",
+      "tree_sha256": "114eb401c35f0c28ceb002fd096983f5d5c31a124d9711327126e18ca4de82d9",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "graph-evolution"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.mermaid-to-proverif",
+      "name": "mermaid-to-proverif",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/mermaid-to-proverif",
+      "tree_sha256": "55dbea6b344d77dfd65668111e978362c72287160756aa76a5a3b10ab811331e",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "mermaid-to-proverif"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.slicing-code-context",
+      "name": "slicing-code-context",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/slicing-code-context",
+      "tree_sha256": "e7c65c1dee4f4926c9c14a2e96d62bf4ffc0d1cc4227f5aa61786ebdc52bfbe0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "slicing-code-context"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark",
+      "name": "trailmark",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark",
+      "tree_sha256": "74ae7f61ca1767f457444a6086454441d8c8a6169c074f367126b1b9e114fd70",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark-finding-triage",
+      "name": "trailmark-finding-triage",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark-finding-triage",
+      "tree_sha256": "8aa9dd68f4db2ead9b3107c8d1775e31579d2384f9e287895760efe3a1e3904f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark-finding-triage"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark-review-gate",
+      "name": "trailmark-review-gate",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark-review-gate",
+      "tree_sha256": "db1bc8105c706ae5c9b4062dbd2e0f21d9067391c673ca4f32327f321fab495f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark-review-gate"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark-structural",
+      "name": "trailmark-structural",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark-structural",
+      "tree_sha256": "631641ca9b2f963d0871c508716212b050d7e7d1d54dff4c1dee4b550d85b9a2",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark-structural"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark-summary",
+      "name": "trailmark-summary",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark-summary",
+      "tree_sha256": "2b431aa6d9db03050106488cf25cb8ac120b6c80e511f34d59f6c88da3cf1fee",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark-summary"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.trailmark-variant-neighborhood",
+      "name": "trailmark-variant-neighborhood",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/trailmark-variant-neighborhood",
+      "tree_sha256": "7114a4d6d93d5395cb4c11120e70e8fd482234e281f0abc5c111988eee49342f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "trailmark-variant-neighborhood"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.vector-forge",
+      "name": "vector-forge",
+      "source": "trailofbits-extended",
+      "path": "plugins/trailmark/skills/vector-forge",
+      "tree_sha256": "ae99871f50411501c73e3a8087afbbe38c5e6104099d596927196d55844e4026",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "vector-forge"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.variant-analysis",
+      "name": "variant-analysis",
+      "source": "trailofbits-extended",
+      "path": "plugins/variant-analysis/skills/variant-analysis",
+      "tree_sha256": "ab832c36bf31a6de900ed75fa6e482fbd571fcf34b6e5047b752996afdb5a930",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "variant-analysis"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.vulnerability-triage-brocards",
+      "name": "vulnerability-triage-brocards",
+      "source": "trailofbits-extended",
+      "path": "plugins/vulnerability-triage-brocards/skills/vulnerability-triage-brocards",
+      "tree_sha256": "8d51cf6d13b2210b9f8e5c8a316ca9a686c1c8eb39c91b3c4420a6c90e6e3363",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "vulnerability-triage-brocards"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.writing-lean-proofs",
+      "name": "writing-lean-proofs",
+      "source": "trailofbits-extended",
+      "path": "plugins/writing-lean-proofs/skills/writing-lean-proofs",
+      "tree_sha256": "bdb14ac86deea7d7617c4766e52d602684c8cb61db77fab3cd79e37260a32a7b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "writing-lean-proofs"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.yara-rule-authoring",
+      "name": "yara-rule-authoring",
+      "source": "trailofbits-extended",
+      "path": "plugins/yara-authoring/skills/yara-rule-authoring",
+      "tree_sha256": "2b161ebfd44b5c79caa458bfcd9d8c558221bf74c2216ea48c255b29a51ecbcd",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "yara-rule-authoring"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "trailofbits.zeroize-audit",
+      "name": "zeroize-audit",
+      "source": "trailofbits-extended",
+      "path": "plugins/zeroize-audit/skills/zeroize-audit",
+      "tree_sha256": "2a6da1f23ecfa1d0241f72eeb0b1c38ce9bff1ff9dd2b3cd8b985bc846798e51",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "zeroize-audit"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.aws-ami-builder",
+      "name": "aws-ami-builder",
+      "source": "hashicorp-skills",
+      "path": "plugins/packer/skills/aws-ami-builder",
+      "tree_sha256": "5d8aa065fe47cecdca9af2224a3afce011d6da48d4e4718f470e88d551519e5b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "aws-ami-builder"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.azure-image-builder",
+      "name": "azure-image-builder",
+      "source": "hashicorp-skills",
+      "path": "plugins/packer/skills/azure-image-builder",
+      "tree_sha256": "bfb60d54bcad27401dee331544f79df3ad16659a28353f5982f5d2e912fedd30",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "azure-image-builder"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.push-to-registry",
+      "name": "push-to-registry",
+      "source": "hashicorp-skills",
+      "path": "plugins/packer/skills/push-to-registry",
+      "tree_sha256": "20ea8591bfa9686dc0665898c1755ddabc73db774b7d54c54521bb114f0a51f3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "push-to-registry"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.windows-builder",
+      "name": "windows-builder",
+      "source": "hashicorp-skills",
+      "path": "plugins/packer/skills/windows-builder",
+      "tree_sha256": "786bbe21a364e6a31cbb7464910d6d24f60b312fabf8ca697d0d086c24f6681c",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "windows-builder"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.azure-verified-modules",
+      "name": "azure-verified-modules",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/azure-verified-modules",
+      "tree_sha256": "ac55bdaf6d53c18b397e62068b61be487d20ef1b316f83863d32313e503066e6",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "azure-verified-modules"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.new-terraform-provider",
+      "name": "new-terraform-provider",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/new-terraform-provider",
+      "tree_sha256": "a670304c47cc3e5043d2f8edfc6541f9a9a607fe374ff67fc441007ba2db9a09",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "new-terraform-provider"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-actions",
+      "name": "provider-actions",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-actions",
+      "tree_sha256": "aafbfb360854fd71a934392c1e01dde2d8c4db1cce3b9be129299c9acdb69695",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-actions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-configuration",
+      "name": "provider-configuration",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-configuration",
+      "tree_sha256": "e10c55bd80cf7622dc044e78067e1c5a90d7a1a5a55a1d3e4ae98ab35d84b0d1",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-configuration"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-docs",
+      "name": "provider-docs",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-docs",
+      "tree_sha256": "a9211e1ed63ee53e752b0a19e19c75e397d2d5cf9f4b77414ca6bc31c9331cdd",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-docs"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-ephemeral-resources",
+      "name": "provider-ephemeral-resources",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-ephemeral-resources",
+      "tree_sha256": "c23feab2ee01790ce79710f8d180f0949ba27d8d573de3b954009e0ccd7805eb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-ephemeral-resources"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-framework-migration",
+      "name": "provider-framework-migration",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-framework-migration",
+      "tree_sha256": "d81aa3e77473061a7c5f74eb6da5e04d23da6bd24d3faeeb5d9e54ccfe5c1c11",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-framework-migration"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-resources",
+      "name": "provider-resources",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-resources",
+      "tree_sha256": "1c6874c92a8c62436797db42027173647c68fd4f2944cc0011d6f451fe25c3ae",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-resources"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.provider-test-patterns",
+      "name": "provider-test-patterns",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/provider-test-patterns",
+      "tree_sha256": "9047af96122650b6a02c0c6c21bc38b5d9b034d87c6c8c23b143472edf613181",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "provider-test-patterns"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.refactor-module",
+      "name": "refactor-module",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/refactor-module",
+      "tree_sha256": "631c8ad58605d1a675c01c903c870d02bd7bad856994629dc40e99736fe84dac",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "refactor-module"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.run-acceptance-tests",
+      "name": "run-acceptance-tests",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/run-acceptance-tests",
+      "tree_sha256": "0aff9cbe0f4ae8a6db4d8157f25881f948eaf5ed9ebc40d976fab9c4edc01f13",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "run-acceptance-tests"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.terraform-policy",
+      "name": "terraform-policy",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/terraform-policy",
+      "tree_sha256": "71050e217824690439e4bc20000a0c20b771503cb6d575aad4bf7d8fe7b6b918",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "terraform-policy"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.terraform-search-import",
+      "name": "terraform-search-import",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/terraform-search-import",
+      "tree_sha256": "26defa90abeb3cd7886a89338ce332b5af897a976d7946647c3a09f4cd5191a2",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "terraform-search-import"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.terraform-stacks",
+      "name": "terraform-stacks",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/terraform-stacks",
+      "tree_sha256": "6ca4f591590c03e24c02ffdaa9894b2373b8317fdbbd9ee8d3d9a99c3a7d9753",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "terraform-stacks"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.terraform-style-guide",
+      "name": "terraform-style-guide",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/terraform-style-guide",
+      "tree_sha256": "bf59f256654b2825587206e496963125e069970b6475c99664527bfd91d048b4",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "terraform-style-guide"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "hashicorp.terraform-test",
+      "name": "terraform-test",
+      "source": "hashicorp-skills",
+      "path": "plugins/terraform/skills/terraform-test",
+      "tree_sha256": "c6d859a61fef704c98bba786b4098c719a925e40380fec7ed5b77a9676a6e143",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "terraform-test"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-create-alert",
+      "name": "sentry-create-alert",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-create-alert",
+      "tree_sha256": "e94e3c14c5443047a17a83b869edf8f86babad829e42a09be824978ef5212558",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-create-alert"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-debug-issue",
+      "name": "sentry-debug-issue",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-debug-issue",
+      "tree_sha256": "c56f5249a0bf7dc384f4bdd33337e43fa828e303a6cafc65b4b98e349057a837",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-debug-issue"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-fix-stack-traces",
+      "name": "sentry-fix-stack-traces",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-fix-stack-traces",
+      "tree_sha256": "2c5dce8935159f7f47ed0552c63f6948a622385f5b78a8f7299159ee74d28562",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-fix-stack-traces"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-get-started",
+      "name": "sentry-get-started",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-get-started",
+      "tree_sha256": "a334a5af469cdcab739a1d1f5a65d5e2c0a490acf7b6bfe8a605eaf5ec0f1fea",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-get-started"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-instrument",
+      "name": "sentry-instrument",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-instrument",
+      "tree_sha256": "049ef56a9fceb66f2c0ba6f187eeb8c77dbed96a215c4f4856a2b1ec965bc9bb",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-instrument"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-otel-exporter-setup",
+      "name": "sentry-otel-exporter-setup",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-otel-exporter-setup",
+      "tree_sha256": "e102a33194c2c91020c8906e8d48862768ceadad9f6c1179ea872a44d8437e9a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-otel-exporter-setup"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-setup-releases",
+      "name": "sentry-setup-releases",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-setup-releases",
+      "tree_sha256": "9fb3c1cbdff7ac263f66cbc79ea7dc9b153b57005ec08888a817b098c9fdb5a0",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-setup-releases"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "sentry.sentry-snapshots-cocoa",
+      "name": "sentry-snapshots-cocoa",
+      "source": "sentry-codex",
+      "path": "plugins/sentry/skills/sentry-snapshots-cocoa",
+      "tree_sha256": "88e08e24a673894cc32d26cb007cca5429ca0e13850ceae37768616bfe7a2f4b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "sentry-snapshots-cocoa"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.adding-dbt-unit-test",
+      "name": "adding-dbt-unit-test",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/adding-dbt-unit-test",
+      "tree_sha256": "ec993a09ba15ce484fc0882daae168788954981c539da9e6664492c035ed3085",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "adding-dbt-unit-test"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.answering-natural-language-questions-with-dbt",
+      "name": "answering-natural-language-questions-with-dbt",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/answering-natural-language-questions-with-dbt",
+      "tree_sha256": "45413a73225c2cbc21dc97ccc141c1de51c43f082d91a9865a6ec6b3d2f5de95",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "answering-natural-language-questions-with-dbt"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.building-dbt-semantic-layer",
+      "name": "building-dbt-semantic-layer",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/building-dbt-semantic-layer",
+      "tree_sha256": "7ee74d7ca200ceed22dbfac89541bea0fcbbbd678d639b7686b89e28b1b970bc",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "building-dbt-semantic-layer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.configuring-dbt-mcp-server",
+      "name": "configuring-dbt-mcp-server",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/configuring-dbt-mcp-server",
+      "tree_sha256": "e806dc1fa6441ebc0d8bdc69a92e67bb894fcbc3bd3767b0d6532c6df6eba63b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "configuring-dbt-mcp-server"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.fetching-dbt-docs",
+      "name": "fetching-dbt-docs",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/fetching-dbt-docs",
+      "tree_sha256": "c22629619a841124300d9b782a8763974ba9773adba93e2f3cd4d6f03278eb25",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "fetching-dbt-docs"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.maintaining-dbt-documentation",
+      "name": "maintaining-dbt-documentation",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/maintaining-dbt-documentation",
+      "tree_sha256": "980cfbbde6e16ef0be7ec8e7fc24fc19a65a0f0b571631bb4e37cbc53c973620",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "maintaining-dbt-documentation"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.querying-the-dbt-information-schema",
+      "name": "querying-the-dbt-information-schema",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/querying-the-dbt-information-schema",
+      "tree_sha256": "8698370d9dda86caa71159af9f768da1f83b524ba0c711b828ae3da49034eba6",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "querying-the-dbt-information-schema"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.running-dbt-commands",
+      "name": "running-dbt-commands",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/running-dbt-commands",
+      "tree_sha256": "66a6248f5ddbeac32620e72ff4744223fb93c6cd08ceb864cf33b1ddb20003b5",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "running-dbt-commands"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.troubleshooting-dbt-job-errors",
+      "name": "troubleshooting-dbt-job-errors",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/troubleshooting-dbt-job-errors",
+      "tree_sha256": "fff082a98380f4df674bf57d684cded47fc8591bdd4a7230f3b11b6b15e1ed20",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "troubleshooting-dbt-job-errors"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.using-dbt-for-analytics-engineering",
+      "name": "using-dbt-for-analytics-engineering",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/using-dbt-for-analytics-engineering",
+      "tree_sha256": "b16ff7e95e4167e9e5a1f414538e8290d2a368b80d309a051ade3d0a108774d9",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "using-dbt-for-analytics-engineering"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.using-dbt-state",
+      "name": "using-dbt-state",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/using-dbt-state",
+      "tree_sha256": "4dbee30118d3651a9bc8903dbdb4666698b2111e78c901dbca785496490beaf3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "using-dbt-state"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.working-with-dbt-mesh",
+      "name": "working-with-dbt-mesh",
+      "source": "dbt-skills",
+      "path": "skills/dbt/skills/working-with-dbt-mesh",
+      "tree_sha256": "a23a27a0bcfb987e75e6dc7670e36447a8523f1b67d67e0bbd0d58d0446e4570",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "working-with-dbt-mesh"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.creating-mermaid-dbt-dag",
+      "name": "creating-mermaid-dbt-dag",
+      "source": "dbt-skills",
+      "path": "skills/dbt-extras/skills/creating-mermaid-dbt-dag",
+      "tree_sha256": "2c3da1ca75d68d6676a994d2aaef944815c603bbaee76c1c71737410a065a0ae",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "creating-mermaid-dbt-dag"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.migrating-dbt-core-to-v2",
+      "name": "migrating-dbt-core-to-v2",
+      "source": "dbt-skills",
+      "path": "skills/dbt-migration/skills/migrating-dbt-core-to-v2",
+      "tree_sha256": "7f9c219936d699ac51930bd4d215e2588300c27d1bdc44c7e7cf407c959ff530",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "migrating-dbt-core-to-v2"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.migrating-dbt-project-across-platforms",
+      "name": "migrating-dbt-project-across-platforms",
+      "source": "dbt-skills",
+      "path": "skills/dbt-migration/skills/migrating-dbt-project-across-platforms",
+      "tree_sha256": "cc4498876c07e6a59d11e13d1a64d05f97e389eb7874e21b355aeba3ad7a3032",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "migrating-dbt-project-across-platforms"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "dbt.upgrading-dbt",
+      "name": "upgrading-dbt",
+      "source": "dbt-skills",
+      "path": "skills/dbt-migration/skills/upgrading-dbt",
+      "tree_sha256": "6a51b41fb72c7df8acb4c0f2c84c56954ed7e450471e479a1fd29d662d94c00c",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "upgrading-dbt"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon",
+      "name": "neon",
+      "source": "neon-skills",
+      "path": "skills/neon",
+      "tree_sha256": "7c583a5544e3a49e9f6915ff925c9f8abb2743089d9cd1f7c03ba446dc92ec69",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-ai-gateway",
+      "name": "neon-ai-gateway",
+      "source": "neon-skills",
+      "path": "skills/neon-ai-gateway",
+      "tree_sha256": "d2d07e913b87de1b1577d5ab2553d63415675f59014868dd416e37750db73ba3",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-ai-gateway"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-auth",
+      "name": "neon-auth",
+      "source": "neon-skills",
+      "path": "skills/neon-auth",
+      "tree_sha256": "468770705374ae257f2ee223c24d9fd128a37790734ca82ca40907cbecbd4e4a",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-auth"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-functions",
+      "name": "neon-functions",
+      "source": "neon-skills",
+      "path": "skills/neon-functions",
+      "tree_sha256": "29352d7200b254e9239fdf2e35d8e981f5d56579250627d0c632d107dac9ef82",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-functions"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-object-storage",
+      "name": "neon-object-storage",
+      "source": "neon-skills",
+      "path": "skills/neon-object-storage",
+      "tree_sha256": "95f6bff3a94d793e3528804f95f9d263b9606c8087fa5cfc0a618e491957a10b",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-object-storage"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-postgres",
+      "name": "neon-postgres",
+      "source": "neon-skills",
+      "path": "skills/neon-postgres",
+      "tree_sha256": "e6ace558fe507a5e3165dd842368b2e605d60b4ecffb7a8c929465d875a053b8",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-postgres"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-postgres-branches",
+      "name": "neon-postgres-branches",
+      "source": "neon-skills",
+      "path": "skills/neon-postgres-branches",
+      "tree_sha256": "5ab27f08b26536d029188ec98e741cb79189e0ed065916be1dc336fed5faea32",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-postgres-branches"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-postgres-egress-optimizer",
+      "name": "neon-postgres-egress-optimizer",
+      "source": "neon-skills",
+      "path": "skills/neon-postgres-egress-optimizer",
+      "tree_sha256": "a77b5cb6067466c086dae796d6b219f08bfa27f574366aee1457e0322a66194f",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-postgres-egress-optimizer"
+      ],
+      "user_invoked": false
+    },
+    {
+      "id": "neon.neon-realtime",
+      "name": "neon-realtime",
+      "source": "neon-skills",
+      "path": "skills/neon-realtime",
+      "tree_sha256": "36357c5ae9425700751a83600b825a7ac170f42e8eacd7364e875b5c26a1c324",
+      "requires": [],
+      "required_tools": [],
+      "optional_tools": [],
+      "intents": [
+        "neon-realtime"
+      ],
       "user_invoked": false
     }
   ]

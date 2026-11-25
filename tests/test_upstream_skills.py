@@ -83,6 +83,76 @@ class UpstreamLifecycleTests(unittest.TestCase):
         self.assertFalse(self.active.exists())
         self.stage_mock.assert_not_called()
 
+    def test_native_support_is_required_and_verified_on_every_plan(self) -> None:
+        support = self.repo / "agents"
+        support.mkdir()
+        role = support / "review.md"
+        role.write_text("Original role\n")
+        source = replace(
+            self.source,
+            installation="native",
+            support=(NoticeSpec("agents", fingerprint_tree(support)),),
+        )
+        catalog = replace(self.catalog, sources={source.id: source})
+        manager = SkillManager(catalog, self.home, self.active, existing_roots=(self.repo,))
+        self.assertEqual(manager.plan([self.skill])[0]["status"], "REUSE")
+        role.write_text("Modified role\n")
+        self.assertEqual(manager.plan([self.skill])[0]["status"], "CONFLICT")
+        self.assertEqual(manager.route("interview")["status"], "unavailable")
+        role.unlink()
+        self.assertEqual(manager.plan([self.skill])[0]["status"], "CONFLICT")
+
+    def test_native_source_requires_provider_without_flattening_or_download(self) -> None:
+        source = replace(self.source, installation="native")
+        catalog = replace(self.catalog, sources={source.id: source})
+        manager = SkillManager(catalog, self.home, self.active)
+        self.assertEqual(manager.plan([self.skill])[0]["status"], "NATIVE_REQUIRED")
+        with self.assertRaisesRegex(UpstreamError, "NATIVE_REQUIRED"):
+            manager.ensure([self.skill])
+        self.stage_mock.assert_not_called()
+        self.assertFalse(self.active.exists())
+
+    def test_native_source_reuses_original_paths_and_rejects_flattened_provider(self) -> None:
+        source = replace(self.source, installation="native")
+        skill = replace(self.skill, path="skills/group/sample")
+        original = self.repo / skill.path
+        original.parent.mkdir()
+        shutil.move(self.tree, original)
+        catalog = replace(self.catalog, sources={source.id: source}, skills={skill.id: skill})
+        manager = SkillManager(catalog, self.home, self.active, existing_roots=(self.repo,))
+        self.assertEqual(manager.plan([skill])[0]["status"], "REUSE")
+        manager.ensure([skill])
+        self.assertEqual(manager.plan([skill])[0]["status"], "SATISFIED")
+        self.stage_mock.assert_not_called()
+        shutil.copytree(original, self.active / "sample")
+        flat = SkillManager(catalog, self.root / "other-home", self.active)
+        self.assertEqual(flat.plan([skill])[0]["status"], "CONFLICT")
+
+    def test_native_source_refuses_split_original_trees(self) -> None:
+        source = replace(self.source, installation="native")
+        peer = replace(self.skill, id="author.peer", name="peer", path="skills/other/peer")
+        peer_tree = self.root / "other-provider" / peer.path
+        shutil.copytree(self.tree, peer_tree)
+        (peer_tree / "SKILL.md").write_text("---\nname: peer\ndescription: Synthetic peer\n---\n")
+        peer = replace(peer, tree_sha256=fingerprint_tree(peer_tree))
+        catalog = replace(
+            self.catalog,
+            sources={source.id: source},
+            skills={self.skill.id: self.skill, peer.id: peer},
+        )
+        manager = SkillManager(
+            catalog,
+            self.home,
+            self.active,
+            existing_roots=(self.repo, self.root / "other-provider"),
+        )
+        self.assertTrue(
+            all(row["status"] == "CONFLICT" for row in manager.plan([self.skill, peer]))
+        )
+        with self.assertRaises(UpstreamError):
+            manager.ensure([self.skill, peer])
+        self.stage_mock.assert_not_called()
+
     def test_install_preserves_author_tree_mode_and_provenance(self) -> None:
         result = self.install()
         self.assertEqual(result["status"], "ok")
@@ -94,6 +164,21 @@ class UpstreamLifecycleTests(unittest.TestCase):
         self.assertEqual(record["owner"], "bible")
         self.assertEqual(self.manager.plan([self.skill])[0]["status"], "SATISFIED")
         self.assertEqual(result["exposure"], "unverified")
+
+    def test_native_provider_accepts_multiline_description_and_rejects_empty_block(self) -> None:
+        for description, expected in [
+            ("description:\n  First sentence.\n  Second sentence.\n", "REUSE"),
+            ("description: >-\n  Folded description.\n", "REUSE"),
+            ("description: |\nlicense: MIT\n", "CONFLICT"),
+        ]:
+            with self.subTest(description=description):
+                (self.tree / "SKILL.md").write_text(
+                    "---\nname: sample\n" + description + "---\nBody\n"
+                )
+                skill = replace(self.skill, tree_sha256=fingerprint_tree(self.tree))
+                catalog = replace(self.catalog, skills={skill.id: skill})
+                manager = SkillManager(catalog, self.home, self.active, existing_roots=(self.repo,))
+                self.assertEqual(manager.plan([skill])[0]["status"], expected)
 
     def notice_manager(self) -> tuple[SkillManager, Path]:
         notice = self.repo / "legal" / "NOTICE.md"

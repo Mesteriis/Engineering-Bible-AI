@@ -148,6 +148,9 @@ without an explicit user request.
 
 ### Output Compression Guardrail
 
+For context-efficiency experiments and host integration, see
+[Context efficiency](../../docs/agent-context-efficiency.md) in the Bible tree.
+
 Select one transformation: `jq` or deterministic filters for structured data,
 RTK for supported noisy CLI output, Context Mode for large results with
 selective retrieval, or Distill for semantic grouping. Do not chain multiple

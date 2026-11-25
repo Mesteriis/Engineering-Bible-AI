@@ -1,5 +1,83 @@
 version: 1
 cases:
+  - id: terraform-native-test
+    prompt: "Write a mocked terraform test for this module without applying cloud resources."
+    expect:
+      skills:
+        - hashicorp.terraform-test
+
+  - id: packer-azure-image
+    prompt: "Prepare a Packer Azure image builder configuration; do not publish or run it."
+    expect:
+      skills:
+        - hashicorp.azure-image-builder
+
+  - id: post-patch-runtime-evidence
+    prompt: "Validate this existing security patch against its original exploit and a root-cause variant locally."
+    expect:
+      skills:
+        - trailofbits.post-patch-validation
+
+  - id: known-vulnerability-variants
+    prompt: "Find other instances of the root cause from this validated vulnerability."
+    expect:
+      skills:
+        - trailofbits.variant-analysis
+
+  - id: requested-mutation-campaign
+    prompt: "Configure a bounded mewt mutation-testing campaign for the selected files."
+    expect:
+      skills:
+        - trailofbits.mutation-testing
+
+  - id: agentic-github-actions-audit
+    prompt: "Audit prompt injection and token boundaries in these GitHub Actions that run coding agents."
+    expect:
+      skills:
+        - trailofbits.agentic-actions-auditor
+
+  - id: sentry-specific-issue
+    prompt: "Investigate this Sentry issue using its stack trace and breadcrumbs."
+    expect:
+      skills:
+        - sentry.sentry-debug-issue
+
+  - id: dbt-unit-tests
+    prompt: "Add dbt unit tests for this existing dbt model."
+    expect:
+      skills:
+        - dbt.adding-dbt-unit-test
+
+  - id: neon-database-branch
+    prompt: "Plan a schema-only Neon database branch for preview; do not create it yet."
+    expect:
+      skills:
+        - neon.neon-postgres-branches
+
+  - id: grafana-prometheus-query
+    prompt: "Write PromQL for the error ratio on this Grafana panel."
+    expect:
+      skills:
+        - grafana-skills.promql
+
+  - id: vendor-neutral-python-telemetry
+    prompt: "Instrument this Python service with vendor-neutral OpenTelemetry spans."
+    expect:
+      skills:
+        - ollygarden-otel.otel-python
+
+  - id: named-cli-browser
+    prompt: "Use agent-browser in a fresh named session to check this local form."
+    expect:
+      skills:
+        - vercel-agent-browser.agent-browser
+
+  - id: deterministic-agent-eval
+    prompt: "Write a code evaluator for the failure class we observed in these agent traces."
+    expect:
+      skills:
+        - evals-course.write-code-eval
+
   - id: property-roundtrip-testing
     prompt: "Use property-based testing to verify serializer roundtrip and normalization idempotence with the existing library."
     expect:

@@ -31,6 +31,10 @@ Route security work to the narrowest skill that can produce evidence.
   traversal through parsing -> `deserialization-parser-review`.
 - Lockfiles, install scripts, CI/CD provenance, package publishing ->
   `supply-chain-review`.
+- Existing security patch validation, root-cause variant search, AI-enabled CI,
+  false-positive verification, or specifically requested static/fuzz tooling ->
+  matching Trail of Bits leaf in
+  [Reviewed Domain Routes](../workflow-router/references/upstream-domains.md).
 
 ## Rule
 

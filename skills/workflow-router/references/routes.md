@@ -57,6 +57,7 @@ ambiguous or mixed request.
 - Completion evidence, release gates, or drift audit -> `quality-gates`.
 - Explicit targeted mutation or weak-test assessment -> `quality-gates` with
   `docs/targeted-mutation-testing.md`; execute only the selected isolated pilot.
+  For a requested mewt/muton campaign use `trailofbits.mutation-testing`.
 - Documentation change -> `documentation`.
 - Python, TypeScript/JavaScript, Rust, Go, C/C++, Home Assistant, ESPHome, or
   ESP32 work -> matching ecosystem skill.
@@ -148,6 +149,11 @@ Canva, and Hugging Face workflows. Availability must come from the current
 session, not memory.
 
 ## Reviewed Upstream Workflows
+
+Terraform/Packer, dbt, Neon, Grafana, OpenTelemetry, Sentry, browser automation,
+agent evals and Trail of Bits specializations use
+[Reviewed Domain Routes](upstream-domains.md). Load only the matching branch;
+existing general-purpose routes and task authorization still apply.
 
 The opt-in upstream groups and their skill IDs are owned by `skills/registry.yml`;
 `config/upstream-skills.json` records immutable sources and workflow intents.

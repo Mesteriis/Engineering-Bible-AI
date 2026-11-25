@@ -1,6 +1,6 @@
 # Business Application UI Profile
 
-Reviewed on 2026-10-03 for dashboards, CRM, admin, ERP and working applications.
+Reviewed on 2026-10-20 for dashboards, CRM, admin, ERP and working applications.
 The owner profile is `ui-business-apps`; it supplies product priorities and
 routes to complete, independently updated originals. It does not reimplement
 their design methods. Use [the business brief](../templates/business-ui-brief.md)
@@ -11,19 +11,18 @@ for relevant roles, objects, tasks, data and acceptance evidence.
 | Role | Author source and latest reviewed revision | Selection |
 | --- | --- | --- |
 | Primary product interface design and consistent components | [Interface Design](https://github.com/Dammyjay93/interface-design), latest main June 20, `2f9be3206855bcb2d1d0af262c8bae25cba6658d` | `interface.interface-design` |
-| Targeted UX, chart and implementation-stack guidance | [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), latest main September 27, `09170eec67eefd46a7ae85de61b40c194020f997`; latest published [v2.15.0](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/releases/tag/v2.15.0), August 13 | `uipro.ui-ux-pro-max` |
-| UX shaping, critique, audit, hardening and final craft | [Impeccable 4.5.0](https://github.com/pbakaus/impeccable/releases/tag/skill-v4.5.0), latest published skill release October 2, `508d7e8955de3b3caf2d8676e85206723d41a887` | `impeccable.impeccable`, Operate mode |
+| Targeted UX, chart and implementation-stack guidance | [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/56ea9cf174ed86786187daa9de0e6247cb0747e4), reviewed commit `56ea9cf174ed86786187daa9de0e6247cb0747e4` | `uipro.ui-ux-pro-max` |
+| UX shaping, critique, audit, hardening and final craft | [Impeccable 4.7.0](https://github.com/pbakaus/impeccable/tree/dad8dbb3aac21ad1fa236c110315ef4abece23e8), reviewed commit `dad8dbb3aac21ad1fa236c110315ef4abece23e8` | `impeccable.impeccable`, Operate mode |
 
-Impeccable's October 3 main tip is newer than this published release. The release
-pin is deliberate; tracking reports subsequent commits without adopting them.
+The October 20 pins follow reviewed commits, not automatic tracking updates.
+See the [review and runtime limits](upstream-review-2026-10-20.md).
 Interface Design's current commit is older, but its stated scope specifically
 covers product interfaces. Recency and product fit are recorded separately.
 
 Interface Design retains its self-contained original two-file leaf. UI UX Pro
 Max retains all 73 files, including local data, references, Python helpers and
-tests. Impeccable retains all 62 files, including references, launchers and four
-Codex agent profiles. All 102 relative Markdown links in that leaf resolved at
-review. Its Apache license and original attribution notice are retained outside
+tests. Impeccable retains its complete leaf, including references, launchers and
+four Codex agent profiles. Its Apache license and original attribution notice are retained outside
 the active leaf without editing the author's files.
 
 Choose one design lead and a support only for a distinct need. The actual brief
@@ -63,7 +62,8 @@ authentication or authorize customer-data export.
 
 Normal Bible profiles require these three originals through
 `upstream_required.ui`. They are part of the 20 required originals; the complete
-catalog has 30 after [testing/context additions](quality-context-authors.md).
+catalog has 247 after [discovery additions](skill-discovery-pilot.md) and the
+[domain expansion](domain-skill-packs.md).
 Fast remains owner-only. Select this author group directly:
 
 ```bash
@@ -89,7 +89,7 @@ standard-library Python with no observed network/subprocess behavior.
 Persistence and overwrite flags affect project artifacts and apply only when
 those writes belong to the task.
 
-Impeccable import is dormant. Its launcher uses engine 0.1.11, downloaded on
+Impeccable import is dormant. Its launcher requests engine 0.1.16, downloaded on
 first invocation when absent; fresh downloads verify SHA-256 sidecars. Existing
 custom/cache binaries follow the author's reuse rules, so file presence alone
 does not establish binary provenance. Runtime use must establish the actual

@@ -36,6 +36,8 @@ class SourceSpec:
     layout: str = "independent"
     skill_roots: tuple[str, ...] = ("skills",)
     notices: tuple[NoticeSpec, ...] = ()
+    installation: str = "managed"
+    support: tuple[NoticeSpec, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -176,6 +178,8 @@ def validate_source(source: SourceSpec) -> None:
         raise UpstreamError("source license path contains runtime state")
     if source.layout not in {"independent", "siblings"}:
         raise UpstreamError("source layout must be independent or siblings")
+    if source.installation not in {"managed", "native"}:
+        raise UpstreamError("source installation must be managed or native")
     if not isinstance(source.skill_roots, tuple) or not source.skill_roots:
         raise UpstreamError("source skill_roots must be a nonempty list of narrow skill roots")
     for root in source.skill_roots:
@@ -197,6 +201,34 @@ def validate_source(source: SourceSpec) -> None:
             raise UpstreamError("notice path conflicts with the retained license")
     if overlapping_paths((source.license_path, *(notice.path for notice in source.notices))):
         raise UpstreamError("source attribution paths must not duplicate or overlap")
+    if not isinstance(source.support, tuple) or (
+        source.support and source.installation != "native"
+    ):
+        raise UpstreamError("reviewed support payloads require native installation")
+    for payload in source.support:
+        if not isinstance(payload, NoticeSpec):
+            raise UpstreamError("invalid reviewed support payload")
+        safe_relative_path(payload.path, "support path")
+        path = PurePosixPath(payload.path)
+        if (
+            unsafe_runtime_path(path)
+            or not SHA256.fullmatch(payload.sha256)
+            or any(
+                part in {"hooks", ".claude-plugin", ".codex-plugin", ".agents"}
+                for part in path.parts
+            )
+            or path.name in {".mcp.json", "mcp.json", "plugin.json"}
+        ):
+            raise UpstreamError("support requires a safe inactive path and reviewed SHA-256 digest")
+    if overlapping_paths(
+        (
+            *source.skill_roots,
+            source.license_path,
+            *(notice.path for notice in source.notices),
+            *(payload.path for payload in source.support),
+        )
+    ):
+        raise UpstreamError("support payloads must not duplicate or overlap source paths")
     text_field(source.license, "license")
     # Tracking is discovery only; never an install revision or a URL.
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._/-]*", source.tracking) or ".." in source.tracking:
@@ -219,7 +251,7 @@ def load_catalog(path: Path, registry_path: Path | None = None) -> Catalog:
         record = fields(
             item,
             {"id", "url", "revision", "tracking", "license", "license_sha256"},
-            {"license_path", "layout", "skill_roots", "notices"},
+            {"license_path", "layout", "skill_roots", "notices", "installation", "support"},
             "source",
         )
         raw_notices = record.get("notices", [])
@@ -234,16 +266,29 @@ def load_catalog(path: Path, registry_path: Path | None = None) -> Catalog:
                     sha256=text_field(item["sha256"], "notice sha256"),
                 )
             )
+        raw_support = record.get("support", [])
+        if not isinstance(raw_support, list):
+            raise UpstreamError("source support must be a list")
+        support = []
+        for support_record in raw_support:
+            entry = fields(support_record, {"path", "sha256"}, set(), "support")
+            support.append(
+                NoticeSpec(
+                    path=text_field(entry["path"], "support path"),
+                    sha256=text_field(entry["sha256"], "support sha256"),
+                )
+            )
         source = SourceSpec(
             **{
                 key: text_field(value, f"source {key}")
                 for key, value in record.items()
-                if key not in {"skill_roots", "notices"}
+                if key not in {"skill_roots", "notices", "support"}
             },
             skill_roots=string_tuple(
                 record.get("skill_roots", ["skills"]), "skill_roots", ids=False
             ),
             notices=tuple(notices),
+            support=tuple(support),
         )
         validate_source(source)
         if source.id in sources:

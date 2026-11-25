@@ -27,8 +27,9 @@ requested leaf skill takes precedence.
 4. Read only selected skills whose instructions are not already available.
 5. Order mixed work by dependency, usually evidence or design before mutation,
    then validation.
-6. If the common routes below are insufficient, read
-   `references/routes.md` for the exhaustive route table.
+6. For other routes read `references/routes.md`. For infrastructure, data,
+   observability, browser, evals or Trail of Bits tasks, read the matching
+   branch of `references/upstream-domains.md`.
 
 ## Author-Maintained Providers
 

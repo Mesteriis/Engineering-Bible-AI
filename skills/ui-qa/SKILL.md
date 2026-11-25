@@ -26,6 +26,9 @@ report official setup and pending exposure instead of assuming availability.
   `accessibility-ui-review`
 - Rendered frontend testing / debugging ->
   `build-web-apps:frontend-testing-debugging`
+- Explicit CLI browser automation -> `vercel-agent-browser.agent-browser`;
+  follow [Reviewed Domain Routes](../workflow-router/references/upstream-domains.md)
+  for the pinned CLI workflow and session boundary.
 - React / Next.js perf review -> `build-web-apps:react-best-practices`
 - Engineering review for UI changes -> `superpowers.requesting-code-review`,
   with rendered QA evidence when the requested review depends on visual behavior.
