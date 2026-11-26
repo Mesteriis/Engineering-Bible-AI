@@ -58,6 +58,24 @@ reference document.
 - Add or update regression coverage when a defect class is fixed.
 - Treat library drift as a repository bug, not as documentation polish.
 
+## Quality Floor
+
+Never weaken a gate silently to make a check pass. Fix the cause, not the check.
+Without explicit owner approval, do not:
+
+- add lint suppressions, `@ts-ignore`, `expect-error`, `noqa`, `nolint` or
+  equivalents;
+- skip, `only`, disable or delete tests, or remove or loosen assertions;
+- replace real behavior with stubs or fake placeholders;
+- lower coverage thresholds, size or complexity limits, or other metrics;
+- disable rules, hooks or CI steps.
+
+Treat every metric as a ratchet: it may only improve or hold, never regress.
+
+A real exception must be explicit and scoped to the smallest unit, carry a
+reason and an expiry (date, version or linked follow-up), and be reported to the
+user in the final output. An exception that is not reported is a silent weakening.
+
 ## Optional Test-Strength Check
 
 For explicitly selected critical logic or a suspected weak test, use

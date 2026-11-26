@@ -46,6 +46,8 @@ ambiguous or mixed request.
   conventions -> `engineering-standards`.
 - Architecture boundary or dependency-direction work ->
   `architecture-principles`.
+- Designing or changing an API, RPC, CLI, schema or plugin contract ->
+  `api-and-interface-design`.
 - Maintainability cleanup or explicit code-quality review -> `code-quality`.
 - Strict test-first gate explicitly requested -> `tdd-guard` with the original
   `superpowers.test-driven-development`; behavior testing uses that author

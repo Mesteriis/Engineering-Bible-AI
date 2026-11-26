@@ -1,6 +1,6 @@
 ---
 name: code-quality
-description: "Reviews cohesion, naming, responsibility, complexity, and maintainability. Do not use as a default companion to every code change."
+description: "Use when reviewing code for quality or readability: «ревью», «посмотри коммит/PR/дифф на качество», \"review this commit/diff\", \"clean up / refactor for readability\", cohesion, naming, complexity, god files. Not a default companion to every code change; not for security or architecture-wide reviews."
 ---
 
 # Skill: code-quality
@@ -194,6 +194,24 @@ text:
 
 Do not use broad regex rewrites for syntax-sensitive changes when a structural
 tool is available and practical.
+
+## Review Checks
+
+When reviewing a diff, commit or PR, look for these five problems in addition to
+the rules above:
+
+1. A condition bolted onto an unrelated flow: a special case added where it does
+   not belong, instead of at the point that owns the concern.
+2. The same condition repeated in several places: one rule expressed as scattered
+   copies that will drift apart.
+3. Complexity moved rather than reduced: wrappers or layers that only forward
+   calls, or logic relocated without becoming simpler.
+4. Feature logic leaking into a shared or util module: a general-purpose module
+   that now knows about one feature.
+5. One change mixing unrelated work (rename plus feature, refactor plus fix) or
+   too large to review: ask for a split.
+
+Report each finding with `path:line`, why it matters, and a concrete fix.
 
 ## Prohibited Quality Failures
 

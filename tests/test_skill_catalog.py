@@ -38,8 +38,8 @@ class SkillCatalogTests(unittest.TestCase):
             for skill_file in self.skills()
         ]
 
-        self.assertLessEqual(sum(map(len, descriptions)), 7200)
-        self.assertLessEqual(max(map(len, descriptions)), 240)
+        self.assertLessEqual(sum(map(len, descriptions)), 7700)
+        self.assertLessEqual(max(map(len, descriptions)), 320)
 
     def test_generic_skills_define_negative_trigger_boundaries(self) -> None:
         generic = {

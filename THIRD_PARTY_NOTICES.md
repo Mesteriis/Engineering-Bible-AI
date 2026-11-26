@@ -105,3 +105,17 @@ configure a judge model, export context or install a second memory system.
 
 See [the audit and runtime boundaries](docs/quality-context-authors.md) for opt-in
 continuation, dependency decisions and the demonstration evaluator's limits.
+
+## Adapted Skill Text
+
+The following Bible skills contain condensed, rewritten guidance adapted from
+MIT-licensed sources. They are Bible-owned adaptations, not
+vendored author trees.
+
+- `skills/api-and-interface-design` and the "Quality Floor" section of
+  `skills/quality-gates` and the "Review Checks" section of `skills/code-quality`
+  adapt `api-and-interface-design`, `constraint-driven-development` and
+  `code-review-and-quality` from
+  [Addy Osmani's agent-skills](https://github.com/addyosmani/agent-skills), MIT.
+  Changes: reduced to a language-neutral core; no interview, tool installation,
+  constraints file or scripts.
