@@ -55,7 +55,8 @@ ambiguous or mixed request.
 - Useful invariants, roundtrips or generated-input testing -> original
   `trailofbits.property-based-testing`; preserve target dependency policy.
 - Assumption checking or explicit anti-overengineering discipline ->
-  `karpathy.karpathy-guidelines`.
+  `karpathy.karpathy-guidelines` when installed; otherwise apply the active
+  profile's Work Cycle and report the provider as unavailable.
 - Completion evidence, release gates, or drift audit -> `quality-gates`.
 - Explicit targeted mutation or weak-test assessment -> `quality-gates` with
   `docs/targeted-mutation-testing.md`; execute only the selected isolated pilot.
@@ -98,7 +99,8 @@ runtime-tool inventory.
   automatic log/context capture -> `core-engineering`; add
   `external-agent-pack-audit` before installing or modifying third-party hooks.
 - Verified durable facts, preferences, decisions, or handoff notes ->
-  `session-memory`.
+  the host's own memory store when owner rules name one (for example BB
+  memory); otherwise `session-memory` when installed.
 - Russian Obsidian-compatible code wiki -> `code-wiki-ru`.
 
 ## Agents And External Packs
